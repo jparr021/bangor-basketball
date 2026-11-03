@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% set section = 'opponents' %}
 {% block title %}Bangor vs {{ o.name }} · Bangor Cardinals Boys Basketball{% endblock %}
+{% block description %}Bangor is {{ o.w }}–{{ o.l }} against {{ o.name }} in {{ o.w + o.l }} meetings since {{ o.games[0].season | replace('-', '–') }}. Every game, score and box score.{% endblock %}
 {% block content %}
 <div class="wrap page-head">
   <p class="eyebrow"><a href="index.html">Opponents</a></p>

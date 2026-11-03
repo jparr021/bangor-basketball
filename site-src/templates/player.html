@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% set section = 'players' %}
 {% block title %}{{ name }} · Bangor Cardinals Boys Basketball{% endblock %}
+{% block description %}{{ name }}, Bangor Cardinals boys basketball {{ years }}{% if career and career.pts %}: {{ career.pts }} career points{% if career.reb %}, {{ career.reb }} rebounds{% endif %}{% if career.ast %}, {{ career.ast }} assists{% endif %}{% endif %}. Season stats, career highs and game log.{% endblock %}
 {% block content %}
 <div class="wrap page-head">
   <p class="eyebrow"><a href="index.html">Players</a></p>

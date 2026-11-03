@@ -3,7 +3,7 @@
 Run the whole pipeline:
   .venv/bin/python scripts/convert.py && .venv/bin/python scripts/records.py && .venv/bin/python scripts/build_site.py
 """
-import csv, datetime as dt, json, os, re, shutil
+import csv, datetime as dt, json, os, posixpath, re, shutil
 from collections import defaultdict, OrderedDict
 
 from jinja2 import Environment, FileSystemLoader, select_autoescape
@@ -15,6 +15,17 @@ SRC = os.path.join(ROOT, "site-src")
 OUT = os.path.join(ROOT, "site")
 
 PLAYER_ALIASES = {"Konnor Kaiser": "Connor Kaiser"}
+
+# The site's public address, used for share previews, canonical links and the sitemap.
+# On Vercel this comes from the project's production domain automatically: the
+# *.vercel.app address today, and a custom domain as soon as one is added. SITE_URL overrides it.
+_vercel_host = os.environ.get("VERCEL_PROJECT_PRODUCTION_URL", "").strip()
+SITE_URL = (os.environ.get("SITE_URL") or (f"https://{_vercel_host}" if _vercel_host
+                                           else "https://bangor-basketball.vercel.app")).rstrip("/")
+# Clean links (/players/hayden-massman instead of players/hayden-massman.html) when building on
+# Vercel, which serves them (vercel.json cleanUrls). Local builds keep .html links so the files
+# open straight from disk. Set CLEAN_URLS=1 to force clean links.
+CLEAN_URLS = os.environ.get("VERCEL") == "1" or os.environ.get("CLEAN_URLS") == "1"
 
 
 # ---------------------------------------------------------------- helpers
@@ -450,6 +461,34 @@ env.filters["n"] = fmt_int
 BUILT = TODAY.strftime("%B %-d, %Y")
 
 
+PAGES = []  # every page written, for the sitemap
+
+
+def clean_path(path):
+    """'players/x.html' -> '/players/x', 'seasons/index.html' -> '/seasons', 'index.html' -> '/'."""
+    p = path[:-5] if path.endswith(".html") else path
+    if p == "index":
+        return "/"
+    if p.endswith("/index"):
+        p = p[:-6]
+    return "/" + p
+
+
+LOCAL_LINK_RE = re.compile(r'\b(href|src)="([^"#?:]+)([?#][^"]*)?"')
+
+
+def absolute_links(html, page):
+    """Rewrite relative links into root-relative clean URLs, resolved from the page's own path."""
+    def fix(m):
+        attr, target, tail = m.group(1), m.group(2), m.group(3) or ""
+        if target.startswith("/"):
+            return m.group(0)
+        full = posixpath.normpath(posixpath.join(posixpath.dirname(page), target))
+        url = clean_path(full) if attr == "href" and full.endswith(".html") else "/" + full
+        return f'{attr}="{url}{tail}"'
+    return LOCAL_LINK_RE.sub(fix, html)
+
+
 def render(tpl, path, **ctx):
     depth = path.count("/")
     ctx.setdefault("root", "../" * depth)
@@ -457,7 +496,12 @@ def render(tpl, path, **ctx):
     ctx["facts"] = FACTS
     ctx["latest_season"] = DATA_SEASONS[-1]
     ctx["has_film"] = bool(FILM_GAMES or HUDL_ONLY)
+    ctx["site_url"] = SITE_URL
+    ctx["page_url"] = SITE_URL + clean_path(path)
     html = env.get_template(tpl).render(**ctx)
+    if CLEAN_URLS:
+        html = absolute_links(html, path)
+    PAGES.append(path)
     full = os.path.join(OUT, path)
     os.makedirs(os.path.dirname(full), exist_ok=True)
     with open(full, "w") as f:
@@ -630,6 +674,16 @@ def build():
             by_season.setdefault(g["season"], []).append(g)
         render("film.html", "film/index.html", by_season=by_season, total=len(FILM_GAMES) + len(HUDL_ONLY),
                youtube=len(FILM_GAMES), hudl_only=len(HUDL_ONLY))
+
+    # ---- sitemap and robots.txt, so search engines find every player, game and season page
+    with open(os.path.join(OUT, "sitemap.xml"), "w") as f:
+        f.write('<?xml version="1.0" encoding="UTF-8"?>\n'
+                '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n')
+        for p in sorted(PAGES, key=lambda p: (p.count("/"), p)):
+            f.write(f"  <url><loc>{SITE_URL}{clean_path(p)}</loc></url>\n")
+        f.write("</urlset>\n")
+    with open(os.path.join(OUT, "robots.txt"), "w") as f:
+        f.write(f"User-agent: *\nAllow: /\n\nSitemap: {SITE_URL}/sitemap.xml\n")
 
     n = sum(len(fs) for _, _, fs in os.walk(OUT))
     print(f"site built: {n} files in {OUT}")

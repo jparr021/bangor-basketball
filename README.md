@@ -47,6 +47,11 @@ New games flow into season stats, player pages, career totals and the record boo
 .venv/bin/python scripts/match_film.py "https://www.youtube.com/channel/UCMQOY87AZs0Hl4VQc61JTKg"
 ```
 
+## Web address, link previews and search
+- Page addresses are clean (`/players/hayden-massman`). Old `.html` links redirect automatically.
+- Each page has a link preview (title, description, logo image) for texts and social posts. There's also a `sitemap.xml` and `robots.txt` for Google.
+- These use the site's production address, which Vercel supplies at build time. **Adding a custom domain needs no code change.** Add it in Vercel (Project → Settings → Domains), set it as the primary domain, and the next build uses it everywhere. After switching, submit `https://<your-domain>/sitemap.xml` in Google Search Console.
+
 ## Rebuild locally
 ```
 ./build.sh

@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% set section = 'seasons' %}
-{% block title %}Bangor {{ g.bangor_score }}, {{ g.opponent }} {{ g.opp_score }} ({{ g.date | d }}) · Bangor Cardinals{% endblock %}
+{% block title %}{% if g.result %}Bangor {{ g.bangor_score }}, {{ g.opponent }} {{ g.opp_score }}{% else %}Bangor {{ 'at' if g.site == 'away' else 'vs' }} {{ g.opponent }}{% endif %} ({{ g.date | d }}) · Bangor Cardinals{% endblock %}
+{% block description %}{% if g.result %}{% if g.result == 'W' %}Bangor beat {{ g.opponent }} {{ g.bangor_score }}–{{ g.opp_score }}{% else %}Bangor lost to {{ g.opponent }} {{ g.opp_score }}–{{ g.bangor_score }}{% endif %}{% if g.ot %} in overtime{% endif %} on {{ g.date | d('long') }}.{% if g.box_score != 'none' %} Full box score{% if g.has_video %} and game film{% endif %}.{% elif g.has_video %} Game film.{% endif %}{% else %}Bangor Cardinals {{ 'at' if g.site == 'away' else 'vs' }} {{ g.opponent }}, {{ g.date | d('long') }}{% if g.time %} at {{ g.time }}{% endif %}{% if g.location %}, {{ g.location }}{% endif %}.{% endif %}{% endblock %}
 {% block content %}
 <div class="wrap page-head">
   <p class="eyebrow"><a href="../seasons/{{ g.season }}.html">{{ g.season | replace('-', '–') }} season</a> · {{ g.date | d('long') }}</p>

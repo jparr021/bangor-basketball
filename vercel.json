@@ -4,7 +4,8 @@
   "installCommand": "python3 -m venv .venv && .venv/bin/pip install -q -r requirements.txt",
   "buildCommand": "sh build.sh",
   "outputDirectory": "site",
-  "cleanUrls": false,
+  "cleanUrls": true,
+  "trailingSlash": false,
   "headers": [
     {
       "source": "/static/(.*)",

@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% import "_badges.html" as rb with context %}
 {% set section = 'seasons' %}
 {% block title %}{% if g.result %}Bangor {{ g.bangor_score }}, {{ g.opponent }} {{ g.opp_score }}{% else %}Bangor {{ 'at' if g.site == 'away' else 'vs' }} {{ g.opponent }}{% endif %} ({{ g.date | d }}) · Bangor Cardinals{% endblock %}
 {% block description %}{% if g.result %}{% if g.result == 'W' %}Bangor beat {{ g.opponent }} {{ g.bangor_score }}–{{ g.opp_score }}{% else %}Bangor lost to {{ g.opponent }} {{ g.opp_score }}–{{ g.bangor_score }}{% endif %}{% if g.ot %} in overtime{% endif %} on {{ g.date | d('long') }}.{% if g.box_score != 'none' %} Full box score{% if g.has_video %} and game film{% endif %}.{% elif g.has_video %} Game film.{% endif %}{% else %}Bangor Cardinals {{ 'at' if g.site == 'away' else 'vs' }} {{ g.opponent }}, {{ g.date | d('long') }}{% if g.time %} at {{ g.time }}{% endif %}{% if g.location %}, {{ g.location }}{% endif %}.{% endif %}{% endblock %}
@@ -50,6 +51,8 @@
   </section>
   {% endif %}
 
+  {{ rb.card(record_badges, when=False) }}
+
   <section class="card">
     <h2>Bangor</h2>
     {% if bangor %}
@@ -58,7 +61,7 @@
       <thead><tr><th>#</th><th>Player</th>{% for k, h in bcols %}<th class="num">{{ h }}</th>{% endfor %}</tr></thead>
       <tbody>
       {% for p in bangor %}
-      <tr><td class="muted">{{ p.number }}</td><td class="nowrap"><a href="../players/{{ p.slug }}.html">{{ p.name }}</a>{% if p.cls %} <small class="muted">{{ p.cls }}</small>{% endif %}</td>{% for k, h in bcols %}<td class="num">{{ p[k] }}</td>{% endfor %}</tr>
+      <tr><td class="muted">{{ p.number }}</td><td class="nowrap"><a href="../players/{{ p.slug }}.html">{{ p.name }}</a>{% if p.cls %} <small class="muted">{{ p.cls }}</small>{% endif %}{% for b in p.badges %} {{ rb.tag(b) }}{% endfor %}</td>{% for k, h in bcols %}<td class="num">{{ p[k] }}</td>{% endfor %}</tr>
       {% endfor %}
       </tbody>
       <tfoot><tr><td></td><td>Totals</td>{% for k, h in bcols %}<td class="num">{{ btot[k] }}</td>{% endfor %}</tr></tfoot>

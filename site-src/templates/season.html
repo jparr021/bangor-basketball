@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% import "_badges.html" as rb with context %}
 {% set section = 'seasons' %}
 {% block title %}{{ s.season | replace('-', '–') }} season · Bangor Cardinals Boys Basketball{% endblock %}
 {% block description %}The {{ s.season | replace('-', '–') }} Bangor Cardinals{% if s.w != '' %} went {{ s.w }}–{{ s.l }}{% endif %}{% if s.coach %} under coach {{ s.coach }}{% endif %}. Schedule, results, box scores and player stats.{% endblock %}
@@ -26,6 +27,8 @@
     {% endfor %}
   </div>
   {% endif %}
+
+  {{ rb.card(team_badges + game_badges + player_badges, heading="In the record book") }}
 
   <section class="card">
     <h2>Schedule &amp; results</h2>

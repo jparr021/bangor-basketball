@@ -16,7 +16,7 @@
   --body: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 }
 * { box-sizing: border-box; }
-html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: no-preference) { html { scroll-behavior: smooth; } }
 body { margin: 0; font-family: var(--body); color: var(--ink); background: var(--bg); font-size: 15px; line-height: 1.5; }
 a { color: var(--red); text-decoration: none; }
 a:hover { text-decoration: underline; }
@@ -43,7 +43,10 @@ h3 { font-size: 1.05rem; }
 .nav a { color: #e9eaec; font-family: var(--head); text-transform: uppercase; letter-spacing: .06em; font-size: .95rem; padding: 8px 12px; border-radius: 6px; }
 .nav a:hover { background: #26282c; text-decoration: none; }
 .nav a.on { background: var(--red); color: #fff; }
-.nav-toggle { display: none; background: none; border: 0; color: #fff; font-size: 1.6rem; cursor: pointer; }
+.masthead-right { display: flex; align-items: center; gap: 6px; }
+.icon-btn { background: none; border: 0; color: #fff; cursor: pointer; width: 40px; height: 40px; border-radius: 6px; display: inline-flex; align-items: center; justify-content: center; }
+.icon-btn:hover, .search-toggle[aria-expanded="true"] { background: #26282c; }
+.nav-toggle { display: none; font-size: 1.6rem; }
 
 /* ---- hero */
 .hero { background: linear-gradient(180deg, #fff 0%, #fff 60%, var(--bg) 100%); border-bottom: 1px solid var(--line); padding: 36px 0 28px; margin-bottom: 28px; }
@@ -192,6 +195,8 @@ details[open] summary { color: var(--red); }
   .hero-logo { max-width: 70%; }
 }
 @media (max-width: 760px) {
+  .search-results a { grid-template-columns: 1fr; }
+  .sr-kind { grid-row: auto; }
   body { font-size: 14px; }
   h1, .hero h1 { font-size: 2rem; }
   .nav-toggle { display: block; }
@@ -213,3 +218,55 @@ details[open] summary { color: var(--red); }
 .film-ph { aspect-ratio: 16/9; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px;
   background: linear-gradient(135deg, var(--black), #3a1017); color: #fff; font-family: var(--head); text-transform: uppercase; letter-spacing: .06em; }
 .film-ph .ph-src { color: #ff8a9a; font-size: 1.5rem; }
+
+/* ---- accessibility helpers */
+.sr-only { position: absolute !important; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+.skip-link { position: absolute; left: 12px; top: -60px; z-index: 100; background: var(--red); color: #fff; padding: 8px 14px; border-radius: 0 0 6px 6px; font-weight: 600; }
+.skip-link:focus { top: 0; }
+:focus-visible { outline: 3px solid var(--red); outline-offset: 2px; }
+.masthead :focus-visible, .footer :focus-visible, .champ:focus-visible { outline-color: #fff; }
+main:focus { outline: none; }
+.th-sort { all: inherit; cursor: pointer; display: inline; padding: 0; border: 0; }
+.th-sort:focus-visible { outline: 3px solid var(--red); outline-offset: 2px; border-radius: 2px; }
+.sortable th { cursor: default; }
+
+/* ---- site search */
+.search-panel { background: #1b1d21; border-top: 1px solid #2c2f34; padding: 14px 0 16px; position: absolute; left: 0; right: 0; top: 100%; box-shadow: 0 10px 24px rgba(0,0,0,.25); border-bottom: 4px solid var(--red); }
+.search-panel[hidden] { display: none; }
+.search-panel input { width: 100%; padding: 12px 16px; font-size: 1.05rem; border: 0; border-radius: 8px; font-family: var(--body); }
+.search-panel input:focus { outline: 3px solid var(--red); outline-offset: 0; }
+.search-results { list-style: none; margin: 8px 0 0; padding: 0; max-height: min(60vh, 520px); overflow-y: auto; }
+.search-results:empty { display: none; }
+.search-results a { display: grid; grid-template-columns: 82px 1fr; column-gap: 12px; padding: 9px 12px; border-radius: 6px; color: #fff; text-decoration: none; }
+.search-results [aria-selected="true"] a { background: #2e3136; }
+.sr-kind { grid-row: span 2; align-self: center; font-size: .68rem; text-transform: uppercase; letter-spacing: .08em; font-weight: 700; color: #ff8a9a; }
+.sr-t { font-weight: 600; }
+.sr-s { font-size: .82rem; color: #b5b8bf; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.sr-none { color: #b5b8bf; padding: 10px 12px; }
+
+/* ---- record-book badges */
+.rb-tag { display: inline-block; font-size: .66rem; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; line-height: 1.5; padding: 0 6px; border-radius: 999px; background: var(--red-tint); color: var(--red-dark); border: 1px solid #f1c3ca; vertical-align: middle; white-space: nowrap; }
+.rb-tag:hover { text-decoration: none; background: #f7d6db; }
+.rb-tag.first { background: var(--red); color: #fff; border-color: var(--red); }
+.rb-card { border-top: 4px solid var(--red); }
+.rb-list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 4px 20px; }
+.rb-list li { display: flex; gap: 12px; align-items: flex-start; padding: 8px 0; border-bottom: 1px solid var(--line); }
+.rb-place { flex: 0 0 auto; min-width: 3.4em; text-align: center; font-family: var(--head); font-size: 1.05rem; background: var(--black); color: #fff; border-radius: 6px; padding: 2px 6px; }
+.rb-place:hover { text-decoration: none; background: var(--red-dark); }
+.rb-list li.first .rb-place { background: var(--red); }
+.rb-what { display: flex; flex-direction: column; }
+.rb-what > strong { display: inline; }
+.record-card { scroll-margin-top: 90px; }
+.record-card:target { outline: 3px solid var(--red); outline-offset: 2px; }
+.rb-count { font-family: var(--body); text-transform: none; font-size: .8rem; font-weight: 500; margin-left: 6px; }
+.rb-more { margin-top: 6px; border-top: 0; }
+.rb-more summary { font-size: .9rem; color: var(--red); }
+@media (max-width: 440px) {
+  .wrap.masthead-inner { padding: 0 12px; }
+  .brand { gap: 8px; }
+  .brand img { height: 32px; padding: 2px 4px; }
+  .brand-school { font-size: 1.02rem; white-space: nowrap; }
+  .brand-sub { font-size: .62rem; letter-spacing: .14em; white-space: nowrap; }
+  .masthead-right { gap: 2px; }
+  .icon-btn { width: 36px; }
+}

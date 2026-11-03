@@ -394,6 +394,69 @@ def merged(scope, period, stat, kind):
     return out
 
 
+def ordinal(n):
+    return f"{n}{'th' if 10 <= n % 100 <= 20 else {1: 'st', 2: 'nd', 3: 'rd'}.get(n % 10, 'th')}"
+
+
+BADGE_ABBR = {"pts": "PTS", "reb": "REB", "ast": "AST", "stl": "STL", "blk": "BLK", "fgm": "FGM", "fga": "FGA",
+              "tpm": "3PM", "tpa": "3PA", "ftm": "FTM", "fta": "FTA", "oreb": "OREB", "dreb": "DREB", "ppg": "PPG",
+              "fg_pct": "FG%", "tp_pct": "3P%", "ft_pct": "FT%", "gp": "G", "margin": "MARGIN",
+              "quarter_pts": "QTR PTS", "half_pts": "HALF PTS", "fewest_opp_pts": "OPP PTS", "wins": "WINS",
+              "win_pct": "WIN%", "opp_ppg": "OPP PPG", "games": "G"}
+NO_BADGE = {"pf"}  # in the record book, but not something to put a badge on
+
+
+def record_sections():
+    sections = OrderedDict()
+    for scope, period, stat, title, kind in CATS:
+        entries = merged(scope, period, stat, kind)
+        if not entries:
+            continue
+        sec = f"{scope}-{period}"
+        sections.setdefault(sec, {"id": sec, "scope": scope, "period": period, "cats": []})
+        sections[sec]["cats"].append({"title": title, "kind": kind, "entries": entries, "stat": stat,
+                                      "note": MIN_NOTE.get((scope, period, stat), ""), "period": period, "scope": scope})
+    return sections
+
+
+def collect_badges(sections):
+    """Index every top-10 record-book entry by the game, season and player it belongs to."""
+    out = {k: defaultdict(list) for k in ("game_ind", "game_team", "season_ind", "season_team", "player")}
+    date_to_game = {}
+    for g in games_by_id.values():
+        date_to_game.setdefault(g["date"], g["game_id"])
+    for sec in sections.values():
+        scope, period = sec["scope"], sec["period"]
+        for c in sec["cats"]:
+            if c["stat"] in NO_BADGE:
+                continue
+            for e in c["entries"]:
+                gid = e.get("game_id") or (date_to_game.get(e["date"]) if period == "game" and e.get("date") else None)
+                b = {"rank": e["rank"], "place": ("T-" if e["tied"] else "") + ordinal(e["rank"]),
+                     "title": c["title"], "abbr": BADGE_ABBR.get(c["stat"], c["title"]), "display": e["display"],
+                     "period": period, "anchor": f"{sec['id']}-{c['stat']}", "season": e.get("season"),
+                     "g": games_by_id.get(gid) if gid else None, "name": e.get("name"), "slug": e.get("player"),
+                     "book": e.get("source") == "book"}
+                if scope == "team":
+                    if period == "game" and gid:
+                        out["game_team"][gid].append(b)
+                    elif period == "season" and e.get("season"):
+                        out["season_team"][e["season"]].append(b)
+                    continue
+                if not b["slug"]:
+                    continue
+                out["player"][b["slug"]].append(b)
+                if period == "game" and gid:
+                    out["game_ind"][(gid, b["slug"])].append(b)
+                elif period == "season":
+                    out["season_ind"][e["season"]].append(b)
+    order = {"career": 0, "season": 1, "game": 2}
+    for k, d in out.items():
+        for v in d.values():
+            v.sort(key=lambda b: ((order[b["period"]],) if k == "player" else ()) + (b["rank"], b["title"]))
+    return out
+
+
 # ---------------------------------------------------------------- players
 PLAYER_PAGES = {}
 for slug_, rows in pg_by_player.items():
@@ -459,6 +522,7 @@ env = Environment(loader=FileSystemLoader(os.path.join(SRC, "templates")), autoe
 env.filters["d"] = fmt_date
 env.filters["n"] = fmt_int
 BUILT = TODAY.strftime("%B %-d, %Y")
+BUILD_ID = dt.datetime.now().strftime("%Y%m%d%H%M")  # cache-buster for the search index
 
 
 PAGES = []  # every page written, for the sitemap
@@ -497,6 +561,8 @@ def render(tpl, path, **ctx):
     ctx["latest_season"] = DATA_SEASONS[-1]
     ctx["has_film"] = bool(FILM_GAMES or HUDL_ONLY)
     ctx["site_url"] = SITE_URL
+    ctx["clean"] = CLEAN_URLS
+    ctx["build_id"] = BUILD_ID
     ctx["page_url"] = SITE_URL + clean_path(path)
     html = env.get_template(tpl).render(**ctx)
     if CLEAN_URLS:
@@ -538,6 +604,11 @@ def build():
         shutil.rmtree(OUT)
     shutil.copytree(os.path.join(SRC, "static"), os.path.join(OUT, "static"))
 
+    # ---- records first: game, season and player pages show their record-book entries
+    sections = record_sections()
+    B = collect_badges(sections)
+    render("records.html", "records/index.html", sections=list(sections.values()), mins=MINS)
+
     # ---- home
     latest = DATA_SEASONS[-1]
     top_career = merged("individual", "career", "pts", "int")[:5]
@@ -568,7 +639,9 @@ def build():
         render("season.html", f"seasons/{s}.html", s=season_summary(s), games=gs, players=prow, cols=cols,
                team=team_row, leaders=leaders(s), partial=partial,
                prev=DATA_SEASONS[i - 1] if i else None, next=DATA_SEASONS[i + 1] if i + 1 < len(DATA_SEASONS) else None,
-               source_note=any(r.get("source") == "season tab" for r in players))
+               source_note=any(r.get("source") == "season tab" for r in players),
+               team_badges=B["season_team"].get(s, []), player_badges=B["season_ind"].get(s, []),
+               game_badges=[b for g in gs for b in B["game_team"].get(g["game_id"], [])])
 
     # ---- game pages
     for gid, g in games_by_id.items():
@@ -581,8 +654,12 @@ def build():
                        "bangor": g["bangor_periods"].split("|"), "opp": g["opp_periods"].split("|")}
         bt = box_totals(bangor)
         ot = box_totals(opp)
+        ind = [b for r in bangor for b in B["game_ind"].get((gid, r["slug"]), [])]
+        ind += [b for (bg, bs), bl in B["game_ind"].items() if bg == gid and bs not in {r["slug"] for r in bangor} for b in bl]
         render("game.html", f"games/{gid}.html", g=g,
-               bangor=[{"name": r["name"], "slug": r["slug"], "number": r["number"], "cls": r.get("class", ""), **box_row(r)} for r in bangor],
+               record_badges=sorted(B["game_team"].get(gid, []) + ind, key=lambda b: (b["rank"], b["title"])),
+               bangor=[{"name": r["name"], "slug": r["slug"], "number": r["number"], "cls": r.get("class", ""),
+                        "badges": B["game_ind"].get((gid, r["slug"]), []), **box_row(r)} for r in bangor],
                bcols=box_cols(bangor), btot=box_row(bt) if bangor else None,
                opp=[{"name": r["name"], "number": r["number"], **box_row(r)} for r in opp],
                ocols=box_cols(opp), otot=box_row(ot) if opp else None, periods=periods)
@@ -619,7 +696,8 @@ def build():
         by_season = OrderedDict()
         for r in log:
             g = games_by_id[r["game_id"]]
-            by_season.setdefault(r["season"], []).append({"g": g, **box_row(r)})
+            by_season.setdefault(r["season"], []).append({"g": g, "badges": B["game_ind"].get((r["game_id"], sl), []),
+                                                          **box_row(r)})
         lcols = box_cols(log)
         highs = []
         for k, label in [("pts", "Points"), ("reb", "Rebounds"), ("ast", "Assists"), ("stl", "Steals"), ("blk", "Blocks"),
@@ -633,21 +711,9 @@ def build():
         render("player.html", f"players/{sl}.html", name=name, seasons=srows, career=crow, cols=cols, log=by_season,
                lcols=lcols, highs=highs, numbers=numbers, cls=cls, years=plist[-1]["years"],
                partial=bool(partial_stats),
-               override=(c or {}).get("override_note", ""))
+               override=(c or {}).get("override_note", ""), record_badges=B["player"].get(sl, []))
     plist.sort(key=lambda p: p["name"].split()[-1] + " " + p["name"])
     render("players.html", "players/index.html", players=plist)
-
-    # ---- records
-    sections = OrderedDict()
-    for scope, period, stat, title, kind in CATS:
-        entries = merged(scope, period, stat, kind)
-        if not entries:
-            continue
-        sec = f"{scope}-{period}"
-        sections.setdefault(sec, {"id": sec, "scope": scope, "period": period, "cats": []})
-        sections[sec]["cats"].append({"title": title, "kind": kind, "entries": entries,
-                                      "note": MIN_NOTE.get((scope, period, stat), ""), "period": period, "scope": scope})
-    render("records.html", "records/index.html", sections=list(sections.values()), mins=MINS)
 
     # ---- history & coaches
     render("history.html", "history/index.html", seasons=[season_summary(h["season"]) for h in history],
@@ -674,6 +740,44 @@ def build():
             by_season.setdefault(g["season"], []).append(g)
         render("film.html", "film/index.html", by_season=by_season, total=len(FILM_GAMES) + len(HUDL_ONLY),
                youtube=len(FILM_GAMES), hudl_only=len(HUDL_ONLY))
+
+    # ---- site search index (loaded by site.js the first time someone opens search)
+    def season_label(s):
+        return s.replace("-", "–")
+    idx = []
+    for p in plist:
+        sub = f"Player · {p['years']}" + (f" · {p['pts']} pts" if p["pts"] else "")
+        idx.append({"t": p["name"], "s": sub, "u": f"players/{p['slug']}.html", "k": "player"})
+    book_only = OrderedDict()  # record-book names with no player page (mostly pre-2007)
+    for h in hist_records:
+        if h["name"] and slug(h["name"]) not in PLAYER_PAGES:
+            book_only.setdefault(h["name"], set()).add(h["season"])
+    for name, seasons in book_only.items():
+        cls = sorted(s for s in seasons if s.startswith("Class of"))
+        yrs = sorted(s for s in seasons if re.fullmatch(r"\d{4}-\d{2}", s))
+        when = cls[0] if cls else (season_label(yrs[0]) + (f" to {season_label(yrs[-1])}" if yrs[-1] != yrs[0] else "")
+                                   if yrs else "")
+        idx.append({"t": name, "s": "Record book" + (f" · {when}" if when else ""), "u": "records/index.html", "k": "player"})
+    for c in coach_list:
+        rec = f"{c['w']}–{c['l']}" + (f"–{c['t']}" if c["t"] else "")
+        idx.append({"t": c["name"], "s": f"Coach · {c['years']} · {rec}", "u": "history/index.html#coaches", "k": "coach"})
+    for o in olist:
+        idx.append({"t": o["name"], "s": f"Opponent · Bangor is {o['w']}–{o['l']}", "u": f"opponents/{o['slug']}.html",
+                    "k": "opponent"})
+    for h in reversed(history):
+        s = h["season"]
+        rec = f"{h['w']}–{h['l']}" + (f"–{h['t']}" if h["t"] and h["t"] != "0" else "") if h["w"] != "" else ""
+        sub = " · ".join(x for x in ["Season", rec, f"Coach {h['coach']}" if h["coach"] else "", h["notes"]] if x)
+        url = f"seasons/{s}.html" if s in games_by_season else f"history/index.html#s{s}"
+        idx.append({"t": f"{season_label(s)} season", "s": sub, "u": url, "k": "season",
+                    "x": f"{s} {s[:4]} {season_end_year(s)} {h['coach']} {h['notes']}"})
+    for t, u, x in [("Record Book", "records/index.html", "records top 10"), ("History & Coaches", "history/index.html", "coaches"),
+                    ("All seasons", "seasons/index.html", ""), ("All players", "players/index.html", "roster"),
+                    ("All opponents", "opponents/index.html", "")] + ([("Game film", "film/index.html", "video youtube hudl")]
+                                                                     if FILM_GAMES or HUDL_ONLY else []):
+        idx.append({"t": t, "s": "Page", "u": u, "k": "page", "x": x})
+    with open(os.path.join(OUT, "static", "search-index.js"), "w") as f:
+        f.write("window.BANGOR_SEARCH=" + json.dumps(idx, ensure_ascii=False, separators=(",", ":")) + ";\n")
 
     # ---- sitemap and robots.txt, so search engines find every player, game and season page
     with open(os.path.join(OUT, "sitemap.xml"), "w") as f:

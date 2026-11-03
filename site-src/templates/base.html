@@ -22,26 +22,40 @@
 <link rel="stylesheet" href="{{ root }}static/site.css">
 <link rel="icon" href="{{ root }}static/img/cardinal.png">
 </head>
-<body>
+<body data-root="{{ root }}" data-clean="{{ 1 if clean else 0 }}" data-v="{{ build_id }}">
+<a class="skip-link" href="#main">Skip to content</a>
 <header class="masthead">
   <div class="wrap masthead-inner">
     <a class="brand" href="{{ root }}index.html">
-      <img src="{{ root }}static/img/cardinal.png" alt="Bangor Cardinals logo">
+      <img src="{{ root }}static/img/cardinal.png" alt="">
       <span class="brand-text"><span class="brand-school">Bangor Cardinals</span><span class="brand-sub">Boys Basketball</span></span>
     </a>
-    <button class="nav-toggle" aria-label="Menu" aria-expanded="false" onclick="this.setAttribute('aria-expanded', this.getAttribute('aria-expanded')==='false'); document.body.classList.toggle('nav-open')">☰</button>
-    <nav class="nav">
-      {% set here = section | default('') %}
-      <a href="{{ root }}seasons/index.html" {% if here == 'seasons' %}class="on"{% endif %}>Seasons</a>
-      <a href="{{ root }}players/index.html" {% if here == 'players' %}class="on"{% endif %}>Players</a>
-      <a href="{{ root }}records/index.html" {% if here == 'records' %}class="on"{% endif %}>Record Book</a>
-      <a href="{{ root }}history/index.html" {% if here == 'history' %}class="on"{% endif %}>History</a>
-      <a href="{{ root }}opponents/index.html" {% if here == 'opponents' %}class="on"{% endif %}>Opponents</a>
-      {% if has_film %}<a href="{{ root }}film/index.html" {% if here == 'film' %}class="on"{% endif %}>Film</a>{% endif %}
-    </nav>
+    <div class="masthead-right">
+      <nav class="nav" id="site-nav" aria-label="Main">
+        {% set here = section | default('') %}
+        {% for key, label, path, show in [('seasons', 'Seasons', 'seasons/index.html', true), ('players', 'Players', 'players/index.html', true),
+             ('records', 'Record Book', 'records/index.html', true), ('history', 'History', 'history/index.html', true),
+             ('opponents', 'Opponents', 'opponents/index.html', true), ('film', 'Film', 'film/index.html', has_film)] if show %}
+        <a href="{{ root }}{{ path }}"{% if here == key %} class="on" aria-current="page"{% endif %}>{{ label }}</a>
+        {% endfor %}
+      </nav>
+      <button class="icon-btn search-toggle" type="button" aria-label="Search the site" aria-expanded="false" aria-controls="site-search" title="Search (press /)">
+        <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false"><circle cx="10.5" cy="10.5" r="6.5" fill="none" stroke="currentColor" stroke-width="2.4"/><path d="M15.5 15.5 21 21" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg>
+      </button>
+      <button class="icon-btn nav-toggle" type="button" aria-label="Menu" aria-expanded="false" aria-controls="site-nav"><span aria-hidden="true">☰</span></button>
+    </div>
+  </div>
+  <div class="search-panel" id="site-search" hidden>
+    <div class="wrap">
+      <label class="sr-only" for="site-search-input">Search players, coaches, opponents and seasons</label>
+      <input id="site-search-input" type="search" placeholder="Search players, coaches, opponents, seasons…" autocomplete="off" spellcheck="false"
+             role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="site-search-results">
+      <ul id="site-search-results" class="search-results" role="listbox" aria-label="Search results"></ul>
+      <p class="sr-only" id="site-search-status" aria-live="polite"></p>
+    </div>
   </div>
 </header>
-<main>
+<main id="main" tabindex="-1">
 {% block content %}{% endblock %}
 </main>
 <footer class="footer">

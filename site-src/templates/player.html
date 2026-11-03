@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% import "_badges.html" as rb with context %}
 {% set section = 'players' %}
 {% block title %}{{ name }} · Bangor Cardinals Boys Basketball{% endblock %}
 {% block description %}{{ name }}, Bangor Cardinals boys basketball {{ years }}{% if career and career.pts %}: {{ career.pts }} career points{% if career.reb %}, {{ career.reb }} rebounds{% endif %}{% if career.ast %}, {{ career.ast }} assists{% endif %}{% endif %}. Season stats, career highs and game log.{% endblock %}
@@ -53,6 +54,8 @@
   </section>
   {% endif %}
 
+  {{ rb.card(record_badges, who=False) }}
+
   {% if log %}
   <section class="card">
     <h2>Game log</h2>
@@ -65,7 +68,7 @@
         <tbody>
         {% for r in rows %}
         <tr><td class="nowrap"><a href="../games/{{ r.g.game_id }}.html">{{ r.g.date | d }}</a></td><td class="nowrap">{{ '@' if r.g.site == 'away' else 'vs' }} {{ r.g.opponent }}</td>
-          <td class="res {{ r.g.result }} nowrap">{{ r.g.result }} {{ r.g.bangor_score }}–{{ r.g.opp_score }}{% if r.g.has_video %} <a class="film-link" href="../games/{{ r.g.game_id }}.html#film" title="Game film">▶</a>{% endif %}</td>{% for k, h in lcols %}<td class="num">{{ r[k] }}</td>{% endfor %}</tr>
+          <td class="res {{ r.g.result }} nowrap">{{ r.g.result }} {{ r.g.bangor_score }}–{{ r.g.opp_score }}{% if r.g.has_video %} <a class="film-link" href="../games/{{ r.g.game_id }}.html#film" title="Game film">▶</a>{% endif %}{% for b in r.badges %} {{ rb.tag(b) }}{% endfor %}</td>{% for k, h in lcols %}<td class="num">{{ r[k] }}</td>{% endfor %}</tr>
         {% endfor %}
         </tbody>
       </table>

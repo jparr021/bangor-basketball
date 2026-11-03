@@ -1,0 +1,40 @@
+{# Record-book badges. Import with:  {% import "_badges.html" as rb with context %} #}
+{% macro period_label(b) %}{{ {'game': 'single game', 'season': 'season', 'career': 'career'}[b.period] }}{% endmacro %}
+
+{# small chip next to a name or result, e.g. "2nd PTS" #}
+{% macro tag(b) -%}
+<a class="rb-tag{{ ' first' if b.rank == 1 }}" href="{{ root }}records/index.html#{{ b.anchor }}" title="{{ b.place }} all-time: {{ b.title }} ({{ period_label(b) }})"><span class="sr-only">Record book: </span>{{ b.place }} {{ b.abbr }}</a>
+{%- endmacro %}
+
+{# card listing record-book entries; who=True shows the player, when=True shows the game or season #}
+{% macro card(badges, heading='In the record book', who=True, when=True, limit=12) %}
+{% if badges %}
+<section class="card rb-card">
+  <h2>{{ heading }} <small class="muted rb-count">{{ badges | length }} top-10 mark{{ 's' if badges | length != 1 }}</small></h2>
+  {{ items(badges[:limit], who, when) }}
+  {% if badges | length > limit %}
+  <details class="rb-more">
+    <summary>Show all {{ badges | length }}</summary>
+    {{ items(badges[limit:], who, when) }}
+  </details>
+  {% endif %}
+</section>
+{% endif %}
+{% endmacro %}
+
+{% macro items(badges, who, when) %}
+  <ul class="rb-list">
+    {% for b in badges %}
+    <li class="{{ 'first' if b.rank == 1 }}">
+      <a class="rb-place" href="{{ root }}records/index.html#{{ b.anchor }}">{{ b.place }}</a>
+      <span class="rb-what">
+        <span><strong>{{ b.display }}</strong> {{ b.title | lower }} <span class="muted">· {{ period_label(b) }}</span>{% if b.book %} <span class="book-tag">Record book</span>{% endif %}</span>
+        <span class="rb-who muted small">
+          {%- if who %}{% if b.slug %}<a href="{{ root }}players/{{ b.slug }}.html">{{ b.name }}</a>{% elif b.name %}{{ b.name }}{% else %}Bangor{% endif %}{% endif -%}
+          {%- if when %}{% if who %} · {% endif %}{% if b.g %}<a href="{{ root }}games/{{ b.g.game_id }}.html">{{ 'at' if b.g.site == 'away' else 'vs' }} {{ b.g.opponent }}, {{ b.g.date | d }}</a>{% elif b.season %}{{ b.season | replace('-', '–') }}{% endif %}{% endif -%}
+        </span>
+      </span>
+    </li>
+    {% endfor %}
+  </ul>
+{% endmacro %}

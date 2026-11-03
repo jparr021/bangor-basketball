@@ -17,7 +17,7 @@
     <h2 class="section-title">{{ s.scope | capitalize }} records · {{ 'Single game' if s.period == 'game' else s.period | capitalize }}</h2>
     <div class="record-grid">
       {% for c in s.cats %}
-      <div class="card record-card">
+      <div class="card record-card" id="{{ s.id }}-{{ c.stat }}">
         <h3>{{ c.title }}{% if c.note %} <small class="muted">{{ c.note }}</small>{% endif %}</h3>
         <table class="tbl compact">
           {% for e in c.entries %}

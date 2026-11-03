@@ -21,6 +21,7 @@ OPP_NICKNAMES = {  # extra spellings seen in titles -> canonical opponent
     "melmin": "Melrose-Mindoro", "mel-min": "Melrose-Mindoro", "brf": "Black River Falls",
     "wonewoc": "Wonewoc-Center", "c-fc": "Cochrane-Fountain City", "cfc": "Cochrane-Fountain City",
     "acl": "Alma Center Lincoln", "lincoln": "Alma Center Lincoln", "blair": "Blair-Taylor",
+    "mel min": "Melrose-Mindoro", "gilmanton": "Gilmanton/Independence",
 }
 
 
@@ -43,7 +44,7 @@ def title_date(t):
     if m:
         y = int(m.group(3)); y = y + 2000 if y < 100 else y
         return safe(y, int(m.group(1)), int(m.group(2)))
-    m = re.search(r"\b(jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)[a-z]*\.?\s+(\d{1,2})(?:st|nd|rd|th)?,?\s+(20\d\d)\b", t)
+    m = re.search(r"\b(jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)[a-z]*\.?\s+(\d{1,2})(?:st|nd|rd|th)?\s*[,.]?\s+(20\d\d)\b", t)
     if m:
         return safe(int(m.group(3)), MONTHS[m.group(1)], int(m.group(2)))
     return None
@@ -113,10 +114,13 @@ def main():
         cands = []
         how = ""
         if d:
-            cands = [g for g in games if abs((dt.date.fromisoformat(g["date"]) - d).days) <= 1]
-            if opp:
-                cands = [g for g in cands if g["opponent"] == opp] or cands
-            how = "title date"
+            gap = lambda g: abs((dt.date.fromisoformat(g["date"]) - d).days)
+            cands = [g for g in games if gap(g) == 0 and (not opp or g["opponent"] == opp)]
+            how = "title date + opponent" if opp else "title date"
+            if not cands and opp:
+                # title date a little off: same opponent within 3 days
+                cands = [g for g in games if g["opponent"] == opp and gap(g) <= 3]
+                how = "opponent, title date off by a day or two"
         elif opp:
             s = title_season(t)
             cands = [g for g in games if g["opponent"] == opp and (not s or g["season"] == s)]
@@ -129,6 +133,10 @@ def main():
                 how = "opponent + season" if s else "opponent only"
         if len(cands) == 1:
             g = cands[0]
+            if how.startswith("opponent, title date off"):
+                review.append({"title": t, "youtube_url": f"https://www.youtube.com/watch?v={v['id']}",
+                               "upload_date": v["upload"], "reason": "matched, but the title's date is off by a day or two (please confirm)",
+                               "candidates": f"{g['date']} {g['opponent']}"})
             matched.append({"date": g["date"], "opponent": g["opponent"],
                             "youtube_url": f"https://www.youtube.com/watch?v={v['id']}", "title": t, "matched_by": how})
         else:

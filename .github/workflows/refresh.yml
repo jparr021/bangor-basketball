@@ -1,0 +1,24 @@
+# Rebuilds the site on Vercel on a schedule, so new games in the current-season Google Sheet
+# appear without anyone touching the code. Vercel's build downloads the sheet (scripts/fetch_current.py).
+#
+# One-time setup: in Vercel, Project > Settings > Git > Deploy Hooks, create a hook for "main".
+# Copy its URL into GitHub: repo Settings > Secrets and variables > Actions > New secret
+# named VERCEL_DEPLOY_HOOK.
+name: Refresh site from current-season sheet
+
+on:
+  schedule:
+    # Every 3 hours from November through March (times are UTC)
+    - cron: "15 */3 * 11,12,1,2,3 *"
+  workflow_dispatch: {}   # "Run workflow" button in GitHub, for an immediate refresh
+
+jobs:
+  rebuild:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger Vercel rebuild
+        env:
+          HOOK: ${{ secrets.VERCEL_DEPLOY_HOOK }}
+        run: |
+          if [ -z "$HOOK" ]; then echo "VERCEL_DEPLOY_HOOK secret is not set yet"; exit 0; fi
+          curl -fsS -X POST "$HOOK"

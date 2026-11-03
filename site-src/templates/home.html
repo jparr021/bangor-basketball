@@ -1,0 +1,97 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="hero">
+  <div class="wrap hero-inner">
+    <img class="hero-logo" src="{{ root }}static/img/cardinal.png" alt="">
+    <div>
+      <p class="eyebrow">Bangor High School · Bangor, Wisconsin</p>
+      <h1>Cardinals Boys Basketball</h1>
+      <p class="hero-lede">{{ facts.seasons }} seasons of Bangor basketball, from {{ facts.first }} to today.</p>
+    </div>
+  </div>
+  <div class="wrap">
+    <div class="stat-strip">
+      <div><span class="big">{{ facts.w | n }}–{{ facts.l | n }}{% if facts.t %}–{{ facts.t }}{% endif %}</span><span class="lbl">All-time record</span></div>
+      <div><span class="big">{{ facts.state_titles }}</span><span class="lbl">State championship (2017–18)</span></div>
+      <div><span class="big">{{ facts.conf_titles }}</span><span class="lbl">Conference championships</span></div>
+      <div><span class="big">{{ facts.regional_titles }}</span><span class="lbl">Regional championships</span></div>
+    </div>
+  </div>
+</section>
+
+{% if upcoming %}
+<div class="wrap">
+  <section class="card upcoming-card">
+    <div class="card-head"><h2>Upcoming games</h2><a href="seasons/{{ latest.season }}.html">Full schedule →</a></div>
+    <div class="upcoming-list">
+      {% for g in upcoming %}
+      <div class="up {{ 'today' if g.is_today }}">
+        <span class="up-date">{{ 'Today' if g.is_today else g.date | d }}{% if g.time %} · {{ g.time }}{% endif %}</span>
+        <a class="up-opp" href="games/{{ g.game_id }}.html">{{ 'at' if g.site == 'away' else 'vs' }} {{ g.opponent }}</a>
+        <span class="muted small">{{ g.location }}{% if g.conference == 'Y' %} · Conference{% endif %}</span>
+        {% if g.stream_url %}<a class="btn live" href="{{ g.stream_url }}" target="_blank" rel="noopener">● Watch live</a>{% endif %}
+      </div>
+      {% endfor %}
+    </div>
+  </section>
+</div>
+{% endif %}
+<div class="wrap grid-2">
+  <section class="card">
+    <div class="card-head"><h2>{{ latest.season | replace('-', '–') }} season</h2><a href="seasons/{{ latest.season }}.html">Full season →</a></div>
+    <p class="record-line"><span class="big-rec">{{ latest.w }}–{{ latest.l }}</span> <span class="muted">Coach {{ latest.coach }}</span></p>
+    <ul class="leaders">
+      {% for l in latest_leaders %}<li><span class="lbl">{{ l.label }}</span><a href="players/{{ l.slug }}.html">{{ l.name }}</a><span class="val">{{ l.value }} <small>({{ l.avg }}/g)</small></span></li>{% endfor %}
+    </ul>
+    <h3 class="sub">Last games</h3>
+    <table class="tbl compact">
+      {% for g in latest_games %}
+      <tr><td>{{ g.date | d }}</td><td>{{ 'at' if g.site == 'away' else 'vs' }} {{ g.opponent }}</td>
+        <td class="res {{ g.result }}">{{ g.result }} {{ g.bangor_score }}–{{ g.opp_score }}</td>
+        <td class="nowrap">{% if g.box_score != 'none' %}<a href="games/{{ g.game_id }}.html">Box</a>{% endif %}{% if g.film_id %} · <a href="games/{{ g.game_id }}.html#film">▶ Film</a>{% endif %}</td></tr>
+      {% endfor %}
+    </table>
+  </section>
+
+  <section class="card">
+    <div class="card-head"><h2>Career scoring leaders</h2><a href="records/index.html#individual-career">Record book →</a></div>
+    <table class="tbl compact">
+      {% for e in top_career %}
+      <tr><td class="rank">{{ e.rank }}</td><td>{% if e.player %}<a href="players/{{ e.player }}.html">{{ e.name }}</a>{% else %}{{ e.name }}{% endif %}</td><td class="muted">{{ e.season | replace('-', '–') }}</td><td class="num strong">{{ e.display }}</td></tr>
+      {% endfor %}
+    </table>
+    <h3 class="sub">Single-game scoring</h3>
+    <table class="tbl compact">
+      {% for e in top_game %}
+      <tr><td class="rank">{{ e.rank }}</td><td>{% if e.player %}<a href="players/{{ e.player }}.html">{{ e.name }}</a>{% else %}{{ e.name }}{% endif %}</td>
+        <td class="muted">{% if e.game_id %}<a href="games/{{ e.game_id }}.html">{% endif %}vs {{ e.opponent }}, {{ e.date | d }}{% if e.game_id %}</a>{% endif %}</td><td class="num strong">{{ e.display }}</td></tr>
+      {% endfor %}
+    </table>
+  </section>
+</div>
+
+<div class="wrap">
+  <section class="card">
+    <div class="card-head"><h2>State tournament teams</h2><a href="history/index.html">All seasons →</a></div>
+    <div class="champs">
+      {% for h in champs | reverse %}
+      <a class="champ" href="{% if h.season >= '2002-03' %}seasons/{{ h.season }}.html{% else %}history/index.html#s{{ h.season }}{% endif %}">
+        <span class="champ-year">{{ h.season | replace('-', '–') }}</span>
+        <span class="champ-rec">{{ h.w }}–{{ h.l }}</span>
+        <span class="champ-note">{{ h.notes }}</span>
+      </a>
+      {% endfor %}
+    </div>
+  </section>
+
+  <section class="card">
+    <div class="card-head"><h2>Recent seasons</h2><a href="seasons/index.html">Every season →</a></div>
+    <table class="tbl">
+      <thead><tr><th>Season</th><th>Record</th><th>Coach</th><th class="hide-sm">Highlights</th></tr></thead>
+      {% for s in recent %}
+      <tr><td><a href="seasons/{{ s.season }}.html">{{ s.season | replace('-', '–') }}</a></td><td>{{ s.w }}–{{ s.l }}</td><td>{{ s.coach }}</td><td class="hide-sm muted">{{ s.notes }}</td></tr>
+      {% endfor %}
+    </table>
+  </section>
+</div>
+{% endblock %}

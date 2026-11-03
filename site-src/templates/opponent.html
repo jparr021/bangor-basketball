@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% set section = 'opponents' %}
+{% block title %}Bangor vs {{ o.name }} · Bangor Cardinals Boys Basketball{% endblock %}
+{% block content %}
+<div class="wrap page-head">
+  <p class="eyebrow"><a href="index.html">Opponents</a></p>
+  <h1>vs {{ o.name }}</h1>
+  <div class="season-meta"><span class="big-rec">{{ o.w }}–{{ o.l }}</span><span>{{ o.w + o.l }} meetings since {{ o.games[0].season | replace('-', '–') }}</span></div>
+</div>
+<div class="wrap">
+  <section class="card">
+    <div class="scroll">
+    <table class="tbl">
+      <thead><tr><th>Date</th><th>Season</th><th>Site</th><th>Result</th><th></th></tr></thead>
+      <tbody>
+      {% for g in o.games | reverse %}
+      <tr><td class="nowrap">{{ g.date | d }}</td><td><a href="../seasons/{{ g.season }}.html">{{ g.season | replace('-', '–') }}</a></td>
+        <td>{{ 'Away' if g.site == 'away' else ('Neutral' if g.site == 'neutral' else 'Home') }}{% if g.game_type == 'playoff' %} <span class="tag red">Playoff</span>{% endif %}</td>
+        <td class="res {{ g.result }} nowrap">{{ g.result }} {{ g.bangor_score }}–{{ g.opp_score }}</td>
+        <td class="nowrap">{% if g.box_score != 'none' %}<a href="../games/{{ g.game_id }}.html">Box score</a>{% endif %}{% if g.film_id %} · <a class="film-link" href="../games/{{ g.game_id }}.html#film">▶ Film</a>{% endif %}</td></tr>
+      {% endfor %}
+      </tbody>
+    </table>
+    </div>
+  </section>
+</div>
+{% endblock %}

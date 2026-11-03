@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+{% set section = 'seasons' %}
+{% block title %}{{ s.season | replace('-', '–') }} season · Bangor Cardinals Boys Basketball{% endblock %}
+{% block content %}
+<div class="wrap page-head">
+  <div class="pager">
+    {% if prev %}<a href="{{ prev }}.html">← {{ prev | replace('-', '–') }}</a>{% else %}<span></span>{% endif %}
+    {% if next %}<a href="{{ next }}.html">{{ next | replace('-', '–') }} →</a>{% endif %}
+  </div>
+  <p class="eyebrow">Season</p>
+  <h1>{{ s.season | replace('-', '–') }}</h1>
+  <div class="season-meta">
+    <span class="big-rec">{{ s.w }}–{{ s.l }}</span>
+    <span>Coach <strong>{{ s.coach }}</strong></span>
+    {% if s.ppg %}<span>{{ s.ppg }} PPG · {{ s.oppg }} allowed</span>{% endif %}
+  </div>
+  {% if s.notes %}<p class="banner">{{ s.notes }}</p>{% endif %}
+</div>
+
+<div class="wrap">
+  {% if leaders %}
+  <div class="leader-cards">
+    {% for l in leaders %}
+    <div class="leader-card"><span class="lbl">{{ l.label }}</span><a href="../players/{{ l.slug }}.html">{{ l.name }}</a><span class="val">{{ l.value }}</span><span class="muted">{{ l.avg }} per game</span></div>
+    {% endfor %}
+  </div>
+  {% endif %}
+
+  <section class="card">
+    <h2>Schedule &amp; results</h2>
+    <div class="scroll">
+    <table class="tbl">
+      <thead><tr><th>Date</th><th>Opponent</th><th>Result</th><th class="hide-sm">Type</th><th class="hide-sm">Location</th><th></th></tr></thead>
+      <tbody>
+      {% for g in games %}
+      <tr>
+        <td class="nowrap">{{ g.date | d }}</td>
+        <td><span class="muted">{{ '@' if g.site == 'away' else 'vs' }}</span> <a href="../opponents/{{ g.opp_slug }}.html">{{ g.opponent }}</a>{% if g.conference == 'Y' %} <span class="tag">Conf</span>{% endif %}</td>
+        <td class="res {{ g.result }} nowrap">{% if g.result %}{{ g.result }} {{ g.bangor_score }}–{{ g.opp_score }}{% if g.ot %} <small>(OT)</small>{% endif %}{% elif g.status == 'upcoming' %}<span class="upcoming">{{ 'Today' if g.is_today else 'Upcoming' }}{% if g.time %} · {{ g.time }}{% endif %}</span>{% else %}<span class="muted">{{ g.event or 'No result' }}</span>{% endif %}</td>
+        <td class="hide-sm">{% if g.game_type == 'playoff' %}<span class="tag red">Playoff</span>{% elif g.game_type == 'tournament' %}<span class="tag">Tournament</span>{% endif %}</td>
+        <td class="hide-sm muted small">{{ g.event if g.event and g.game_type != 'regular' else g.location }}</td>
+        <td class="nowrap links">
+          {% if g.status == 'upcoming' and g.stream_url %}<a class="btn live" href="{{ g.stream_url }}" target="_blank" rel="noopener">● Watch live</a>{% endif %}
+          {% if g.box_score != 'none' %}<a href="../games/{{ g.game_id }}.html">Box score</a>{% endif %}
+          {% if g.film_id %}<a class="film-link" href="../games/{{ g.game_id }}.html#film">▶ Film</a>{% elif g.status == 'final' and g.stream_url %}<a href="{{ g.stream_url }}" target="_blank" rel="noopener">Replay</a>{% endif %}
+        </td>
+      </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+    </div>
+  </section>
+
+  {% if players %}
+  <section class="card">
+    <h2>Player stats</h2>
+    <div class="scroll">
+    <table class="tbl sortable stats">
+      <thead><tr><th>#</th><th>Player</th>{% for k, h in cols %}<th class="num">{{ h }}</th>{% endfor %}</tr></thead>
+      <tbody>
+      {% for p in players %}
+      <tr><td class="muted">{{ p.number }}</td><td class="nowrap"><a href="../players/{{ p.slug }}.html">{{ p.name }}</a></td>{% for k, h in cols %}<td class="num">{{ p[k] }}</td>{% endfor %}</tr>
+      {% endfor %}
+      </tbody>
+      <tfoot><tr><td></td><td>Team</td>{% for k, h in cols %}<td class="num">{{ team[k] }}</td>{% endfor %}</tr></tfoot>
+    </table>
+    </div>
+    {% if partial %}<p class="note">No box score for {{ partial | length }} game{{ 's' if partial|length > 1 }} this season ({% for g in partial %}{{ g.opponent }} {{ g.date | d }}{{ ', ' if not loop.last }}{% endfor %}). Where the season totals sheet includes those games, its totals are used above.</p>{% endif %}
+  </section>
+  {% else %}
+  <p class="note">Player stats aren't available for this season. Only game results were recorded.</p>
+  {% endif %}
+</div>
+{% endblock %}

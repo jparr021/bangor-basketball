@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% set section = 'film' %}
+{% block title %}Game Film · Bangor Cardinals Boys Basketball{% endblock %}
+{% block content %}
+<div class="wrap page-head">
+  <h1>Game film</h1>
+  <p class="muted">{{ total }} Bangor games with video. Click a game to watch it with its box score.</p>
+</div>
+<div class="wrap">
+  {% for season, games in by_season.items() %}
+  <section class="card">
+    <h2>{{ season | replace('-', '–') }}</h2>
+    <div class="film-grid">
+      {% for g in games %}
+      <a class="film-tile" href="../games/{{ g.game_id }}.html#film">
+        <img src="https://i.ytimg.com/vi/{{ g.film_id }}/mqdefault.jpg" alt="" loading="lazy">
+        <span class="film-meta"><strong>{{ 'at' if g.site == 'away' else 'vs' }} {{ g.opponent }}</strong>
+          <span class="muted small">{{ g.date | d }} · <span class="res {{ g.result }}">{{ g.result }} {{ g.bangor_score }}–{{ g.opp_score }}</span></span></span>
+      </a>
+      {% endfor %}
+    </div>
+  </section>
+  {% endfor %}
+</div>
+{% endblock %}

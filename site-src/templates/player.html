@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+{% set section = 'players' %}
+{% block title %}{{ name }} · Bangor Cardinals Boys Basketball{% endblock %}
+{% block content %}
+<div class="wrap page-head">
+  <p class="eyebrow"><a href="index.html">Players</a></p>
+  <h1>{{ name }}</h1>
+  <div class="season-meta">
+    <span>{{ years }}</span>
+    {% if numbers %}<span>#{{ numbers | join(', #') }}</span>{% endif %}
+    {% if cls %}<span>Class: {{ cls }} ({{ latest_season | replace('-', '–') }})</span>{% endif %}
+  </div>
+</div>
+
+<div class="wrap">
+  {% if career %}
+  <div class="leader-cards">
+    {% if career.pts %}<div class="leader-card"><span class="lbl">Career points</span><span class="val">{{ career.pts }}</span><span class="muted">{{ career.ppg }} per game</span></div>{% endif %}
+    {% if career.reb %}<div class="leader-card"><span class="lbl">Career rebounds</span><span class="val">{{ career.reb }}</span><span class="muted">{{ career.rpg }} per game</span></div>{% endif %}
+    {% if career.ast %}<div class="leader-card"><span class="lbl">Career assists</span><span class="val">{{ career.ast }}</span><span class="muted">{{ career.apg }} per game</span></div>{% endif %}
+    {% if career.gp %}<div class="leader-card"><span class="lbl">Games played</span><span class="val">{{ career.gp }}</span></div>{% endif %}
+  </div>
+  {% endif %}
+
+  <section class="card">
+    <h2>Season by season</h2>
+    <div class="scroll">
+    <table class="tbl stats">
+      <thead><tr><th>Season</th><th>#</th>{% for k, h in cols %}<th class="num">{{ h }}</th>{% endfor %}</tr></thead>
+      <tbody>
+      {% for s in seasons %}
+      <tr><td class="nowrap"><a href="../seasons/{{ s.season }}.html">{{ s.season | replace('-', '–') }}</a></td><td class="muted">{{ s.number }}</td>{% for k, h in cols %}<td class="num">{{ s[k] }}</td>{% endfor %}</tr>
+      {% endfor %}
+      </tbody>
+      {% if career and seasons | length > 1 %}
+      <tfoot><tr><td>Career</td><td></td>{% for k, h in cols %}<td class="num">{{ career[k] }}</td>{% endfor %}</tr></tfoot>
+      {% endif %}
+    </table>
+    </div>
+    {% if override %}<p class="note">Career points{% if 'reb:' in override %}, rebounds and assists{% endif %} come from the Bangor record book. Not every game was entered in the stat sheets, so the season rows above add up to less.</p>{% endif %}
+    {% if partial %}<p class="note">Before 2014–15 the stat sheets only recorded points. Career totals for other stats cover only the seasons where they were recorded.</p>{% endif %}
+  </section>
+
+  {% if highs %}
+  <section class="card">
+    <h2>Career highs</h2>
+    <div class="highs">
+      {% for h in highs %}
+      <div class="high"><span class="val">{{ h.value }}</span><span class="lbl">{{ h.label }}</span><a class="muted small" href="../games/{{ h.g.game_id }}.html">vs {{ h.g.opponent }}, {{ h.g.date | d }}</a></div>
+      {% endfor %}
+    </div>
+  </section>
+  {% endif %}
+
+  {% if log %}
+  <section class="card">
+    <h2>Game log</h2>
+    {% for season, rows in log.items() %}
+    <details {% if loop.last %}open{% endif %}>
+      <summary>{{ season | replace('-', '–') }} <span class="muted">({{ rows | length }} games)</span></summary>
+      <div class="scroll">
+      <table class="tbl stats compact">
+        <thead><tr><th>Date</th><th>Opponent</th><th>Result</th>{% for k, h in lcols %}<th class="num">{{ h }}</th>{% endfor %}</tr></thead>
+        <tbody>
+        {% for r in rows %}
+        <tr><td class="nowrap"><a href="../games/{{ r.g.game_id }}.html">{{ r.g.date | d }}</a></td><td class="nowrap">{{ '@' if r.g.site == 'away' else 'vs' }} {{ r.g.opponent }}</td>
+          <td class="res {{ r.g.result }} nowrap">{{ r.g.result }} {{ r.g.bangor_score }}–{{ r.g.opp_score }}{% if r.g.film_id %} <a class="film-link" href="../games/{{ r.g.game_id }}.html#film" title="Game film">▶</a>{% endif %}</td>{% for k, h in lcols %}<td class="num">{{ r[k] }}</td>{% endfor %}</tr>
+        {% endfor %}
+        </tbody>
+      </table>
+      </div>
+    </details>
+    {% endfor %}
+  </section>
+  {% endif %}
+</div>
+{% endblock %}

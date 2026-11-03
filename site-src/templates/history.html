@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% set section = 'history' %}
+{% block title %}History &amp; Coaches · Bangor Cardinals Boys Basketball{% endblock %}
+{% block content %}
+<div class="wrap page-head">
+  <h1>Program history</h1>
+  <p class="muted">Bangor has played organized basketball since {{ facts.first }}. All-time record: <strong>{{ facts.w | n }}–{{ facts.l | n }}–{{ facts.t }}</strong> ({{ facts.pct }}).</p>
+  <nav class="tabs"><a href="#coaches">Coaches</a><a href="#year-by-year">Year by year</a></nav>
+</div>
+<div class="wrap">
+  <section class="card" id="coaches">
+    <h2>Head coaches</h2>
+    <div class="scroll">
+    <table class="tbl sortable">
+      <thead><tr><th>Coach</th><th>Seasons</th><th class="num">Yrs</th><th class="num">W</th><th class="num">L</th><th class="num">Pct</th><th class="num">Conf. titles</th></tr></thead>
+      <tbody>
+      {% for c in coaches %}
+      <tr><td>{{ c.name }}</td><td class="nowrap">{{ c.seasons[0] | replace('-', '–') }}{% if c.seasons | length > 1 %} to {{ c.seasons[-1] | replace('-', '–') }}{% endif %}</td><td class="num">{{ c.seasons | length }}</td>
+        <td class="num">{{ c.w }}</td><td class="num">{{ c.l }}</td><td class="num">{{ c.pct }}</td><td class="num">{{ c.titles or '' }}</td></tr>
+      {% endfor %}
+      </tbody>
+    </table>
+    </div>
+  </section>
+
+  <section class="card" id="year-by-year">
+    <h2>Year by year</h2>
+    <div class="scroll">
+    <table class="tbl">
+      <thead><tr><th>Season</th><th class="num">W</th><th class="num">L</th><th>Coach</th><th>Notes</th></tr></thead>
+      <tbody>
+      {% for s in seasons | reverse %}
+      <tr id="s{{ s.season }}" class="{{ 'highlight' if 'State Champion' in s.notes }}">
+        <td class="nowrap">{% if s.has_data %}<a href="../seasons/{{ s.season }}.html">{{ s.season | replace('-', '–') }}</a>{% else %}{{ s.season | replace('-', '–') }}{% endif %}</td>
+        <td class="num">{{ s.w if s.w != '' else '—' }}</td><td class="num">{{ s.l if s.l != '' else '—' }}{% if s.t %}<small>–{{ s.t }}</small>{% endif %}</td>
+        <td class="nowrap">{{ s.coach }}</td><td class="muted small">{{ s.notes }}</td>
+      </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+    </div>
+  </section>
+</div>
+{% endblock %}

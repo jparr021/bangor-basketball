@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{% block title %}Bangor Cardinals Boys Basketball{% endblock %}</title>
+<meta name="description" content="{% block description %}History, stats and records of Bangor High School (Wisconsin) Cardinals boys basketball.{% endblock %}">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{{ root }}static/site.css">
+<link rel="icon" href="{{ root }}static/img/cardinal.png">
+</head>
+<body>
+<header class="masthead">
+  <div class="wrap masthead-inner">
+    <a class="brand" href="{{ root }}index.html">
+      <img src="{{ root }}static/img/cardinal.png" alt="Bangor Cardinals logo">
+      <span class="brand-text"><span class="brand-school">Bangor Cardinals</span><span class="brand-sub">Boys Basketball</span></span>
+    </a>
+    <button class="nav-toggle" aria-label="Menu" aria-expanded="false" onclick="this.setAttribute('aria-expanded', this.getAttribute('aria-expanded')==='false'); document.body.classList.toggle('nav-open')">☰</button>
+    <nav class="nav">
+      {% set here = section | default('') %}
+      <a href="{{ root }}seasons/index.html" {% if here == 'seasons' %}class="on"{% endif %}>Seasons</a>
+      <a href="{{ root }}players/index.html" {% if here == 'players' %}class="on"{% endif %}>Players</a>
+      <a href="{{ root }}records/index.html" {% if here == 'records' %}class="on"{% endif %}>Record Book</a>
+      <a href="{{ root }}history/index.html" {% if here == 'history' %}class="on"{% endif %}>History</a>
+      <a href="{{ root }}opponents/index.html" {% if here == 'opponents' %}class="on"{% endif %}>Opponents</a>
+      {% if has_film %}<a href="{{ root }}film/index.html" {% if here == 'film' %}class="on"{% endif %}>Film</a>{% endif %}
+    </nav>
+  </div>
+</header>
+<main>
+{% block content %}{% endblock %}
+</main>
+<footer class="footer">
+  <div class="wrap">
+    <p><strong>Bangor High School Cardinals</strong> · Bangor, Wisconsin · Red, black &amp; white since {{ facts.first }}</p>
+    <p class="muted">Unofficial history site. Stats come from the program's season stat sheets ({{ "2002–03" }} on) and the Bangor Boys Basketball record book. Records marked <span class="book-tag">Record book</span> come from the record book. Updated {{ built }}.</p>
+  </div>
+</footer>
+<script src="{{ root }}static/site.js"></script>
+</body>
+</html>

@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% set section = 'opponents' %}
+{% block title %}Opponents · Bangor Cardinals Boys Basketball{% endblock %}
+{% block content %}
+<div class="wrap page-head">
+  <h1>Opponents</h1>
+  <p class="muted">Bangor's record against every opponent since {{ first | replace('-', '–') }}.</p>
+  <input class="search" type="search" placeholder="Search opponents…" data-filter="#opp-table" aria-label="Search opponents">
+</div>
+<div class="wrap">
+  <div class="card">
+    <div class="scroll">
+    <table class="tbl sortable" id="opp-table">
+      <thead><tr><th>Opponent</th><th class="num">G</th><th class="num">W</th><th class="num">L</th><th class="num">Pct</th><th>Last meeting</th></tr></thead>
+      <tbody>
+      {% for o in opps %}
+      <tr><td><a href="{{ o.slug }}.html">{{ o.name }}</a></td><td class="num">{{ o.w + o.l }}</td><td class="num">{{ o.w }}</td><td class="num">{{ o.l }}</td>
+        <td class="num">{{ '%.3f' | format(o.w / (o.w + o.l)) | replace('0.', '.') }}</td>
+        <td class="nowrap"><span class="res {{ o.last.result }}">{{ o.last.result }} {{ o.last.bangor_score }}–{{ o.last.opp_score }}</span> <span class="muted small">{{ o.last.date | d }}</span></td></tr>
+      {% endfor %}
+      </tbody>
+    </table>
+    </div>
+  </div>
+</div>
+{% endblock %}

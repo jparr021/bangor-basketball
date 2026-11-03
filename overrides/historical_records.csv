@@ -1,0 +1,68 @@
+scope,period,stat,value,name,date,season,opponent,gp,note
+individual,game,pts,44,Andy Kick,1988-03-11,1987-88,Eleva-Strum,,
+individual,game,reb,27,Augie Zabel,1963-11-22,1963-64,Trempealeau,,
+individual,game,reb,20,Connor Kaiser,2012-03-08,2011-12,Luther,,
+individual,game,ast,14,Joe Stekel,1981-01-20,1980-81,Brookwood,,
+individual,game,ast,12,Joel Torgerud,1987-01-20,1986-87,Brookwood,,
+individual,game,ast,9,Connor Kaiser,2011-03-10,2010-11,Blair-Taylor,,
+individual,game,ast,9,Connor Kaiser,2011-03-04,2010-11,Boscobel,,
+individual,game,ast,9,Connor Kaiser,2011-02-18,2010-11,Royall,,
+individual,game,ast,9,Connor Kaiser,2011-12-02,2011-12,Brookwood,,
+individual,game,ast,9,Connor Kaiser,2012-01-24,2011-12,Brookwood,,
+individual,game,ast,10,Jaymeson Freit,2018-12-07,2018-19,New Lisbon,,
+individual,game,stl,9,Brad Skaer,2001-01-16,2000-01,Brookwood,,
+individual,game,fga,31,Bob Steigerwald,1970-12-16,1970-71,Onalaska,,
+individual,game,tpm,9,Connor Kaiser,2012-02-02,2011-12,Hillsboro,,
+individual,game,tpa,14,Travis Bolcerek,1996-01-05,1995-96,New Lisbon,,
+individual,game,ftm,16,Connor Kaiser,2010-12-21,2010-11,West Salem,,16-16
+individual,game,oreb,16,Don Herman,1973-11-20,1973-74,Cochrane-Fountain City,,
+individual,game,dreb,22,Augie Zabel,1963-11-22,1963-64,Trempealeau,,
+individual,season,pts,518,Brad Skaer,,2001-02,,24,
+individual,season,pts,489,Troy Bolcerek,,2002-03,,24,
+individual,season,pts,473,Bob Steigerwald,,1969-70,,,
+individual,season,reb,237,Gordie Horstman,,1966-67,,18,
+individual,season,reb,236,Connor Kaiser,,2011-12,,,
+individual,season,reb,207,Adam Wuensch,,2010-11,,24,
+individual,season,reb,204,Canon O'Heron,,2012-13,,24,
+individual,season,ast,150,Joel Torgerud,,1986-87,,,
+individual,season,ast,147,Connor Kaiser,,2011-12,,,
+individual,season,ast,144,Joe Stekel,,1980-81,,,
+individual,season,ast,106,Connor Kaiser,,2010-11,,24,
+individual,season,tpa,160,Nate Hamilton,,1998-99,,,
+individual,season,ftm,150,Brad Skaer,,2001-02,,,
+individual,season,fta,199,Brad Skaer,,2001-02,,,
+individual,season,pf,93,Shane Amundson,,1998-99,,,
+individual,season,tp_pct,0.505,Andy Kick,,1987-88,,,48-95
+individual,career,pts,1251,Brad Skaer,,1998-99 to 2001-02,,68,Class of 2002
+individual,career,pts,1232,Troy Bolcerek,,1999-00 to 2002-03,,94,Class of 2003
+individual,career,pts,1219,Dick Chapiewsky,,Class of 1953,,,
+individual,career,pts,1129,Bob Steigerwald,,1966-67 to 1969-70,,,Class of 1970
+individual,career,pts,1014,Tim Anderson,,Class of 1963,,61,
+individual,career,pts,710,Cory Nicolai,,Class of 1992,,,
+individual,career,pts,698,Travis Hansen,,Class of 1988,,,
+individual,career,pts,685,Chris Tiona,,Class of 1987,,,1984 not included
+individual,career,pts,671,Todd Oliver,,Class of 1987,,,1984 not included
+individual,career,pts,652,Andy Kick,,Class of 1988,,,
+individual,career,reb,562,Chris Tiona,,Class of 1987,,,
+individual,career,reb,522,Gordie Horstman,,Class of 1967,,,
+individual,career,reb,455,Travis Hansen,,Class of 1988,,,
+individual,career,reb,361,Cory Nicolai,,Class of 1992,,,
+individual,career,reb,355,Adam Wuensch,,2008-09 to 2010-11,,49,Class of 2011
+individual,career,ast,237,Joel Torgerud,,Class of 1987,,,
+individual,career,ast,209,Pat Hansen,,Class of 1992,,,
+individual,career,ast,179,Todd Oliver,,Class of 1987,,,1984 not included
+individual,career,ftm,299,Bob Steigerwald,,1966-67 to 1969-70,,,Class of 1970
+individual,career,tpm,,Brad Skaer,,1998-99 to 2001-02,,,Total unknown (listed as *** in the record book)
+team,game,quarter_pts,40,,1987-03-05,1986-87,Alma Center Lincoln,,
+team,game,half_pts,67,,2001-01-16,2000-01,Brookwood,,1st half
+team,game,fga,80,,1973-11-20,1973-74,Cochrane-Fountain City,,
+team,game,fga,80,,1992-02-21,1991-92,New Lisbon,,
+team,game,ftm,35,,1965-01-15,1964-65,Melrose-Mindoro,,
+team,game,fta,46,,1965-01-15,1964-65,Melrose-Mindoro,,
+team,game,reb,65,,1963-11-22,1963-64,Trempealeau,,
+team,game,oreb,41,,1973-11-20,1973-74,Cochrane-Fountain City,,
+team,game,dreb,52,,1963-11-22,1963-64,Trempealeau,,
+team,game,ast,31,,1987-03-05,1986-87,Alma Center Lincoln,,
+team,game,fg_pct,0.698,,1996-01-09,1995-96,Cashton,,30-43
+team,season,tp_pct,0.438,,,1987-88,,,57-130
+team,season,ft_pct,0.926,,,1968-69,,,25-27

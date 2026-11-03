@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+{% set section = 'seasons' %}
+{% block title %}Bangor {{ g.bangor_score }}, {{ g.opponent }} {{ g.opp_score }} ({{ g.date | d }}) · Bangor Cardinals{% endblock %}
+{% block content %}
+<div class="wrap page-head">
+  <p class="eyebrow"><a href="../seasons/{{ g.season }}.html">{{ g.season | replace('-', '–') }} season</a> · {{ g.date | d('long') }}</p>
+  <div class="scoreboard">
+    <div class="team us {{ 'win' if g.result == 'W' }}"><span class="tname">Bangor</span><span class="tscore">{{ g.bangor_score }}</span></div>
+    <div class="vs">{% if g.result %}FINAL{% elif g.status == 'upcoming' %}{{ 'TODAY' if g.is_today else 'UPCOMING' }}{% if g.time %}<br><small>{{ g.time }}</small>{% endif %}{% endif %}{% if g.ot %}<br><small>OT</small>{% endif %}</div>
+    <div class="team them {{ 'win' if g.result == 'L' }}"><span class="tname"><a href="../opponents/{{ g.opp_slug }}.html">{{ g.opponent }}</a></span><span class="tscore">{{ g.opp_score }}</span></div>
+  </div>
+  <p class="muted center">
+    {{ 'Away' if g.site == 'away' else ('Neutral site' if g.site == 'neutral' else 'Home') }}{% if g.location %} · {{ g.location }}{% endif %}{% if g.event and g.event != g.location %} · {{ g.event }}{% endif %}
+    {% if g.game_type == 'playoff' %} · <span class="tag red">Playoff</span>{% elif g.game_type == 'tournament' %} · <span class="tag">Tournament</span>{% endif %}
+    {% if g.conference == 'Y' %} · <span class="tag">Conference</span>{% endif %}
+  </p>
+</div>
+
+<div class="wrap">
+  {% if g.stream_url %}
+  <p class="center">{% if g.status == 'upcoming' %}<a class="btn live big" href="{{ g.stream_url }}" target="_blank" rel="noopener">● Watch live</a>{% else %}<a class="btn" href="{{ g.stream_url }}" target="_blank" rel="noopener">Watch the replay</a>{% endif %}</p>
+  {% endif %}
+  {% if g.film_id %}
+  <section class="card film" id="film">
+    <h2>Game film</h2>
+    <div class="video"><iframe src="https://www.youtube-nocookie.com/embed/{{ g.film_id }}" title="{{ g.film_title or ('Bangor vs ' ~ g.opponent ~ ' game film') }}" loading="lazy" allow="accelerometer; encrypted-media; gyroscope; picture-in-picture; fullscreen" allowfullscreen></iframe></div>
+    <p class="muted small"><a href="https://www.youtube.com/watch?v={{ g.film_id }}" target="_blank" rel="noopener">Watch on YouTube</a></p>
+  </section>
+  {% endif %}
+  {% if periods %}
+  <section class="card narrow">
+    <table class="tbl linescore">
+      <thead><tr><th></th>{% for l in periods.labels %}<th class="num">{{ l }}</th>{% endfor %}<th class="num">T</th></tr></thead>
+      <tr><td>Bangor</td>{% for v in periods.bangor %}<td class="num">{{ v }}</td>{% endfor %}<td class="num strong">{{ g.bangor_score }}</td></tr>
+      <tr><td>{{ g.opponent }}</td>{% for v in periods.opp %}<td class="num">{{ v }}</td>{% endfor %}<td class="num strong">{{ g.opp_score }}</td></tr>
+    </table>
+  </section>
+  {% endif %}
+
+  <section class="card">
+    <h2>Bangor</h2>
+    {% if bangor %}
+    <div class="scroll">
+    <table class="tbl stats">
+      <thead><tr><th>#</th><th>Player</th>{% for k, h in bcols %}<th class="num">{{ h }}</th>{% endfor %}</tr></thead>
+      <tbody>
+      {% for p in bangor %}
+      <tr><td class="muted">{{ p.number }}</td><td class="nowrap"><a href="../players/{{ p.slug }}.html">{{ p.name }}</a>{% if p.cls %} <small class="muted">{{ p.cls }}</small>{% endif %}</td>{% for k, h in bcols %}<td class="num">{{ p[k] }}</td>{% endfor %}</tr>
+      {% endfor %}
+      </tbody>
+      <tfoot><tr><td></td><td>Totals</td>{% for k, h in bcols %}<td class="num">{{ btot[k] }}</td>{% endfor %}</tr></tfoot>
+    </table>
+    </div>
+    {% if g.box_complete == 'N' %}<p class="note">This box score accounts for {{ g.box_points }} of Bangor's {{ g.bangor_score }} points. The original stat sheet is incomplete.</p>{% endif %}
+    {% elif g.status == 'upcoming' %}
+    <p class="note">Stats will appear here after the game.</p>
+    {% else %}
+    <p class="note">No Bangor box score was recorded for this game.</p>
+    {% endif %}
+  </section>
+
+  {% if opp %}
+  <section class="card">
+    <h2>{{ g.opponent }}</h2>
+    <div class="scroll">
+    <table class="tbl stats">
+      <thead><tr><th>#</th><th>Player</th>{% for k, h in ocols %}<th class="num">{{ h }}</th>{% endfor %}</tr></thead>
+      <tbody>
+      {% for p in opp %}
+      <tr><td class="muted">{{ p.number }}</td><td class="nowrap">{{ p.name }}</td>{% for k, h in ocols %}<td class="num">{{ p[k] }}</td>{% endfor %}</tr>
+      {% endfor %}
+      </tbody>
+      <tfoot><tr><td></td><td>Totals</td>{% for k, h in ocols %}<td class="num">{{ otot[k] }}</td>{% endfor %}</tr></tfoot>
+    </table>
+    </div>
+  </section>
+  {% endif %}
+</div>
+{% endblock %}

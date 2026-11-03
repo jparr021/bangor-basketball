@@ -48,7 +48,7 @@
       {% for g in latest_games %}
       <tr><td>{{ g.date | d }}</td><td>{{ 'at' if g.site == 'away' else 'vs' }} {{ g.opponent }}</td>
         <td class="res {{ g.result }}">{{ g.result }} {{ g.bangor_score }}–{{ g.opp_score }}</td>
-        <td class="nowrap">{% if g.box_score != 'none' %}<a href="games/{{ g.game_id }}.html">Box</a>{% endif %}{% if g.film_id %} · <a href="games/{{ g.game_id }}.html#film">▶ Film</a>{% endif %}</td></tr>
+        <td class="nowrap">{% if g.box_score != 'none' %}<a href="games/{{ g.game_id }}.html">Box</a>{% endif %}{% if g.has_video %} · <a href="games/{{ g.game_id }}.html#film">▶ Film</a>{% endif %}</td></tr>
       {% endfor %}
     </table>
   </section>

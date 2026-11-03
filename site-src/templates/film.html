@@ -4,7 +4,7 @@
 {% block content %}
 <div class="wrap page-head">
   <h1>Game film</h1>
-  <p class="muted">{{ total }} Bangor games with video. Click a game to watch it with its box score.</p>
+  <p class="muted">{{ total }} Bangor games with video: {{ youtube }} on YouTube{% if hudl_only %} and {{ hudl_only }} more on Hudl{% endif %}. Click a game to watch it alongside its box score.</p>
 </div>
 <div class="wrap">
   {% for season, games in by_season.items() %}
@@ -13,7 +13,8 @@
     <div class="film-grid">
       {% for g in games %}
       <a class="film-tile" href="../games/{{ g.game_id }}.html#film">
-        <img src="https://i.ytimg.com/vi/{{ g.film_id }}/mqdefault.jpg" alt="" loading="lazy">
+        {% if g.film_id %}<img src="https://i.ytimg.com/vi/{{ g.film_id }}/mqdefault.jpg" alt="" loading="lazy">
+        {% else %}<span class="film-ph"><span class="ph-src">Hudl</span><span>{{ 'Full game' if g.hudl_full else 'Highlights' }}</span></span>{% endif %}
         <span class="film-meta"><strong>{{ 'at' if g.site == 'away' else 'vs' }} {{ g.opponent }}</strong>
           <span class="muted small">{{ g.date | d }} · <span class="res {{ g.result }}">{{ g.result }} {{ g.bangor_score }}–{{ g.opp_score }}</span></span></span>
       </a>

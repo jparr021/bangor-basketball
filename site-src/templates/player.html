@@ -64,7 +64,7 @@
         <tbody>
         {% for r in rows %}
         <tr><td class="nowrap"><a href="../games/{{ r.g.game_id }}.html">{{ r.g.date | d }}</a></td><td class="nowrap">{{ '@' if r.g.site == 'away' else 'vs' }} {{ r.g.opponent }}</td>
-          <td class="res {{ r.g.result }} nowrap">{{ r.g.result }} {{ r.g.bangor_score }}–{{ r.g.opp_score }}{% if r.g.film_id %} <a class="film-link" href="../games/{{ r.g.game_id }}.html#film" title="Game film">▶</a>{% endif %}</td>{% for k, h in lcols %}<td class="num">{{ r[k] }}</td>{% endfor %}</tr>
+          <td class="res {{ r.g.result }} nowrap">{{ r.g.result }} {{ r.g.bangor_score }}–{{ r.g.opp_score }}{% if r.g.has_video %} <a class="film-link" href="../games/{{ r.g.game_id }}.html#film" title="Game film">▶</a>{% endif %}</td>{% for k, h in lcols %}<td class="num">{{ r[k] }}</td>{% endfor %}</tr>
         {% endfor %}
         </tbody>
       </table>

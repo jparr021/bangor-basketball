@@ -161,7 +161,28 @@ for g in games_by_id.values():
         films = [f for f in films if slug(f["opponent"]) == g["opp_slug"]] or films[:1]
     g["film_id"] = youtube_id(g.get("film_url")) or (youtube_id(films[0]["youtube_url"]) if films else "")
     g["film_title"] = films[0].get("title", "") if films else ""
+# Hudl replays / recaps (overrides/hudl_video.csv). YouTube always wins the main spot;
+# Hudl stays as a secondary link. A current-season Hudl stream link becomes the replay.
+hudl = defaultdict(dict)
+hpath = os.path.join(OV, "hudl_video.csv")
+if os.path.exists(hpath):
+    for r in load(hpath):
+        hudl[r["date"]][r["kind"]] = r
+GAME_VIDEO_RE = re.compile(r"hudl\.com/.*/watch\?|youtube\.com/(watch|live/)|youtu\.be/|nfhsnetwork\.com/events/"
+                           r"|justagame\.com/watch/", re.I)
+for g in games_by_id.values():
+    h = hudl.get(g["date"], {})
+    url = g.get("stream_url") or ""
+    # a stream link only counts as a replay if it points at one specific game (not a channel/school page)
+    g["replay_url"] = url if g["status"] == "final" and GAME_VIDEO_RE.search(url) else ""
+    full = h.get("full")
+    if not full and g["replay_url"] and "hudl.com" in url:
+        full = {"url": url, "access": "free"}
+    g["hudl_full"] = full
+    g["hudl_recap"] = h.get("recap")
+    g["has_video"] = bool(g["film_id"] or full or g["hudl_recap"])
 FILM_GAMES = [g for g in games_by_id.values() if g["film_id"]]
+HUDL_ONLY = [g for g in games_by_id.values() if not g["film_id"] and (g["hudl_full"] or g["hudl_recap"])]
 UPCOMING = [g for g in games_by_id.values() if g["status"] == "upcoming"]
 
 
@@ -435,7 +456,7 @@ def render(tpl, path, **ctx):
     ctx["built"] = BUILT
     ctx["facts"] = FACTS
     ctx["latest_season"] = DATA_SEASONS[-1]
-    ctx["has_film"] = bool(FILM_GAMES)
+    ctx["has_film"] = bool(FILM_GAMES or HUDL_ONLY)
     html = env.get_template(tpl).render(**ctx)
     full = os.path.join(OUT, path)
     os.makedirs(os.path.dirname(full), exist_ok=True)
@@ -603,11 +624,12 @@ def build():
     render("opponents.html", "opponents/index.html", opps=olist, first=DATA_SEASONS[0])
 
     # ---- game film index
-    if FILM_GAMES:
+    if FILM_GAMES or HUDL_ONLY:
         by_season = OrderedDict()
-        for g in sorted(FILM_GAMES, key=lambda g: g["date"], reverse=True):
+        for g in sorted(FILM_GAMES + HUDL_ONLY, key=lambda g: g["date"], reverse=True):
             by_season.setdefault(g["season"], []).append(g)
-        render("film.html", "film/index.html", by_season=by_season, total=len(FILM_GAMES))
+        render("film.html", "film/index.html", by_season=by_season, total=len(FILM_GAMES) + len(HUDL_ONLY),
+               youtube=len(FILM_GAMES), hudl_only=len(HUDL_ONLY))
 
     n = sum(len(fs) for _, _, fs in os.walk(OUT))
     print(f"site built: {n} files in {OUT}")

@@ -17,7 +17,7 @@
       <tr><td class="nowrap">{{ g.date | d }}</td><td><a href="../seasons/{{ g.season }}.html">{{ g.season | replace('-', '–') }}</a></td>
         <td>{{ 'Away' if g.site == 'away' else ('Neutral' if g.site == 'neutral' else 'Home') }}{% if g.game_type == 'playoff' %} <span class="tag red">Playoff</span>{% endif %}</td>
         <td class="res {{ g.result }} nowrap">{{ g.result }} {{ g.bangor_score }}–{{ g.opp_score }}</td>
-        <td class="nowrap">{% if g.box_score != 'none' %}<a href="../games/{{ g.game_id }}.html">Box score</a>{% endif %}{% if g.film_id %} · <a class="film-link" href="../games/{{ g.game_id }}.html#film">▶ Film</a>{% endif %}</td></tr>
+        <td class="nowrap">{% if g.box_score != 'none' %}<a href="../games/{{ g.game_id }}.html">Box score</a>{% endif %}{% if g.has_video %} · <a class="film-link" href="../games/{{ g.game_id }}.html#film">▶ Film</a>{% endif %}</td></tr>
       {% endfor %}
       </tbody>
     </table>

@@ -17,15 +17,27 @@
 </div>
 
 <div class="wrap">
-  {% if g.stream_url %}
-  <p class="center">{% if g.status == 'upcoming' %}<a class="btn live big" href="{{ g.stream_url }}" target="_blank" rel="noopener">● Watch live</a>{% else %}<a class="btn" href="{{ g.stream_url }}" target="_blank" rel="noopener">Watch the replay</a>{% endif %}</p>
+  {% if g.status == 'upcoming' and g.stream_url %}
+  <p class="center"><a class="btn live big" href="{{ g.stream_url }}" target="_blank" rel="noopener">● Watch live</a></p>
   {% endif %}
-  {% if g.film_id %}
+  {% if g.has_video %}
   <section class="card film" id="film">
     <h2>Game film</h2>
+    {% if g.film_id %}
     <div class="video"><iframe src="https://www.youtube-nocookie.com/embed/{{ g.film_id }}" title="{{ g.film_title or ('Bangor vs ' ~ g.opponent ~ ' game film') }}" loading="lazy" allow="accelerometer; encrypted-media; gyroscope; picture-in-picture; fullscreen" allowfullscreen></iframe></div>
     <p class="muted small"><a href="https://www.youtube.com/watch?v={{ g.film_id }}" target="_blank" rel="noopener">Watch on YouTube</a></p>
+    {% endif %}
+    {% if g.hudl_full or g.hudl_recap %}
+    <div class="hudl-links">
+      {% if g.film_id %}<span class="muted small">Also on Hudl:</span>{% endif %}
+      {% if g.hudl_full %}<a class="btn {{ 'live big' if not g.film_id }}" href="{{ g.hudl_full.url }}" target="_blank" rel="noopener">▶ Full game on Hudl</a>{% endif %}
+      {% if g.hudl_recap %}<a class="btn {{ 'big' if not g.film_id }}" href="{{ g.hudl_recap.url }}" target="_blank" rel="noopener">Highlights</a>{% endif %}
+      {% if g.hudl_full and g.hudl_full.access == 'login' %}<p class="muted small">This game was streamed by the other school; Hudl may ask you to sign in.</p>{% elif g.hudl_full and g.hudl_full.access == 'paid' %}<p class="muted small">Hudl requires paid access for this game's replay.</p>{% endif %}
+    </div>
+    {% endif %}
   </section>
+  {% elif g.replay_url %}
+  <p class="center"><a class="btn" href="{{ g.replay_url }}" target="_blank" rel="noopener">Watch the replay</a></p>
   {% endif %}
   {% if periods %}
   <section class="card narrow">

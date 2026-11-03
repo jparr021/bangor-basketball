@@ -1,7 +1,11 @@
 """Match YouTube videos from a channel or playlist to Bangor games.
 
 Usage:
-  .venv/bin/python scripts/match_film.py "https://www.youtube.com/@YourChannel"   [--dates]
+  .venv/bin/python scripts/match_film.py "https://www.youtube.com/@YourChannel"   [--dates] [--add-only]
+
+--add-only (used by the scheduled GitHub workflow): keep every film row already in the list, and
+only add videos for games that don't have film yet. Never removes anything. If YouTube returns no
+videos (blocked, outage), nothing is written.
 
 It lists every video (titles only, which is quick; with --dates it also reads each video's upload
 date, which is slower but matches more), works out the game from the date and opponent in the title,
@@ -15,6 +19,8 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 FILM = os.path.join(ROOT, "overrides", "game_film.csv")
 REVIEW = os.path.join(ROOT, "data", "film_review.csv")
 YTDLP = os.path.join(ROOT, ".venv", "bin", "yt-dlp")
+if not os.path.exists(YTDLP):
+    YTDLP = "yt-dlp"  # e.g. on GitHub's servers, installed with pip
 MONTHS = {m: i for i, m in enumerate(["jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec"], 1)}
 OPP_NICKNAMES = {  # extra spellings seen in titles -> canonical opponent
     "get": "Gale-Ettrick-Trempealeau", "g-e-t": "Gale-Ettrick-Trempealeau",
@@ -84,7 +90,7 @@ def list_videos(url, with_dates):
 def main():
     if len(sys.argv) < 2:
         print(__doc__); sys.exit(1)
-    url, with_dates = sys.argv[1], "--dates" in sys.argv
+    url, with_dates, add_only = sys.argv[1], "--dates" in sys.argv, "--add-only" in sys.argv
     with open(os.path.join(ROOT, "data", "games.csv")) as f:
         games = [g for g in csv.DictReader(f) if g["result"]]
     opp_names = {}
@@ -97,12 +103,20 @@ def main():
     keep = []
     if os.path.exists(FILM):
         with open(FILM) as f:
-            keep = [r for r in csv.DictReader(f) if r.get("matched_by") == "manual"]
+            keep = [r for r in csv.DictReader(f) if add_only or r.get("matched_by") == "manual"]
+    have_film = {(r["date"], r["opponent"]) for r in keep} if add_only else set()
     kept_ids = {re.search(r"([A-Za-z0-9_-]{11})$", r["youtube_url"]).group(1) for r in keep
                 if re.search(r"([A-Za-z0-9_-]{11})$", r["youtube_url"])}
 
-    vids = list_videos(url, with_dates)
+    try:
+        vids = list_videos(url, with_dates)
+    except Exception as e:  # noqa: BLE001
+        print(f"could not list videos ({e}); nothing changed")
+        return
     print(f"{len(vids)} videos found")
+    if not vids:
+        print("YouTube returned no videos; nothing changed")
+        return
     matched, review = [], []
     for v in vids:
         if v["id"] in kept_ids:
@@ -151,7 +165,10 @@ def main():
         by_game.setdefault((r["date"], r["opponent"]), []).append(r)
     final = []
     for k, rs in by_game.items():
-        if len(rs) == 1:
+        if len(rs) == 1 and k in have_film:
+            review.append({"title": rs[0]["title"], "youtube_url": rs[0]["youtube_url"], "upload_date": "",
+                           "reason": "this game already has film; add it by hand to swap", "candidates": f"{k[0]} {k[1]}"})
+        elif len(rs) == 1:
             final.append(rs[0])
         else:
             for r in rs:
@@ -164,7 +181,9 @@ def main():
     with open(REVIEW, "w", newline="") as f:
         w = csv.DictWriter(f, fieldnames=["title", "youtube_url", "upload_date", "reason", "candidates"])
         w.writeheader(); w.writerows(review)
-    print(f"matched {len(final)} new + {len(keep)} kept manual; {len(review)} need review -> data/film_review.csv")
+    print(f"matched {len(final)} new + {len(keep)} kept; {len(review)} need review -> data/film_review.csv")
+    for r in final:
+        print(f"  NEW: {r['date']} {r['opponent']}  <-  {r['title']}")
 
 
 if __name__ == "__main__":

@@ -1,0 +1,43 @@
+# Checks the Bangor Boys Basketball YouTube channel for new game film and adds any new matches
+# to overrides/game_film.csv. A change is committed, and the commit makes Vercel republish the site.
+# Add-only: it never removes film, and it changes nothing if YouTube can't be reached.
+name: Add new YouTube game film
+
+on:
+  schedule:
+    - cron: "40 */3 * * *"   # every 3 hours, all year
+  workflow_dispatch: {}        # "Run workflow" button in GitHub, to check right away
+
+permissions:
+  contents: write
+
+env:
+  CHANNEL: https://www.youtube.com/channel/UCMQOY87AZs0Hl4VQc61JTKg
+
+jobs:
+  match:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install YouTube listing tool
+        run: pip install -q yt-dlp
+      - name: Match new videos to games
+        run: python scripts/match_film.py "$CHANNEL" --add-only
+      - name: Publish if anything new was matched
+        run: |
+          if git diff --quiet -- overrides/game_film.csv; then
+            echo "No new game film."
+            exit 0
+          fi
+          git config user.name "bangor-bb-film-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add overrides/game_film.csv data/film_review.csv
+          git commit -m "Add new YouTube game film"
+          git push
+          # Vercel may skip deploys for bot commits, so also ask for a rebuild directly
+          if [ -n "$HOOK" ]; then curl -fsS -X POST "$HOOK"; fi
+        env:
+          HOOK: ${{ secrets.VERCEL_DEPLOY_HOOK }}

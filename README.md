@@ -37,11 +37,15 @@ New games flow into season stats, player pages, career totals and the record boo
 2. Add the season's line (record, coach, notes) to `overrides/season_history.csv`.
 3. In `overrides/current_season.json`, change `season` and `sheet_url` to next year's sheet.
 
-## Game film from YouTube
+## Game film
+**Automatic:** every 3 hours, GitHub checks the YouTube channel for new videos (`.github/workflows/film.yml`). It matches them to games by the date and opponent in the title, for example *Bangor vs Necedah - February 10, 2026*, and republishes the site. It only adds film and never removes any. To check right away: GitHub → Actions → *Add new YouTube game film* → **Run workflow**.
+
+**Priority on a game page:** YouTube film plays right on the page. Hudl full-game replays and recaps (`overrides/hudl_video.csv`) appear as buttons, and drop to "Also on Hudl" once a game has YouTube film.
+
+**By hand:** matches are saved in `overrides/game_film.csv`. Anything uncertain goes to `data/film_review.csv`, including a new video for a game that already has film. To fix, swap or add one, edit `game_film.csv` and set `matched_by` to `manual`. Manual rows are never overwritten. To re-match the whole channel:
 ```
-.venv/bin/python scripts/match_film.py "https://www.youtube.com/@YourChannel" --dates
+.venv/bin/python scripts/match_film.py "https://www.youtube.com/channel/UCMQOY87AZs0Hl4VQc61JTKg"
 ```
-Matches are saved to `overrides/game_film.csv`. Anything uncertain goes to `data/film_review.csv`. To fix or add one by hand, add a row to `game_film.csv` with `matched_by` set to `manual`. Manual rows are never overwritten.
 
 ## Rebuild locally
 ```

@@ -11045,6 +11045,13 @@
      "opponent": "Blair-Taylor",
      "season": "2017-18",
      "game_id": "2017-18-19"
+    },
+    {
+     "value": 51,
+     "date": "2026-02-09",
+     "opponent": "Black River Falls",
+     "season": "2025-26",
+     "game_id": "2025-26-18"
     }
    ],
    "fgm": [
@@ -13740,7 +13747,7 @@
      "detail": "25-2"
     },
     {
-     "value": 61.6538,
+     "value": 61.2692,
      "season": "2025-26",
      "detail": "16-10"
     },

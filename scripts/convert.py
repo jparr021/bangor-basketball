@@ -45,7 +45,7 @@ FULL_TAB_NAMES_2025_26 = [
     "Feb 5, 2026 - Brookwood - W 65-54", "Feb 9, 2026 - Black River Falls - W 99-70",
     "Feb 10, 2026 - Necedah - W 55-41", "Feb 13, 2026 - Wonewoc-Center - W 90-69",
     "Feb 16, 2026 - De Soto - L 64-53", "Feb 19, 2026 - Hillsboro - L 73-60",
-    "Feb 23, 2026 - Royall - L 76-68", "Feb 26, 2026 - Birchwood - W 94-68",
+    "Feb 23, 2026 - Royall - L 76-68", "Feb 26, 2026 - Birchwood - W 94-58",  # tab says 94-68; Bound and Hudl both say 94-58
     "Mar 3, 2026 - Eleva-Strum - W 61-59", "Mar 6, 2026 - Regis - L 91-80",
 ]
 
@@ -411,8 +411,35 @@ def schedule_links(path):
             if c.hyperlink is not None and c.hyperlink.target}
 
 
+def load_extra_boxscores():
+    """Opponent box scores and line scores added from other sources (e.g. Bound for 2025-26),
+    keyed by game date. Used only where the season sheet doesn't have them."""
+    opp, lines = defaultdict(list), {}
+    p1 = os.path.join(ROOT, "overrides", "opponent_boxscores.csv")
+    p2 = os.path.join(ROOT, "overrides", "line_scores.csv")
+    if os.path.exists(p1):
+        with open(p1) as f:
+            for r in csv.DictReader(f):
+                d = {"number": r["number"], "name": r["name"], "min": None}
+                for k in STAT_COLS:
+                    if k != "min":
+                        d[k] = num(r.get(k))
+                opp[r["date"]].append(d)
+        for rows in opp.values():  # a column that is all zeros for the team wasn't tracked
+            for k in ("to", "pf", "chg", "blk", "oreb", "dreb"):
+                if all(not (x.get(k) or 0) for x in rows):
+                    for x in rows:
+                        x[k] = None
+    if os.path.exists(p2):
+        with open(p2) as f:
+            for r in csv.DictReader(f):
+                lines[r["date"]] = r
+    return opp, lines
+
+
 # ---------------------------------------------------------------- main
 def main():
+    extra_opp, extra_lines = load_extra_boxscores()
     os.makedirs(OUT, exist_ok=True)
     games_out, pg_out, opp_out, totals_out = [], [], [], []
     for path in sorted(glob.glob(os.path.join(SRC, "*.xlsx"))):
@@ -534,12 +561,23 @@ def main():
             if s and t and canon_opp(s["opponent"]).lower() != t["opponent"].lower():
                 warn(season, f"{date}: schedule opponent '{s['opponent']}' vs tab opponent '{t['opponent']}'")
             # neutral site: tournaments / playoffs played away from either school
+            xl = extra_lines.get(g["date"])
+            if xl and xl.get("site") and not (s or {}).get("site"):
+                g["site"] = xl["site"]
+            if xl and xl.get("event") and not (t or {}).get("event"):
+                g["event"] = xl["event"]
             ev = " ".join([g["location"], g["event"]])
             g["game_type"] = classify_type(ev)
             loc = g["location"].lower()
             if g["game_type"] in ("tournament", "playoff") and loc and "bangor" not in loc and \
                     canon_opp(g["opponent"]).lower().split()[0] not in loc:
                 g["site"] = "neutral"
+            if t and not t.get("periods") and xl and xl.get("period_labels"):
+                lab = xl["period_labels"].split("|")
+                t["periods"] = {"labels": lab, "bangor": [num(x) for x in xl["bangor_periods"].split("|")],
+                                "opp": [num(x) for x in xl["opp_periods"].split("|")]}
+            if t and not t.get("opp_players") and extra_opp.get(g["date"]):
+                t["opp_players"] = extra_opp[g["date"]]
             if t and t.get("periods"):
                 p = t["periods"]
                 g["period_labels"] = "|".join(p["labels"])

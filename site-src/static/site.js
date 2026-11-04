@@ -209,3 +209,37 @@
     });
   });
 })();
+
+// Career leaders: show one stat's list at a time (all lists show without JavaScript)
+(function () {
+  var tabs = document.querySelectorAll(".leader-tabs a[data-board]");
+  if (!tabs.length) return;
+  var boards = document.querySelectorAll(".leader-board");
+  function show(stat, scroll) {
+    var found = false;
+    boards.forEach(function (b) { var on = b.id === stat; b.classList.toggle("hidden", !on); found = found || on; });
+    if (!found) return show(boards[0].id, false);
+    tabs.forEach(function (t) {
+      var on = t.getAttribute("data-board") === stat;
+      t.classList.toggle("on", on);
+      if (on) t.setAttribute("aria-current", "true"); else t.removeAttribute("aria-current");
+    });
+    if (scroll === false) window.scrollTo(0, 0);
+  }
+  tabs.forEach(function (t) {
+    t.addEventListener("click", function (ev) {
+      ev.preventDefault();
+      var stat = t.getAttribute("data-board");
+      history.replaceState(null, "", "#" + stat);
+      show(stat, true);
+    });
+  });
+  show((location.hash || "#" + boards[0].id).slice(1), false);
+  var box = document.querySelector("[data-leader-filter]");
+  if (box) box.addEventListener("input", function () {
+    var q = box.value.trim().toLowerCase();
+    document.querySelectorAll(".leader-table tbody tr").forEach(function (r) {
+      r.style.display = !q || r.cells[1].textContent.toLowerCase().indexOf(q) !== -1 ? "" : "none";
+    });
+  });
+})();

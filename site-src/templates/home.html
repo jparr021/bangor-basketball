@@ -54,7 +54,7 @@
   </section>
 
   <section class="card">
-    <div class="card-head"><h2>Career scoring leaders</h2><a href="records/index.html#individual-career">Record book →</a></div>
+    <div class="card-head"><h2>Career scoring leaders</h2><a href="records/career-leaders.html#pts">Full list →</a></div>
     <table class="tbl compact">
       {% for e in top_career %}
       <tr><td class="rank">{{ e.rank }}</td><td>{% if e.player %}<a href="players/{{ e.player }}.html">{{ e.name }}</a>{% else %}{{ e.name }}{% endif %}</td><td class="muted">{{ e.season | replace('-', '–') }}</td><td class="num strong">{{ e.display }}</td></tr>

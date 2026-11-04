@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% set section = 'records' %}
+{% block title %}Career Leaders · Bangor Cardinals Boys Basketball{% endblock %}
+{% block description %}Every Bangor Cardinals boys basketball player ranked by career points, rebounds, assists, steals, blocks, 3-pointers, free throws and games played.{% endblock %}
+{% block content %}
+<div class="wrap page-head">
+  <p class="eyebrow"><a href="index.html">Record Book</a></p>
+  <h1>Career Leaders</h1>
+  <p class="muted">Every player ranked, not just the top 10. Totals come from the stat sheets, plus career totals from the Bangor record book (labeled <span class="book-tag">Record book</span>) for players the stat sheets don't fully cover. Players still in the program are marked <span class="tag active-tag">Active</span>.</p>
+  <nav class="tabs leader-tabs" aria-label="Choose a stat">
+    {% for b in boards %}<a href="#{{ b.stat }}" data-board="{{ b.stat }}">{{ b.title }}</a>{% endfor %}
+  </nav>
+  <input class="search" type="search" placeholder="Find a player…" aria-label="Find a player in the list" data-leader-filter>
+</div>
+
+<div class="wrap">
+  {% for b in boards %}
+  <section class="card leader-board" id="{{ b.stat }}" aria-labelledby="h-{{ b.stat }}">
+    <h2 id="h-{{ b.stat }}">Career {{ b.title | lower }} <small class="muted rb-count">{{ b.entries | length }} players</small></h2>
+    <div class="scroll">
+    <table class="tbl leader-table">
+      <thead><tr><th class="num">#</th><th>Player</th><th>Years</th>{% if b.stat != 'gp' %}<th class="num">G</th>{% endif %}<th class="num">{{ b.short }}</th>{% if b.has_avg %}<th class="num">Per game</th>{% endif %}</tr></thead>
+      <tbody>
+      {% for e in b.entries %}
+      <tr class="{{ 'top' if e.rank <= 3 }}">
+        <td class="num rank">{{ e.rank }}{% if e.tied %}<small>T</small>{% endif %}</td>
+        <td class="nowrap">{% if e.slug %}<a href="../players/{{ e.slug }}.html">{{ e.name }}</a>{% else %}{{ e.name }}{% endif %}{% if e.active %} <span class="tag active-tag">Active</span>{% endif %}{% if e.book %} <span class="book-tag">Record book</span>{% endif %}</td>
+        <td class="muted nowrap">{{ e.years }}</td>
+        {% if b.stat != 'gp' %}<td class="num muted">{{ e.gp }}</td>{% endif %}
+        <td class="num strong">{{ e.display }}</td>
+        {% if b.has_avg %}<td class="num">{{ e.avg }}</td>{% endif %}
+      </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+    </div>
+    <p class="note">{{ b.note }} Earlier players are listed only where the record book has their career total. Per-game averages use only the games where the stat was recorded.</p>
+  </section>
+  {% endfor %}
+</div>
+{% endblock %}

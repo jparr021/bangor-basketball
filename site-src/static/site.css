@@ -286,3 +286,12 @@ main:focus { outline: none; }
   .news-list li { flex-direction: column; gap: 2px; }
   .news-outlet { flex: none; }
 }
+
+/* ---- career leaders */
+.leader-tabs a.on { background: var(--red); border-color: var(--red); color: #fff; }
+.leader-board { scroll-margin-top: 90px; }
+.leader-board.hidden { display: none; }
+.leader-table tr.top td { background: var(--red-tint); }
+.leader-table td.rank { width: 3.2em; }
+.active-tag { background: #e3f3e8; color: var(--win); }
+.full-list { margin: 6px 0 0; text-align: right; }

@@ -6,6 +6,7 @@
 <div class="wrap page-head">
   <h1>Record Book</h1>
   <p class="muted">The top 10 in every category, ties included. Records from 2007–08 on come from the game-by-game stat sheets (rebounds, assists, steals and shooting from 2014–15 on). Older marks, and marks from games missing in the stat sheets, come from the Bangor record book and are labeled <span class="book-tag">Record book</span>.</p>
+  <p><a class="btn" href="career-leaders.html">Full career leaderboards: every player, every stat →</a></p>
   <nav class="tabs">
     {% for s in sections %}<a href="#{{ s.id }}">{{ s.scope | capitalize }} · {{ 'Single game' if s.period == 'game' else s.period | capitalize }}</a>{% endfor %}
   </nav>
@@ -39,6 +40,7 @@
           </tr>
           {% endfor %}
         </table>
+        {% if s.scope == 'individual' and s.period == 'career' and c.stat in ['pts', 'reb', 'ast', 'stl', 'blk', 'tpm', 'ftm', 'gp'] %}<p class="small full-list"><a href="career-leaders.html#{{ c.stat }}">Full list →</a></p>{% endif %}
       </div>
       {% endfor %}
     </div>

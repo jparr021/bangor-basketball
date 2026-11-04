@@ -543,6 +543,78 @@ def box_totals(rows):
     return t
 
 
+# ---------------------------------------------------------------- full career leaderboards
+LEADER_STATS = [  # (stat, title, short, tracked-from note)
+    ("pts", "Points", "PTS", "Points are in the stat sheets from 2007–08."),
+    ("reb", "Rebounds", "REB", "Rebounds are in the stat sheets from 2014–15."),
+    ("ast", "Assists", "AST", "Assists are in the stat sheets from 2014–15."),
+    ("stl", "Steals", "STL", "Steals are in the stat sheets from 2014–15."),
+    ("blk", "Blocks", "BLK", "Blocks are in the stat sheets from 2014–15."),
+    ("tpm", "3-pointers", "3PM", "3-pointers made are in the stat sheets from 2014–15."),
+    ("ftm", "Free throws", "FTM", "Free throws made are in the stat sheets from 2014–15."),
+    ("gp", "Games played", "G", "Games played are counted from the stat sheets, 2007–08 on."),
+]
+
+
+def career_years(season_text):
+    """'1998-99 to 2001-02' -> '1998–2002'; 'Class of 1953' stays."""
+    m = re.match(r"(\d{4})-\d{2} to (\d{4})-\d{2}", season_text or "")
+    return f"{m.group(1)}–{int(m.group(2)) + 1}" if m else (season_text or "")
+
+
+def career_boards():
+    """Every player's career total for each stat, ranked: stat sheets plus record-book careers."""
+    latest = DATA_SEASONS[-1]
+    cls_last = {}
+    for r in sorted(pg, key=lambda r: r["date"]):
+        if r.get("class"):
+            cls_last[r["slug"]] = (r["season"], r["class"])
+    boards = []
+    for stat, title, short, note in LEADER_STATS:
+        entries = {}
+        for c in pcareers:
+            v = c.get(stat)
+            if not v:
+                continue
+            rows = ps_by_player.get(c["slug"], [])
+            seasons = sorted(r["season"] for r in rows)
+            ov = c.get("override_note") or ""
+            gp = c.get("gp") or 0
+            tracked = gp if f"{stat}:" in ov or stat in ("pts", "gp") else sum(r["gp"] or 0 for r in rows if r.get(stat) is not None)
+            last_season, cls = cls_last.get(c["slug"], ("", ""))
+            entries[c["slug"]] = {
+                "name": c["name"], "slug": c["slug"] if c["slug"] in PLAYER_PAGES else None, "value": v,
+                "years": f"{seasons[0][:4]}–{season_end_year(seasons[-1])}" if seasons else "",
+                "gp": int(gp) if gp else "", "avg": fmt_avg(v, tracked) if stat != "gp" else "",
+                "book": f"{stat}:" in ov, "active": bool(seasons) and seasons[-1] == latest and last_season == latest and cls not in ("SR", "Sr", "12"),
+            }
+        for h in hist_records:
+            if (h["scope"], h["period"], h["stat"]) != ("individual", "career", stat) or not h["value"] or not h["name"]:
+                continue
+            sl = slug(h["name"])
+            v = float(h["value"])
+            if sl in entries and (entries[sl]["value"] or 0) >= v:
+                continue
+            prev = entries.get(sl, {})
+            gp = int(h["gp"]) if h["gp"] else prev.get("gp", "")
+            entries[sl] = {"name": h["name"], "slug": sl if sl in PLAYER_PAGES else None, "value": v,
+                           "years": prev.get("years") or career_years(h["season"]), "gp": gp,
+                           "avg": fmt_avg(v, gp) if gp and stat != "gp" else "", "book": True, "active": False}
+        ranked = sorted(entries.values(), key=lambda e: (-e["value"], e["name"]))
+        rank, prev_v = 0, None
+        for i, e in enumerate(ranked):
+            if e["value"] != prev_v:
+                rank = i + 1
+            prev_v = e["value"]
+            e["rank"] = rank
+            e["display"] = fmt_int(e["value"])
+        for e in ranked:
+            e["tied"] = sum(1 for o in ranked if o["rank"] == e["rank"]) > 1
+        boards.append({"stat": stat, "title": title, "short": short, "note": note, "entries": ranked,
+                       "has_avg": stat != "gp"})
+    return boards
+
+
 # ---------------------------------------------------------------- render
 env = Environment(loader=FileSystemLoader(os.path.join(SRC, "templates")), autoescape=select_autoescape(["html"]))
 env.filters["d"] = fmt_date
@@ -758,6 +830,7 @@ def build():
                player_news=player_news)
     plist.sort(key=lambda p: p["name"].split()[-1] + " " + p["name"])
     render("players.html", "players/index.html", players=plist)
+    render("leaders.html", "records/career-leaders.html", boards=career_boards(), latest_season=DATA_SEASONS[-1])
 
     # ---- history & coaches
     render("history.html", "history/index.html", seasons=[season_summary(h["season"]) for h in history],
@@ -815,7 +888,7 @@ def build():
         url = f"seasons/{s}.html" if s in games_by_season else f"history/index.html#s{s}"
         idx.append({"t": f"{season_label(s)} season", "s": sub, "u": url, "k": "season",
                     "x": f"{s} {s[:4]} {season_end_year(s)} {h['coach']} {h['notes']}"})
-    for t, u, x in [("Record Book", "records/index.html", "records top 10"), ("History & Coaches", "history/index.html", "coaches"),
+    for t, u, x in [("Record Book", "records/index.html", "records top 10"), ("Career Leaders", "records/career-leaders.html", "leaderboard all-time career points rebounds assists list"), ("History & Coaches", "history/index.html", "coaches"),
                     ("All seasons", "seasons/index.html", ""), ("All players", "players/index.html", "roster"),
                     ("All opponents", "opponents/index.html", "")] + ([("Game film", "film/index.html", "video youtube hudl")]
                                                                      if FILM_GAMES or HUDL_ONLY else []):

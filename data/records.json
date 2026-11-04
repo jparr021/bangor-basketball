@@ -2641,6 +2641,15 @@
      "opponent": "Regis",
      "season": "2025-26",
      "game_id": "2025-26-26"
+    },
+    {
+     "value": 21,
+     "name": "Brad Skaer",
+     "player": "brad-skaer",
+     "date": "2002-02-07",
+     "opponent": "Royall",
+     "season": "2001-02",
+     "game_id": "2001-02-17"
     }
    ],
    "tpm": [
@@ -10685,6 +10694,13 @@
      "opponent": "Brookwood",
      "season": "2014-15",
      "game_id": "2014-15-18"
+    },
+    {
+     "value": 27,
+     "date": "2002-01-29",
+     "opponent": "New Lisbon",
+     "season": "2001-02",
+     "game_id": "2001-02-15"
     },
     {
      "value": 26,

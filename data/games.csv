@@ -608,3 +608,27 @@ game_id,season,date,opponent,site,location,event,conference,bangor_score,opp_sco
 2026-27-22,2026-27,2027-02-12,Wonewoc-Center,away,Wonewoc-Center High School Highschool Gym,,Y,,,,,,,,7:00 PM,https://fan.hudl.com/usa/wi/bangor/organization/7161/bangor-high-school/team/26707/boys-varsity-basketball,,none,,,,,schedule,regular
 2026-27-23,2026-27,2027-02-18,Hillsboro,home,Bangor High School Main Gym,,Y,,,,,,,,7:00 PM,https://fan.hudl.com/usa/wi/bangor/organization/7161/bangor-high-school/team/26707/boys-varsity-basketball,,none,,,,,schedule,regular
 2026-27-24,2026-27,2027-02-22,Royall,away,Royall High School New Gym,,Y,,,,,,,,7:00 PM,https://fan.hudl.com/usa/wi/bangor/organization/7161/bangor-high-school/team/26707/boys-varsity-basketball,,none,,,,,schedule,regular
+2001-02-01,2001-02,2001-11-27,Luther,away,,,,47,49,L,,1|2|3|4,13|14|10|10,10|18|10|11,,,,points,42,N,newspaper,"Joel Ziehme scored with one second left, on a pass from Kyle Swogger after a steal, to give Luther a 49–47 win in the season opener. Brad Skaer, a former Luther student, scored 32 points with four 3-pointers and 10 rebounds, but fouled out just after his last 3 put Bangor ahead 47–44, and Bangor didn't score again.",results,regular
+2001-02-02,2001-02,2001-12-04,Wonewoc-Center,away,,,,67,53,W,,1|2|3|4,18|18|12|19,11|||,,,,points,59,N,newspaper,"Brad Skaer scored 40 points, going 6 for 8 from 3-point range and 12 for 13 at the free-throw line, as Bangor opened the Scenic Bluffs season with a win. (Wonewoc-Center's quarter scores after the first can't be read in the clipping.)",results,regular
+2001-02-03,2001-02,2001-12-07,Hillsboro,home,,,,63,45,W,,1|2|3|4,19|16||,13|12|10|10,,,,points,55,N,newspaper,"Brad Skaer scored 36 points with three 3-pointers, giving him 32, 40 and 36 in Bangor's first three games, and Chris Chandler had 11 points and 11 rebounds as Bangor led the whole game. (The paper's quarter scores for Bangor add to 62, one less than its final, so its third and fourth quarters are left blank.)",results,regular
+2001-02-04,2001-02,2001-12-13,New Lisbon,away,,,,62,71,L,,1|2|3|4,14|9|10|29,24|10|13|24,,,,points,47,N,newspaper,"New Lisbon held Brad Skaer, who came in averaging 36 points a game, to six points through three quarters while building a 47–33 lead. Skaer scored 17 in the fourth for a team-high 23, but it was too late. Troy Bolcerek scored 12 in his first game of the season after spraining his ankle, and New Lisbon's David Paradise led all scorers with 26.",results,regular
+2001-02-05,2001-02,2001-12-15,Auburndale,away,,,,44,57,L,,1|2|3|4,10|13|8|13,16|12|19|10,,,,points,44,Y,newspaper,"Auburndale, coached by 1963 Bangor graduate Tim Anderson, scored the first five points and never trailed. The Apaches led 28–23 at halftime, then opened the second half on a 19–8 run, with Dan Weinfurter scoring eight of his 16 in the third quarter. Auburndale held the ball for nearly three minutes on one fourth-quarter possession and kept Bangor scoreless over the final 58 seconds. Brad Skaer, averaging about 30 points, was held to 17, nine of them in the fourth, and Troy Bolcerek added 16.",results,regular
+2001-02-06,2001-02,2001-12-18,Cashton,home,,,,47,29,W,,,,,,,,none,,,,,results,regular
+2001-02-07,2001-02,2001-12-21,West Salem,home,,,,57,59,L,,,,,,,,none,,,,,results,regular
+2001-02-08,2001-02,2002-01-04,Royall,away,,,,53,66,L,,,,,,,,none,,,,,results,regular
+2001-02-09,2001-02,2002-01-07,Melrose-Mindoro,away,,,,62,49,W,,,,,,,,none,,,,,results,regular
+2001-02-10,2001-02,2002-01-10,Brookwood,away,,,,40,32,W,,,,,,,,none,,,,,results,regular
+2001-02-11,2001-02,2002-01-15,Necedah,home,,,,87,50,W,,,,,,,,none,,,,,results,regular
+2001-02-12,2001-02,2002-01-18,Wonewoc-Center,home,,,,50,41,W,,,,,,,,none,,,,,results,regular
+2001-02-13,2001-02,2002-01-21,Arcadia,away,,,,59,46,W,,,,,,,,none,,,,,results,regular
+2001-02-14,2001-02,2002-01-24,Hillsboro,away,,,,65,44,W,,,,,,,,none,,,,,results,regular
+2001-02-15,2001-02,2002-01-29,New Lisbon,home,,,,74,57,W,,,,,,,,none,,,,,results,regular
+2001-02-16,2001-02,2002-02-01,Cashton,away,,,,53,46,W,,,,,,,,none,,,,,results,regular
+2001-02-17,2001-02,2002-02-07,Royall,home,,,,50,48,W,,,,,,,,none,,,,,results,regular
+2001-02-18,2001-02,2002-02-14,Brookwood,home,,,,55,34,W,,,,,,,,none,,,,,results,regular
+2001-02-19,2001-02,2002-02-18,Gale-Ettrick-Trempealeau,away,,,,55,86,L,,,,,,,,none,,,,,results,regular
+2001-02-20,2001-02,2002-02-22,Necedah,away,,,,48,41,W,,,,,,,,none,,,,,results,regular
+2001-02-21,2001-02,2002-02-26,La Farge,home,,Regional quarterfinal,,65,41,W,,,,,,,,none,,,,,results,playoff
+2001-02-22,2001-02,2002-02-28,Weston,home,,Regional semifinal,,50,31,W,,,,,,,,none,,,,,results,playoff
+2001-02-23,2001-02,2002-03-02,Wonewoc-Center,home,,Regional final,,66,47,W,,,,,,,,none,,,,,results,playoff
+2001-02-24,2001-02,2002-03-08,Greenwood,home,,Sectional semifinal,,55,60,L,,,,,,,,none,,,,,results,playoff

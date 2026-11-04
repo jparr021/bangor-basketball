@@ -47,24 +47,22 @@
   </section>
 
   <section class="card">
-    <h2>Results</h2>
+    <h2>Schedule &amp; results</h2>
     <div class="scroll">
     <table class="tbl">
-      <thead><tr><th class="num">#</th>{% if any_dates %}<th>Date</th>{% endif %}<th>Opponent</th><th>Result</th><th class="num">Margin</th><th class="num">Record</th></tr></thead>
+      <thead><tr><th>Date</th><th>Opponent</th><th>Result</th><th class="hide-sm">Type</th><th class="hide-sm">Notes</th><th></th></tr></thead>
       <tbody>
       {% for g in games %}
-      {% set m = (g.bs - g.os) | int if g.scored else none %}
       <tr id="g{{ g.game }}">
-        <td class="num muted">{{ g.game }}</td>
-        {% if any_dates %}<td class="nowrap">{{ g.date | d }}</td>{% endif %}
-        <td>{% if g.site %}<span class="muted">{{ '@' if g.site == 'away' else 'vs' }}</span> {% endif %}{% if g.opp_slug in opp_pages %}<a href="../opponents/{{ g.opp_slug }}.html">{{ g.opponent }}</a>{% else %}{{ g.opponent }}{% endif %}{% if g.note %} <small class="muted">{{ g.note }}</small>{% endif %}</td>
+        <td class="nowrap">{% if g.date %}{{ g.date | d }}{% else %}<span class="muted">Game {{ g.game }}</span>{% endif %}</td>
+        <td>{% if g.site %}<span class="muted">{{ '@' if g.site == 'away' else 'vs' }}</span> {% endif %}{% if g.opp_slug in opp_pages %}<a href="../opponents/{{ g.opp_slug }}.html">{{ g.opponent }}</a>{% else %}{{ g.opponent }}{% endif %}</td>
         <td class="res {{ g.result }} nowrap">{{ g.result }} {{ g.bangor_score }}–{{ g.opp_score if g.opp_score != '' else '?' }}{% if g.ot %} <small>(OT)</small>{% endif %}</td>
-        <td class="num">{% if m is not none %}{{ '+' if m > 0 }}{{ m if m >= 0 else '−' ~ (-m) }}{% endif %}</td>
-        <td class="num muted">{{ g.record }}</td>
+        <td class="hide-sm">{% if g.game_type == 'playoff' %}<span class="tag red">Playoff</span>{% elif g.game_type == 'tournament' %}<span class="tag">Tournament</span>{% endif %}</td>
+        <td class="hide-sm muted small">{{ g.note }}</td>
+        <td></td>
       </tr>
       {% if g.periods or g.leaders or g.recap %}
-      {% set ncol = 5 + (1 if any_dates else 0) %}
-      <tr class="game-extra"><td></td><td colspan="{{ ncol }}">
+      <tr class="game-extra"><td colspan="6">
         <details>
           <summary>From the newspaper{% if g.leaders %}: {% for p in (g.leaders.bangor | selectattr('pts') | list)[:3] %}{{ p.name.split()[-1] }} {{ p.pts }}{{ ', ' if not loop.last }}{% endfor %}{% endif %}</summary>
           <div class="game-extra-body">
@@ -90,7 +88,7 @@
       </tbody>
     </table>
     </div>
-    <p class="note">Results from the {{ sources | join(' and ') if sources else 'printed season results' }}, {% if dated %}with dates and home or away{% elif any_dates %}in the order they were played, with dates{% if any_sites %} and home or away{% endif %} where the source gives them{% else %}in the order they were printed{% endif %}. {% if story and story.results_note %}{{ story.results_note }} {% endif %}The game-by-game stat sheets start in 2002–03, so this season has no {% if not any_dates %}dates, home and away, or {% endif %}box scores{% if dated %}. Its games count in the head-to-head records on opponent pages.{% else %}, and its games aren't in the head-to-head records on opponent pages.{% endif %}{% if s.w != '' and (w ~ '–' ~ l) != (s.w ~ '–' ~ s.l) %} The list has {{ games | length }} games ({{ w }}–{{ l }}); the record book has {{ s.w }}–{{ s.l }}, {% set miss = (s.w | int + s.l | int) - games | length %}so {{ 'a game is' if miss == 1 else (miss ~ ' games are' if miss > 1 else 'some games are') }} missing from the list.{% endif %}{% if corrections_url %} Know the missing details? <a href="{{ corrections_url }}" target="_blank" rel="noopener">Let us know</a>.{% endif %}</p>
+    <p class="note">Results from the {{ sources | join(' and ') if sources else 'printed season results' }}, {% if dated %}with dates and home or away{% elif any_dates %}in the order they were played, with dates{% if any_sites %} and home or away{% endif %} where the source gives them{% else %}in the order they were printed{% endif %}. {% if story and story.results_note %}{{ story.results_note }} {% endif %}The game-by-game records start in 2001–02, so this season has no {% if not any_dates %}dates, home and away, or {% endif %}box scores{% if dated %}. Its games count in the head-to-head records on opponent pages.{% else %}, and its games aren't in the head-to-head records on opponent pages.{% endif %}{% if s.w != '' and (w ~ '–' ~ l) != (s.w ~ '–' ~ s.l) %} The list has {{ games | length }} games ({{ w }}–{{ l }}); the record book has {{ s.w }}–{{ s.l }}, {% set miss = (s.w | int + s.l | int) - games | length %}so {{ 'a game is' if miss == 1 else (miss ~ ' games are' if miss > 1 else 'some games are') }} missing from the list.{% endif %}{% if corrections_url %} Know the missing details? <a href="{{ corrections_url }}" target="_blank" rel="noopener">Let us know</a>.{% endif %}</p>
   </section>
 
   {% if players %}

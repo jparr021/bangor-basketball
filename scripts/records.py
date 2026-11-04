@@ -84,7 +84,7 @@ for r in pg:
 seasons = {}
 for key, b in box.items():
     seasons[key] = {"season": key[0], "name": key[1], "number": b.get("number", ""), "gp": b["gp"],
-                    "source": "box scores", **{k: b[k] for k in STATS}}
+                    **{k: b[k] for k in STATS}, "source": "box scores"}
 for r in src:
     key = (r["season"], canon(r["name"]))
     s = seasons.setdefault(key, {"season": key[0], "name": key[1], "number": r["number"], "gp": None,

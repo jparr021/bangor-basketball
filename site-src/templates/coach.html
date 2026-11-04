@@ -23,7 +23,7 @@
     <div class="leader-card"><span class="lbl">Regional titles</span><span class="val">{{ c.regional }}</span></div>
     <div class="leader-card"><span class="lbl">Sectional titles</span><span class="val">{{ c.sectional }}</span></div>
     <div class="leader-card"><span class="lbl">State tournament trips</span><span class="val">{{ c.state }}</span></div>
-    {% if d.playoff.n %}<div class="leader-card"><span class="lbl">Playoff record</span><span class="val">{{ d.playoff.w }}–{{ d.playoff.l }}</span><span class="muted">Since 2002–03</span></div>{% endif %}
+    {% if d.playoff.n %}<div class="leader-card"><span class="lbl">Playoff record</span><span class="val">{{ d.playoff.w }}–{{ d.playoff.l }}</span><span class="muted">Since 2001–02</span></div>{% endif %}
     {% if d.best and c.seasons | length > 1 %}<div class="leader-card"><span class="lbl">Best season</span><span class="val">{{ d.best.w }}–{{ d.best.l }}</span>
       <span class="muted">{% if d.best.has_data %}<a href="../seasons/{{ d.best.season }}.html">{{ d.best.season | replace('-', '–') }}</a>{% else %}{{ d.best.season | replace('-', '–') }}{% endif %}</span></div>{% endif %}
   </div>

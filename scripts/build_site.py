@@ -123,6 +123,9 @@ if os.path.exists(os.path.join(OV, "season_results.csv")):
         r["result"] = (r.get("result") or "").strip().upper() or (
             ("W" if r["bs"] > r["os"] else ("L" if r["bs"] < r["os"] else "T")) if r["scored"] else "")
         r["opp_slug"] = slug(r["opponent"])
+        nt = (r.get("note") or "").lower()
+        r["game_type"] = "playoff" if re.search(r"regional|sectional|district|state|wiaa", nt) else (
+            "tournament" if "tournament" in nt else "regular")
         RESULTS_ONLY[r["season"]].append(r)
     for gs in RESULTS_ONLY.values():
         gs.sort(key=lambda r: int(r["game"]))
@@ -520,7 +523,9 @@ def merged(scope, period, stat, kind):
             entries = [{"value": (r["w"] + 0.5 * r["t"]) / r["g"], "season": r["season"], "detail": f"{r['w']}-{r['l']}"}
                        for r in rows if r["g"] >= 10]
     else:
-        entries = [dict(e, source="data") for e in REC.get(scope, {}).get(period, {}).get(stat, [])]
+        # a game mark whose box score is a newspaper clipping is labeled like one
+        entries = [dict(e, source="news" if games_by_id.get(e.get("game_id") or "", {}).get("box_source") == "newspaper" else "data")
+                   for e in REC.get(scope, {}).get(period, {}).get(stat, [])]
     # record-book entries
     for h in hist_records:
         if (h["scope"], h["period"], h["stat"]) != key or h["value"] == "":
@@ -682,7 +687,7 @@ SEASON_COLS = [  # (key, header, needs)
     ("tpm", "3PM", "tpa"), ("tpa", "3PA", "tpa"), ("tp_pct", "3P%", "tpa"),
     ("ftm", "FTM", "fta"), ("fta", "FTA", "fta"), ("ft_pct", "FT%", "fta"),
 ]
-BOX_COLS = [("min", "MIN"), ("pts", "PTS"), ("fg", "FG"), ("tp", "3PT"), ("tpm", "3PM"), ("ft", "FT"), ("oreb", "OREB"),
+BOX_COLS = [("min", "MIN"), ("pts", "PTS"), ("fg", "FG"), ("tp", "3PT"), ("ft", "FT"), ("oreb", "OREB"),
             ("dreb", "DREB"), ("reb", "REB"), ("ast", "AST"), ("stl", "STL"), ("blk", "BLK"), ("to", "TO"),
             ("pf", "PF"), ("chg", "CHG")]
 
@@ -696,16 +701,15 @@ def box_row(r):
         return "" if r.get(a) is None else f"{int(r[m])}-{int(r[a])}"
     d = {k: fmt_int(r.get(k)) for k in ["min", "pts", "oreb", "dreb", "reb", "ast", "stl", "blk", "to", "pf", "chg"]}
     d["fg"], d["tp"], d["ft"] = ma("fgm", "fga"), ma("tpm", "tpa"), ma("ftm", "fta")
-    d["tpm"] = fmt_int(r.get("tpm"))  # 3-pointers made with no attempts (a newspaper box score)
+    if not d["tp"] and r.get("tpm") is not None:  # makes without attempts (a newspaper box score)
+        d["tp"] = fmt_int(r["tpm"])
     return d
 
 
 def box_cols(rows):
-    need = {"fg": "fga", "tp": "tpa", "ft": "fta"}
-    cols = [(k, h) for k, h in BOX_COLS if any(r.get(need.get(k, k)) is not None for r in rows)]
-    if any(k == "tp" for k, _ in cols):  # made-attempted already shows the makes
-        cols = [(k, h) for k, h in cols if k != "tpm"]
-    return cols
+    need = {"fg": ("fga",), "tp": ("tpa", "tpm"), "ft": ("fta",)}
+    return [(k, h) for k, h in BOX_COLS
+            if any(any(r.get(n) is not None for n in need.get(k, (k,))) for r in rows)]
 
 
 def box_totals(rows):

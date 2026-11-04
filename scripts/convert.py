@@ -475,100 +475,136 @@ def load_extra_boxscores():
     return opp, lines, news
 
 
+
+RESULT_SCHEDULES = {}
+
+
+def dated_results(sheet_seasons):
+    """Seasons in overrides/season_results.csv (a printed results list) where every game has a date and a
+    site, and that have no season sheet: these become regular games, like a schedule with no game tabs."""
+    p = os.path.join(ROOT, "overrides", "season_results.csv")
+    if not os.path.exists(p):
+        return []
+    by_season = defaultdict(list)
+    with open(p) as f:
+        for r in csv.DictReader(f):
+            by_season[r["season"]].append(r)
+    for season, rows in by_season.items():
+        if season in sheet_seasons or not all(r.get("date") and r.get("site") for r in rows):
+            continue
+        sched = {}
+        for r in rows:
+            d = dt.date.fromisoformat(r["date"])
+            b, o = num(r["bangor_score"]), num(r["opp_score"])
+            res = (r.get("result") or "").strip().upper() or (("W" if b > o else "L") if b is not None and o is not None else "")
+            sched[d] = {"date": d, "opponent": canon_opp(r["opponent"]), "site": r["site"], "location": "",
+                        "note": r.get("note", ""), "conference": "", "bangor_score": b if b is not None else "",
+                        "opp_score": o if o is not None else "", "result": res, "time": "", "stream_url": "",
+                        "film_url": "", "ot": r.get("ot", ""), "source": r.get("source", "")}
+        RESULT_SCHEDULES[season] = sched
+    return list(RESULT_SCHEDULES)
+
 # ---------------------------------------------------------------- main
 def main():
     extra_opp, extra_lines, extra_news = load_extra_boxscores()
     os.makedirs(OUT, exist_ok=True)
     games_out, pg_out, opp_out, totals_out = [], [], [], []
-    for path in sorted(glob.glob(os.path.join(SRC, "*.xlsx"))):
-        season = re.match(r"(\d{4}-\d{2})", os.path.basename(path)).group(1)
-        wb = openpyxl.load_workbook(path, read_only=True, data_only=True)
-        sched = parse_schedule(season, wb["Schedule"], schedule_links(path)) if "Schedule" in wb.sheetnames else []
-        sched_by_date = {}
-        for g in sched:
-            sched_by_date.setdefault(g["date"], g)
+    sources = [p for p in sorted(glob.glob(os.path.join(SRC, "*.xlsx")))]
+    sheet_seasons = {re.match(r"(\d{4}-\d{2})", os.path.basename(p)).group(1) for p in sources}
+    sources += [s for s in sorted(dated_results(sheet_seasons))]
+    for path in sources:
+        if path in RESULT_SCHEDULES:  # a season known from a printed schedule recap: no sheet, no game tabs
+            season = path
+            sched_by_date, tab_games = RESULT_SCHEDULES[path], {}
+        else:
+            season = re.match(r"(\d{4}-\d{2})", os.path.basename(path)).group(1)
+            wb = openpyxl.load_workbook(path, read_only=True, data_only=True)
+            sched = parse_schedule(season, wb["Schedule"], schedule_links(path)) if "Schedule" in wb.sheetnames else []
+            sched_by_date = {}
+            for g in sched:
+                sched_by_date.setdefault(g["date"], g)
 
-        if "Player Stats" in wb.sheetnames:
-            totals_out += parse_player_stats_tab(season, wb["Player Stats"])
-        if season == "2025-26" and "2025-26 Totals" in wb.sheetnames:
-            for r in rows_of(wb["2025-26 Totals"])[1:]:
-                if r and str(r[0]).strip() and str(r[0]) != "Grand Total":
-                    parts = [p.strip() for p in str(r[0]).split(",")]
-                    totals_out.append({"season": season, "number": parts[0], "name": parts[1],
-                                       "PTS": num(r[1]), "OFF": num(r[2]), "DEF": num(r[3]),
-                                       "REB": num(r[4]), "AST": num(r[5])})
+            if "Player Stats" in wb.sheetnames:
+                totals_out += parse_player_stats_tab(season, wb["Player Stats"])
+            if season == "2025-26" and "2025-26 Totals" in wb.sheetnames:
+                for r in rows_of(wb["2025-26 Totals"])[1:]:
+                    if r and str(r[0]).strip() and str(r[0]) != "Grand Total":
+                        parts = [p.strip() for p in str(r[0]).split(",")]
+                        totals_out.append({"season": season, "number": parts[0], "name": parts[1],
+                                           "PTS": num(r[1]), "OFF": num(r[2]), "DEF": num(r[3]),
+                                           "REB": num(r[4]), "AST": num(r[5])})
 
-        tab_games = {}  # date -> game dict
-        for tab in wb.sheetnames:
-            mt = re.match(r"^([A-Z][a-z]{2}) (\d{1,2}), (\d{4})", tab)
-            if not mt:
-                continue
-            rows = rows_of(wb[tab])
-            nonempty = [r for r in rows if r]
-            if nonempty and str(nonempty[0][0]) == "Athlete":
-                rows = nonempty
-                full = next((f for f in FULL_TAB_NAMES_2025_26
-                             if f.startswith(tab.rstrip()) or tab.startswith(f[:31])), None) if season == "2025-26" else None
-                date = dt.datetime.strptime(f"{mt.group(1)} {mt.group(2)} {mt.group(3)}", "%b %d %Y").date()
-                players = parse_app_tab(season, rows)
-                name = full or tab
-                m = re.match(r".*? - (.+?)(?: - ([WL]) (\d+)-(\d+))?$", name)
-                opp = canon_opp(m.group(1)) if m else ""
-                wl, bs, os_ = "", "", ""
-                sg = sched_by_date.get(date)
-                bangor_pts = sum(p["pts"] or 0 for p in players)
-                if m and m.group(2) and full:
-                    a, b = int(m.group(3)), int(m.group(4))
-                    wl = m.group(2)
-                    hi, lo = max(a, b), min(a, b)
-                    bs, os_ = (hi, lo) if wl == "W" else (lo, hi)
-                elif sg and sg.get("result") in ("W", "L"):
-                    # Current season: the Schedule tab's Result column is the source of truth
-                    wl, bs, os_ = sg["result"], sg["bangor_score"], sg["opp_score"]
-                    opp = sg["opponent"] or opp
-                elif m and m.group(2) and len(tab) < 31:
-                    a, b = int(m.group(3)), int(m.group(4))
-                    wl = m.group(2)
-                    hi, lo = max(a, b), min(a, b)
-                    bs, os_ = (hi, lo) if wl == "W" else (lo, hi)
-                else:
-                    warn(season, f"'{tab}': no final score found. Put the result (e.g. 'W 77-53') in the "
-                                 f"Schedule tab's Result column. Using Bangor's {bangor_pts} points from the box score.")
-                    bs = bangor_pts
-                if opp and sg and canon_opp(sg["opponent"]).lower() != opp.lower() and not full:
-                    opp = sg["opponent"]
-                tab_games[date] = {"date": date, "opponent": opp, "bangor_score": bs, "opp_score": os_,
-                                   "result": wl, "event": "", "players": players, "opp_players": None,
-                                   "periods": None, "source_tab": name, "box": "full"}
-                continue
-            g = parse_box_tab(season, tab, rows)
-            if not g:
-                continue
-            bteam = next((t for t in g["teams"] if is_bangor(t)), None)
-            oteam = next((t for t in g["teams"] if not is_bangor(t)), None)
-            if not bteam or not oteam:
-                warn(season, f"{tab}: could not find Bangor and opponent in {g['teams']}")
-                continue
-            bbox = g["box"].get(bteam)
-            obox = g["box"].get(oteam)
-            players = box_rows_to_stats(season, tab, bbox) if bbox else None
-            opp_players = box_rows_to_stats(season, tab, obox) if obox else None
-            # line score: blank out fake ones (whole score in period 1, zeros after)
-            periods = None
-            if g["periods"]:
-                bp, op = g["periods"].get(bteam), g["periods"].get(oteam)
-                fake = lambda p: p is None or (len(p) > 1 and all((x or 0) == 0 for x in p[1:]))
-                fake2 = lambda p: p is not None and (p[0] or 0) == 0 and len(p) == 2  # "0 | 51" halves
-                both_zero = bp and op and any((a or 0) == 0 and (b or 0) == 0 for a, b in zip(bp, op))
-                if not (fake(bp) or fake(op) or fake2(bp) or fake2(op) or both_zero):
-                    periods = {"labels": g["period_labels"], "bangor": bp, "opp": op}
-            bs, os_ = g["scores"][bteam], g["scores"][oteam]
-            site = "away" if g["teams"].index(bteam) == 0 else "home"
-            tab_games[g["date"]] = {
-                "date": g["date"], "opponent": canon_opp(oteam), "bangor_score": bs, "opp_score": os_,
-                "result": "W" if bs > os_ else "L", "event": g["event"], "players": players,
-                "opp_players": opp_players, "periods": periods, "source_tab": tab, "tab_site": site,
-                "box": None}
+            tab_games = {}  # date -> game dict
+            for tab in wb.sheetnames:
+                mt = re.match(r"^([A-Z][a-z]{2}) (\d{1,2}), (\d{4})", tab)
+                if not mt:
+                    continue
+                rows = rows_of(wb[tab])
+                nonempty = [r for r in rows if r]
+                if nonempty and str(nonempty[0][0]) == "Athlete":
+                    rows = nonempty
+                    full = next((f for f in FULL_TAB_NAMES_2025_26
+                                 if f.startswith(tab.rstrip()) or tab.startswith(f[:31])), None) if season == "2025-26" else None
+                    date = dt.datetime.strptime(f"{mt.group(1)} {mt.group(2)} {mt.group(3)}", "%b %d %Y").date()
+                    players = parse_app_tab(season, rows)
+                    name = full or tab
+                    m = re.match(r".*? - (.+?)(?: - ([WL]) (\d+)-(\d+))?$", name)
+                    opp = canon_opp(m.group(1)) if m else ""
+                    wl, bs, os_ = "", "", ""
+                    sg = sched_by_date.get(date)
+                    bangor_pts = sum(p["pts"] or 0 for p in players)
+                    if m and m.group(2) and full:
+                        a, b = int(m.group(3)), int(m.group(4))
+                        wl = m.group(2)
+                        hi, lo = max(a, b), min(a, b)
+                        bs, os_ = (hi, lo) if wl == "W" else (lo, hi)
+                    elif sg and sg.get("result") in ("W", "L"):
+                        # Current season: the Schedule tab's Result column is the source of truth
+                        wl, bs, os_ = sg["result"], sg["bangor_score"], sg["opp_score"]
+                        opp = sg["opponent"] or opp
+                    elif m and m.group(2) and len(tab) < 31:
+                        a, b = int(m.group(3)), int(m.group(4))
+                        wl = m.group(2)
+                        hi, lo = max(a, b), min(a, b)
+                        bs, os_ = (hi, lo) if wl == "W" else (lo, hi)
+                    else:
+                        warn(season, f"'{tab}': no final score found. Put the result (e.g. 'W 77-53') in the "
+                                     f"Schedule tab's Result column. Using Bangor's {bangor_pts} points from the box score.")
+                        bs = bangor_pts
+                    if opp and sg and canon_opp(sg["opponent"]).lower() != opp.lower() and not full:
+                        opp = sg["opponent"]
+                    tab_games[date] = {"date": date, "opponent": opp, "bangor_score": bs, "opp_score": os_,
+                                       "result": wl, "event": "", "players": players, "opp_players": None,
+                                       "periods": None, "source_tab": name, "box": "full"}
+                    continue
+                g = parse_box_tab(season, tab, rows)
+                if not g:
+                    continue
+                bteam = next((t for t in g["teams"] if is_bangor(t)), None)
+                oteam = next((t for t in g["teams"] if not is_bangor(t)), None)
+                if not bteam or not oteam:
+                    warn(season, f"{tab}: could not find Bangor and opponent in {g['teams']}")
+                    continue
+                bbox = g["box"].get(bteam)
+                obox = g["box"].get(oteam)
+                players = box_rows_to_stats(season, tab, bbox) if bbox else None
+                opp_players = box_rows_to_stats(season, tab, obox) if obox else None
+                # line score: blank out fake ones (whole score in period 1, zeros after)
+                periods = None
+                if g["periods"]:
+                    bp, op = g["periods"].get(bteam), g["periods"].get(oteam)
+                    fake = lambda p: p is None or (len(p) > 1 and all((x or 0) == 0 for x in p[1:]))
+                    fake2 = lambda p: p is not None and (p[0] or 0) == 0 and len(p) == 2  # "0 | 51" halves
+                    both_zero = bp and op and any((a or 0) == 0 and (b or 0) == 0 for a, b in zip(bp, op))
+                    if not (fake(bp) or fake(op) or fake2(bp) or fake2(op) or both_zero):
+                        periods = {"labels": g["period_labels"], "bangor": bp, "opp": op}
+                bs, os_ = g["scores"][bteam], g["scores"][oteam]
+                site = "away" if g["teams"].index(bteam) == 0 else "home"
+                tab_games[g["date"]] = {
+                    "date": g["date"], "opponent": canon_opp(oteam), "bangor_score": bs, "opp_score": os_,
+                    "result": "W" if bs > os_ else "L", "event": g["event"], "players": players,
+                    "opp_players": opp_players, "periods": periods, "source_tab": tab, "tab_site": site,
+                    "box": None}
 
         # ---- merge schedule + tabs into one game list
         all_dates = sorted(set(sched_by_date) | set(tab_games))
@@ -583,11 +619,11 @@ def main():
                  "event": (t or {}).get("event", "") or (s or {}).get("note", ""),
                  "conference": (s or {}).get("conference", ""),
                  "bangor_score": base.get("bangor_score", ""), "opp_score": base.get("opp_score", ""),
-                 "result": base.get("result", ""), "ot": "",
+                 "result": base.get("result", ""), "ot": str((s or {}).get("ot") or ""),
                  "period_labels": "", "bangor_periods": "", "opp_periods": "",
                  "time": (s or {}).get("time", ""), "stream_url": (s or {}).get("stream_url", ""),
                  "film_url": (s or {}).get("film_url", ""),
-                 "box_score": "none", "box_points": "", "box_complete": "", "box_source": "", "recap": "", "source": "schedule" if not t else ("tab" if not s else "schedule+tab")}
+                 "box_score": "none", "box_points": "", "box_complete": "", "box_source": "", "recap": "", "source": "results" if season in RESULT_SCHEDULES else ("schedule" if not t else ("tab" if not s else "schedule+tab"))}
             if t and "postpone" in g["event"].lower():
                 warn(season, f"{date} vs {g['opponent']}: schedule says postponed, but a game tab with a "
                              f"result exists (using the game tab)")

@@ -4585,3 +4585,21 @@ game_id,season,date,opponent,player_id,name,number,class,min,fgm,fga,tpm,tpa,ftm
 2025-26-26,2025-26,2026-03-06,Regis,sawyer-jacobson,Sawyer Jacobson,12,SO,,3,5,3,5,0,0,0,2,2,0,0,0,1,2,9,0
 2025-26-26,2025-26,2026-03-06,Regis,max-langrehr,Max Langrehr,21,FR,,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 2025-26-26,2025-26,2026-03-06,Regis,easton-cavadini,Easton Cavadini,24,FR,,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+2001-02-01,2001-02,2001-11-27,Luther,brad-skaer,Brad Skaer,23,,,,,4,,,,,,10,,,,,,32,
+2001-02-01,2001-02,2001-11-27,Luther,paul-langrehr,Paul Langrehr,33,,,,,,,,,,,,,,,,,6,
+2001-02-01,2001-02,2001-11-27,Luther,ben-williams,Ben Williams,25,,,,,,,,,,,,,,,,,4,
+2001-02-02,2001-02,2001-12-04,Wonewoc-Center,brad-skaer,Brad Skaer,23,,,11,,6,8,12,13,,,9,,,,,,40,
+2001-02-02,2001-02,2001-12-04,Wonewoc-Center,kyle-schroeder,Kyle Schroeder,21,,,,,,,,,,,,,,,,,11,
+2001-02-02,2001-02,2001-12-04,Wonewoc-Center,chris-chandler,Chris Chandler,15,,,,,,,,,,,9,,,,,,8,
+2001-02-03,2001-02,2001-12-07,Hillsboro,brad-skaer,Brad Skaer,23,,,,,3,,,,,,,,,,,,36,
+2001-02-03,2001-02,2001-12-07,Hillsboro,chris-chandler,Chris Chandler,15,,,,,,,,,,,11,,,,,,11,
+2001-02-03,2001-02,2001-12-07,Hillsboro,nathan-langrehr,Nathan Langrehr,11,,,,,,,,,,,,,,,,,8,
+2001-02-04,2001-02,2001-12-13,New Lisbon,brad-skaer,Brad Skaer,23,,,,,,,,,,,,,,,,,23,
+2001-02-04,2001-02,2001-12-13,New Lisbon,troy-bolcerek,Troy Bolcerek,35,,,,,,,,,,,,,,,,,12,
+2001-02-04,2001-02,2001-12-13,New Lisbon,kyle-schroeder,Kyle Schroeder,21,,,,,,,,,,,,,,,,,12,
+2001-02-05,2001-02,2001-12-15,Auburndale,brad-skaer,Brad Skaer,23,,,,,1,,,,,,6,,,,,,17,
+2001-02-05,2001-02,2001-12-15,Auburndale,troy-bolcerek,Troy Bolcerek,35,,,,,0,,,,,,,,,,,,16,
+2001-02-05,2001-02,2001-12-15,Auburndale,kyle-schroeder,Kyle Schroeder,21,,,,,2,,,,,,,,,,,,6,
+2001-02-05,2001-02,2001-12-15,Auburndale,chris-chandler,Chris Chandler,15,,,,,0,,,,,,,,,,,,2,
+2001-02-05,2001-02,2001-12-15,Auburndale,paul-langrehr,Paul Langrehr,33,,,,,0,,,,,,,,,,,,2,
+2001-02-05,2001-02,2001-12-15,Auburndale,nathan-langrehr,Nathan Langrehr,11,,,,,0,,,,,,,,,,,,1,

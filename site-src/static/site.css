@@ -326,3 +326,17 @@ main:focus { outline: none; }
 .class-card h2 { margin-bottom: 8px; }
 .class-tabs a { padding: 3px 9px; font-size: .8rem; }
 .sl-avg { display: block; margin-bottom: 2px; }
+
+/* ---- leader cards: two per row on phones so the schedule isn't pushed far down */
+@media (max-width: 760px) {
+  .leader-cards { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; margin-bottom: 16px; }
+  .leader-card { padding: 10px 12px; }
+  .leader-card .lbl { font-size: .68rem; letter-spacing: .08em; }
+  .leader-card a { overflow-wrap: anywhere; }
+  .leader-card .val { font-size: 1.6rem; }
+  .leader-card .muted { font-size: .82rem; }
+}
+
+.footer-fix { margin: 0 0 14px; padding-bottom: 14px; border-bottom: 1px solid #2c2f34; }
+.footer-fix a { color: #fff; font-weight: 600; }
+.footer-fix a:hover { color: #ff8a9a; }

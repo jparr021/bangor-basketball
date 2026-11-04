@@ -60,6 +60,7 @@
 </main>
 <footer class="footer">
   <div class="wrap">
+    {% if corrections_url %}<p class="footer-fix"><a href="{{ corrections_url }}" target="_blank" rel="noopener">Spot an error, or have an old photo, program or clipping to share? Let us know →</a></p>{% endif %}
     <p><strong>Bangor High School Cardinals</strong> · Bangor, Wisconsin · Red, black &amp; white since {{ facts.first }}</p>
     <p class="muted">Unofficial history site. Stats come from the program's season stat sheets ({{ "2002–03" }} on) and the Bangor Boys Basketball record book. Records marked <span class="book-tag">Record book</span> come from the record book. Updated {{ built }}.</p>
   </div>

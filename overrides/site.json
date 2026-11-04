@@ -1,0 +1,5 @@
+{
+  "corrections_form_url": "",
+  "corrections_page_field": "",
+  "_help": "corrections_form_url: the link to your Google Form (Send > link icon). The footer's 'Spot an error?' link appears on every page once this is filled in. corrections_page_field (optional): to have the form fill in the page the visitor came from, open the form's ⋮ menu > Get pre-filled link, type anything into the 'Page' question, click Get link, and copy the number after 'entry.' (for example 123456789)."
+}

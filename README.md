@@ -20,6 +20,7 @@ A static website with Bangor High School (WI) boys basketball history: every sea
 | `historical_records.csv` | Record-book marks older than (or missing from) the stat sheets. |
 | `career_totals.csv` | Official career totals where the stat sheets are incomplete. |
 | `game_film.csv` | YouTube film for each game (filled by the film matcher, editable by hand). |
+| `site.json` | The corrections form link for the footer (see *Corrections form*). |
 | `news_stories.csv` | Local news stories linked to games and players (filled by the story finder, editable by hand). |
 
 ## During the season (automatic)
@@ -63,6 +64,13 @@ It places each gallery by the date in its title, or by opponent + home/away + se
 ```
 .venv/bin/python scripts/match_stories.py --all
 ```
+
+## Corrections form
+The footer on every page can show a "Spot an error, or have an old photo, program or clipping to share?" link to a Google Form. It stays hidden until the form exists.
+1. Create a Google Form (forms.google.com) with questions like *Your name*, *Email (optional)*, *Page*, *What should be fixed or added?* and a file upload for photos.
+2. Click **Send**, choose the link icon and copy the link into `corrections_form_url` in `overrides/site.json`.
+3. Optional: so the form fills in the page the visitor came from, open the form's ⋮ menu → **Get pre-filled link**, type anything in the *Page* question, click **Get link**, and copy the number after `entry.` into `corrections_page_field`.
+4. Commit the change. The next build adds the link to every page. Answers collect in the form's Responses tab (or a linked Google Sheet).
 
 ## Web address, link previews and search
 - Page addresses are clean (`/players/hayden-massman`). Old `.html` links redirect automatically.

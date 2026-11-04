@@ -138,6 +138,25 @@ try:
 except Exception:  # noqa: BLE001
     TODAY = dt.date.today()
 
+# ---- site settings (overrides/site.json): the corrections form
+SETTINGS = {}
+if os.path.exists(os.path.join(OV, "site.json")):
+    with open(os.path.join(OV, "site.json")) as f:
+        SETTINGS = json.load(f)
+FORM_URL = (SETTINGS.get("corrections_form_url") or "").strip()
+FORM_FIELD = re.sub(r"\D", "", str(SETTINGS.get("corrections_page_field") or ""))
+
+
+def corrections_link(page_url):
+    """The corrections form, with the visitor's page filled in when the form's 'Page' question is set up."""
+    if not FORM_URL:
+        return ""
+    if not FORM_FIELD:
+        return FORM_URL
+    from urllib.parse import quote
+    return f"{FORM_URL}{'&' if '?' in FORM_URL else '?'}usp=pp_url&entry.{FORM_FIELD}={quote(page_url, safe='')}"
+
+
 # ---- current season: live W-L from the games, even before the record book is updated
 with open(os.path.join(OV, "current_season.json")) as f:
     CURRENT = json.load(f).get("season", "")
@@ -678,6 +697,7 @@ def render(tpl, path, **ctx):
     ctx["build_id"] = BUILD_ID
     ctx["page_url"] = SITE_URL + clean_path(path)
     ctx["coach_slugs"] = COACH_SLUGS
+    ctx["corrections_url"] = corrections_link(ctx["page_url"])
     html = env.get_template(tpl).render(**ctx)
     if CLEAN_URLS:
         html = absolute_links(html, path)

@@ -4,9 +4,11 @@
 {% block description %}The Bangor Cardinals boys basketball record book: top-10 individual and team marks for a game, a season and a career.{% endblock %}
 {% block content %}
 <div class="wrap page-head">
+  <p class="print-only print-brand">Bangor High School Cardinals · Boys Basketball · Updated {{ built }}</p>
   <h1>Record Book</h1>
   <p class="muted">The top 10 in every category, ties included. Records from 2007–08 on come from the game-by-game stat sheets (rebounds, assists, steals and shooting from 2014–15 on). Older marks, and marks from games missing in the stat sheets, come from the Bangor record book and are labeled <span class="book-tag">Record book</span>.</p>
-  <p class="btn-row"><a class="btn" href="career-leaders.html">Full career leaderboards: every player, every stat →</a> <a class="btn" href="season-leaders.html">Team leaders by season →</a></p>
+  <p class="btn-row"><a class="btn" href="career-leaders.html">Full career leaderboards: every player, every stat →</a> <a class="btn" href="season-leaders.html">Team leaders by season →</a>
+    <button type="button" class="btn print-btn" data-print hidden>Print the record book</button></p>
   <nav class="tabs">
     {% for s in sections %}<a href="#{{ s.id }}">{{ s.scope | capitalize }} · {{ 'Single game' if s.period == 'game' else s.period | capitalize }}</a>{% endfor %}
   </nav>
@@ -46,6 +48,6 @@
     </div>
   </section>
   {% endfor %}
-  <p class="note">Longest winning streak since 2002–03: <strong>{{ facts.streak.wins }} games</strong> ({{ facts.streak['from'] | d }} – {{ facts.streak['to'] | d }}).</p>
+  <p class="note print-keep">Longest winning streak since 2002–03: <strong>{{ facts.streak.wins }} games</strong> ({{ facts.streak['from'] | d }} – {{ facts.streak['to'] | d }}).</p>
 </div>
 {% endblock %}

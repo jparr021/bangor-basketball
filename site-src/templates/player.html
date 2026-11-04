@@ -60,25 +60,36 @@
 
   {{ news.card(player_news, game_links=True) }}
 
-  {% if log %}
-  <section class="card">
-    <h2>Game log</h2>
-    {% for season, rows in log.items() %}
-    <details {% if loop.last %}open{% endif %}>
-      <summary>{{ season | replace('-', '–') }} <span class="muted">({{ rows | length }} games)</span></summary>
+  {% macro log_table(rows, with_season=False) %}
       <div class="scroll">
-      <table class="tbl stats compact">
-        <thead><tr><th>Date</th><th>Opponent</th><th>Result</th>{% for k, h in lcols %}<th class="num">{{ h }}</th>{% endfor %}</tr></thead>
+      <table class="tbl stats compact sortable">
+        <thead><tr>{% if with_season %}<th>Season</th>{% endif %}<th>Date</th><th>Opponent</th><th>Result</th>{% for k, h in lcols %}<th class="num">{{ h }}</th>{% endfor %}</tr></thead>
         <tbody>
         {% for r in rows %}
-        <tr><td class="nowrap"><a href="../games/{{ r.g.game_id }}.html">{{ r.g.date | d }}</a></td><td class="nowrap">{{ '@' if r.g.site == 'away' else 'vs' }} {{ r.g.opponent }}</td>
-          <td class="res {{ r.g.result }} nowrap">{{ r.g.result }} {{ r.g.bangor_score }}–{{ r.g.opp_score }}{% if r.g.has_video %} <a class="film-link" href="../games/{{ r.g.game_id }}.html#film" title="Game film">▶</a>{% endif %}{% for b in r.badges %} {{ rb.tag(b) }}{% endfor %}</td>{% for k, h in lcols %}<td class="num">{{ r[k] }}</td>{% endfor %}</tr>
+        <tr>{% if with_season %}<td class="nowrap muted">{{ r.g.season | replace('-', '–') }}</td>{% endif %}<td class="nowrap" data-sort="{{ r.g.date }}"><a href="../games/{{ r.g.game_id }}.html">{{ r.g.date | d }}</a></td><td class="nowrap">{{ '@' if r.g.site == 'away' else 'vs' }} {{ r.g.opponent }}</td>
+          <td class="res {{ r.g.result }} nowrap" data-sort="{{ r.sort.margin }}">{{ r.g.result }} {{ r.g.bangor_score }}–{{ r.g.opp_score }}{% if r.g.has_video %} <a class="film-link" href="../games/{{ r.g.game_id }}.html#film" title="Game film">▶</a>{% endif %}{% for b in r.badges %} {{ rb.tag(b) }}{% endfor %}</td>{% for k, h in lcols %}<td class="num"{% if k in r.sort %} data-sort="{{ r.sort[k] if r.sort[k] is not none else '' }}"{% endif %}>{{ r[k] }}</td>{% endfor %}</tr>
         {% endfor %}
         </tbody>
       </table>
       </div>
+  {% endmacro %}
+  {% if log %}
+  <section class="card">
+    <h2>Game log</h2>
+    <p class="muted small">Click a column heading to sort.</p>
+    {% for season, rows in log.items() %}
+    <details {% if loop.last %}open{% endif %}>
+      <summary>{{ season | replace('-', '–') }} <span class="muted">({{ rows | length }} games)</span></summary>
+      {{ log_table(rows) }}
     </details>
     {% endfor %}
+    {% if log | length > 1 %}
+    {% set all_rows = [] %}{% for season, rows in log.items() %}{% for r in rows %}{% set _ = all_rows.append(r) %}{% endfor %}{% endfor %}
+    <details class="all-games">
+      <summary>All games <span class="muted">({{ all_rows | length }} games, every season in one list)</span></summary>
+      {{ log_table(all_rows, True) }}
+    </details>
+    {% endif %}
   </section>
   {% endif %}
 </div>

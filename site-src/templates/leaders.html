@@ -10,6 +10,11 @@
   <nav class="tabs leader-tabs" aria-label="Choose a stat">
     {% for b in boards %}<a href="#{{ b.stat }}" data-board="{{ b.stat }}">{{ b.title }}</a>{% endfor %}
   </nav>
+  <div class="rank-by" role="group" aria-label="Rank players by" hidden>
+    <span class="muted small">Rank by</span>
+    <button type="button" class="seg on" data-rank="total" aria-pressed="true">Career total</button>
+    <button type="button" class="seg" data-rank="pg" aria-pressed="false">Per game <small>(min. {{ pg_min }} games)</small></button>
+  </div>
   <p class="small"><a href="season-leaders.html">Team leaders by season →</a></p>
   <input class="search" type="search" placeholder="Find a player…" aria-label="Find a player in the list" data-leader-filter>
 </div>
@@ -17,6 +22,7 @@
 <div class="wrap">
   {% for b in boards %}
   <section class="card leader-board" id="{{ b.stat }}" aria-labelledby="h-{{ b.stat }}">
+    <div class="view-total">
     <h2 id="h-{{ b.stat }}">Career {{ b.title | lower }} <small class="muted rb-count">{{ b.entries | length }} players</small></h2>
     <div class="scroll">
     <table class="tbl leader-table">
@@ -35,7 +41,30 @@
       </tbody>
     </table>
     </div>
-    <p class="note">{{ b.note }} Earlier players are listed only where the record book has their career total. Per-game averages use only the games where the stat was recorded.</p>
+    </div>
+    {% if b.per_game %}
+    <div class="view-pg">
+    <h2 id="h-{{ b.stat }}-pg">{{ b.title }} per game <small class="muted rb-count">{{ b.per_game | length }} players with {{ pg_min }}+ games</small></h2>
+    <div class="scroll">
+    <table class="tbl leader-table">
+      <thead><tr><th class="num">#</th><th>Player</th><th>Years</th><th class="num">G</th><th class="num">Per game</th><th class="num">{{ b.short }}</th></tr></thead>
+      <tbody>
+      {% for e in b.per_game %}
+      <tr class="{{ 'top' if e.pg_rank <= 3 }}">
+        <td class="num rank">{{ e.pg_rank }}{% if e.pg_tied %}<small>T</small>{% endif %}</td>
+        <td class="nowrap">{% if e.slug %}<a href="../players/{{ e.slug }}.html">{{ e.name }}</a>{% else %}{{ e.name }}{% endif %}{% if e.active %} <span class="tag active-tag">Active</span>{% endif %}{% if e.book %} <span class="book-tag">Record book</span>{% endif %}</td>
+        <td class="muted nowrap">{{ e.years }}</td>
+        <td class="num muted">{{ e.avg_gp }}</td>
+        <td class="num strong">{{ e.avg }}</td>
+        <td class="num">{{ e.display }}</td>
+      </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+    </div>
+    </div>
+    {% endif %}
+    <p class="note">{{ b.note }} Earlier players are listed only where the record book has their career total. Per-game averages use only the games where the stat was recorded{% if b.has_avg %}; the per-game ranking needs at least {{ pg_min }} of those games{% endif %}.</p>
   </section>
   {% endfor %}
 </div>

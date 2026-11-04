@@ -590,6 +590,9 @@ LEADER_STATS = [  # (stat, title, short, tracked-from note)
 ]
 
 
+PER_GAME_MIN = 30  # games (where the stat was recorded) to be ranked by per-game average
+
+
 def career_years(season_text):
     """'1998-99 to 2001-02' -> '1998–2002'; 'Class of 1953' stays."""
     m = re.match(r"(\d{4})-\d{2} to (\d{4})-\d{2}", season_text or "")
@@ -620,6 +623,7 @@ def career_boards():
                 "name": c["name"], "slug": c["slug"] if c["slug"] in PLAYER_PAGES else None, "value": v,
                 "years": f"{seasons[0][:4]}–{season_end_year(seasons[-1])}" if seasons else "",
                 "gp": int(gp) if gp else "", "avg": fmt_avg(v, tracked) if stat != "gp" else "",
+                "avg_raw": v / tracked if tracked and stat != "gp" else None, "avg_gp": int(tracked or 0),
                 "book": f"{stat}:" in ov, "active": bool(seasons) and seasons[-1] == latest and last_season == latest and cls not in ("SR", "Sr", "12"),
             }
         for h in hist_records:
@@ -633,7 +637,8 @@ def career_boards():
             gp = int(h["gp"]) if h["gp"] else prev.get("gp", "")
             entries[sl] = {"name": h["name"], "slug": sl if sl in PLAYER_PAGES else None, "value": v,
                            "years": prev.get("years") or career_years(h["season"]), "gp": gp,
-                           "avg": fmt_avg(v, gp) if gp and stat != "gp" else "", "book": True, "active": False}
+                           "avg": fmt_avg(v, gp) if gp and stat != "gp" else "", "book": True, "active": False,
+                           "avg_raw": v / int(gp) if gp and stat != "gp" else None, "avg_gp": int(gp or 0)}
         ranked = sorted(entries.values(), key=lambda e: (-e["value"], e["name"]))
         rank, prev_v = 0, None
         for i, e in enumerate(ranked):
@@ -644,8 +649,21 @@ def career_boards():
             e["display"] = fmt_int(e["value"])
         for e in ranked:
             e["tied"] = sum(1 for o in ranked if o["rank"] == e["rank"]) > 1
+        per_game = []
+        if stat != "gp":
+            qual = sorted((e for e in ranked if e["avg_raw"] is not None and e["avg_gp"] >= PER_GAME_MIN),
+                          key=lambda e: (-round(e["avg_raw"], 1), -e["value"], e["name"]))
+            rank, prev_v = 0, None
+            for i, e in enumerate(qual):
+                a = round(e["avg_raw"], 1)
+                if a != prev_v:
+                    rank = i + 1
+                prev_v = a
+                per_game.append(dict(e, pg_rank=rank))
+            for e in per_game:
+                e["pg_tied"] = sum(1 for o in per_game if o["pg_rank"] == e["pg_rank"]) > 1
         boards.append({"stat": stat, "title": title, "short": short, "note": note, "entries": ranked,
-                       "has_avg": stat != "gp"})
+                       "has_avg": stat != "gp", "per_game": per_game})
     return boards
 
 
@@ -1110,6 +1128,8 @@ def build():
         for r in log:
             g = games_by_id[r["game_id"]]
             by_season.setdefault(r["season"], []).append({"g": g, "badges": B["game_ind"].get((r["game_id"], sl), []),
+                                                          "sort": {"fg": r.get("fgm"), "tp": r.get("tpm"), "ft": r.get("ftm"),
+                                                                   "margin": (g["bs"] or 0) - (g["os"] or 0)},
                                                           **box_row(r)})
         lcols = box_cols(log)
         highs = []
@@ -1146,7 +1166,8 @@ def build():
                player_news=player_news)
     plist.sort(key=lambda p: p["name"].split()[-1] + " " + p["name"])
     render("players.html", "players/index.html", players=plist)
-    render("leaders.html", "records/career-leaders.html", boards=career_boards(), latest_season=DATA_SEASONS[-1])
+    render("leaders.html", "records/career-leaders.html", boards=career_boards(), latest_season=DATA_SEASONS[-1],
+           pg_min=PER_GAME_MIN)
     classes = classes_data(plist)
     render("classes.html", "players/classes.html", classes=classes)
     srows, smost = season_leaders_data()

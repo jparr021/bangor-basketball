@@ -150,6 +150,8 @@
 
   // ------------------------------------------------------------ sortable tables
   function cellValue(td) {
+    var ds = td.getAttribute("data-sort");
+    if (ds !== null) return ds === "" ? "" : (/^-?\d+(\.\d+)?$/.test(ds) ? parseFloat(ds) : ds);
     var t = (td.textContent || "").trim();
     var n = t.replace(/[,%+]/g, "").replace(/–.*$/, "");
     if (/^-?\d+(\.\d+)?$/.test(n)) return parseFloat(n);
@@ -172,7 +174,11 @@
         var asc;
         if (th.classList.contains("asc")) asc = false;
         else if (th.classList.contains("desc")) asc = true;
-        else asc = typeof (rows.length ? cellValue(rows[0].cells[idx]) : "") !== "number"; // numbers sort high-to-low first
+        else {
+          var first = rows.length ? cellValue(rows[0].cells[idx]) : "";
+          // numbers and dates sort high-to-low (newest) first, text A-to-Z
+          asc = typeof first !== "number" && !/^\d{4}-\d{2}-\d{2}$/.test(first);
+        }
         ths.forEach(function (o) { o.classList.remove("asc", "desc"); o.removeAttribute("aria-sort"); });
         th.classList.add(asc ? "asc" : "desc");
         th.setAttribute("aria-sort", asc ? "ascending" : "descending");
@@ -235,6 +241,26 @@
     });
   });
   show((location.hash || "#" + boards[0].id).slice(1), false);
+  // rank by career total or per game (remembered for this visit)
+  var rankBy = document.querySelector(".rank-by");
+  if (rankBy) {
+    var segs = rankBy.querySelectorAll("[data-rank]");
+    var setRank = function (mode) {
+      document.body.classList.toggle("rank-pg", mode === "pg");
+      segs.forEach(function (b) {
+        var on = b.getAttribute("data-rank") === mode;
+        b.classList.toggle("on", on);
+        b.setAttribute("aria-pressed", on ? "true" : "false");
+      });
+      try { sessionStorage.setItem("bangor-rank", mode); } catch (e) { /* private mode */ }
+    };
+    segs.forEach(function (b) { b.addEventListener("click", function () { setRank(b.getAttribute("data-rank")); }); });
+    rankBy.hidden = false;
+    document.body.classList.add("rank-ready");
+    var saved = null;
+    try { saved = sessionStorage.getItem("bangor-rank"); } catch (e) { /* private mode */ }
+    setRank(saved === "pg" ? "pg" : "total");
+  }
   var box = document.querySelector("[data-leader-filter]");
   if (box) box.addEventListener("input", function () {
     var q = box.value.trim().toLowerCase();
@@ -289,3 +315,9 @@
   document.addEventListener("focusout", hide);
   window.addEventListener("scroll", function () { if (cur) hide(); }, { passive: true });
 })();
+
+// Print buttons (shown only when JavaScript can run them)
+document.querySelectorAll("[data-print]").forEach(function (b) {
+  b.hidden = false;
+  b.addEventListener("click", function () { window.print(); });
+});

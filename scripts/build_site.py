@@ -866,15 +866,19 @@ def build():
         sub = f"Player · {p['years']}" + (f" · {p['pts']} pts" if p["pts"] else "")
         idx.append({"t": p["name"], "s": sub, "u": f"players/{p['slug']}.html", "k": "player"})
     book_only = OrderedDict()  # record-book names with no player page (mostly pre-2007)
+    book_career = {}  # first career stat each record-book-only player appears in (for the search link)
     for h in hist_records:
         if h["name"] and slug(h["name"]) not in PLAYER_PAGES:
             book_only.setdefault(h["name"], set()).add(h["season"])
+            if h["period"] == "career" and h["value"]:
+                book_career.setdefault(h["name"], h["stat"])
     for name, seasons in book_only.items():
         cls = sorted(s for s in seasons if s.startswith("Class of"))
         yrs = sorted(s for s in seasons if re.fullmatch(r"\d{4}-\d{2}", s))
         when = cls[0] if cls else (season_label(yrs[0]) + (f" to {season_label(yrs[-1])}" if yrs[-1] != yrs[0] else "")
                                    if yrs else "")
-        idx.append({"t": name, "s": "Record book" + (f" · {when}" if when else ""), "u": "records/index.html", "k": "player"})
+        idx.append({"t": name, "s": "Record book" + (f" · {when}" if when else ""), "u": f"records/career-leaders.html#{book_career[name]}" if name in book_career else "records/index.html",
+                    "k": "player"})
     for c in coach_list:
         rec = f"{c['w']}–{c['l']}" + (f"–{c['t']}" if c["t"] else "")
         idx.append({"t": c["name"], "s": f"Coach · {c['years']} · {rec}", "u": "history/index.html#coaches", "k": "coach"})

@@ -63,7 +63,7 @@
         <thead><tr><th>Player</th><th>Years</th><th class="num">PTS</th><th class="num">PPG</th></tr></thead>
         {% for p in d.players %}<tr><td><a href="../players/{{ p.slug }}.html">{{ p.name }}</a></td><td class="muted">{{ p.years }}</td><td class="num strong">{{ p.pts }}</td><td class="num">{{ p.avg }}</td></tr>{% endfor %}
       </table>
-      <p class="muted small">Points scored in {{ c.name }}'s seasons, from the stat sheets (2007–08 on).</p>
+      <p class="muted small">Points scored in {{ c.name }}'s seasons, from the stat sheets (2002–03, and 2007–08 on).</p>
     </section>
     {% endif %}
     {% if d.opps %}

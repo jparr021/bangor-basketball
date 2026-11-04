@@ -634,7 +634,7 @@ def career_boards():
         entries = {}
         for c in pcareers:
             v = c.get(stat)
-            if not v:
+            if not v or c.get("partial") == "Y":  # stats for only part of the career (2002-03)
                 continue
             rows = ps_by_player.get(c["slug"], [])
             seasons = sorted(r["season"] for r in rows)
@@ -997,6 +997,12 @@ def grad_year(sl):
         off = CLASS_OFFSET.get((r.get("class") or "").strip().upper())
         if off is not None:
             return season_end_year(r["season"]) + off, "class"
+    for h in hist_records:
+        m = re.search(r"Class of (\d{4})", f"{h['season']} {h['note']}")
+        if m and h["name"] and slug(h["name"]) == sl:
+            return int(m.group(1)), "set"
+    if (career_by_player.get(sl) or {}).get("partial") == "Y":
+        return None, ""  # the seasons after his last stat season have no stats, so it can't be estimated
     seasons = sorted(r["season"] for r in ps_by_player.get(sl, []))
     return (season_end_year(seasons[-1]), "estimated") if seasons else (None, "")
 
@@ -1265,12 +1271,21 @@ def build():
                 tiles.append((crow["ppg"], "Points per game"))
             if crow.get("gp"):
                 tiles.append((crow["gp"], "Games"))
+        part = (c or {}).get("partial") == "Y"
+        span = ((rows[0]["season"].replace("-", "–") if len(rows) == 1 else
+                 f"{rows[0]['season'][:4]}–{season_end_year(rows[-1]['season'])}") if rows else "")
+        if part:
+            tiles = [(v, f"Points, {span}" if l == "Career points" else l) for v, l in tiles]
+        book_career = [{"stat": h["stat"], "value": fmt_int(h["value"]), "gp": h["gp"], "season": career_years(h["season"]),
+                        "note": h["note"]}
+                       for h in hist_records if h["scope"] == "individual" and h["period"] == "career" and h["value"]
+                       and h["name"] and slug(h["name"]) == sl]
         sh = share("players", sl, share_images.player_card, f"{name}, Bangor Cardinals boys basketball, {p_['years']}",
                    name, sub, tiles[:4])
         render("player.html", f"players/{sl}.html", name=name, seasons=srows, career=crow, cols=cols, log=by_season,
                lcols=lcols, highs=highs, numbers=numbers, cls=cls, years=plist[-1]["years"],
                grad=plist[-1]["grad"], grad_est=plist[-1]["grad_how"] == "estimated",
-               partial=bool(partial_stats),
+               partial=bool(partial_stats), part_career=part, span=span, book_career=book_career,
                override=(c or {}).get("override_note", ""), record_badges=B["player"].get(sl, []),
                player_news=player_news, **sh)
     plist.sort(key=lambda p: p["name"].split()[-1] + " " + p["name"])

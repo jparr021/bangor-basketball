@@ -49,6 +49,12 @@ def i(v):
 games = {g["game_id"]: g for g in load("games.csv")}
 pg = load("player_games.csv")
 src = load("source_season_totals.csv")
+# Season totals typed in from printed stat sheets for seasons without a spreadsheet season tab
+# (overrides/season_totals.csv, same column names as the sheets' season tabs)
+_ovst = os.path.join(ROOT, "overrides", "season_totals.csv")
+if os.path.exists(_ovst):
+    with open(_ovst) as f:
+        src += list(csv.DictReader(f))
 
 # ------------------------------------------------------------- player seasons
 box = defaultdict(lambda: {"gp": 0, **{k: None for k in STATS}})
@@ -85,6 +91,15 @@ for r in src:
         s["source"] = "season tab"
 
 season_rows = sorted(seasons.values(), key=lambda s: (s["season"], -(s["pts"] or 0)))
+# The stat sheets cover every season without a gap only from COVERED_FROM on. A career with a season
+# before that (2002-03, typed in from a printed sheet) may include seasons with no stats at all, so it is
+# marked partial: shown on the player's page, but kept out of the career records and leaderboards.
+_with_stats = sorted({s["season"] for s in season_rows})
+COVERED_FROM = _with_stats[-1] if _with_stats else ""
+for s_ in reversed(_with_stats[:-1]):
+    if int(s_[:4]) + 1 != int(COVERED_FROM[:4]):
+        break
+    COVERED_FROM = s_
 
 # ------------------------------------------------------------- careers
 careers = defaultdict(lambda: {"seasons": [], "gp": 0, **{k: None for k in STATS}})
@@ -119,8 +134,10 @@ for name, c in careers.items():
             row["gp"] = float(ov["games"])
         notes.append(f"{stat}: {ov['source']} ({ov['note']})")
     row["override_note"] = "; ".join(notes)
+    row["partial"] = "Y" if ss[0] < COVERED_FROM else ""
     career_rows.append(row)
 career_rows.sort(key=lambda c: -(c["pts"] or 0))
+career_full = [c for c in career_rows if not c["partial"]]
 
 
 def write(path, rows):
@@ -196,7 +213,7 @@ for k in ["pts", "reb", "ast", "stl", "blk", "fgm", "fga", "tpm", "tpa", "ftm", 
 for k in ["pts", "reb", "ast", "stl", "blk", "fgm", "fga", "tpm", "tpa", "ftm", "fta", "pf"]:
     R["individual"]["season"][k] = top(season_rows, lambda s, k=k: s[k], season_label)
 for k in ["pts", "reb", "ast", "stl", "blk", "fgm", "fga", "tpm", "tpa", "ftm", "fta"]:
-    R["individual"]["career"][k] = top(career_rows, lambda c, k=k: c[k], career_label)
+    R["individual"]["career"][k] = top(career_full, lambda c, k=k: c[k], career_label)
 R["individual"]["season"]["ppg"] = top(
     season_rows, lambda s: s["pts"] / s["gp"] if s["gp"] and s["gp"] >= MIN["season_ppg_gp"] and s["pts"] else None,
     with_detail(season_label, lambda s: f"{i(s['pts'])} pts / {i(s['gp'])} G"))
@@ -206,12 +223,12 @@ R["individual"]["season"]["tp_pct"] = top(season_rows, pct("tpm", "tpa", MIN["se
                                           with_detail(season_label, detail("tpm", "tpa")))
 R["individual"]["season"]["ft_pct"] = top(season_rows, pct("ftm", "fta", MIN["season_ft"]),
                                           with_detail(season_label, detail("ftm", "fta")))
-R["individual"]["career"]["gp"] = top(career_rows, lambda c: c["gp"], career_label)
-R["individual"]["career"]["fg_pct"] = top(career_rows, pct("fgm", "fga", MIN["career_fg"]),
+R["individual"]["career"]["gp"] = top(career_full, lambda c: c["gp"], career_label)
+R["individual"]["career"]["fg_pct"] = top(career_full, pct("fgm", "fga", MIN["career_fg"]),
                                           with_detail(career_label, detail("fgm", "fga")))
-R["individual"]["career"]["tp_pct"] = top(career_rows, pct("tpm", "tpa", MIN["career_tp"]),
+R["individual"]["career"]["tp_pct"] = top(career_full, pct("tpm", "tpa", MIN["career_tp"]),
                                           with_detail(career_label, detail("tpm", "tpa")))
-R["individual"]["career"]["ft_pct"] = top(career_rows, pct("ftm", "fta", MIN["career_ft"]),
+R["individual"]["career"]["ft_pct"] = top(career_full, pct("ftm", "fta", MIN["career_ft"]),
                                           with_detail(career_label, detail("ftm", "fta")))
 
 # ---- team games (counting stats only from complete box scores)

@@ -4681,6 +4681,13 @@
      "gp": 25
     },
     {
+     "value": 489,
+     "name": "Troy Bolcerek",
+     "player": "troy-bolcerek",
+     "season": "2002-03",
+     "gp": 24
+    },
+    {
      "value": 482,
      "name": "Connor Kaiser",
      "player": "connor-kaiser",
@@ -4805,13 +4812,6 @@
      "player": "will-reader",
      "season": "2021-22",
      "gp": 28
-    },
-    {
-     "value": 332,
-     "name": "Zane Langrehr",
-     "player": "zane-langrehr",
-     "season": "2018-19",
-     "gp": 27
     }
    ],
    "reb": [
@@ -4926,6 +4926,13 @@
      "player": "caleb-miedema",
      "season": "2016-17",
      "gp": 25
+    },
+    {
+     "value": 151,
+     "name": "Troy Bolcerek",
+     "player": "troy-bolcerek",
+     "season": "2002-03",
+     "gp": 24
     },
     {
      "value": 150,
@@ -5112,6 +5119,13 @@
      "gp": 27
     },
     {
+     "value": 83,
+     "name": "Troy Bolcerek",
+     "player": "troy-bolcerek",
+     "season": "2002-03",
+     "gp": 24
+    },
+    {
      "value": 80,
      "name": "Alex Felch",
      "player": "alex-felch",
@@ -5159,20 +5173,6 @@
      "player": "zane-langrehr",
      "season": "2018-19",
      "gp": 27
-    },
-    {
-     "value": 65,
-     "name": "Kellen Kravik",
-     "player": "kellen-kravik",
-     "season": "2015-16",
-     "gp": 25
-    },
-    {
-     "value": 65,
-     "name": "Hank Reader",
-     "player": "hank-reader",
-     "season": "2020-21",
-     "gp": 21
     }
    ],
    "stl": [
@@ -5259,6 +5259,13 @@
      "player": "drew-johnson",
      "season": "2016-17",
      "gp": 27
+    },
+    {
+     "value": 54,
+     "name": "Troy Bolcerek",
+     "player": "troy-bolcerek",
+     "season": "2002-03",
+     "gp": 24
     },
     {
      "value": 52,
@@ -5380,6 +5387,13 @@
      "player": "caleb-miedema",
      "season": "2017-18",
      "gp": 28
+    },
+    {
+     "value": 26,
+     "name": "Troy Bolcerek",
+     "player": "troy-bolcerek",
+     "season": "2002-03",
+     "gp": 24
     },
     {
      "value": 26,
@@ -5527,13 +5541,6 @@
      "player": "hayden-massman",
      "season": "2025-26",
      "gp": 26
-    },
-    {
-     "value": 9,
-     "name": "Cade Amborn",
-     "player": "cade-amborn",
-     "season": "2017-18",
-     "gp": 28
     }
    ],
    "fgm": [
@@ -5578,6 +5585,13 @@
      "player": "luke-reader",
      "season": "2016-17",
      "gp": 25
+    },
+    {
+     "value": 185,
+     "name": "Troy Bolcerek",
+     "player": "troy-bolcerek",
+     "season": "2002-03",
+     "gp": 24
     },
     {
      "value": 178,
@@ -5704,13 +5718,6 @@
      "player": "drew-johnson",
      "season": "2017-18",
      "gp": 28
-    },
-    {
-     "value": 122,
-     "name": "Tanner Jones",
-     "player": "tanner-jones",
-     "season": "2021-22",
-     "gp": 29
     }
    ],
    "fga": [
@@ -5726,6 +5733,13 @@
      "name": "Canon O'Heron",
      "player": "canon-oheron",
      "season": "2014-15",
+     "gp": 24
+    },
+    {
+     "value": 388,
+     "name": "Troy Bolcerek",
+     "player": "troy-bolcerek",
+     "season": "2002-03",
      "gp": 24
     },
     {
@@ -5881,13 +5895,6 @@
      "player": "hank-reader",
      "season": "2019-20",
      "gp": 25
-    },
-    {
-     "value": 265,
-     "name": "Eli Tucker",
-     "player": "eli-tucker",
-     "season": "2024-25",
-     "gp": 26
     }
    ],
    "tpm": [
@@ -6004,6 +6011,13 @@
      "gp": 29
     },
     {
+     "value": 33,
+     "name": "Troy Bolcerek",
+     "player": "troy-bolcerek",
+     "season": "2002-03",
+     "gp": 24
+    },
+    {
      "value": 32,
      "name": "Drew Johnson",
      "player": "drew-johnson",
@@ -6040,6 +6054,20 @@
     },
     {
      "value": 27,
+     "name": "Kyle Schroeder",
+     "player": "kyle-schroeder",
+     "season": "2002-03",
+     "gp": 24
+    },
+    {
+     "value": 27,
+     "name": "Brandon Meyer",
+     "player": "brandon-meyer",
+     "season": "2002-03",
+     "gp": 23
+    },
+    {
+     "value": 27,
      "name": "Jaymeson Freit",
      "player": "jaymeson-freit",
      "season": "2018-19",
@@ -6049,20 +6077,6 @@
      "value": 27,
      "name": "Alex Felch",
      "player": "alex-felch",
-     "season": "2025-26",
-     "gp": 26
-    },
-    {
-     "value": 26,
-     "name": "Caleb Miedema",
-     "player": "caleb-miedema",
-     "season": "2017-18",
-     "gp": 28
-    },
-    {
-     "value": 25,
-     "name": "Sawyer Jacobson",
-     "player": "sawyer-jacobson",
      "season": "2025-26",
      "gp": 26
     }
@@ -6238,6 +6252,13 @@
     },
     {
      "value": 84,
+     "name": "Troy Bolcerek",
+     "player": "troy-bolcerek",
+     "season": "2002-03",
+     "gp": 24
+    },
+    {
+     "value": 84,
      "name": "Jaymeson Freit",
      "player": "jaymeson-freit",
      "season": "2018-19",
@@ -6271,6 +6292,13 @@
      "name": "Canon O'Heron",
      "player": "canon-oheron",
      "season": "2014-15",
+     "gp": 24
+    },
+    {
+     "value": 86,
+     "name": "Troy Bolcerek",
+     "player": "troy-bolcerek",
+     "season": "2002-03",
      "gp": 24
     },
     {
@@ -6380,6 +6408,13 @@
     },
     {
      "value": 49,
+     "name": "Chris Chandler",
+     "player": "chris-chandler",
+     "season": "2002-03",
+     "gp": 24
+    },
+    {
+     "value": 49,
      "name": "Hank Reader",
      "player": "hank-reader",
      "season": "2018-19",
@@ -6405,20 +6440,6 @@
      "player": "hank-reader",
      "season": "2020-21",
      "gp": 21
-    },
-    {
-     "value": 42,
-     "name": "Drew Johnson",
-     "player": "drew-johnson",
-     "season": "2015-16",
-     "gp": 27
-    },
-    {
-     "value": 42,
-     "name": "Trevor Jones",
-     "player": "trevor-jones",
-     "season": "2018-19",
-     "gp": 27
     }
    ],
    "fta": [
@@ -6448,6 +6469,13 @@
      "name": "Canon O'Heron",
      "player": "canon-oheron",
      "season": "2014-15",
+     "gp": 24
+    },
+    {
+     "value": 125,
+     "name": "Troy Bolcerek",
+     "player": "troy-bolcerek",
+     "season": "2002-03",
      "gp": 24
     },
     {
@@ -6570,6 +6598,13 @@
      "gp": 28
     },
     {
+     "value": 71,
+     "name": "Chris Chandler",
+     "player": "chris-chandler",
+     "season": "2002-03",
+     "gp": 24
+    },
+    {
      "value": 68,
      "name": "Jack Reader",
      "player": "jack-reader",
@@ -6582,20 +6617,6 @@
      "player": "landon-phillips",
      "season": "2024-25",
      "gp": 26
-    },
-    {
-     "value": 64,
-     "name": "Hank Reader",
-     "player": "hank-reader",
-     "season": "2018-19",
-     "gp": 26
-    },
-    {
-     "value": 63,
-     "name": "Jack Reader",
-     "player": "jack-reader",
-     "season": "2015-16",
-     "gp": 27
     }
    ],
    "pf": [
@@ -6639,6 +6660,13 @@
      "name": "Chase Horstman",
      "player": "chase-horstman",
      "season": "2023-24",
+     "gp": 24
+    },
+    {
+     "value": 62,
+     "name": "Chris Chandler",
+     "player": "chris-chandler",
+     "season": "2002-03",
      "gp": 24
     },
     {
@@ -6825,6 +6853,14 @@
      "detail": "519 pts / 25 G"
     },
     {
+     "value": 20.375,
+     "name": "Troy Bolcerek",
+     "player": "troy-bolcerek",
+     "season": "2002-03",
+     "gp": 24,
+     "detail": "489 pts / 24 G"
+    },
+    {
      "value": 18.6818,
      "name": "Canon O'Heron",
      "player": "canon-oheron",
@@ -6967,14 +7003,6 @@
      "season": "2023-24",
      "gp": 24,
      "detail": "325 pts / 24 G"
-    },
-    {
-     "value": 13.5385,
-     "name": "Hayden Massman",
-     "player": "hayden-massman",
-     "season": "2024-25",
-     "gp": 26,
-     "detail": "352 pts / 26 G"
     }
    ],
    "fg_pct": [
@@ -7025,6 +7053,14 @@
      "season": "2017-18",
      "gp": 28,
      "detail": "152-237"
+    },
+    {
+     "value": 0.625,
+     "name": "Andy Thielker",
+     "player": "andy-thielker",
+     "season": "2002-03",
+     "gp": 20,
+     "detail": "20-32"
     },
     {
      "value": 0.6159,
@@ -7169,14 +7205,6 @@
      "season": "2014-15",
      "gp": 22,
      "detail": "134-256"
-    },
-    {
-     "value": 0.5193,
-     "name": "Dustin McDonald",
-     "player": "dustin-mcdonald",
-     "season": "2022-23",
-     "gp": 25,
-     "detail": "175-337"
     }
    ],
    "tp_pct": [
@@ -7243,6 +7271,14 @@
      "season": "2019-20",
      "gp": 26,
      "detail": "53-133"
+    },
+    {
+     "value": 0.3929,
+     "name": "Troy Bolcerek",
+     "player": "troy-bolcerek",
+     "season": "2002-03",
+     "gp": 24,
+     "detail": "33-84"
     },
     {
      "value": 0.3929,
@@ -7371,14 +7407,6 @@
      "season": "2016-17",
      "gp": 27,
      "detail": "24-95"
-    },
-    {
-     "value": 0.2441,
-     "name": "Hayden Massman",
-     "player": "hayden-massman",
-     "season": "2024-25",
-     "gp": 26,
-     "detail": "31-127"
     }
    ],
    "ft_pct": [
@@ -7511,6 +7539,14 @@
      "detail": "29-41"
     },
     {
+     "value": 0.7027,
+     "name": "Kyle Schroeder",
+     "player": "kyle-schroeder",
+     "season": "2002-03",
+     "gp": 24,
+     "detail": "26-37"
+    },
+    {
      "value": 0.697,
      "name": "Willis Pollock",
      "player": "willis-pollock",
@@ -7535,6 +7571,22 @@
      "detail": "59-85"
     },
     {
+     "value": 0.6901,
+     "name": "Chris Chandler",
+     "player": "chris-chandler",
+     "season": "2002-03",
+     "gp": 24,
+     "detail": "49-71"
+    },
+    {
+     "value": 0.688,
+     "name": "Troy Bolcerek",
+     "player": "troy-bolcerek",
+     "season": "2002-03",
+     "gp": 24,
+     "detail": "86-125"
+    },
+    {
      "value": 0.6774,
      "name": "Drew Johnson",
      "player": "drew-johnson",
@@ -7557,30 +7609,6 @@
      "season": "2015-16",
      "gp": 27,
      "detail": "33-49"
-    },
-    {
-     "value": 0.6718,
-     "name": "Canon O'Heron",
-     "player": "canon-oheron",
-     "season": "2014-15",
-     "gp": 24,
-     "detail": "88-131"
-    },
-    {
-     "value": 0.6707,
-     "name": "Chase Horstman",
-     "player": "chase-horstman",
-     "season": "2022-23",
-     "gp": 25,
-     "detail": "55-82"
-    },
-    {
-     "value": 0.6667,
-     "name": "Tanner Jones",
-     "player": "tanner-jones",
-     "season": "2022-23",
-     "gp": 25,
-     "detail": "40-60"
     }
    ]
   },
@@ -13809,6 +13837,11 @@
      "detail": "19-3"
     },
     {
+     "value": 115,
+     "season": "2002-03",
+     "detail": "22-2"
+    },
+    {
      "value": 111,
      "season": "2023-24",
      "detail": "13-11"
@@ -13876,6 +13909,11 @@
      "detail": "19-3"
     },
     {
+     "value": 322,
+     "season": "2002-03",
+     "detail": "22-2"
+    },
+    {
      "value": 311,
      "season": "2014-15",
      "detail": "21-3"
@@ -13911,6 +13949,11 @@
      "value": 269,
      "season": "2023-24",
      "detail": "13-11"
+    },
+    {
+     "value": 253,
+     "season": "2002-03",
+     "detail": "22-2"
     },
     {
      "value": 244,
@@ -13983,6 +14026,11 @@
      "value": 402,
      "season": "2025-26",
      "detail": "16-10"
+    },
+    {
+     "value": 401,
+     "season": "2002-03",
+     "detail": "22-2"
     },
     {
      "value": 384,
@@ -14065,6 +14113,11 @@
      "value": 719,
      "season": "2020-21",
      "detail": "19-3"
+    },
+    {
+     "value": 561,
+     "season": "2002-03",
+     "detail": "22-2"
     }
    ],
    "ast": [
@@ -14127,6 +14180,11 @@
      "value": 297,
      "season": "2023-24",
      "detail": "13-11"
+    },
+    {
+     "value": 232,
+     "season": "2002-03",
+     "detail": "22-2"
     }
    ],
    "stl": [
@@ -14189,6 +14247,11 @@
      "value": 219,
      "season": "2024-25",
      "detail": "11-15"
+    },
+    {
+     "value": 167,
+     "season": "2002-03",
+     "detail": "22-2"
     }
    ],
    "blk": [
@@ -14236,6 +14299,11 @@
      "value": 46,
      "season": "2018-19",
      "detail": "25-2"
+    },
+    {
+     "value": 38,
+     "season": "2002-03",
+     "detail": "22-2"
     },
     {
      "value": 34,
@@ -14300,6 +14368,11 @@
      "detail": "744-1629"
     },
     {
+     "value": 0.448,
+     "season": "2002-03",
+     "detail": "539-1203"
+    },
+    {
      "value": 0.4317,
      "season": "2025-26",
      "detail": "661-1531"
@@ -14325,6 +14398,11 @@
      "value": 0.3584,
      "season": "2019-20",
      "detail": "138-385"
+    },
+    {
+     "value": 0.3571,
+     "season": "2002-03",
+     "detail": "115-322"
     },
     {
      "value": 0.3515,
@@ -14407,6 +14485,11 @@
      "value": 0.6319,
      "season": "2019-20",
      "detail": "230-364"
+    },
+    {
+     "value": 0.6309,
+     "season": "2002-03",
+     "detail": "253-401"
     },
     {
      "value": 0.6145,

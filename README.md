@@ -18,6 +18,8 @@ A static website with Bangor High School (WI) boys basketball history: every sea
 | `current_season.json` | The current season and its Google Sheet link. |
 | `season_history.csv` | Year-by-year record, coach and notes from the record book, 1914 to today. |
 | `historical_records.csv` | Record-book marks older than (or missing from) the stat sheets. |
+| `season_results.csv` | Results for seasons before the stat sheets, typed in from a printed list (a yearbook page): game number in printed order, opponent, score. No dates, so these seasons get a results-only page and stay out of head-to-head records. |
+| `season_totals.csv` | Player season totals typed in from a printed season stat sheet (2002–03), with the same column names as the sheets' season tabs. FGM/FGA include 3-pointers. Players whose careers reach back past 2007–08 are marked partial: their stats show on their pages and in season records, but not in career records or leaderboards. |
 | `career_totals.csv` | Official career totals where the stat sheets are incomplete. |
 | `game_film.csv` | YouTube film for each game (filled by the film matcher, editable by hand). |
 | `site.json` | The corrections form link for the footer (see *Corrections form*). |

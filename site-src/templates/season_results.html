@@ -44,7 +44,7 @@
       </tbody>
     </table>
     </div>
-    <p class="note">Results from the {{ sources | join(' and ') if sources else 'printed season results' }}, in the order they were printed. The game-by-game stat sheets start in 2002–03, so this season has no dates, home and away, or box scores, and its games aren't in the head-to-head records on opponent pages.{% if s.w != '' and (w ~ '–' ~ l) != (s.w ~ '–' ~ s.l) %} The list has {{ games | length }} games ({{ w }}–{{ l }}); the record book has {{ s.w }}–{{ s.l }}, so {{ 'a game is' if (s.w | int + s.l | int) - games | length == 1 else 'games are' }} missing from the list.{% endif %}{% if corrections_url %} Know the missing details? <a href="{{ corrections_url }}" target="_blank" rel="noopener">Let us know</a>.{% endif %}</p>
+    <p class="note">Results from the {{ sources | join(' and ') if sources else 'printed season results' }}, in the order they were printed. The game-by-game stat sheets start in 2002–03, so this season has no dates, home and away, or box scores, and its games aren't in the head-to-head records on opponent pages.{% if s.w != '' and (w ~ '–' ~ l) != (s.w ~ '–' ~ s.l) %} The list has {{ games | length }} games ({{ w }}–{{ l }}); the record book has {{ s.w }}–{{ s.l }}, {% set miss = (s.w | int + s.l | int) - games | length %}so {{ 'a game is' if miss == 1 else (miss ~ ' games are' if miss > 1 else 'some games are') }} missing from the list.{% endif %}{% if corrections_url %} Know the missing details? <a href="{{ corrections_url }}" target="_blank" rel="noopener">Let us know</a>.{% endif %}</p>
   </section>
 </div>
 {% endblock %}

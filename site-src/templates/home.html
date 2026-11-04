@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% import "_gameday.html" as gd with context %}
+{% import "_calendar.html" as calm with context %}
 {% block content %}
 <section class="hero">
   <div class="wrap hero-inner">
@@ -23,7 +24,7 @@
 {% if upcoming %}
 <div class="wrap">
   <section class="card upcoming-card" data-gcard>
-    <div class="card-head"><h2>Upcoming games</h2><a href="seasons/{{ latest.season }}.html">Full schedule →</a></div>
+    <div class="card-head"><h2>Upcoming games</h2><span class="card-head-right">{{ calm.menu() }}<a href="seasons/{{ latest.season }}.html">Full schedule →</a></span></div>
     <div class="upcoming-list">
       {% for g in upcoming %}
       <div class="up {{ 'today' if g.is_today }}"{{ gd.attrs(g, 'row') }}>

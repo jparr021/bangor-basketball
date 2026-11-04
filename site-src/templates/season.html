@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% import "_gameday.html" as gd with context %}
 {% import "_badges.html" as rb with context %}
+{% import "_calendar.html" as calm with context %}
 {% set section = 'seasons' %}
 {% block title %}{{ s.season | replace('-', '–') }} season · Bangor Cardinals Boys Basketball{% endblock %}
 {% block description %}The {{ s.season | replace('-', '–') }} Bangor Cardinals{% if s.w != '' %} went {{ s.w }}–{{ s.l }}{% endif %}{% if s.coach %} under coach {{ s.coach }}{% endif %}. Schedule, results, box scores and player stats.{% endblock %}
@@ -40,7 +41,8 @@
   {% endif %}
 
   <section class="card">
-    <h2>Schedule &amp; results</h2>
+    {% if s.season == current_season %}<div class="card-head"><h2>Schedule &amp; results</h2>{{ calm.menu() }}</div>
+    {% else %}<h2>Schedule &amp; results</h2>{% endif %}
     <div class="scroll">
     <table class="tbl">
       <thead><tr><th>Date</th><th>Opponent</th><th>Result</th><th class="hide-sm">Type</th><th class="hide-sm">Location</th><th></th></tr></thead>

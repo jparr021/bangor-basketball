@@ -1,0 +1,13 @@
+{#- "Add to calendar": subscribe to the current season's schedule feed (/schedule.ics). -#}
+{% macro menu() -%}
+<details class="cal-menu">
+  <summary class="btn cal-btn"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false"><rect x="3" y="5" width="18" height="16" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><path d="M3 10h18M8 3v4M16 3v4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg> Add to calendar</summary>
+  <div class="cal-pop">
+    <p class="cal-help">Subscribe once. New games, time changes and final scores show up on your calendar automatically.</p>
+    <a href="{{ cal.google }}" target="_blank" rel="noopener">Google Calendar</a>
+    <a href="{{ cal.webcal }}">iPhone, iPad or Mac</a>
+    <a href="{{ cal.outlook }}" target="_blank" rel="noopener">Outlook</a>
+    <button type="button" class="cal-copy" data-copy="{{ cal.feed }}">Copy calendar link</button>
+  </div>
+</details>
+{%- endmacro %}

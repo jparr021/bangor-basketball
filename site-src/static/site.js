@@ -141,6 +141,21 @@
     });
   }
 
+  // ------------------------------------------------------------ "Add to calendar": copy link, close on outside click
+  Array.prototype.forEach.call(document.querySelectorAll("[data-copy]"), function (b) {
+    b.addEventListener("click", function () {
+      var text = b.getAttribute("data-copy"), label = b.textContent;
+      var done = function () { b.textContent = "Copied!"; setTimeout(function () { b.textContent = label; }, 1800); };
+      if (navigator.clipboard) navigator.clipboard.writeText(text).then(done, function () { window.prompt("Calendar link:", text); });
+      else window.prompt("Calendar link:", text);
+    });
+  });
+  document.addEventListener("click", function (ev) {
+    Array.prototype.forEach.call(document.querySelectorAll("details.cal-menu[open]"), function (d) {
+      if (!d.contains(ev.target)) d.open = false;
+    });
+  });
+
   // ------------------------------------------------------------ 404 page: "Were you looking for…"
   Array.prototype.forEach.call(document.querySelectorAll("[data-open-search]"), function (b) {
     b.addEventListener("click", function (ev) { ev.stopPropagation(); if (toggle && panel) openSearch(); });

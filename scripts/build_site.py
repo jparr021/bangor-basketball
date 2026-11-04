@@ -152,7 +152,10 @@ def clipping_details():
         side = "bangor" if r["team"].strip().lower() == "bangor" else "opp"
         g.setdefault("leaders", {"bangor": [], "opp": []})[side].append(
             {"name": r["name"], "slug": slug(r["name"]), "pts": fmt_int(num(r["pts"])) if r.get("pts") else "",
-             "extra": ", ".join(bits)})
+             "extra": ", ".join(bits), "pts_raw": num(r.get("pts")) or 0})
+    for g in by_date.values():  # a clipping that lists every Bangor player's points
+        if g.get("leaders") and g.get("bs") is not None:
+            g["clip_complete"] = sum(p["pts_raw"] for p in g["leaders"]["bangor"]) == g["bs"]
 
 # The printed team totals line of a season stat sheet (a "Team" row in overrides/season_totals.csv)
 TEAM_LINE = {}

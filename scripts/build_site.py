@@ -124,6 +124,15 @@ if os.path.exists(os.path.join(OV, "season_results.csv")):
     for gs in RESULTS_ONLY.values():
         gs.sort(key=lambda r: int(r["game"]))
 
+# The printed team totals line of a season stat sheet (a "Team" row in overrides/season_totals.csv)
+TEAM_LINE = {}
+_TCOL = {"pts": "PTS", "fgm": "FGM", "fga": "FGA", "tpm": "3PM", "tpa": "3PA", "ftm": "FTM", "fta": "FTA", "oreb": "OFF",
+         "dreb": "DEF", "reb": "REB", "ast": "AST", "stl": "STL", "blk": "BLK", "to": "TO", "pf": "PF"}
+if os.path.exists(os.path.join(OV, "season_totals.csv")):
+    for r in load(os.path.join(OV, "season_totals.csv")):
+        if r["name"].strip().lower() == "team":
+            TEAM_LINE[r["season"]] = {k: num(r.get(c)) for k, c in _TCOL.items()}
+
 games_by_id = OrderedDict((g["game_id"], g) for g in sorted(games, key=lambda g: g["date"]))
 games_by_season = defaultdict(list)
 for g in games_by_id.values():
@@ -1072,7 +1081,7 @@ SEASON_LEADER_STATS = [("pts", "Points"), ("reb", "Rebounds"), ("ast", "Assists"
 
 def season_leaders_data():
     rows, led = [], {k: defaultdict(list) for k, _ in SEASON_LEADER_STATS}
-    for s in reversed(DATA_SEASONS):
+    for s in sorted(set(DATA_SEASONS) | {s for s in RESULTS_ONLY if ps_by_season.get(s)}, reverse=True):
         ps = ps_by_season.get(s, [])
         cells = []
         for k, _ in SEASON_LEADER_STATS:
@@ -1131,6 +1140,21 @@ def build():
         i = PAGE_SEASONS.index(s)
         return {"prev": PAGE_SEASONS[i - 1] if i else None, "next": PAGE_SEASONS[i + 1] if i + 1 < len(PAGE_SEASONS) else None}
 
+    def results_players(s, gs):
+        """Player stats for a results-only season, from a printed season stat sheet (season_totals.csv)."""
+        players = sorted(ps_by_season.get(s, []), key=lambda r: -(r.get("pts") or 0))
+        tot = {k: sum(r[k] for r in players if r.get(k) is not None) if any(r.get(k) is not None for r in players) else None
+               for k in STATS}
+        line = TEAM_LINE.get(s)
+        if line:
+            tot.update({k: v for k, v in line.items() if v is not None})
+        tot["gp"] = len(gs)
+        return {"players": [{"name": r["name"], "slug": r["slug"], "number": r.get("number", ""), **season_stat_row(r)}
+                            for r in players],
+                "cols": cols_for(players), "team": season_stat_row(tot), "leaders": leaders(s) if players else [],
+                "player_badges": B["season_ind"].get(s, []), "team_badges": B["season_team"].get(s, []),
+                "team_line": bool(line)}
+
     for s in [s for s in RESULTS_ONLY if s not in games_by_season]:
         gs = RESULTS_ONLY[s]
         ss = season_summary(s)
@@ -1157,7 +1181,7 @@ def build():
         sh = share("seasons", s, share_images.simple_card, f"Bangor Cardinals {s.replace('-', '–')} season: {ss['w']}–{ss['l']}",
                    f"Season{' · Coach ' + ss['coach'] if ss['coach'] else ''}", s.replace("-", "–"), ss["notes"], tiles, "Season")
         render("season_results.html", f"seasons/{s}.html", s=ss, games=gs, w=w, l=l, sources=sources,
-               dated=all(g.get("date") for g in gs),
+               dated=all(g.get("date") for g in gs), **results_players(s, gs),
                margin_svg=margin_svg, opp_pages=OPP_PAGES, **pager(s), **sh)
 
     for i, s in enumerate(DATA_SEASONS):

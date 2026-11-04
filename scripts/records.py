@@ -52,9 +52,22 @@ src = load("source_season_totals.csv")
 # Season totals typed in from printed stat sheets for seasons without a spreadsheet season tab
 # (overrides/season_totals.csv, same column names as the sheets' season tabs)
 _ovst = os.path.join(ROOT, "overrides", "season_totals.csv")
+# A row named "Team" is the sheet's printed team totals line (it includes players the sheet lumps together
+# as "Other"); it is used for the team season records instead of adding up the players.
+TEAM_TOTALS = {}
 if os.path.exists(_ovst):
     with open(_ovst) as f:
-        src += list(csv.DictReader(f))
+        for r in csv.DictReader(f):
+            if r["name"].strip().lower() == "team":
+                TEAM_TOTALS[r["season"]] = r
+            else:
+                src.append(r)
+_ovsr = os.path.join(ROOT, "overrides", "season_results.csv")
+RESULTS = defaultdict(list)
+if os.path.exists(_ovsr):
+    with open(_ovsr) as f:
+        for r in csv.DictReader(f):
+            RESULTS[r["season"]].append(r)
 
 # ------------------------------------------------------------- player seasons
 box = defaultdict(lambda: {"gp": 0, **{k: None for k in STATS}})
@@ -274,6 +287,17 @@ for s in season_rows:
     for k in STATS:
         if k != "pts" and s[k] is not None:
             ts[s["season"]][k] = ts[s["season"]].get(k, 0) + s[k]
+for season, r in TEAM_TOTALS.items():
+    t = ts[season]
+    for k, col in SRC_COL.items():
+        if k != "pts" and num(r.get(col)) is not None:
+            t[k] = num(r.get(col))
+    rs = RESULTS.get(season, [])
+    if not t["g"] and rs and len(rs) == num(r.get("GP")):  # a results-only season: record and scoring from its results
+        for g in rs:
+            b, o = float(g["bangor_score"]), float(g["opp_score"])
+            t["w" if b > o else "l"] += 1
+            t["pts"] += b; t["opp"] += o; t["g"] += 1
 ts_rows = [{"season": k, **v} for k, v in ts.items()]
 sl = lambda r: {"season": r["season"], "detail": f"{r['w']}-{r['l']}"}
 R["team"]["season"]["ppg"] = top(ts_rows, lambda r: r["pts"] / r["g"] if r["g"] else None, sl)

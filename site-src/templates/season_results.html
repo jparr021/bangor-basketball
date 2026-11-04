@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% import "_badges.html" as rb with context %}
 {% set section = 'seasons' %}
 {% block title %}{{ s.season | replace('-', '–') }} season · Bangor Cardinals Boys Basketball{% endblock %}
 {% block description %}The {{ s.season | replace('-', '–') }} Bangor Cardinals{% if s.w != '' %} went {{ s.w }}–{{ s.l }}{% endif %}{% if s.coach %} under coach {{ s.coach }}{% endif %}. Every result, in order.{% endblock %}
@@ -19,6 +20,16 @@
 </div>
 
 <div class="wrap">
+  {% if leaders %}
+  <div class="leader-cards">
+    {% for l in leaders %}
+    <div class="leader-card"><span class="lbl">{{ l.label }}</span><a href="../players/{{ l.slug }}.html">{{ l.name }}</a><span class="val">{{ l.value }}</span><span class="muted">{{ l.avg }} per game</span></div>
+    {% endfor %}
+  </div>
+  {% endif %}
+
+  {{ rb.card(team_badges + player_badges, heading="In the record book") }}
+
   <section class="card">
     <h2>Game by game</h2>
     <p class="muted small chart-key"><span class="nowrap"><span class="key win"></span> Win</span> <span class="nowrap"><span class="key loss"></span> Loss</span> · Bars show the final margin, in the order the games were played. Tap a bar for the game.</p>
@@ -47,5 +58,23 @@
     </div>
     <p class="note">Results from the {{ sources | join(' and ') if sources else 'printed season results' }}, {% if dated %}with dates and home or away{% else %}in the order they were printed{% endif %}. The game-by-game stat sheets start in 2002–03, so this season has no {% if not dated %}dates, home and away, or {% endif %}box scores{% if dated %}. Its games count in the head-to-head records on opponent pages.{% else %}, and its games aren't in the head-to-head records on opponent pages.{% endif %}{% if s.w != '' and (w ~ '–' ~ l) != (s.w ~ '–' ~ s.l) %} The list has {{ games | length }} games ({{ w }}–{{ l }}); the record book has {{ s.w }}–{{ s.l }}, {% set miss = (s.w | int + s.l | int) - games | length %}so {{ 'a game is' if miss == 1 else (miss ~ ' games are' if miss > 1 else 'some games are') }} missing from the list.{% endif %}{% if corrections_url %} Know the missing details? <a href="{{ corrections_url }}" target="_blank" rel="noopener">Let us know</a>.{% endif %}</p>
   </section>
+
+  {% if players %}
+  <section class="card">
+    <h2>Player stats</h2>
+    <div class="scroll">
+    <table class="tbl sortable stats">
+      <thead><tr><th>#</th><th>Player</th>{% for k, h in cols %}<th class="num">{{ h }}</th>{% endfor %}</tr></thead>
+      <tbody>
+      {% for p in players %}
+      <tr><td class="muted">{{ p.number }}</td><td class="nowrap"><a href="../players/{{ p.slug }}.html">{{ p.name }}</a></td>{% for k, h in cols %}<td class="num">{{ p[k] }}</td>{% endfor %}</tr>
+      {% endfor %}
+      </tbody>
+      <tfoot><tr><td></td><td>Team</td>{% for k, h in cols %}<td class="num">{{ team[k] }}</td>{% endfor %}</tr></tfoot>
+    </table>
+    </div>
+    <p class="note">Season totals from the printed season stat sheet. {% if team_line %}The team row is the sheet's team totals, which include a few players listed together as “Other”.{% else %}The team row adds up the players listed.{% endif %}</p>
+  </section>
+  {% endif %}
 </div>
 {% endblock %}

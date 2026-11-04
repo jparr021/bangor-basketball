@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% set section = 'seasons' %}
+{% block title %}{{ s.season | replace('-', '–') }} season · Bangor Cardinals Boys Basketball{% endblock %}
+{% block description %}The {{ s.season | replace('-', '–') }} Bangor Cardinals{% if s.w != '' %} went {{ s.w }}–{{ s.l }}{% endif %}{% if s.coach %} under coach {{ s.coach }}{% endif %}. Every result, in order.{% endblock %}
+{% block content %}
+<div class="wrap page-head">
+  <div class="pager">
+    {% if prev %}<a href="{{ prev }}.html">← {{ prev | replace('-', '–') }}</a>{% else %}<span></span>{% endif %}
+    {% if next %}<a href="{{ next }}.html">{{ next | replace('-', '–') }} →</a>{% endif %}
+  </div>
+  <p class="eyebrow">Season</p>
+  <h1>{{ s.season | replace('-', '–') }}</h1>
+  <div class="season-meta">
+    <span class="big-rec">{{ s.w }}–{{ s.l }}</span>
+    <span>Coach <strong>{% set cs = coach_slugs.get(s.coach | trim) %}{% if cs %}<a href="../coaches/{{ cs }}.html">{{ s.coach }}</a>{% else %}{{ s.coach }}{% endif %}</strong></span>
+    {% if s.ppg %}<span>{{ s.ppg }} PPG · {{ s.oppg }} allowed</span>{% endif %}
+  </div>
+  {% if s.notes %}<p class="banner">{{ s.notes }}</p>{% endif %}
+</div>
+
+<div class="wrap">
+  <section class="card">
+    <h2>Game by game</h2>
+    <p class="muted small chart-key"><span class="nowrap"><span class="key win"></span> Win</span> <span class="nowrap"><span class="key loss"></span> Loss</span> · Bars show the final margin, in the order the games were played. Tap a bar for the game.</p>
+    <div class="scroll chart-wrap">{{ margin_svg }}</div>
+  </section>
+
+  <section class="card">
+    <h2>Results</h2>
+    <div class="scroll">
+    <table class="tbl">
+      <thead><tr><th class="num">#</th><th>Opponent</th><th>Result</th><th class="num">Margin</th><th class="num">Record</th></tr></thead>
+      <tbody>
+      {% for g in games %}
+      {% set m = (g.bs - g.os) | int %}
+      <tr id="g{{ g.game }}">
+        <td class="num muted">{{ g.game }}</td>
+        <td>{% if g.opp_slug in opp_pages %}<a href="../opponents/{{ g.opp_slug }}.html">{{ g.opponent }}</a>{% else %}{{ g.opponent }}{% endif %}{% if g.note %} <small class="muted">{{ g.note }}</small>{% endif %}</td>
+        <td class="res {{ g.result }} nowrap">{{ g.result }} {{ g.bangor_score }}–{{ g.opp_score }}{% if g.ot %} <small>(OT)</small>{% endif %}</td>
+        <td class="num">{{ '+' if m > 0 }}{{ m if m >= 0 else '−' ~ (-m) }}</td>
+        <td class="num muted">{{ g.record }}</td>
+      </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+    </div>
+    <p class="note">Results from the {{ sources | join(' and ') if sources else 'printed season results' }}, in the order they were printed. The game-by-game stat sheets start in 2002–03, so this season has no dates, home and away, or box scores, and its games aren't in the head-to-head records on opponent pages.{% if s.w != '' and (w ~ '–' ~ l) != (s.w ~ '–' ~ s.l) %} The list has {{ games | length }} games ({{ w }}–{{ l }}); the record book has {{ s.w }}–{{ s.l }}, so {{ 'a game is' if (s.w | int + s.l | int) - games | length == 1 else 'games are' }} missing from the list.{% endif %}{% if corrections_url %} Know the missing details? <a href="{{ corrections_url }}" target="_blank" rel="noopener">Let us know</a>.{% endif %}</p>
+  </section>
+</div>
+{% endblock %}

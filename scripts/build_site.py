@@ -112,12 +112,25 @@ for r in pseasons + pcareers:
         r[k] = num(r.get(k))
     r["slug"] = slug(r["name"])
 
+# Seasons before the stat sheets known only from a printed list of results (a yearbook page): no dates,
+# home/away or box scores, so they stay out of games.csv and get a results-only season page.
+RESULTS_ONLY = defaultdict(list)
+if os.path.exists(os.path.join(OV, "season_results.csv")):
+    for r in load(os.path.join(OV, "season_results.csv")):
+        r["bs"], r["os"] = num(r["bangor_score"]), num(r["opp_score"])
+        r["result"] = "W" if r["bs"] > r["os"] else ("L" if r["bs"] < r["os"] else "T")
+        r["opp_slug"] = slug(r["opponent"])
+        RESULTS_ONLY[r["season"]].append(r)
+    for gs in RESULTS_ONLY.values():
+        gs.sort(key=lambda r: int(r["game"]))
+
 games_by_id = OrderedDict((g["game_id"], g) for g in sorted(games, key=lambda g: g["date"]))
 games_by_season = defaultdict(list)
 for g in games_by_id.values():
     g["bs"], g["os"] = num(g["bangor_score"]), num(g["opp_score"])
     g["opp_slug"] = slug(g["opponent"])
     games_by_season[g["season"]].append(g)
+OPP_PAGES = {g["opp_slug"] for g in games_by_id.values()}  # every opponent in games.csv gets a page
 pg_by_game = defaultdict(list)
 pg_by_player = defaultdict(list)
 for r in pg:
@@ -767,12 +780,13 @@ def render(tpl, path, **ctx):
 
 
 def season_summary(season):
-    gs = [g for g in games_by_season.get(season, []) if g["result"] in ("W", "L")]
+    gs = [g for g in games_by_season.get(season, []) if g["result"] in ("W", "L")] or RESULTS_ONLY.get(season, [])
     h = hist_by_season.get(season, {})
     return {
         "season": season, "w": h.get("w", ""), "l": h.get("l", ""), "t": h.get("t", ""),
         "coach": h.get("coach", ""), "notes": h.get("notes", ""),
-        "has_data": season in games_by_season,
+        "has_data": season in games_by_season or season in RESULTS_ONLY,
+        "results_only": season in RESULTS_ONLY and season not in games_by_season,
         "ppg": fmt_avg(sum(g["bs"] for g in gs), len(gs)) if gs else "",
         "oppg": fmt_avg(sum(g["os"] for g in gs), len(gs)) if gs else "",
     }
@@ -1094,6 +1108,38 @@ def build():
     render("seasons.html", "seasons/index.html", seasons=all_seasons)
 
     # ---- season pages
+    PAGE_SEASONS = sorted(set(DATA_SEASONS) | set(RESULTS_ONLY))
+
+    def pager(s):
+        i = PAGE_SEASONS.index(s)
+        return {"prev": PAGE_SEASONS[i - 1] if i else None, "next": PAGE_SEASONS[i + 1] if i + 1 < len(PAGE_SEASONS) else None}
+
+    for s in [s for s in RESULTS_ONLY if s not in games_by_season]:
+        gs = RESULTS_ONLY[s]
+        ss = season_summary(s)
+        w, l = sum(g["result"] == "W" for g in gs), sum(g["result"] == "L" for g in gs)
+        items, rw, rl = [], 0, 0
+        for g in gs:
+            rw += g["result"] == "W"
+            rl += g["result"] == "L"
+            m = int(g["bs"] - g["os"])
+            g["record"] = f"{rw}–{rl}"
+            items.append({"margin": m, "record": g["record"], "href": f"#g{g['game']}",
+                          "xlabel": g["game"] if g["game"] == "1" or int(g["game"]) % 5 == 0 else "",
+                          "tip": f"{'+' if m > 0 else ('−' if m < 0 else '')}{abs(m)} · {g['result']} {g['bangor_score']}–{g['opp_score']}"
+                                 f"{' (OT)' if g['ot'] else ''}\nGame {g['game']}: {g['opponent']}"})
+        if items:
+            for it in (max(items, key=lambda i: i["margin"]), min(items, key=lambda i: i["margin"])):
+                it["label"] = True
+        margin_svg = charts.margin_chart(items, f"Bangor's scoring margin in each {s.replace('-', '–')} game") if items else ""
+        sources = sorted({g["source"] for g in gs if g.get("source")})
+        tiles = [(f"{ss['w']}–{ss['l']}", "Record")] if ss["w"] != "" else []
+        tiles.append((f"{ss['ppg']}–{ss['oppg']}", "Average score"))
+        sh = share("seasons", s, share_images.simple_card, f"Bangor Cardinals {s.replace('-', '–')} season: {ss['w']}–{ss['l']}",
+                   f"Season{' · Coach ' + ss['coach'] if ss['coach'] else ''}", s.replace("-", "–"), ss["notes"], tiles, "Season")
+        render("season_results.html", f"seasons/{s}.html", s=ss, games=gs, w=w, l=l, sources=sources,
+               margin_svg=margin_svg, opp_pages=OPP_PAGES, **pager(s), **sh)
+
     for i, s in enumerate(DATA_SEASONS):
         gs = games_by_season[s]
         players = sorted(ps_by_season.get(s, []), key=lambda r: -(r.get("pts") or 0))
@@ -1117,7 +1163,7 @@ def build():
         render("season.html", f"seasons/{s}.html", s=ss, games=gs, players=prow, cols=cols, **sh,
                margin_svg=margin_svg, scoring_lines=scoring_lines,
                team=team_row, leaders=leaders(s), partial=partial,
-               prev=DATA_SEASONS[i - 1] if i else None, next=DATA_SEASONS[i + 1] if i + 1 < len(DATA_SEASONS) else None,
+               **pager(s),
                source_note=any(r.get("source") == "season tab" for r in players),
                team_badges=B["season_team"].get(s, []), player_badges=B["season_ind"].get(s, []),
                game_badges=[b for g in gs for b in B["game_team"].get(g["game_id"], [])])
@@ -1319,7 +1365,7 @@ def build():
         s = h["season"]
         rec = f"{h['w']}–{h['l']}" + (f"–{h['t']}" if h["t"] and h["t"] != "0" else "") if h["w"] != "" else ""
         sub = " · ".join(x for x in ["Season", rec, f"Coach {h['coach']}" if h["coach"] else "", h["notes"]] if x)
-        url = f"seasons/{s}.html" if s in games_by_season else f"history/index.html#s{s}"
+        url = f"seasons/{s}.html" if s in games_by_season or s in RESULTS_ONLY else f"history/index.html#s{s}"
         idx.append({"t": f"{season_label(s)} season", "s": sub, "u": url, "k": "season",
                     "x": f"{s} {s[:4]} {season_end_year(s)} {h['coach']} {h['notes']}"})
     for cl in classes:

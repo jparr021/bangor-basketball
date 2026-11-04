@@ -509,16 +509,46 @@ BADGE_ABBR = {"pts": "PTS", "reb": "REB", "ast": "AST", "stl": "STL", "blk": "BL
 NO_BADGE = {"pf"}  # in the record book, but not something to put a badge on
 
 
+def partial_known(stat):
+    """Players whose careers are only partly in the stat sheets (2001-02, 2002-03), with what is known for a
+    counting stat: not ranked, but listed under the career lists as "at least". Skipped where the record book
+    has the career total, since that one is ranked."""
+    book = {slug(h["name"]) for h in hist_records if (h["scope"], h["period"], h["stat"]) == ("individual", "career", stat)
+            and h["value"] and h["name"]}
+    out = []
+    for c in pcareers:
+        v = c.get(stat)
+        if c.get("partial") != "Y" or not v or c["slug"] in book:
+            continue
+        seasons = sorted(r["season"] for r in ps_by_player.get(c["slug"], []) if r.get(stat) is not None)
+        if not seasons:
+            continue
+        span = (seasons[0].replace("-", "–") + " only") if len(seasons) == 1 else \
+            ", ".join(s.replace("-", "–") for s in seasons) if len(seasons) == 2 else \
+            f"{seasons[0][:4]}–{season_end_year(seasons[-1])}"
+        out.append({"name": c["name"], "slug": c["slug"] if c["slug"] in PLAYER_PAGES else None, "value": v,
+                    "display": fmt_int(v), "span": span})
+    return sorted(out, key=lambda e: (-e["value"], e["name"]))
+
+
+PARTIAL_STATS = {"pts", "reb", "ast", "stl", "blk", "tpm", "tpa", "ftm", "fta", "gp"}
+
+
 def record_sections():
     sections = OrderedDict()
     for scope, period, stat, title, kind in CATS:
         entries = merged(scope, period, stat, kind)
         if not entries:
             continue
+        partial = []
+        if (scope, period) == ("individual", "career") and stat in PARTIAL_STATS:
+            cutoff = min(e["value"] for e in entries) if len(entries) >= 10 else 0
+            partial = [p for p in partial_known(stat) if p["value"] >= cutoff]
         sec = f"{scope}-{period}"
         sections.setdefault(sec, {"id": sec, "scope": scope, "period": period, "cats": []})
         sections[sec]["cats"].append({"title": title, "kind": kind, "entries": entries, "stat": stat,
-                                      "note": MIN_NOTE.get((scope, period, stat), ""), "period": period, "scope": scope})
+                                      "note": MIN_NOTE.get((scope, period, stat), ""), "period": period, "scope": scope,
+                                      "partial": partial})
     return sections
 
 
@@ -706,7 +736,7 @@ def career_boards():
             for e in per_game:
                 e["pg_tied"] = sum(1 for o in per_game if o["pg_rank"] == e["pg_rank"]) > 1
         boards.append({"stat": stat, "title": title, "short": short, "note": note, "entries": ranked,
-                       "has_avg": stat != "gp", "per_game": per_game})
+                       "has_avg": stat != "gp", "per_game": per_game, "partial": partial_known(stat)})
     return boards
 
 

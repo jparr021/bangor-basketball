@@ -418,3 +418,7 @@ button.btn[hidden] { display: none; }
 .sc-level { flex: none; min-width: 52px; text-align: center; font-size: .72rem; font-weight: 700; text-transform: uppercase;
   letter-spacing: .06em; padding: 2px 6px; border-radius: 4px; background: #eef0f3; color: var(--muted); }
 .sc-item.fix .sc-level { background: var(--red); color: #fff; }
+.partial-note { margin: 10px 0 0; line-height: 1.45; }
+.partial-list { margin: 14px 0; }
+.partial-list summary { cursor: pointer; font-weight: 600; }
+.partial-list table { margin-top: 8px; max-width: 520px; }

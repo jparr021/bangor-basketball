@@ -3,7 +3,7 @@
 Run the whole pipeline:
   .venv/bin/python scripts/convert.py && .venv/bin/python scripts/records.py && .venv/bin/python scripts/build_site.py
 """
-import csv, datetime as dt, json, math, os, posixpath, re, shutil
+import csv, datetime as dt, glob, json, math, os, posixpath, re, shutil
 from collections import defaultdict, OrderedDict
 
 from jinja2 import Environment, FileSystemLoader, select_autoescape
@@ -118,7 +118,10 @@ RESULTS_ONLY = defaultdict(list)
 if os.path.exists(os.path.join(OV, "season_results.csv")):
     for r in load(os.path.join(OV, "season_results.csv")):
         r["bs"], r["os"] = num(r["bangor_score"]), num(r["opp_score"])
-        r["result"] = "W" if r["bs"] > r["os"] else ("L" if r["bs"] < r["os"] else "T")
+        r["scored"] = r["bs"] is not None and r["os"] is not None
+        # a game whose score is partly lost gives its result in the result column
+        r["result"] = (r.get("result") or "").strip().upper() or (
+            ("W" if r["bs"] > r["os"] else ("L" if r["bs"] < r["os"] else "T")) if r["scored"] else "")
         r["opp_slug"] = slug(r["opponent"])
         RESULTS_ONLY[r["season"]].append(r)
     for gs in RESULTS_ONLY.values():
@@ -139,6 +142,34 @@ for g in games_by_id.values():
     g["bs"], g["os"] = num(g["bangor_score"]), num(g["opp_score"])
     g["opp_slug"] = slug(g["opponent"])
     games_by_season[g["season"]].append(g)
+# Archive stories for a season (overrides/stories/*.txt): "key: value" lines, then "---", then the text.
+# "# " starts a part, "## " a section, "> " a note set apart; other lines are paragraphs.
+def load_story(path):
+    with open(path, encoding="utf-8") as f:
+        head, _, body = f.read().partition("\n---\n")
+    st = dict(l.split(": ", 1) for l in head.strip().splitlines() if ": " in l)
+    parts, cur = [], None
+    for line in body.splitlines():
+        line = line.strip()
+        if not line:
+            continue
+        if line.startswith("## ") or line.startswith("# "):
+            cur = {"title": line.lstrip("# ").strip(), "level": 2 if line.startswith("# ") else 3, "blocks": []}
+            parts.append(cur)
+            continue
+        if cur is None:
+            cur = {"title": "", "level": 3, "blocks": []}
+            parts.append(cur)
+        cur["blocks"].append(("note", line[2:]) if line.startswith("> ") else ("p", line))
+    st["parts"] = parts
+    return st
+
+
+STORIES = {}
+for _p in sorted(glob.glob(os.path.join(OV, "stories", "*.txt"))):
+    _st = load_story(_p)
+    STORIES[_st["season"]] = _st
+
 # Results-only games with a date and site (a printed schedule recap) count in the head-to-head records on
 # opponent pages. They have no box score, so they link to the game's row on the season page.
 DATED_RESULTS = []
@@ -837,13 +868,14 @@ def render(tpl, path, **ctx):
 def season_summary(season):
     gs = [g for g in games_by_season.get(season, []) if g["result"] in ("W", "L")] or RESULTS_ONLY.get(season, [])
     h = hist_by_season.get(season, {})
+    sc = [g for g in gs if g.get("scored", True)]  # results-only games can be missing a score
     return {
         "season": season, "w": h.get("w", ""), "l": h.get("l", ""), "t": h.get("t", ""),
         "coach": h.get("coach", ""), "notes": h.get("notes", ""),
         "has_data": season in games_by_season or season in RESULTS_ONLY,
         "results_only": season in RESULTS_ONLY and season not in games_by_season,
-        "ppg": fmt_avg(sum(g["bs"] for g in gs), len(gs)) if gs else "",
-        "oppg": fmt_avg(sum(g["os"] for g in gs), len(gs)) if gs else "",
+        "ppg": fmt_avg(sum(g["bs"] for g in sc), len(sc)) if sc else "",
+        "oppg": fmt_avg(sum(g["os"] for g in sc), len(sc)) if sc else "",
     }
 
 
@@ -1378,8 +1410,10 @@ def build():
         for g in gs:
             rw += g["result"] == "W"
             rl += g["result"] == "L"
-            m = int(g["bs"] - g["os"])
             g["record"] = f"{rw}–{rl}"
+            if not g["scored"]:
+                continue
+            m = int(g["bs"] - g["os"])
             items.append({"margin": m, "record": g["record"], "href": f"#g{g['game']}",
                           "xlabel": g["game"] if g["game"] == "1" or int(g["game"]) % 5 == 0 else "",
                           "tip": f"{'+' if m > 0 else ('−' if m < 0 else '')}{abs(m)} · {g['result']} {g['bangor_score']}–{g['opp_score']}"
@@ -1391,12 +1425,20 @@ def build():
                 it["label"] = True
         margin_svg = charts.margin_chart(items, f"Bangor's scoring margin in each {s.replace('-', '–')} game") if items else ""
         sources = sorted({g["source"] for g in gs if g.get("source")})
-        tiles = [(f"{ss['w']}–{ss['l']}", "Record")] if ss["w"] != "" else []
+        known = ss["w"] == ""  # no full-season record: show the record in the games that are known
+        rec = f"{w}–{l}" if known else f"{ss['w']}–{ss['l']}"
+        tiles = [(rec, "Record in known games" if known else "Record")]
         tiles.append((f"{ss['ppg']}–{ss['oppg']}", "Average score"))
-        sh = share("seasons", s, share_images.simple_card, f"Bangor Cardinals {s.replace('-', '–')} season: {ss['w']}–{ss['l']}",
+        sh = share("seasons", s, share_images.simple_card, f"Bangor Cardinals {s.replace('-', '–')} season: {rec}{' in known games' if known else ''}",
                    f"Season{' · Coach ' + ss['coach'] if ss['coach'] else ''}", s.replace("-", "–"), ss["notes"], tiles, "Season")
+        if STORIES.get(s):
+            st = STORIES[s]
+            render("story.html", f"seasons/{st['slug']}.html", st=st, s=ss, **share(
+                "seasons", st["slug"], share_images.simple_card, st["title"], st["kicker"], s.replace("-", "–"),
+                ss["notes"], [(f"{w}–{l}", "Record in known games")], "Season"))
         render("season_results.html", f"seasons/{s}.html", s=ss, games=gs, w=w, l=l, sources=sources,
-               dated=all(g.get("date") for g in gs), **results_players(s, gs),
+               dated=all(g.get("date") for g in gs), any_dates=any(g.get("date") for g in gs),
+               any_sites=any(g.get("site") for g in gs), story=STORIES.get(s), **results_players(s, gs),
                margin_svg=margin_svg, opp_pages=OPP_PAGES, **pager(s), **sh)
 
     for i, s in enumerate(DATA_SEASONS):

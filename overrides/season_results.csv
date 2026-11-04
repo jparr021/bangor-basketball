@@ -1,67 +1,84 @@
-season,game,date,site,opponent,bangor_score,opp_score,ot,note,source
-1999-00,1,,,Weston,55,54,,,Bangor yearbook
-1999-00,2,,,Luther,39,57,,,Bangor yearbook
-1999-00,3,,,Independence,39,59,,,Bangor yearbook
-1999-00,4,,,Royall,27,58,,,Bangor yearbook
-1999-00,5,,,Wonewoc-Center,51,49,,,Bangor yearbook
-1999-00,6,,,Melrose-Mindoro,54,38,,,Bangor yearbook
-1999-00,7,,,Hillsboro,42,59,,,Bangor yearbook
-1999-00,8,,,Gale-Ettrick-Trempealeau,51,50,,,Bangor yearbook
-1999-00,9,,,Brookwood,49,73,,,Bangor yearbook
-1999-00,10,,,New Lisbon,53,64,,,Bangor yearbook
-1999-00,11,,,Cashton,44,53,,,Bangor yearbook
-1999-00,12,,,Necedah,52,90,,,Bangor yearbook
-1999-00,13,,,Royall,22,50,,,Bangor yearbook
-1999-00,14,,,Wonewoc-Center,41,53,,,Bangor yearbook
-1999-00,15,,,Hillsboro,45,68,,,Bangor yearbook
-1999-00,16,,,Brookwood,57,60,,,Bangor yearbook
-1999-00,17,,,New Lisbon,50,67,,,Bangor yearbook
-1999-00,18,,,Seneca,43,51,,,Bangor yearbook
-1999-00,19,,,Cashton,48,60,,,Bangor yearbook
-2000-01,1,,,Luther,47,34,,,Bangor yearbook
-2000-01,2,,,Royall,46,53,,,Bangor yearbook
-2000-01,3,,,Hillsboro,59,54,,,Bangor yearbook
-2000-01,4,,,Wonewoc-Center,41,46,,,Bangor yearbook
-2000-01,5,,,Melrose-Mindoro,57,54,,,Bangor yearbook
-2000-01,6,,,West Salem,66,76,,,Bangor yearbook
-2000-01,7,,,Arcadia,34,49,,,Bangor yearbook
-2000-01,8,,,Cashton,44,58,,,Bangor yearbook
-2000-01,9,,,Necedah,59,64,,,Bangor yearbook
-2000-01,10,,,Seneca,35,45,,,Bangor yearbook
-2000-01,11,,,Brookwood,100,41,,,Bangor yearbook
-2000-01,12,,,New Lisbon,71,50,,,Bangor yearbook
-2000-01,13,,,Royall,44,52,,,Bangor yearbook
-2000-01,14,,,Hillsboro,59,54,,,Bangor yearbook
-2000-01,15,,,Wonewoc-Center,50,52,,,Bangor yearbook
-2000-01,16,,,Cashton,59,57,,,Bangor yearbook
-2000-01,17,,,Necedah,40,39,,,Bangor yearbook
-2000-01,18,,,Gale-Ettrick-Trempealeau,54,77,,,Bangor yearbook
-2000-01,19,,,Brookwood,68,45,,,Bangor yearbook
-2000-01,20,,,New Lisbon,63,65,1,,Bangor yearbook
-2000-01,21,,,Blair-Taylor,74,61,,,Bangor yearbook
-2000-01,22,,,Cashton,65,49,,,Bangor yearbook
-2000-01,23,,,Necedah,63,68,1,,Bangor yearbook
-2001-02,1,2001-11-27,away,Luther,47,49,,,Bangor yearbook season schedule recap
-2001-02,2,2001-12-04,away,Wonewoc-Center,67,53,,,Bangor yearbook season schedule recap
-2001-02,3,2001-12-07,home,Hillsboro,63,45,,,Bangor yearbook season schedule recap
-2001-02,4,2001-12-13,away,New Lisbon,62,71,,,Bangor yearbook season schedule recap
-2001-02,5,2001-12-15,away,Auburndale,44,57,,,Bangor yearbook season schedule recap
-2001-02,6,2001-12-18,home,Cashton,47,29,,,Bangor yearbook season schedule recap
-2001-02,7,2001-12-21,home,West Salem,57,59,,,Bangor yearbook season schedule recap
-2001-02,8,2002-01-04,away,Royall,53,66,,,Bangor yearbook season schedule recap
-2001-02,9,2002-01-07,away,Melrose-Mindoro,62,49,,,Bangor yearbook season schedule recap
-2001-02,10,2002-01-10,away,Brookwood,40,32,,,Bangor yearbook season schedule recap
-2001-02,11,2002-01-15,home,Necedah,87,50,,,Bangor yearbook season schedule recap
-2001-02,12,2002-01-18,home,Wonewoc-Center,50,41,,,Bangor yearbook season schedule recap
-2001-02,13,2002-01-21,away,Arcadia,59,46,,,Bangor yearbook season schedule recap
-2001-02,14,2002-01-24,away,Hillsboro,65,44,,,Bangor yearbook season schedule recap
-2001-02,15,2002-01-29,home,New Lisbon,74,57,,,Bangor yearbook season schedule recap
-2001-02,16,2002-02-01,away,Cashton,53,46,,,Bangor yearbook season schedule recap
-2001-02,17,2002-02-07,home,Royall,50,48,,,Bangor yearbook season schedule recap
-2001-02,18,2002-02-14,home,Brookwood,55,34,,,Bangor yearbook season schedule recap
-2001-02,19,2002-02-18,away,Gale-Ettrick-Trempealeau,55,86,,,Bangor yearbook season schedule recap
-2001-02,20,2002-02-22,away,Necedah,48,41,,,Bangor yearbook season schedule recap
-2001-02,21,2002-02-26,home,La Farge,65,41,,Regional quarterfinal,Bangor yearbook season schedule recap
-2001-02,22,2002-02-28,home,Weston,50,31,,Regional semifinal,Bangor yearbook season schedule recap
-2001-02,23,2002-03-02,home,Wonewoc-Center,66,47,,Regional final,Bangor yearbook season schedule recap
-2001-02,24,2002-03-08,home,Greenwood,55,60,,Sectional semifinal,Bangor yearbook season schedule recap
+season,game,date,site,opponent,bangor_score,opp_score,result,ot,note,source
+1945-46,1,1945-12-07,,Mindoro,38,10,,,The reserves played most of the game; one foul called on Bangor all night,Hilltop Hi-Lites columns by George Kapanke
+1945-46,2,1945-12-14,,West Salem,44,,W,,Upset of unbeaten West Salem · Fuchs 13 · West Salem's score is cut off in the copy,Hilltop Hi-Lites columns by George Kapanke
+1945-46,3,1945-12-18,away,Galesville,30,41,,,Fuchs 10 · headline says 41–31,Hilltop Hi-Lites columns by George Kapanke
+1945-46,4,1946-01-04,away,Houston,25,32,,,Nonconference · Bill Schroeder 11,Hilltop Hi-Lites columns by George Kapanke
+1945-46,5,1946-01-11,away,Onalaska,32,27,,,Bill Schroeder 14,Hilltop Hi-Lites columns by George Kapanke
+1945-46,6,,home,Melrose,29,30,,,Herb Miller 11,Hilltop Hi-Lites columns by George Kapanke
+1945-46,7,1946-01-18,,Trempealeau,12,19,,,Bill Schroeder 6 · 4 of 14 free throws,Hilltop Hi-Lites columns by George Kapanke
+1945-46,8,,home,Mindoro,43,20,,,Fuchs 14,Hilltop Hi-Lites columns by George Kapanke
+1945-46,9,1946-02-01,away,West Salem,24,26,,,"Bill Schroeder 8, Fuchs 8",Hilltop Hi-Lites columns by George Kapanke
+1945-46,10,,,Galesville,21,22,,,Lost on a mid-court shot with five seconds left · Bill Schroeder 6,Hilltop Hi-Lites columns by George Kapanke
+1945-46,11,,away,Holmen,32,33,,,Last conference game · Wittmershaus 6,Hilltop Hi-Lites columns by George Kapanke
+1945-46,12,,neutral,Holmen,35,24,,,District tournament at Cashton · Bill Schroeder 16 · score printed as “24-35”; Bangor's listed scorers add to 34,Hilltop Hi-Lites columns by George Kapanke
+1945-46,13,,neutral,Cashton,40,38,,,District semifinal at Cashton · Bill Schroeder 15,Hilltop Hi-Lites columns by George Kapanke
+1945-46,14,1946-02-23,neutral,West Salem,36,32,,,"District final at Cashton, first district title since 1936 · Wayne Young 14 · 11 of 11 free throws",Hilltop Hi-Lites columns by George Kapanke
+1945-46,15,1946-02-26,neutral,Viola,33,29,,,District play-off at Sparta · Wayne Young 11,Hilltop Hi-Lites columns by George Kapanke
+1945-46,16,,neutral,Tomah,27,32,,,Sectional at Reedsburg · Fuchs 11,Hilltop Hi-Lites columns by George Kapanke
+1945-46,17,,neutral,Platteville,33,44,,,Sectional consolation at Reedsburg · Fuchs 14,Hilltop Hi-Lites columns by George Kapanke
+1999-00,1,,,Weston,55,54,,,,Bangor yearbook
+1999-00,2,,,Luther,39,57,,,,Bangor yearbook
+1999-00,3,,,Independence,39,59,,,,Bangor yearbook
+1999-00,4,,,Royall,27,58,,,,Bangor yearbook
+1999-00,5,,,Wonewoc-Center,51,49,,,,Bangor yearbook
+1999-00,6,,,Melrose-Mindoro,54,38,,,,Bangor yearbook
+1999-00,7,,,Hillsboro,42,59,,,,Bangor yearbook
+1999-00,8,,,Gale-Ettrick-Trempealeau,51,50,,,,Bangor yearbook
+1999-00,9,,,Brookwood,49,73,,,,Bangor yearbook
+1999-00,10,,,New Lisbon,53,64,,,,Bangor yearbook
+1999-00,11,,,Cashton,44,53,,,,Bangor yearbook
+1999-00,12,,,Necedah,52,90,,,,Bangor yearbook
+1999-00,13,,,Royall,22,50,,,,Bangor yearbook
+1999-00,14,,,Wonewoc-Center,41,53,,,,Bangor yearbook
+1999-00,15,,,Hillsboro,45,68,,,,Bangor yearbook
+1999-00,16,,,Brookwood,57,60,,,,Bangor yearbook
+1999-00,17,,,New Lisbon,50,67,,,,Bangor yearbook
+1999-00,18,,,Seneca,43,51,,,,Bangor yearbook
+1999-00,19,,,Cashton,48,60,,,,Bangor yearbook
+2000-01,1,,,Luther,47,34,,,,Bangor yearbook
+2000-01,2,,,Royall,46,53,,,,Bangor yearbook
+2000-01,3,,,Hillsboro,59,54,,,,Bangor yearbook
+2000-01,4,,,Wonewoc-Center,41,46,,,,Bangor yearbook
+2000-01,5,,,Melrose-Mindoro,57,54,,,,Bangor yearbook
+2000-01,6,,,West Salem,66,76,,,,Bangor yearbook
+2000-01,7,,,Arcadia,34,49,,,,Bangor yearbook
+2000-01,8,,,Cashton,44,58,,,,Bangor yearbook
+2000-01,9,,,Necedah,59,64,,,,Bangor yearbook
+2000-01,10,,,Seneca,35,45,,,,Bangor yearbook
+2000-01,11,,,Brookwood,100,41,,,,Bangor yearbook
+2000-01,12,,,New Lisbon,71,50,,,,Bangor yearbook
+2000-01,13,,,Royall,44,52,,,,Bangor yearbook
+2000-01,14,,,Hillsboro,59,54,,,,Bangor yearbook
+2000-01,15,,,Wonewoc-Center,50,52,,,,Bangor yearbook
+2000-01,16,,,Cashton,59,57,,,,Bangor yearbook
+2000-01,17,,,Necedah,40,39,,,,Bangor yearbook
+2000-01,18,,,Gale-Ettrick-Trempealeau,54,77,,,,Bangor yearbook
+2000-01,19,,,Brookwood,68,45,,,,Bangor yearbook
+2000-01,20,,,New Lisbon,63,65,,1,,Bangor yearbook
+2000-01,21,,,Blair-Taylor,74,61,,,,Bangor yearbook
+2000-01,22,,,Cashton,65,49,,,,Bangor yearbook
+2000-01,23,,,Necedah,63,68,,1,,Bangor yearbook
+2001-02,1,2001-11-27,away,Luther,47,49,,,,Bangor yearbook season schedule recap
+2001-02,2,2001-12-04,away,Wonewoc-Center,67,53,,,,Bangor yearbook season schedule recap
+2001-02,3,2001-12-07,home,Hillsboro,63,45,,,,Bangor yearbook season schedule recap
+2001-02,4,2001-12-13,away,New Lisbon,62,71,,,,Bangor yearbook season schedule recap
+2001-02,5,2001-12-15,away,Auburndale,44,57,,,,Bangor yearbook season schedule recap
+2001-02,6,2001-12-18,home,Cashton,47,29,,,,Bangor yearbook season schedule recap
+2001-02,7,2001-12-21,home,West Salem,57,59,,,,Bangor yearbook season schedule recap
+2001-02,8,2002-01-04,away,Royall,53,66,,,,Bangor yearbook season schedule recap
+2001-02,9,2002-01-07,away,Melrose-Mindoro,62,49,,,,Bangor yearbook season schedule recap
+2001-02,10,2002-01-10,away,Brookwood,40,32,,,,Bangor yearbook season schedule recap
+2001-02,11,2002-01-15,home,Necedah,87,50,,,,Bangor yearbook season schedule recap
+2001-02,12,2002-01-18,home,Wonewoc-Center,50,41,,,,Bangor yearbook season schedule recap
+2001-02,13,2002-01-21,away,Arcadia,59,46,,,,Bangor yearbook season schedule recap
+2001-02,14,2002-01-24,away,Hillsboro,65,44,,,,Bangor yearbook season schedule recap
+2001-02,15,2002-01-29,home,New Lisbon,74,57,,,,Bangor yearbook season schedule recap
+2001-02,16,2002-02-01,away,Cashton,53,46,,,,Bangor yearbook season schedule recap
+2001-02,17,2002-02-07,home,Royall,50,48,,,,Bangor yearbook season schedule recap
+2001-02,18,2002-02-14,home,Brookwood,55,34,,,,Bangor yearbook season schedule recap
+2001-02,19,2002-02-18,away,Gale-Ettrick-Trempealeau,55,86,,,,Bangor yearbook season schedule recap
+2001-02,20,2002-02-22,away,Necedah,48,41,,,,Bangor yearbook season schedule recap
+2001-02,21,2002-02-26,home,La Farge,65,41,,,Regional quarterfinal,Bangor yearbook season schedule recap
+2001-02,22,2002-02-28,home,Weston,50,31,,,Regional semifinal,Bangor yearbook season schedule recap
+2001-02,23,2002-03-02,home,Wonewoc-Center,66,47,,,Regional final,Bangor yearbook season schedule recap
+2001-02,24,2002-03-08,home,Greenwood,55,60,,,Sectional semifinal,Bangor yearbook season schedule recap

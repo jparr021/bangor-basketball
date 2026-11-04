@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% set section = 'seasons' %}
+{% block title %}{{ st.title }} · Bangor Cardinals Boys Basketball{% endblock %}
+{% block description %}{{ st.summary }}{% endblock %}
+{% block content %}
+<div class="wrap page-head">
+  <p class="eyebrow"><a href="{{ s.season }}.html">{{ s.season | replace('-', '–') }} season</a> · {{ st.kicker }}</p>
+  <h1>{{ st.title }}</h1>
+  {% if s.notes %}<p class="banner">{{ s.notes }}</p>{% endif %}
+  <p class="muted story-byline">{{ st.byline }}</p>
+</div>
+
+<div class="wrap">
+  <article class="card story">
+    {% set toc = st.parts | selectattr('level', 'equalto', 3) | list %}
+    {% if toc | length > 4 %}
+    <nav class="story-toc" aria-label="Games in this story">
+      <p class="muted small">The games</p>
+      <ol>{% for p in toc %}<li><a href="#s{{ loop.index }}">{{ p.title }}</a></li>{% endfor %}</ol>
+    </nav>
+    {% endif %}
+    {% set n = namespace(i=0) %}
+    {% for p in st.parts %}
+    {% if p.level == 3 %}{% set n.i = n.i + 1 %}{% endif %}
+    <section class="story-part{{ ' story-major' if p.level == 2 }}"{% if p.level == 3 %} id="s{{ n.i }}"{% endif %}>
+      {% if p.title %}{% if p.level == 2 %}<h2>{{ p.title }}</h2>{% else %}<h3>{{ p.title }}</h3>{% endif %}{% endif %}
+      {% for kind, text in p.blocks %}
+      {% if kind == 'note' %}<aside class="story-note">{{ text }}</aside>{% else %}<p>{{ text }}</p>{% endif %}
+      {% endfor %}
+    </section>
+    {% endfor %}
+    {% if st.credit %}<p class="note">{{ st.credit }}{% if corrections_url %} Have more from this season, or a correction? <a href="{{ corrections_url }}" target="_blank" rel="noopener">Let us know</a>.{% endif %}</p>{% endif %}
+    <p><a class="btn" href="{{ s.season }}.html">{{ s.season | replace('-', '–') }} results →</a></p>
+  </article>
+</div>
+{% endblock %}

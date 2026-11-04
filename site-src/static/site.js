@@ -321,3 +321,83 @@ document.querySelectorAll("[data-print]").forEach(function (b) {
   b.hidden = false;
   b.addEventListener("click", function () { window.print(); });
 });
+
+// Game-day labels. Pages are rebuilt every few hours, so an unplayed game's label is corrected to the
+// visitor's moment (Wisconsin time) when the page opens: "Today", "Live now", then "Score coming soon"
+// until the next rebuild brings the final. Without JavaScript the labels from the last build stay.
+(function () {
+  var els = document.querySelectorAll("[data-gdate]");
+  if (!els.length) return;
+  var LIVE_BEFORE = 15, GAME_LENGTH = 135, LATE = 22 * 60 + 30; // minutes
+  function now() {
+    try {
+      var o = {};
+      new Intl.DateTimeFormat("en-US", { timeZone: "America/Chicago", year: "numeric", month: "2-digit", day: "2-digit",
+        hour: "2-digit", minute: "2-digit", hourCycle: "h23" }).formatToParts(new Date())
+        .forEach(function (p) { o[p.type] = p.value; });
+      return { date: o.year + "-" + o.month + "-" + o.day, min: (+o.hour % 24) * 60 + (+o.minute) };
+    } catch (e) { return null; }
+  }
+  // Start time in minutes after midnight, from "7:15", "7:15 PM", "5:45/7:15 pm" (varsity is the last time).
+  function start(t) {
+    var re = /(\d{1,2})(?::(\d{2}))?\s*([ap])?\.?\s*m?\b/gi, m, last = null;
+    while ((m = re.exec(t || ""))) if (+m[1] >= 1 && +m[1] <= 12) last = m;
+    if (!last) return null;
+    var h = +last[1], ap = (last[3] || "").toLowerCase();
+    if (ap === "p" && h < 12) h += 12;
+    else if (ap === "a" && h === 12) h = 0;
+    else if (!ap && h < 10) h += 12; // no AM/PM: evening, except 10-12 (Saturday tournaments)
+    return h * 60 + (+last[2] || 0);
+  }
+  var n = now();
+  if (!n) return;
+  function state(el) {
+    var d = el.getAttribute("data-gdate");
+    if (d > n.date) return "future";
+    if (d < n.date) return "done";
+    var s = start(el.getAttribute("data-gtime"));
+    if (s === null) return n.min < LATE ? "today" : "done";
+    if (n.min < s - LIVE_BEFORE) return "today";
+    return n.min < s + GAME_LENGTH ? "live" : "done";
+  }
+  function label(st, time) {
+    if (st === "live") return "Live now";
+    if (st === "done") return "Score coming soon";
+    return "Today" + (time ? " · " + time : "");
+  }
+  els.forEach(function (el) {
+    var st = state(el), kind = el.getAttribute("data-gkind"), time = el.getAttribute("data-gtime");
+    if (st === "future") { if (kind === "banner") el.hidden = true; return; }
+    if (kind === "label") {
+      el.textContent = label(st, time);
+      el.classList.toggle("is-live", st === "live");
+      el.classList.toggle("pending", st === "done");
+    } else if (kind === "board") {
+      el.textContent = "";
+      if (st === "done") {
+        el.className = "pending";
+        el.appendChild(document.createTextNode("Score"));
+        el.appendChild(document.createElement("br"));
+        var sm = document.createElement("small"); sm.textContent = "coming soon"; el.appendChild(sm);
+      } else {
+        el.appendChild(document.createTextNode(st === "live" ? "LIVE NOW" : "TODAY"));
+        if (time) {
+          el.appendChild(document.createElement("br"));
+          var t = document.createElement("small"); t.textContent = time; el.appendChild(t);
+        }
+      }
+    } else if (kind === "row") {
+      if (st === "done") el.hidden = true; else el.classList.add("today");
+    } else if (kind === "banner") {
+      el.hidden = false;
+    } else if (kind === "live" && st === "done") {
+      if (el.getAttribute("data-replay") === "1") { el.textContent = "▶ Watch replay"; el.classList.remove("live"); }
+      else el.hidden = true;
+    }
+  });
+  // the home page's upcoming-games card goes away once every game in it has been played
+  document.querySelectorAll("[data-gcard]").forEach(function (c) {
+    var rows = c.querySelectorAll(".up");
+    if (rows.length && Array.prototype.every.call(rows, function (r) { return r.hidden; })) c.hidden = true;
+  });
+})();

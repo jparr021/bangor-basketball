@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block title %}Sheet check · Bangor Cardinals Boys Basketball{% endblock %}
+{% block description %}Likely mistakes in the stat sheets, found when the site was last built.{% endblock %}
+{% block head_extra %}<meta name="robots" content="noindex">{% endblock %}
+{% macro item(f) -%}
+<li class="sc-item {{ f.level }}"><span class="sc-level">{{ 'Fix' if f.level == 'fix' else 'Check' }}</span>
+  <span>{{ f.text }}{% if f.game_id %} <a href="games/{{ f.game_id }}.html">Game page</a>{% endif %}</span></li>
+{%- endmacro %}
+{% block content %}
+<div class="wrap page-head">
+  <h1>Sheet check</h1>
+  <p class="muted">Likely mistakes in the stat sheets, found when the site was built on {{ built_at }}. Nothing here stops the site from updating. Fix a mistake in the Google Sheet and it disappears from this list at the next refresh. This page isn't linked from the site or shown to search engines.</p>
+  <p class="muted small"><strong>Fix</strong>: something is certainly wrong, like a W with the lower score. <strong>Check</strong>: worth a look, like two player names one letter apart.</p>
+</div>
+<div class="wrap">
+  <section class="card">
+    <h2>{{ current_season | replace('-', '–') }} season <small class="muted rb-count">{% if current %}{{ fixes }} to fix · {{ checks }} to check{% else %}nothing found{% endif %}</small></h2>
+    {% if current %}
+    <ul class="sc-list">{% for f in current %}{{ item(f) }}{% endfor %}</ul>
+    {% else %}
+    <p>No problems found in this season's sheet.</p>
+    {% endif %}
+  </section>
+
+  {% if earlier %}
+  <section class="card">
+    <h2>Earlier seasons</h2>
+    <p class="muted small">Mostly old stat sheets that don't add up exactly. These are already on the site as they are, and need fixing only if the original scorebook shows the right numbers.</p>
+    {% for season, fs in earlier.items() %}
+    <details>
+      <summary>{{ season | replace('-', '–') }} <small class="muted">({{ fs | length }})</small></summary>
+      <ul class="sc-list">{% for f in fs %}{{ item(f) }}{% endfor %}</ul>
+    </details>
+    {% endfor %}
+  </section>
+  {% endif %}
+</div>
+{% endblock %}

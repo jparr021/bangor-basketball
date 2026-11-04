@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% import "_gameday.html" as gd with context %}
 {% block content %}
 <section class="hero">
   <div class="wrap hero-inner">
@@ -21,15 +22,15 @@
 
 {% if upcoming %}
 <div class="wrap">
-  <section class="card upcoming-card">
+  <section class="card upcoming-card" data-gcard>
     <div class="card-head"><h2>Upcoming games</h2><a href="seasons/{{ latest.season }}.html">Full schedule →</a></div>
     <div class="upcoming-list">
       {% for g in upcoming %}
-      <div class="up {{ 'today' if g.is_today }}">
-        <span class="up-date">{{ 'Today' if g.is_today else g.date | d }}{% if g.time %} · {{ g.time }}{% endif %}</span>
+      <div class="up {{ 'today' if g.is_today }}"{{ gd.attrs(g, 'row') }}>
+        <span class="up-date"{{ gd.attrs(g, 'label') }}>{{ 'Today' if g.is_today else g.date | d }}{% if g.time %} · {{ g.time }}{% endif %}</span>
         <a class="up-opp" href="games/{{ g.game_id }}.html">{{ 'at' if g.site == 'away' else 'vs' }} {{ g.opponent }}</a>
         <span class="muted small">{{ g.location }}{% if g.conference == 'Y' %} · Conference{% endif %}</span>
-        {% if g.stream_url %}<a class="btn live" href="{{ g.stream_url }}" target="_blank" rel="noopener">● Watch live</a>{% endif %}
+        {% if g.stream_url %}<a class="btn live" href="{{ g.stream_url }}"{{ gd.attrs(g, 'live') }} target="_blank" rel="noopener">● Watch live</a>{% endif %}
       </div>
       {% endfor %}
     </div>

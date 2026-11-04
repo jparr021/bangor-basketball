@@ -10,6 +10,9 @@ on:
   schedule:
     # Every 3 hours from November through March (times are UTC)
     - cron: "15 */3 * 11,12,1,2,3 *"
+    # Game nights: every 20 minutes from about 7 to 11:40 pm Wisconsin time, but only on days the
+    # site's schedule (/game-days.json) lists a game, so final scores show up soon after the buzzer
+    - cron: "5,25,45 1-5 * 11,12,1,2,3 *"
   workflow_dispatch: {}   # "Run workflow" button in GitHub, for an immediate refresh
 
 jobs:
@@ -19,6 +22,16 @@ jobs:
       - name: Trigger Vercel rebuild
         env:
           HOOK: ${{ secrets.VERCEL_DEPLOY_HOOK }}
+          SITE: ${{ vars.SITE_URL || 'https://bangor-basketball.vercel.app' }}
+          GAME_NIGHT: ${{ github.event.schedule == '5,25,45 1-5 * 11,12,1,2,3 *' }}
         run: |
           if [ -z "$HOOK" ]; then echo "VERCEL_DEPLOY_HOOK secret is not set yet"; exit 0; fi
+          if [ "$GAME_NIGHT" = "true" ]; then
+            today=$(TZ=America/Chicago date +%F)
+            if ! curl -fsS "$SITE/game-days.json" | grep -q "\"$today\""; then
+              echo "No game on $today; skipping the game-night refresh."
+              exit 0
+            fi
+            echo "Game on $today; refreshing."
+          fi
           curl -fsS -X POST "$HOOK"

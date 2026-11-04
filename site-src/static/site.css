@@ -172,6 +172,22 @@ details[open] summary { color: var(--red); }
 .up-date { font-size: .78rem; text-transform: uppercase; letter-spacing: .08em; color: var(--red); font-weight: 700; }
 .up-opp { font-family: var(--head); font-size: 1.2rem; text-transform: uppercase; color: var(--ink); }
 .up .btn { align-self: flex-start; margin-top: 6px; }
+.upcoming.pending, .scoreboard .pending { color: var(--muted); font-weight: 600; }
+.scoreboard .pending { color: #ff8a9a; }
+/* game-day banner under the masthead (site.js shows it on the game's date) */
+.gameday { background: var(--red-tint); border-bottom: 1px solid #f1c4cb; }
+.gameday-inner { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 14px; padding-top: 10px; padding-bottom: 10px; }
+.gameday-tag { font-size: .78rem; text-transform: uppercase; letter-spacing: .08em; color: var(--red-dark); font-weight: 700; }
+.gameday-game { font-family: var(--head); text-transform: uppercase; font-size: 1.15rem; color: var(--ink); }
+.gameday-where { color: var(--muted); font-size: .9rem; }
+.gameday .btn { margin-left: auto; }
+.gameday-tag.is-live, .up-date.is-live, .upcoming.is-live { color: var(--red); }
+.is-live::before { content: ""; display: inline-block; width: .55em; height: .55em; margin-right: .4em;
+  border-radius: 50%; background: currentColor; vertical-align: .08em; animation: live-pulse 1.4s ease-in-out infinite; }
+@keyframes live-pulse { 50% { opacity: .25; } }
+@media (prefers-reduced-motion: reduce) { .is-live::before { animation: none; } }
+@media (max-width: 560px) { .gameday .btn { margin-left: 0; } }
+.up[hidden], .btn[hidden], .gameday[hidden], .card[hidden] { display: none; }
 .film-link { font-weight: 600; }
 .video { position: relative; padding-top: 56.25%; border-radius: 8px; overflow: hidden; background: #000; }
 .video iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
@@ -393,3 +409,11 @@ button.btn[hidden] { display: none; }
   .note { border: 0; background: none; padding: 4px 0; }
   details:not([open]) { display: none; }
 }
+
+/* ---- sheet check (unlisted build report) */
+.sc-list { list-style: none; margin: 8px 0 0; padding: 0; }
+.sc-item { display: flex; gap: 10px; align-items: baseline; padding: 8px 0; border-top: 1px solid var(--line); }
+.sc-item:first-child { border-top: 0; }
+.sc-level { flex: none; min-width: 52px; text-align: center; font-size: .72rem; font-weight: 700; text-transform: uppercase;
+  letter-spacing: .06em; padding: 2px 6px; border-radius: 4px; background: #eef0f3; color: var(--muted); }
+.sc-item.fix .sc-level { background: var(--red); color: #fff; }

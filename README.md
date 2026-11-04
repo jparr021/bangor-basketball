@@ -30,9 +30,13 @@ A static website with Bangor High School (WI) boys basketball history: every sea
    - a **Time** column (or just leave the time, like `7:00 PM`, in the Result column until the game is played)
    - a **Stream** column with the livestream link. Paste the link, or link the text "Watch".
    - a **Film** column with the YouTube link.
-4. Every 3 hours (November–March), GitHub tells Vercel to rebuild. Vercel downloads the sheet and republishes. To refresh right away: GitHub → Actions → *Refresh site* → **Run workflow**.
+4. Every 3 hours (November–March), GitHub tells Vercel to rebuild. Vercel downloads the sheet and republishes. On game nights it also rebuilds every 20 minutes from about 7 to 11:40 pm, so the final score appears soon after it's entered. To refresh right away: GitHub → Actions → *Refresh site* → **Run workflow**.
 
 New games flow into season stats, player pages, career totals and the record book automatically.
+
+**On game day** every page shows a "Game today" banner under the menu, with the livestream link. Pages correct their own labels to the visitor's time (Wisconsin time): *Today*, then *Live now* from just before the start time until about 2¼ hours later, then *Score coming soon* until the score is in the sheet and the next rebuild runs. Without a start time, the game counts as over at 10:30 pm. After the game, a livestream link to that one game becomes *Watch replay*; a link to a channel page is hidden.
+
+**Sheet check.** Each build looks for likely mistakes in the sheets: a missing final score for a game already played, a W with the lower score, a date in the wrong year, the same game listed twice, an opponent or player name spelled two ways, made shots that don't add up to a player's points, and more. The current season's findings are printed in the Vercel build log and listed at **/sheet-check**, a page that isn't linked from the site or shown to search engines. Nothing on the list stops the site from updating. To see the same list on your computer: `.venv/bin/python scripts/sheet_check.py` (add `--all` for every season).
 
 ## End of season
 1. Download the final sheet (File → Download → Microsoft Excel) into `source-sheets/` as `YYYY-YY Stats.xlsx`. The build already keeps a copy there.

@@ -10,6 +10,7 @@ from jinja2 import Environment, FileSystemLoader, select_autoescape
 
 import charts
 import share_images
+import sheet_check
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DATA = os.path.join(ROOT, "data")
@@ -135,9 +136,10 @@ hist_by_season = OrderedDict((h["season"], h) for h in history)
 DATA_SEASONS = sorted(games_by_season)
 try:
     from zoneinfo import ZoneInfo
-    TODAY = dt.datetime.now(ZoneInfo("America/Chicago")).date()  # Wisconsin time, even on Vercel's UTC servers
+    NOW = dt.datetime.now(ZoneInfo("America/Chicago"))  # Wisconsin time, even on Vercel's UTC servers
 except Exception:  # noqa: BLE001
-    TODAY = dt.date.today()
+    NOW = dt.datetime.now()
+TODAY = NOW.date()
 
 # ---- site settings (overrides/site.json): the corrections form
 SETTINGS = {}
@@ -187,7 +189,10 @@ for r in load(os.path.join(OV, "game_film.csv")):
         film_by_date[r["date"].strip()].append(r)
 for g in games_by_id.values():
     d = dt.date.fromisoformat(g["date"])
-    g["status"] = "final" if g["result"] else ("upcoming" if d >= TODAY else "no_result")
+    # pending: a current-season game that has been played but whose score isn't on the sheet yet
+    off = re.search(r"postpon|cancel|no result", g["event"], re.I)
+    g["status"] = "final" if g["result"] else ("upcoming" if d >= TODAY and not off else
+                                               "pending" if g["season"] == CURRENT and not off else "no_result")
     g["is_today"] = d == TODAY
     films = film_by_date.get(g["date"], [])
     if len(films) > 1:  # double-header etc.: match on opponent
@@ -207,7 +212,8 @@ for g in games_by_id.values():
     h = hudl.get(g["date"], {})
     url = g.get("stream_url") or ""
     # a stream link only counts as a replay if it points at one specific game (not a channel/school page)
-    g["replay_url"] = url if g["status"] == "final" and GAME_VIDEO_RE.search(url) else ""
+    g["replayable"] = bool(GAME_VIDEO_RE.search(url))  # the live link stays useful as a replay after the game
+    g["replay_url"] = url if g["status"] == "final" and g["replayable"] else ""
     full = h.get("full")
     if not full and g["replay_url"] and "hudl.com" in url:
         full = {"url": url, "access": "free"}
@@ -243,6 +249,9 @@ for g in games_by_id.values():
 FILM_GAMES = [g for g in games_by_id.values() if g["film_id"]]
 HUDL_ONLY = [g for g in games_by_id.values() if not g["film_id"] and (g["hudl_full"] or g["hudl_recap"])]
 UPCOMING = [g for g in games_by_id.values() if g["status"] == "upcoming"]
+# Game-day banner candidates. Pages are rebuilt every few hours, so the next few days' games are written
+# into every page and site.js shows the one that is on today's date (Wisconsin time) when a visitor opens it.
+GAMEDAY = [g for g in UPCOMING if g["season"] == CURRENT and (dt.date.fromisoformat(g["date"]) - TODAY).days <= 2]
 
 
 def site(g):
@@ -744,6 +753,8 @@ def render(tpl, path, **ctx):
     ctx["build_id"] = BUILD_ID
     ctx["page_url"] = SITE_URL + clean_path(path)
     ctx["coach_slugs"] = COACH_SLUGS
+    ctx["current_season"] = CURRENT
+    ctx["gameday"] = GAMEDAY
     ctx["corrections_url"] = corrections_link(ctx["page_url"])
     html = env.get_template(tpl).render(**ctx)
     if CLEAN_URLS:
@@ -1324,6 +1335,24 @@ def build():
         idx.append({"t": t, "s": "Page", "u": u, "k": "page", "x": x})
     with open(os.path.join(OUT, "static", "search-index.js"), "w") as f:
         f.write("window.BANGOR_SEARCH=" + json.dumps(idx, ensure_ascii=False, separators=(",", ":")) + ";\n")
+
+    # ---- sheet check: likely mistakes in the stat sheets, in the build log and on /sheet-check (unlisted)
+    findings = sheet_check.run(CURRENT, TODAY, PLAYER_ALIASES)
+    cur, fixes, checks = sheet_check.summary(findings, CURRENT)
+    print(f"sheet check ({CURRENT}): {fixes} to fix, {checks} to check. Full list: {SITE_URL}/sheet-check")
+    for f_ in cur:
+        print(f"  {f_['level'].upper():5} {f_['text']}")
+    earlier = OrderedDict()
+    for f_ in findings:
+        if f_["season"] != CURRENT:
+            earlier.setdefault(f_["season"], []).append(f_)
+    render("sheet_check.html", "sheet-check.html", current=cur, fixes=fixes, checks=checks, earlier=earlier,
+           built_at=NOW.strftime("%B %-d, %Y at %-I:%M %p"))
+    PAGES.remove("sheet-check.html")  # kept out of the sitemap
+
+    # ---- the current season's game dates, read by the GitHub refresh workflow to rebuild often on game nights
+    with open(os.path.join(OUT, "game-days.json"), "w") as f:
+        json.dump(sorted({g["date"] for g in games_by_season.get(CURRENT, [])}), f)
 
     # ---- sitemap and robots.txt, so search engines find every player, game and season page
     with open(os.path.join(OUT, "sitemap.xml"), "w") as f:

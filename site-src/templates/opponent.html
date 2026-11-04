@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% import "_gameday.html" as gd with context %}
 {% set section = 'opponents' %}
 {% set h = o.h2h %}
 {% block title %}Bangor vs {{ o.name }} · Bangor Cardinals Boys Basketball{% endblock %}
@@ -16,9 +17,9 @@
   <section class="card upcoming-card">
     <div class="card-head"><h2>Next meeting</h2></div>
     {% set u = o.upcoming[0] %}
-    <p class="h2h-next"><a href="../games/{{ u.game_id }}.html">{{ 'Today' if u.is_today else u.date | d('long') }}{% if u.time %} · {{ u.time }}{% endif %}</a>
+    <p class="h2h-next"><a href="../games/{{ u.game_id }}.html"><span{{ gd.attrs(u, 'label') }}>{{ 'Today' if u.is_today else u.date | d('long') }}{% if u.time %} · {{ u.time }}{% endif %}</span></a>
       <span class="muted">· {{ 'Away' if u.site == 'away' else ('Neutral site' if u.site == 'neutral' else 'Home') }}{% if u.location %}, {{ u.location }}{% endif %}</span>
-      {% if u.stream_url %}<a class="btn live" href="{{ u.stream_url }}" target="_blank" rel="noopener">● Watch live</a>{% endif %}</p>
+      {% if u.stream_url %}<a class="btn live" href="{{ u.stream_url }}"{{ gd.attrs(u, 'live') }} target="_blank" rel="noopener">● Watch live</a>{% endif %}</p>
   </section>
   {% endif %}
 

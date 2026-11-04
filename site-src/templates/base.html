@@ -6,6 +6,7 @@
 <title>{% block title %}Bangor Cardinals Boys Basketball{% endblock %}</title>
 <meta name="description" content="{% block description %}History, stats and records of Bangor High School (Wisconsin) Cardinals boys basketball.{% endblock %}">
 <link rel="canonical" href="{{ page_url }}">
+{% block head_extra %}{% endblock %}
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Bangor Cardinals Boys Basketball">
 <meta property="og:title" content="{{ self.title() }}">
@@ -56,6 +57,20 @@
     </div>
   </div>
 </header>
+{% if gameday %}{% import "_gameday.html" as gdm with context %}
+<div class="gameday-wrap">
+{% for g in gameday %}
+<aside class="gameday" aria-label="Game today"{{ gdm.attrs(g, 'banner') }}{% if not g.is_today %} hidden{% endif %}>
+  <div class="wrap gameday-inner">
+    <span class="gameday-tag"{{ gdm.attrs(g, 'label') }}>Today{% if g.time %} · {{ g.time }}{% endif %}</span>
+    <a class="gameday-game" href="{{ root }}games/{{ g.game_id }}.html">Bangor {{ 'at' if g.site == 'away' else 'vs' }} {{ g.opponent }}</a>
+    {% if g.location %}<span class="gameday-where">{{ g.location }}</span>{% endif %}
+    {% if g.stream_url %}<a class="btn live" href="{{ g.stream_url }}" target="_blank" rel="noopener"{{ gdm.attrs(g, 'live') }}>● Watch live</a>{% endif %}
+  </div>
+</aside>
+{% endfor %}
+</div>
+{% endif %}
 <main id="main" tabindex="-1">
 {% block content %}{% endblock %}
 </main>

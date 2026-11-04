@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% import "_gameday.html" as gd with context %}
 {% import "_badges.html" as rb with context %}
 {% set section = 'seasons' %}
 {% block title %}{{ s.season | replace('-', '–') }} season · Bangor Cardinals Boys Basketball{% endblock %}
@@ -48,11 +49,11 @@
       <tr>
         <td class="nowrap">{{ g.date | d }}</td>
         <td><span class="muted">{{ '@' if g.site == 'away' else 'vs' }}</span> <a href="../opponents/{{ g.opp_slug }}.html">{{ g.opponent }}</a>{% if g.conference == 'Y' %} <span class="tag">Conf</span>{% endif %}</td>
-        <td class="res {{ g.result }} nowrap">{% if g.result %}{{ g.result }} {{ g.bangor_score }}–{{ g.opp_score }}{% if g.ot %} <small>(OT)</small>{% endif %}{% elif g.status == 'upcoming' %}<span class="upcoming">{{ 'Today' if g.is_today else 'Upcoming' }}{% if g.time %} · {{ g.time }}{% endif %}</span>{% else %}<span class="muted">{{ g.event or 'No result' }}</span>{% endif %}</td>
+        <td class="res {{ g.result }} nowrap">{% if g.result %}{{ g.result }} {{ g.bangor_score }}–{{ g.opp_score }}{% if g.ot %} <small>(OT)</small>{% endif %}{% elif g.status == 'upcoming' %}<span class="upcoming"{{ gd.attrs(g, 'label') }}>{{ 'Today' if g.is_today else 'Upcoming' }}{% if g.time %} · {{ g.time }}{% endif %}</span>{% elif g.status == 'pending' %}<span class="upcoming pending"{{ gd.attrs(g, 'label') }}>Score coming soon</span>{% else %}<span class="muted">{{ g.event or 'No result' }}</span>{% endif %}</td>
         <td class="hide-sm">{% if g.game_type == 'playoff' %}<span class="tag red">Playoff</span>{% elif g.game_type == 'tournament' %}<span class="tag">Tournament</span>{% endif %}</td>
         <td class="hide-sm muted small">{{ g.event if g.event and g.game_type != 'regular' else g.location }}</td>
         <td class="nowrap links">
-          {% if g.status == 'upcoming' and g.stream_url %}<a class="btn live" href="{{ g.stream_url }}" target="_blank" rel="noopener">● Watch live</a>{% endif %}
+          {% if g.status == 'upcoming' and g.stream_url %}<a class="btn live" href="{{ g.stream_url }}"{{ gd.attrs(g, 'live') }} target="_blank" rel="noopener">● Watch live</a>{% endif %}
           {% if g.box_score != 'none' %}<a href="../games/{{ g.game_id }}.html">Box score</a>{% endif %}
           {% if g.film_id or g.hudl_full %}<a class="film-link" href="../games/{{ g.game_id }}.html#film">▶ Film</a>{% elif g.hudl_recap %}<a class="film-link" href="../games/{{ g.game_id }}.html#film">▶ Highlights</a>{% elif g.replay_url %}<a href="{{ g.replay_url }}" target="_blank" rel="noopener">Replay</a>{% endif %}
           {% if g.stories %}<a class="news-link" href="../games/{{ g.game_id }}.html#news" title="{{ g.stories | length }} local news {{ 'story' if g.stories | length == 1 else 'stories' }}">News</a>{% endif %}

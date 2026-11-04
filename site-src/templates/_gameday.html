@@ -1,0 +1,5 @@
+{#- Marks an unplayed current-season game so site.js can correct it to the visitor's date (Wisconsin time):
+    "Today", "Live now", "Score coming soon". kind: label | board | row | live | banner -#}
+{% macro attrs(g, kind) -%}
+{%- if not g.result and g.season == current_season %} data-gdate="{{ g.date }}" data-gtime="{{ g.time }}" data-gkind="{{ kind }}"{% if kind == 'live' and g.replayable %} data-replay="1"{% endif %}{% endif -%}
+{%- endmacro %}

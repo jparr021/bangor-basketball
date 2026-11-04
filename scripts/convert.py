@@ -600,8 +600,8 @@ def main():
                 warn(season, f"{date}: schedule opponent '{s['opponent']}' vs tab opponent '{t['opponent']}'")
             # neutral site: tournaments / playoffs played away from either school
             xl = extra_lines.get(g["date"])
-            if xl and xl.get("site") and not (s or {}).get("site"):
-                g["site"] = xl["site"]
+            if xl and xl.get("site") and (not (s or {}).get("site") or xl["site"] == "neutral"):
+                g["site"] = xl["site"]  # "neutral" overrides the schedule's home/away (a playoff site)
             if xl and xl.get("event") and not (t or {}).get("event"):
                 g["event"] = xl["event"]
             ev = " ".join([g["location"], g["event"]])

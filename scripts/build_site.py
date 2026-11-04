@@ -1438,6 +1438,11 @@ def build():
                        "bangor": g["bangor_periods"].split("|"), "opp": g["opp_periods"].split("|")}
         bt = box_totals(bangor)
         ot = box_totals(opp)
+        if g.get("box_source") == "newspaper":  # a clipping total is only shown when every player's number is known
+            for tot, rows_ in ((bt, bangor), (ot, opp)):
+                for k in list(tot):
+                    if any(r.get(k) is None for r in rows_):
+                        tot[k] = None
         ind = [b for r in bangor for b in B["game_ind"].get((gid, r["slug"]), [])]
         ind += [b for (bg, bs), bl in B["game_ind"].items() if bg == gid and bs not in {r["slug"] for r in bangor} for b in bl]
         render("game.html", f"games/{gid}.html", g=g, **game_share(g),

@@ -31,7 +31,7 @@
               {% if e.name %}{% if e.player %}<a href="../players/{{ e.player }}.html">{{ e.name }}</a>{% else %}{{ e.name }}{% endif %}<br>{% endif %}
               <span class="muted small">
                 {% if s.period == 'game' %}
-                  {% if e.game_id %}<a href="../games/{{ e.game_id }}.html">vs {{ e.opponent }}, {{ e.date | d }}</a>{% else %}{% if e.opponent %}vs {{ e.opponent }}, {% endif %}{{ e.date | d }}{% endif %}
+                  {% if e.game_id %}<a href="../games/{{ e.game_id }}.html">vs {{ e.opponent }}, {{ e.date | d }}</a>{% else %}{% if e.opponent %}vs {{ e.opponent }}{% if e.date %}, {% endif %}{% endif %}{{ e.date | d }}{% endif %}
                 {% else %}
                   {% if e.season and e.season[:4] >= '1999' and e.season | length == 7 and s.period == 'season' %}<a href="../seasons/{{ e.season }}.html">{{ e.season | replace('-', '–') }}</a>{% else %}{{ e.season | replace('-', '–') }}{% endif %}{% if e.gp %} · {{ e.gp }} G{% endif %}
                 {% endif %}

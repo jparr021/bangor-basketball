@@ -4,7 +4,7 @@
 
 | Season | Games | W-L | Box scores (full / points-only / none) | Box scores missing points |
 |---|---|---|---|---|
-| 2002-03 | 24 | 22-2 | 0 / 0 / 24 | 0 |
+| 2002-03 | 24 | 22-2 | 0 / 3 / 21 | 3 |
 | 2003-04 | 20 | 2-18 | 0 / 0 / 20 | 0 |
 | 2004-05 | 20 | 5-15 | 0 / 0 / 20 | 0 |
 | 2005-06 | 21 | 14-7 | 0 / 0 / 21 | 0 |
@@ -170,6 +170,9 @@ A check compares one player's season total for one stat. A match means the sum o
 
 ## Games whose box score doesn't account for every point
 
+- 2002-12-03 vs Gale-Ettrick-Trempealeau: box score adds to 55, final 69
+- 2002-12-09 vs Melrose-Mindoro: box score adds to 45, final 56
+- 2002-12-13 vs Brookwood: box score adds to 37, final 62
 - 2007-12-10 vs Gale-Ettrick-Trempealeau: box score adds to 22, final 24
 - 2008-12-06 vs Blair-Taylor: box score adds to 28, final 31
 - 2008-12-12 vs Brookwood: box score adds to 31, final 34

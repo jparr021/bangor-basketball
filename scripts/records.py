@@ -89,6 +89,8 @@ for r in src:
     key = (r["season"], canon(r["name"]))
     s = seasons.setdefault(key, {"season": key[0], "name": key[1], "number": r["number"], "gp": None,
                                  **{k: None for k in STATS}})
+    if r.get("number") and not s.get("number"):
+        s["number"] = r["number"]
     used = False
     for k, col in SRC_COL.items():
         v = num(r.get(col))

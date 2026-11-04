@@ -1,4 +1,13 @@
 game_id,season,date,opponent,player_id,name,number,class,min,fgm,fga,tpm,tpa,ftm,fta,oreb,dreb,reb,ast,stl,blk,to,pf,pts,chg
+2002-03-01,2002-03,2002-12-03,Gale-Ettrick-Trempealeau,troy-bolcerek,Troy Bolcerek,35,,,,,,,,,,,7,,,,,,23,
+2002-03-01,2002-03,2002-12-03,Gale-Ettrick-Trempealeau,brandon-meyer,Brandon Meyer,3,,,,,,,,,,,,,,,,,21,
+2002-03-01,2002-03,2002-12-03,Gale-Ettrick-Trempealeau,chris-chandler,Chris Chandler,15,,,,,,,,,,,,,,,,,11,
+2002-03-03,2002-03,2002-12-09,Melrose-Mindoro,troy-bolcerek,Troy Bolcerek,35,,,,,,,,,,,,,,,,,19,
+2002-03-03,2002-03,2002-12-09,Melrose-Mindoro,chris-chandler,Chris Chandler,15,,,,,,,,,,,17,,,,,,17,
+2002-03-03,2002-03,2002-12-09,Melrose-Mindoro,brandon-meyer,Brandon Meyer,3,,,,,,,,,,,,,,,,,9,
+2002-03-04,2002-03,2002-12-13,Brookwood,troy-bolcerek,Troy Bolcerek,35,,,,,,,,,,,,,,,,,21,
+2002-03-04,2002-03,2002-12-13,Brookwood,kyle-schroeder,Kyle Schroeder,21,,,,,,,,,,,,,,,,,16,
+2002-03-04,2002-03,2002-12-13,Brookwood,chris-chandler,Chris Chandler,15,,,,,,,,,,,7,,,,,,,
 2007-08-03,2007-08,2007-12-07,Necedah,makiel-steensen,Makiel Steensen,5,,,,,,,,,,,,,,,,,2,
 2007-08-03,2007-08,2007-12-07,Necedah,john-piske,John Piske,11,,,,,,,,,,,,,,,,,2,
 2007-08-03,2007-08,2007-12-07,Necedah,jake-stumlin,Jake Stumlin,21,,,,,,,,,,,,,,,,,20,

@@ -4,7 +4,7 @@
 {% import "_gameday.html" as gd with context %}
 {% set section = 'seasons' %}
 {% block title %}{% if g.result %}Bangor {{ g.bangor_score }}, {{ g.opponent }} {{ g.opp_score }}{% else %}Bangor {{ 'at' if g.site == 'away' else 'vs' }} {{ g.opponent }}{% endif %} ({{ g.date | d }}) · Bangor Cardinals{% endblock %}
-{% block description %}{% if g.result %}{% if g.result == 'W' %}Bangor beat {{ g.opponent }} {{ g.bangor_score }}–{{ g.opp_score }}{% else %}Bangor lost to {{ g.opponent }} {{ g.opp_score }}–{{ g.bangor_score }}{% endif %}{% if g.ot %} in overtime{% endif %} on {{ g.date | d('long') }}.{% if g.box_score != 'none' %} Full box score{% if g.has_video %} and game film{% endif %}.{% elif g.has_video %} Game film.{% endif %}{% if g.stories %} Local news coverage.{% endif %}{% else %}Bangor Cardinals {{ 'at' if g.site == 'away' else 'vs' }} {{ g.opponent }}, {{ g.date | d('long') }}{% if g.time %} at {{ g.time }}{% endif %}{% if g.location %}, {{ g.location }}{% endif %}.{% endif %}{% endblock %}
+{% block description %}{% if g.result %}{% if g.result == 'W' %}Bangor beat {{ g.opponent }} {{ g.bangor_score }}–{{ g.opp_score }}{% else %}Bangor lost to {{ g.opponent }} {{ g.opp_score }}–{{ g.bangor_score }}{% endif %}{% if g.ot %} in overtime{% endif %} on {{ g.date | d('long') }}.{% if g.box_source == 'newspaper' %} Quarter scores and leading scorers.{% if g.has_video %} Game film.{% endif %}{% elif g.box_score != 'none' %} Full box score{% if g.has_video %} and game film{% endif %}.{% elif g.has_video %} Game film.{% endif %}{% if g.stories %} Local news coverage.{% endif %}{% else %}Bangor Cardinals {{ 'at' if g.site == 'away' else 'vs' }} {{ g.opponent }}, {{ g.date | d('long') }}{% if g.time %} at {{ g.time }}{% endif %}{% if g.location %}, {{ g.location }}{% endif %}.{% endif %}{% endblock %}
 {% block content %}
 <div class="wrap page-head">
   <p class="eyebrow"><a href="../seasons/{{ g.season }}.html">{{ g.season | replace('-', '–') }} season</a> · {{ g.date | d('long') }}</p>
@@ -45,6 +45,7 @@
   {% elif g.replay_url %}
   <p class="center"><a class="btn" href="{{ g.replay_url }}" target="_blank" rel="noopener">Watch the replay</a></p>
   {% endif %}
+  {% if g.recap %}<p class="game-recap">{{ g.recap }}</p>{% endif %}
   {{ news.card(g.stories, heading='Game coverage') }}
 
   {% if periods %}
@@ -70,10 +71,11 @@
       <tr><td class="muted">{{ p.number }}</td><td class="nowrap"><a href="../players/{{ p.slug }}.html">{{ p.name }}</a>{% if p.cls %} <small class="muted">{{ p.cls }}</small>{% endif %}{% for b in p.badges %} {{ rb.tag(b) }}{% endfor %}</td>{% for k, h in bcols %}<td class="num">{{ p[k] }}</td>{% endfor %}</tr>
       {% endfor %}
       </tbody>
-      <tfoot><tr><td></td><td>Totals</td>{% for k, h in bcols %}<td class="num">{{ btot[k] }}</td>{% endfor %}</tr></tfoot>
+      {% if g.box_source != 'newspaper' %}<tfoot><tr><td></td><td>Totals</td>{% for k, h in bcols %}<td class="num">{{ btot[k] }}</td>{% endfor %}</tr></tfoot>{% endif %}
     </table>
     </div>
-    {% if g.box_complete == 'N' %}<p class="note">This box score accounts for {{ g.box_points }} of Bangor's {{ g.bangor_score }} points. The original stat sheet is incomplete.</p>{% endif %}
+    {% if g.box_source == 'newspaper' %}<p class="note">Leading scorers and rebounders from a newspaper clipping, not a full box score. They account for {{ g.box_points }} of Bangor's {{ g.bangor_score }} points. This game already counts in the season totals from the season stat sheet.</p>
+    {% elif g.box_complete == 'N' %}<p class="note">This box score accounts for {{ g.box_points }} of Bangor's {{ g.bangor_score }} points. The original stat sheet is incomplete.</p>{% endif %}
     {% elif g.status in ('upcoming', 'pending') %}
     <p class="note">Stats will appear here after the game.</p>
     {% else %}
@@ -92,9 +94,10 @@
       <tr><td class="muted">{{ p.number }}</td><td class="nowrap">{{ p.name }}</td>{% for k, h in ocols %}<td class="num">{{ p[k] }}</td>{% endfor %}</tr>
       {% endfor %}
       </tbody>
-      <tfoot><tr><td></td><td>Totals</td>{% for k, h in ocols %}<td class="num">{{ otot[k] }}</td>{% endfor %}</tr></tfoot>
+      {% if g.box_source != 'newspaper' %}<tfoot><tr><td></td><td>Totals</td>{% for k, h in ocols %}<td class="num">{{ otot[k] }}</td>{% endfor %}</tr></tfoot>{% endif %}
     </table>
     </div>
+    {% if g.box_source == 'newspaper' %}<p class="note">Leading scorers and rebounders from a newspaper clipping.</p>{% endif %}
   </section>
   {% endif %}
 </div>

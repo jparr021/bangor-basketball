@@ -434,12 +434,21 @@ def load_extra_boxscores():
         with open(p2) as f:
             for r in csv.DictReader(f):
                 lines[r["date"]] = r
-    return opp, lines
+    # Leading scorers and rebounders from newspaper clippings, for games with no box score
+    news = defaultdict(lambda: {"bangor": [], "opp": []})
+    p3 = os.path.join(ROOT, "overrides", "newspaper_stats.csv")
+    if os.path.exists(p3):
+        with open(p3) as f:
+            for r in csv.DictReader(f):
+                d = {"number": (r.get("number") or "").strip(), "name": r["name"].strip(), **{k: None for k in STAT_COLS}}
+                d["pts"], d["reb"] = num(r.get("pts")), num(r.get("reb"))
+                news[r["date"]]["bangor" if r["team"].strip().lower() == "bangor" else "opp"].append(d)
+    return opp, lines, news
 
 
 # ---------------------------------------------------------------- main
 def main():
-    extra_opp, extra_lines = load_extra_boxscores()
+    extra_opp, extra_lines, extra_news = load_extra_boxscores()
     os.makedirs(OUT, exist_ok=True)
     games_out, pg_out, opp_out, totals_out = [], [], [], []
     for path in sorted(glob.glob(os.path.join(SRC, "*.xlsx"))):
@@ -549,7 +558,7 @@ def main():
                  "period_labels": "", "bangor_periods": "", "opp_periods": "",
                  "time": (s or {}).get("time", ""), "stream_url": (s or {}).get("stream_url", ""),
                  "film_url": (s or {}).get("film_url", ""),
-                 "box_score": "none", "box_points": "", "box_complete": "", "source": "schedule" if not t else ("tab" if not s else "schedule+tab")}
+                 "box_score": "none", "box_points": "", "box_complete": "", "box_source": "", "recap": "", "source": "schedule" if not t else ("tab" if not s else "schedule+tab")}
             if t and "postpone" in g["event"].lower():
                 warn(season, f"{date} vs {g['opponent']}: schedule says postponed, but a game tab with a "
                              f"result exists (using the game tab)")
@@ -572,26 +581,33 @@ def main():
             if g["game_type"] in ("tournament", "playoff") and loc and "bangor" not in loc and \
                     canon_opp(g["opponent"]).lower().split()[0] not in loc:
                 g["site"] = "neutral"
-            if t and not t.get("periods") and xl and xl.get("period_labels"):
-                lab = xl["period_labels"].split("|")
-                t["periods"] = {"labels": lab, "bangor": [num(x) for x in xl["bangor_periods"].split("|")],
-                                "opp": [num(x) for x in xl["opp_periods"].split("|")]}
-            if t and not t.get("opp_players") and extra_opp.get(g["date"]):
-                t["opp_players"] = extra_opp[g["date"]]
-            if t and t.get("periods"):
-                p = t["periods"]
+            periods = (t or {}).get("periods")
+            if not periods and xl and xl.get("period_labels"):
+                periods = {"labels": xl["period_labels"].split("|"),
+                           "bangor": [num(x) for x in xl["bangor_periods"].split("|")],
+                           "opp": [num(x) for x in xl["opp_periods"].split("|")]}
+            if xl and xl.get("recap"):
+                g["recap"] = xl["recap"]
+            opp_players = (t or {}).get("opp_players") or extra_opp.get(g["date"])
+            players = (t or {}).get("players")
+            nw = extra_news.get(g["date"])
+            if nw and not players:  # newspaper leaders only: points and rebounds for a few players
+                players = nw["bangor"]
+                opp_players = opp_players or nw["opp"]
+                g["box_source"] = "newspaper"
+            if periods:
+                p = periods
                 g["period_labels"] = "|".join(p["labels"])
                 g["bangor_periods"] = "|".join("" if x is None else str(x) for x in p["bangor"])
                 g["opp_periods"] = "|".join("" if x is None else str(x) for x in p["opp"])
                 g["ot"] = str(sum(1 for l in p["labels"] if l.upper().startswith("OT")) or "")
-            players = (t or {}).get("players")
             if players:
                 pts_known = sum((p["pts"] or 0) for p in players)
                 full = any(p["fga"] is not None for p in players)
                 g["box_score"] = "full" if full else "points"
                 g["box_points"] = pts_known
                 g["box_complete"] = "Y" if pts_known == g["bangor_score"] else "N"
-                if g["bangor_score"] not in ("", None) and pts_known != g["bangor_score"]:
+                if g["bangor_score"] not in ("", None) and pts_known != g["bangor_score"] and not g["box_source"]:
                     warn(season, f"{date} vs {g['opponent']}: Bangor players' points add to {pts_known}, "
                                  f"final score {g['bangor_score']}")
                 for p in players:
@@ -601,7 +617,7 @@ def main():
                     for k in STAT_COLS:
                         row[k] = "" if p.get(k) is None else p[k]
                     pg_out.append(row)
-            for p in ((t or {}).get("opp_players") or []):
+            for p in (opp_players or []):
                 row = {"game_id": gid, "season": season, "date": g["date"], "team": g["opponent"],
                        "name": p["name"], "number": p["number"]}
                 for k in STAT_COLS:

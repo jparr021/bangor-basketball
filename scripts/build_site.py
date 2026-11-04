@@ -1274,7 +1274,8 @@ def build():
         highs = []
         for k, label in [("pts", "Points"), ("reb", "Rebounds"), ("ast", "Assists"), ("stl", "Steals"), ("blk", "Blocks"),
                          ("tpm", "3-pointers")]:
-            cands = [r for r in log if r.get(k) is not None]
+            # a few leading scorers from newspaper clippings don't make a game high
+            cands = [r for r in log if r.get(k) is not None and games_by_id[r["game_id"]].get("box_source") != "newspaper"]
             if cands and max(r[k] for r in cands) > 0:
                 best = max(cands, key=lambda r: (r[k], r["date"]))
                 highs.append({"label": label, "value": fmt_int(best[k]), "g": games_by_id[best["game_id"]]})
@@ -1320,7 +1321,10 @@ def build():
                        and h["name"] and slug(h["name"]) == sl]
         sh = share("players", sl, share_images.player_card, f"{name}, Bangor Cardinals boys basketball, {p_['years']}",
                    name, sub, tiles[:4])
+        news_log = {s for s, rs in by_season.items()
+                    if rs and all(r["g"].get("box_source") == "newspaper" for r in rs)}
         render("player.html", f"players/{sl}.html", name=name, seasons=srows, career=crow, cols=cols, log=by_season,
+               news_log=news_log,
                lcols=lcols, highs=highs, numbers=numbers, cls=cls, years=plist[-1]["years"],
                grad=plist[-1]["grad"], grad_est=plist[-1]["grad_how"] == "estimated",
                partial=bool(partial_stats), part_career=part, span=span, book_career=book_career,

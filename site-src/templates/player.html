@@ -87,7 +87,7 @@
     <p class="muted small">Click a column heading to sort.</p>
     {% for season, rows in log.items() %}
     <details {% if loop.last %}open{% endif %}>
-      <summary>{{ season | replace('-', '–') }} <span class="muted">({{ rows | length }} games)</span></summary>
+      <summary>{{ season | replace('-', '–') }} <span class="muted">({{ rows | length }} game{{ 's' if rows | length != 1 }}{% if season in news_log %} from newspaper clippings, leading scorers and rebounders only{% endif %})</span></summary>
       {{ log_table(rows) }}
     </details>
     {% endfor %}

@@ -402,6 +402,15 @@
     },
     {
      "value": 17,
+     "name": "Chris Chandler",
+     "player": "chris-chandler",
+     "date": "2002-12-09",
+     "opponent": "Melrose-Mindoro",
+     "season": "2002-03",
+     "game_id": "2002-03-03"
+    },
+    {
+     "value": 17,
      "name": "Kyle Wingert",
      "player": "kyle-wingert",
      "date": "2017-03-03",
@@ -471,96 +480,6 @@
      "opponent": "Hillsboro",
      "season": "2023-24",
      "game_id": "2023-24-05"
-    },
-    {
-     "value": 16,
-     "name": "Canon O'Heron",
-     "player": "canon-oheron",
-     "date": "2015-01-22",
-     "opponent": "Necedah",
-     "season": "2014-15",
-     "game_id": "2014-15-14"
-    },
-    {
-     "value": 16,
-     "name": "Canon O'Heron",
-     "player": "canon-oheron",
-     "date": "2015-02-05",
-     "opponent": "Hillsboro",
-     "season": "2014-15",
-     "game_id": "2014-15-17"
-    },
-    {
-     "value": 16,
-     "name": "Grant Manke",
-     "player": "grant-manke",
-     "date": "2018-02-06",
-     "opponent": "Wonewoc-Center",
-     "season": "2017-18",
-     "game_id": "2017-18-16"
-    },
-    {
-     "value": 16,
-     "name": "Grant Manke",
-     "player": "grant-manke",
-     "date": "2018-03-10",
-     "opponent": "Southwestern",
-     "season": "2017-18",
-     "game_id": "2017-18-27"
-    },
-    {
-     "value": 16,
-     "name": "Grant Manke",
-     "player": "grant-manke",
-     "date": "2019-02-04",
-     "opponent": "Brookwood",
-     "season": "2018-19",
-     "game_id": "2018-19-14"
-    },
-    {
-     "value": 16,
-     "name": "Grant Manke",
-     "player": "grant-manke",
-     "date": "2019-12-26",
-     "opponent": "Richland Center",
-     "season": "2019-20",
-     "game_id": "2019-20-05"
-    },
-    {
-     "value": 16,
-     "name": "Grant Manke",
-     "player": "grant-manke",
-     "date": "2020-02-24",
-     "opponent": "Necedah",
-     "season": "2019-20",
-     "game_id": "2019-20-22"
-    },
-    {
-     "value": 16,
-     "name": "Grant Manke",
-     "player": "grant-manke",
-     "date": "2020-02-27",
-     "opponent": "Royall",
-     "season": "2019-20",
-     "game_id": "2019-20-23"
-    },
-    {
-     "value": 16,
-     "name": "Dustin McDonald",
-     "player": "dustin-mcdonald",
-     "date": "2022-12-29",
-     "opponent": "Wausau East",
-     "season": "2022-23",
-     "game_id": "2022-23-05"
-    },
-    {
-     "value": 16,
-     "name": "Brock Bores",
-     "player": "brock-bores",
-     "date": "2025-01-23",
-     "opponent": "Cashton",
-     "season": "2024-25",
-     "game_id": "2024-25-13"
     }
    ],
    "ast": [

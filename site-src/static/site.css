@@ -125,6 +125,7 @@ h3 { font-size: 1.05rem; }
 .tag.red { background: var(--red); color: #fff; }
 .book-tag { display: inline-block; font-size: .64rem; text-transform: uppercase; letter-spacing: .06em; font-weight: 700; padding: 0 5px; border-radius: 3px; border: 1px solid var(--red); color: var(--red); margin-left: 4px; vertical-align: middle; }
 .note { color: var(--muted); font-size: .88rem; background: #fafafa; border: 1px dashed var(--line); padding: 10px 12px; border-radius: 6px; }
+.game-recap { max-width: 720px; margin: 0 auto 18px; text-align: center; font-size: 1.02rem; }
 
 /* ---- game page */
 .scoreboard { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 20px; background: var(--black); color: #fff; border-radius: var(--radius); padding: 22px 28px; margin: 10px 0 14px; border-bottom: 5px solid var(--red); }

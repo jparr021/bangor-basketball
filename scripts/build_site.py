@@ -130,7 +130,18 @@ for g in games_by_id.values():
     g["bs"], g["os"] = num(g["bangor_score"]), num(g["opp_score"])
     g["opp_slug"] = slug(g["opponent"])
     games_by_season[g["season"]].append(g)
-OPP_PAGES = {g["opp_slug"] for g in games_by_id.values()}  # every opponent in games.csv gets a page
+# Results-only games with a date and site (a printed schedule recap) count in the head-to-head records on
+# opponent pages. They have no box score, so they link to the game's row on the season page.
+DATED_RESULTS = []
+for s, gs in RESULTS_ONLY.items():
+    if s in games_by_season or not all(g.get("date") and g.get("site") for g in gs):
+        continue
+    for g in gs:
+        g.update(game_id="", box_score="none", has_video=False, href=f"../seasons/{s}.html#g{g['game']}",
+                 game_type="playoff" if re.search(r"regional|sectional|state", g.get("note", ""), re.I) else "regular")
+        DATED_RESULTS.append(g)
+# every opponent in games.csv (or a dated results-only game) gets a page
+OPP_PAGES = {g["opp_slug"] for g in games_by_id.values()} | {g["opp_slug"] for g in DATED_RESULTS}
 pg_by_game = defaultdict(list)
 pg_by_player = defaultdict(list)
 for r in pg:
@@ -831,7 +842,7 @@ def margin_items(gs, xlabel, label_extremes=True):
         m = int(g["bs"] - g["os"])
         tip = (f"{'+' if m > 0 else ('−' if m < 0 else '')}{abs(m)} · {g['result']} {g['bangor_score']}–{g['opp_score']}{' (OT)' if g['ot'] else ''}\n"
                f"{'at' if g['site'] == 'away' else 'vs'} {g['opponent']}, {fmt_date(g['date'])}")
-        items.append({"margin": m, "tip": tip, "record": f"{w}–{l}", "href": f"../games/{g['game_id']}.html",
+        items.append({"margin": m, "tip": tip, "record": f"{w}–{l}", "href": g.get("href") or f"../games/{g['game_id']}.html",
                       "xlabel": xlabel(g, items[-1] if items else None), "g": g})
     if label_extremes and items:
         hi = max(items, key=lambda i: i["margin"])
@@ -1133,7 +1144,9 @@ def build():
             items.append({"margin": m, "record": g["record"], "href": f"#g{g['game']}",
                           "xlabel": g["game"] if g["game"] == "1" or int(g["game"]) % 5 == 0 else "",
                           "tip": f"{'+' if m > 0 else ('−' if m < 0 else '')}{abs(m)} · {g['result']} {g['bangor_score']}–{g['opp_score']}"
-                                 f"{' (OT)' if g['ot'] else ''}\nGame {g['game']}: {g['opponent']}"})
+                                 f"{' (OT)' if g['ot'] else ''}\n"
+                                 f"{fmt_date(g['date']) if g.get('date') else 'Game ' + g['game']}: "
+                                 f"{'@ ' if g.get('site') == 'away' else ('vs ' if g.get('site') else '')}{g['opponent']}"})
         if items:
             for it in (max(items, key=lambda i: i["margin"]), min(items, key=lambda i: i["margin"])):
                 it["label"] = True
@@ -1144,6 +1157,7 @@ def build():
         sh = share("seasons", s, share_images.simple_card, f"Bangor Cardinals {s.replace('-', '–')} season: {ss['w']}–{ss['l']}",
                    f"Season{' · Coach ' + ss['coach'] if ss['coach'] else ''}", s.replace("-", "–"), ss["notes"], tiles, "Season")
         render("season_results.html", f"seasons/{s}.html", s=ss, games=gs, w=w, l=l, sources=sources,
+               dated=all(g.get("date") for g in gs),
                margin_svg=margin_svg, opp_pages=OPP_PAGES, **pager(s), **sh)
 
     for i, s in enumerate(DATA_SEASONS):
@@ -1316,13 +1330,13 @@ def build():
 
     # ---- opponents
     opps = OrderedDict()
-    for g in games_by_id.values():
+    for g in sorted(list(games_by_id.values()) + DATED_RESULTS, key=lambda g: g["date"]):
         o = opps.setdefault(g["opp_slug"], {"name": g["opponent"], "slug": g["opp_slug"], "w": 0, "l": 0, "games": [],
                                             "upcoming": []})
         if g["result"] in ("W", "L"):
             o["w" if g["result"] == "W" else "l"] += 1
             o["games"].append(g)
-        elif g["status"] == "upcoming":
+        elif g.get("status") == "upcoming":
             o["upcoming"].append(g)
     # every opponent on the schedule gets a page (a game page links to it), even before the first meeting
     for o in opps.values():
@@ -1336,10 +1350,11 @@ def build():
                 tiles.append(((("Won " if h2["streak"][0] == "W" else "Lost ") + h2["streak"][1:]), "Current streak"))
             sh = share("opponents", o["slug"], share_images.simple_card, f"Bangor vs {o['name']}: {o['w']}–{o['l']}",
                        "Head to head", f"vs {o['name']}",
-                       f"{o['w'] + o['l']} meetings since {o['games'][0]['season'].replace('-', '–')}", tiles, "Opponent")
+                       f"{o['w'] + o['l']} meeting{'s' if o['w'] + o['l'] != 1 else ''} since {o['games'][0]['season'].replace('-', '–')}", tiles, "Opponent")
         render("opponent.html", f"opponents/{o['slug']}.html", o=o, **sh)
     olist = sorted((o for o in opps.values() if o["games"]), key=lambda o: (-(o["w"] + o["l"]), o["name"]))
-    render("opponents.html", "opponents/index.html", opps=olist, first=DATA_SEASONS[0])
+    render("opponents.html", "opponents/index.html", opps=olist,
+           first=min([DATA_SEASONS[0]] + [g["season"] for g in DATED_RESULTS]))
 
     # ---- game film index
     if FILM_GAMES or HUDL_ONLY:

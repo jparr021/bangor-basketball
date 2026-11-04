@@ -3,13 +3,13 @@
 {% set section = 'opponents' %}
 {% set h = o.h2h %}
 {% block title %}Bangor vs {{ o.name }} · Bangor Cardinals Boys Basketball{% endblock %}
-{% block description %}{% if o.games %}Bangor is {{ o.w }}–{{ o.l }} against {{ o.name }} in {{ o.w + o.l }} meetings since {{ o.games[0].season | replace('-', '–') }}. Head-to-head stats, every game, score and box score.{% else %}Bangor Cardinals boys basketball vs {{ o.name }}.{% endif %}{% endblock %}
+{% block description %}{% if o.games %}Bangor is {{ o.w }}–{{ o.l }} against {{ o.name }} in {{ o.w + o.l }} meeting{{ 's' if o.w + o.l != 1 }} since {{ o.games[0].season | replace('-', '–') }}. Head-to-head stats, every game, score and box score.{% else %}Bangor Cardinals boys basketball vs {{ o.name }}.{% endif %}{% endblock %}
 {% block content %}
 <div class="wrap page-head">
   <p class="eyebrow"><a href="index.html">Opponents</a></p>
   <h1>vs {{ o.name }}</h1>
   {% if o.games %}
-  <div class="season-meta"><span class="big-rec">{{ o.w }}–{{ o.l }}</span><span>{{ o.w + o.l }} meetings since {{ o.games[0].season | replace('-', '–') }}</span></div>
+  <div class="season-meta"><span class="big-rec">{{ o.w }}–{{ o.l }}</span><span>{{ o.w + o.l }} meeting{{ 's' if o.w + o.l != 1 }} since {{ o.games[0].season | replace('-', '–') }}</span></div>
   {% endif %}
 </div>
 <div class="wrap">
@@ -30,10 +30,10 @@
     <div class="leader-card"><span class="lbl">Average score</span><span class="val">{{ h.ppg }}–{{ h.oppg }}</span><span class="muted">Margin {{ h.margin }} per game</span></div>
     {% if h.biggest_win %}{% set g = h.biggest_win %}
     <div class="leader-card"><span class="lbl">Biggest win</span><span class="val">+{{ (g.bs - g.os) | int }}</span>
-      <a class="small" href="../games/{{ g.game_id }}.html">{{ g.bangor_score }}–{{ g.opp_score }}, {{ g.date | d }}</a></div>{% endif %}
+      <a class="small" href="{{ g.href or '../games/' ~ g.game_id ~ '.html' }}">{{ g.bangor_score }}–{{ g.opp_score }}, {{ g.date | d }}</a></div>{% endif %}
     {% if h.worst_loss %}{% set g = h.worst_loss %}
     <div class="leader-card"><span class="lbl">Worst loss</span><span class="val">−{{ (g.os - g.bs) | int }}</span>
-      <a class="small" href="../games/{{ g.game_id }}.html">{{ g.bangor_score }}–{{ g.opp_score }}, {{ g.date | d }}</a></div>{% endif %}
+      <a class="small" href="{{ g.href or '../games/' ~ g.game_id ~ '.html' }}">{{ g.bangor_score }}–{{ g.opp_score }}, {{ g.date | d }}</a></div>{% endif %}
   </div>
 
   <div class="grid-2">
@@ -106,7 +106,7 @@
       <tr><td class="nowrap">{{ g.date | d }}</td><td><a href="../seasons/{{ g.season }}.html">{{ g.season | replace('-', '–') }}</a></td>
         <td>{{ 'Away' if g.site == 'away' else ('Neutral' if g.site == 'neutral' else 'Home') }}{% if g.game_type == 'playoff' %} <span class="tag red">Playoff</span>{% endif %}</td>
         <td class="res {{ g.result }} nowrap">{{ g.result }} {{ g.bangor_score }}–{{ g.opp_score }}{% if g.ot %} <small>(OT)</small>{% endif %}</td>
-        <td class="nowrap">{% if g.box_score != 'none' %}<a href="../games/{{ g.game_id }}.html">Box score</a>{% endif %}{% if g.has_video %} · <a class="film-link" href="../games/{{ g.game_id }}.html#film">▶ Film</a>{% endif %}</td></tr>
+        <td class="nowrap">{% if g.href %}<a class="muted small" href="{{ g.href }}">No box score</a>{% elif g.box_score != 'none' %}<a href="../games/{{ g.game_id }}.html">Box score</a>{% endif %}{% if g.has_video %} · <a class="film-link" href="../games/{{ g.game_id }}.html#film">▶ Film</a>{% endif %}</td></tr>
       {% endfor %}
       </tbody>
     </table>

@@ -13,11 +13,11 @@
     <h2>Head coaches</h2>
     <div class="scroll">
     <table class="tbl sortable">
-      <thead><tr><th>Coach</th><th>Seasons</th><th class="num">Yrs</th><th class="num">W</th><th class="num">L</th><th class="num">Pct</th><th class="num">Conf. titles</th></tr></thead>
+      <thead><tr><th>Coach</th><th>Seasons</th><th class="num">Yrs</th><th class="num">W</th><th class="num">L</th><th class="num">Pct</th><th class="num">Conf. titles</th><th class="num hide-sm">Regional</th><th class="num hide-sm">State trips</th></tr></thead>
       <tbody>
       {% for c in coaches %}
-      <tr><td>{{ c.name }}</td><td class="nowrap">{{ c.seasons[0] | replace('-', '–') }}{% if c.seasons | length > 1 %} to {{ c.seasons[-1] | replace('-', '–') }}{% endif %}</td><td class="num">{{ c.seasons | length }}</td>
-        <td class="num">{{ c.w }}</td><td class="num">{{ c.l }}</td><td class="num">{{ c.pct }}</td><td class="num">{{ c.titles or '' }}</td></tr>
+      <tr><td><a href="../coaches/{{ c.slug }}.html">{{ c.name }}</a></td><td class="nowrap">{{ c.seasons[0] | replace('-', '–') }}{% if c.seasons | length > 1 %} to {{ c.seasons[-1] | replace('-', '–') }}{% endif %}</td><td class="num">{{ c.seasons | length }}</td>
+        <td class="num">{{ c.w }}</td><td class="num">{{ c.l }}</td><td class="num">{{ c.pct }}</td><td class="num">{{ c.titles or '' }}</td><td class="num hide-sm">{{ c.regional or '' }}</td><td class="num hide-sm">{{ c.state or '' }}</td></tr>
       {% endfor %}
       </tbody>
     </table>
@@ -34,7 +34,7 @@
       <tr id="s{{ s.season }}" class="{{ 'highlight' if 'State Champion' in s.notes }}">
         <td class="nowrap">{% if s.has_data %}<a href="../seasons/{{ s.season }}.html">{{ s.season | replace('-', '–') }}</a>{% else %}{{ s.season | replace('-', '–') }}{% endif %}</td>
         <td class="num">{{ s.w if s.w != '' else '—' }}</td><td class="num">{{ s.l if s.l != '' else '—' }}{% if s.t %}<small>–{{ s.t }}</small>{% endif %}</td>
-        <td class="nowrap">{{ s.coach }}</td><td class="muted small">{{ s.notes }}</td>
+        <td class="nowrap">{% set cs = coach_slugs.get(s.coach | trim) %}{% if cs %}<a href="../coaches/{{ cs }}.html">{{ s.coach }}</a>{% else %}{{ s.coach }}{% endif %}</td><td class="muted small">{{ s.notes }}</td>
       </tr>
       {% endfor %}
       </tbody>

@@ -151,7 +151,7 @@
   // ------------------------------------------------------------ sortable tables
   function cellValue(td) {
     var t = (td.textContent || "").trim();
-    var n = t.replace(/[,%]/g, "").replace(/–.*$/, "");
+    var n = t.replace(/[,%+]/g, "").replace(/–.*$/, "");
     if (/^-?\d+(\.\d+)?$/.test(n)) return parseFloat(n);
     return t.toLowerCase();
   }
@@ -242,4 +242,50 @@
       r.style.display = !q || r.cells[1].textContent.toLowerCase().indexOf(q) !== -1 ? "" : "none";
     });
   });
+})();
+
+// Chart tooltips: any chart mark with data-tip shows it on hover and keyboard focus
+(function () {
+  if (!document.querySelector("[data-tip]")) return;
+  var tip = document.createElement("div");
+  tip.className = "chart-tip";
+  tip.setAttribute("role", "tooltip");
+  tip.hidden = true;
+  document.body.appendChild(tip);
+  var cur = null;
+  function show(el, x, y) {
+    if (el !== cur) {
+      cur = el;
+      tip.textContent = "";
+      (el.getAttribute("data-tip") || "").split("\n").forEach(function (line, i) {
+        var d = document.createElement(i ? "div" : "strong");
+        d.textContent = line;
+        tip.appendChild(d);
+      });
+    }
+    tip.hidden = false;
+    var r = tip.getBoundingClientRect(), pad = 12;
+    var left = Math.min(Math.max(8, x - r.width / 2), window.innerWidth - r.width - 8);
+    var top = y - r.height - pad;
+    if (top < 8) top = y + pad + 8;
+    tip.style.left = left + "px";
+    tip.style.top = top + "px";
+  }
+  function hide() { tip.hidden = true; if (cur) cur.classList.remove("on"); cur = null; }
+  document.addEventListener("pointermove", function (ev) {
+    var el = ev.target.closest && ev.target.closest("[data-tip]");
+    if (!el) { if (cur) hide(); return; }
+    if (cur && cur !== el) cur.classList.remove("on");
+    el.classList.add("on");
+    show(el, ev.clientX, ev.clientY);
+  });
+  document.addEventListener("focusin", function (ev) {
+    var el = ev.target.closest && ev.target.closest("[data-tip]");
+    if (!el) return;
+    el.classList.add("on");
+    var r = el.getBoundingClientRect();
+    show(el, r.left + r.width / 2, r.top);
+  });
+  document.addEventListener("focusout", hide);
+  window.addEventListener("scroll", function () { if (cur) hide(); }, { passive: true });
 })();

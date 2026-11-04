@@ -13,7 +13,7 @@
   <h1>{{ s.season | replace('-', '–') }}</h1>
   <div class="season-meta">
     <span class="big-rec">{{ s.w }}–{{ s.l }}</span>
-    <span>Coach <strong>{{ s.coach }}</strong></span>
+    <span>Coach <strong>{% set cs = coach_slugs.get(s.coach | trim) %}{% if cs %}<a href="../coaches/{{ cs }}.html">{{ s.coach }}</a>{% else %}{{ s.coach }}{% endif %}</strong></span>
     {% if s.ppg %}<span>{{ s.ppg }} PPG · {{ s.oppg }} allowed</span>{% endif %}
   </div>
   {% if s.notes %}<p class="banner">{{ s.notes }}</p>{% endif %}
@@ -29,6 +29,14 @@
   {% endif %}
 
   {{ rb.card(team_badges + game_badges + player_badges, heading="In the record book") }}
+
+  {% if margin_svg %}
+  <section class="card">
+    <h2>Game by game</h2>
+    <p class="muted small chart-key"><span class="nowrap"><span class="key win"></span> Win</span> <span class="nowrap"><span class="key loss"></span> Loss</span> · Bars show the final margin. Tap a bar for the game.</p>
+    <div class="scroll chart-wrap">{{ margin_svg }}</div>
+  </section>
+  {% endif %}
 
   <section class="card">
     <h2>Schedule &amp; results</h2>
@@ -72,6 +80,20 @@
     </div>
     {% if partial %}<p class="note">No box score for {{ partial | length }} game{{ 's' if partial|length > 1 }} this season ({% for g in partial %}{{ g.opponent }} {{ g.date | d }}{{ ', ' if not loop.last }}{% endfor %}). Where the season totals sheet includes those games, its totals are used above.</p>{% endif %}
   </section>
+  {% if scoring_lines %}
+  <section class="card">
+    <h2>Scoring game by game</h2>
+    <p class="muted small chart-key">Points in each game, top scorers. Gaps are games missed. The marked dot is the season high.</p>
+    <div class="spark-grid">
+      {% for l in scoring_lines %}
+      <div class="spark-card">
+        <div class="spark-head"><a href="../players/{{ l.slug }}.html">{{ l.name }}</a><span class="muted small">{{ l.avg }} PPG · high {{ l.high }}</span></div>
+        {{ l.svg }}
+      </div>
+      {% endfor %}
+    </div>
+  </section>
+  {% endif %}
   {% else %}
   <p class="note">Player stats aren't available for this season. Only game results were recorded.</p>
   {% endif %}

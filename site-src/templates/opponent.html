@@ -1,15 +1,102 @@
 {% extends "base.html" %}
 {% set section = 'opponents' %}
+{% set h = o.h2h %}
 {% block title %}Bangor vs {{ o.name }} · Bangor Cardinals Boys Basketball{% endblock %}
-{% block description %}Bangor is {{ o.w }}–{{ o.l }} against {{ o.name }} in {{ o.w + o.l }} meetings since {{ o.games[0].season | replace('-', '–') }}. Every game, score and box score.{% endblock %}
+{% block description %}{% if o.games %}Bangor is {{ o.w }}–{{ o.l }} against {{ o.name }} in {{ o.w + o.l }} meetings since {{ o.games[0].season | replace('-', '–') }}. Head-to-head stats, every game, score and box score.{% else %}Bangor Cardinals boys basketball vs {{ o.name }}.{% endif %}{% endblock %}
 {% block content %}
 <div class="wrap page-head">
   <p class="eyebrow"><a href="index.html">Opponents</a></p>
   <h1>vs {{ o.name }}</h1>
+  {% if o.games %}
   <div class="season-meta"><span class="big-rec">{{ o.w }}–{{ o.l }}</span><span>{{ o.w + o.l }} meetings since {{ o.games[0].season | replace('-', '–') }}</span></div>
+  {% endif %}
 </div>
 <div class="wrap">
+  {% if o.upcoming %}
+  <section class="card upcoming-card">
+    <div class="card-head"><h2>Next meeting</h2></div>
+    {% set u = o.upcoming[0] %}
+    <p class="h2h-next"><a href="../games/{{ u.game_id }}.html">{{ 'Today' if u.is_today else u.date | d('long') }}{% if u.time %} · {{ u.time }}{% endif %}</a>
+      <span class="muted">· {{ 'Away' if u.site == 'away' else ('Neutral site' if u.site == 'neutral' else 'Home') }}{% if u.location %}, {{ u.location }}{% endif %}</span>
+      {% if u.stream_url %}<a class="btn live" href="{{ u.stream_url }}" target="_blank" rel="noopener">● Watch live</a>{% endif %}</p>
+  </section>
+  {% endif %}
+
+  {% if o.games %}
+  <div class="leader-cards h2h-cards">
+    <div class="leader-card"><span class="lbl">Current streak</span><span class="val">{{ h.streak[0] == 'W' and 'Won ' ~ h.streak[1:] or 'Lost ' ~ h.streak[1:] }}</span>
+      <span class="muted">Longest win streak: {{ h.best_streak }}</span></div>
+    <div class="leader-card"><span class="lbl">Average score</span><span class="val">{{ h.ppg }}–{{ h.oppg }}</span><span class="muted">Margin {{ h.margin }} per game</span></div>
+    {% if h.biggest_win %}{% set g = h.biggest_win %}
+    <div class="leader-card"><span class="lbl">Biggest win</span><span class="val">+{{ (g.bs - g.os) | int }}</span>
+      <a class="small" href="../games/{{ g.game_id }}.html">{{ g.bangor_score }}–{{ g.opp_score }}, {{ g.date | d }}</a></div>{% endif %}
+    {% if h.worst_loss %}{% set g = h.worst_loss %}
+    <div class="leader-card"><span class="lbl">Worst loss</span><span class="val">−{{ (g.os - g.bs) | int }}</span>
+      <a class="small" href="../games/{{ g.game_id }}.html">{{ g.bangor_score }}–{{ g.opp_score }}, {{ g.date | d }}</a></div>{% endif %}
+  </div>
+
+  <div class="grid-2">
+    <section class="card">
+      <h2>Record by site</h2>
+      <table class="tbl compact">
+        {% for label, r in h.splits %}<tr><td>{{ label }}</td><td class="num strong">{{ r.w }}–{{ r.l }}</td></tr>{% endfor %}
+      </table>
+    </section>
+    <section class="card">
+      <h2>Record by coach</h2>
+      <table class="tbl compact">
+        {% for c in h.coaches %}<tr><td>{% if coach_slugs.get(c.name) %}<a href="../coaches/{{ c.slug }}.html">{{ c.name }}</a>{% else %}{{ c.name }}{% endif %}</td><td class="num strong">{{ c.w }}–{{ c.l }}</td></tr>{% endfor %}
+      </table>
+    </section>
+  </div>
+
+  {% if h.chart %}
   <section class="card">
+    <h2>Every meeting</h2>
+    <p class="muted small chart-key"><span class="nowrap"><span class="key win"></span> Bangor win</span> <span class="nowrap"><span class="key loss"></span> Bangor loss</span> · Bars show the final margin. Tap a bar for the game.</p>
+    <div class="scroll chart-wrap">{{ h.chart }}</div>
+  </section>
+  {% endif %}
+
+  {% if h.scorers or h.opp_games %}
+  <div class="grid-2">
+    {% if h.scorers %}
+    <section class="card">
+      <h2>Bangor's top scorers vs {{ o.name }}</h2>
+      <table class="tbl compact">
+        <thead><tr><th>Player</th><th class="num">G</th><th class="num">PTS</th><th class="num">PPG</th><th class="num">High</th></tr></thead>
+        {% for a in h.scorers %}
+        <tr><td><a href="../players/{{ a.slug }}.html">{{ a.name }}</a></td><td class="num">{{ a.gp }}</td><td class="num strong">{{ a.pts }}</td>
+          <td class="num">{{ a.avg }}</td><td class="num"><a href="../games/{{ a.best_g.game_id }}.html" title="{{ a.best_g.date | d }}">{{ a.best_pts }}</a></td></tr>
+        {% endfor %}
+      </table>
+      <h3 class="sub">Best single games</h3>
+      <table class="tbl compact">
+        {% for r in h.bangor_games %}<tr><td class="num strong">{{ r.pts }}</td><td><a href="../players/{{ r.slug }}.html">{{ r.name }}</a></td><td class="muted"><a href="../games/{{ r.g.game_id }}.html">{{ r.g.date | d }}</a></td></tr>{% endfor %}
+      </table>
+    </section>
+    {% endif %}
+    {% if h.opp_games %}
+    <section class="card">
+      <h2>{{ o.name }}'s best against Bangor</h2>
+      <table class="tbl compact">
+        {% for r in h.opp_games %}<tr><td class="num strong">{{ r.pts }}</td><td>{{ r.name }}</td><td class="muted"><a href="../games/{{ r.g.game_id }}.html">{{ r.g.date | d }}</a></td></tr>{% endfor %}
+      </table>
+      {% if h.opp_scorers %}
+      <h3 class="sub">Most points vs Bangor</h3>
+      <table class="tbl compact">
+        <thead><tr><th>Player</th><th>Years</th><th class="num">G</th><th class="num">PTS</th><th class="num">PPG</th></tr></thead>
+        {% for a in h.opp_scorers %}<tr><td>{{ a.name }}</td><td class="muted">{{ a.years }}</td><td class="num">{{ a.gp }}</td><td class="num strong">{{ a.pts }}</td><td class="num">{{ a.avg }}</td></tr>{% endfor %}
+      </table>
+      {% endif %}
+    </section>
+    {% endif %}
+  </div>
+  <p class="note">Player points are in the stat sheets from 2007–08, and opponent box scores only for some games, so these lists cover those games.</p>
+  {% endif %}
+
+  <section class="card">
+    <h2>Game by game</h2>
     <div class="scroll">
     <table class="tbl">
       <thead><tr><th>Date</th><th>Season</th><th>Site</th><th>Result</th><th></th></tr></thead>
@@ -17,12 +104,15 @@
       {% for g in o.games | reverse %}
       <tr><td class="nowrap">{{ g.date | d }}</td><td><a href="../seasons/{{ g.season }}.html">{{ g.season | replace('-', '–') }}</a></td>
         <td>{{ 'Away' if g.site == 'away' else ('Neutral' if g.site == 'neutral' else 'Home') }}{% if g.game_type == 'playoff' %} <span class="tag red">Playoff</span>{% endif %}</td>
-        <td class="res {{ g.result }} nowrap">{{ g.result }} {{ g.bangor_score }}–{{ g.opp_score }}</td>
+        <td class="res {{ g.result }} nowrap">{{ g.result }} {{ g.bangor_score }}–{{ g.opp_score }}{% if g.ot %} <small>(OT)</small>{% endif %}</td>
         <td class="nowrap">{% if g.box_score != 'none' %}<a href="../games/{{ g.game_id }}.html">Box score</a>{% endif %}{% if g.has_video %} · <a class="film-link" href="../games/{{ g.game_id }}.html#film">▶ Film</a>{% endif %}</td></tr>
       {% endfor %}
       </tbody>
     </table>
     </div>
   </section>
+  {% else %}
+  <p class="note">Bangor hasn't played {{ o.name }} since {{ "2002–03" }}, when the game-by-game records start.</p>
+  {% endif %}
 </div>
 {% endblock %}

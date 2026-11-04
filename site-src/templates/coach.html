@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+{% set section = 'history' %}
+{% block title %}Coach {{ c.name }} · Bangor Cardinals Boys Basketball{% endblock %}
+{% block description %}{{ c.name }} coached Bangor Cardinals boys basketball for {{ c.seasons | length }} season{{ 's' if c.seasons | length > 1 }} ({{ c.years }}), going {{ c.w }}–{{ c.l }}{% if c.t %}–{{ c.t }}{% endif %}{% if c.titles %} with {{ c.titles }} conference title{{ 's' if c.titles > 1 }}{% endif %}.{% endblock %}
+{% block content %}
+<div class="wrap page-head">
+  <div class="pager">
+    {% if prev %}<a href="{{ prev.slug }}.html">← {{ prev.name }}</a>{% else %}<span></span>{% endif %}
+    {% if next %}<a href="{{ next.slug }}.html">{{ next.name }} →</a>{% endif %}
+  </div>
+  <p class="eyebrow"><a href="../history/index.html#coaches">Head coaches</a></p>
+  <h1>{{ c.name }}</h1>
+  <div class="season-meta">
+    <span class="big-rec">{{ c.w }}–{{ c.l }}{% if c.t %}–{{ c.t }}{% endif %}</span>
+    {% if c.pct %}<span>{{ c.pct }}</span>{% endif %}
+    <span>{{ c.seasons | length }} season{{ 's' if c.seasons | length > 1 }} · {{ c.seasons[0] | replace('-', '–') }}{% if c.seasons | length > 1 %} to {{ c.seasons[-1] | replace('-', '–') }}{% endif %}</span>
+  </div>
+</div>
+
+<div class="wrap">
+  <div class="leader-cards">
+    <div class="leader-card"><span class="lbl">Conference titles</span><span class="val">{{ c.titles }}</span></div>
+    <div class="leader-card"><span class="lbl">Regional titles</span><span class="val">{{ c.regional }}</span></div>
+    <div class="leader-card"><span class="lbl">Sectional titles</span><span class="val">{{ c.sectional }}</span></div>
+    <div class="leader-card"><span class="lbl">State tournament trips</span><span class="val">{{ c.state }}</span></div>
+    {% if d.playoff.n %}<div class="leader-card"><span class="lbl">Playoff record</span><span class="val">{{ d.playoff.w }}–{{ d.playoff.l }}</span><span class="muted">Since 2002–03</span></div>{% endif %}
+    {% if d.best and c.seasons | length > 1 %}<div class="leader-card"><span class="lbl">Best season</span><span class="val">{{ d.best.w }}–{{ d.best.l }}</span>
+      <span class="muted">{% if d.best.has_data %}<a href="../seasons/{{ d.best.season }}.html">{{ d.best.season | replace('-', '–') }}</a>{% else %}{{ d.best.season | replace('-', '–') }}{% endif %}</span></div>{% endif %}
+  </div>
+
+  {% if d.chart %}
+  <section class="card">
+    <h2>Winning percentage by season</h2>
+    <p class="muted small chart-key">Line at .500. {% if d.data_games %}Tap a season for its page.{% endif %}</p>
+    <div class="scroll chart-wrap">{{ d.chart }}</div>
+  </section>
+  {% endif %}
+
+  <section class="card">
+    <h2>Season by season</h2>
+    <div class="scroll">
+    <table class="tbl">
+      <thead><tr><th>Season</th><th class="num">W</th><th class="num">L</th><th class="num">Pct</th><th>Notes</th></tr></thead>
+      <tbody>
+      {% for s in d.seasons %}
+      <tr class="{{ 'highlight' if 'State Champion' in s.notes }}">
+        <td class="nowrap">{% if s.has_data %}<a href="../seasons/{{ s.season }}.html">{{ s.season | replace('-', '–') }}</a>{% else %}<a href="../history/index.html#s{{ s.season }}">{{ s.season | replace('-', '–') }}</a>{% endif %}</td>
+        <td class="num">{{ s.w if s.w != '' else '—' }}</td><td class="num">{{ s.l if s.l != '' else '—' }}{% if s.t %}<small>–{{ s.t }}</small>{% endif %}</td>
+        <td class="num">{{ s.pct_txt }}</td><td class="muted small">{{ s.notes }}</td>
+      </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+    </div>
+  </section>
+
+  {% if d.players or d.opps %}
+  <div class="grid-2">
+    {% if d.players %}
+    <section class="card">
+      <h2>Top scorers</h2>
+      <table class="tbl compact">
+        <thead><tr><th>Player</th><th>Years</th><th class="num">PTS</th><th class="num">PPG</th></tr></thead>
+        {% for p in d.players %}<tr><td><a href="../players/{{ p.slug }}.html">{{ p.name }}</a></td><td class="muted">{{ p.years }}</td><td class="num strong">{{ p.pts }}</td><td class="num">{{ p.avg }}</td></tr>{% endfor %}
+      </table>
+      <p class="muted small">Points scored in {{ c.name }}'s seasons, from the stat sheets (2007–08 on).</p>
+    </section>
+    {% endif %}
+    {% if d.opps %}
+    <section class="card">
+      <h2>Most-played opponents</h2>
+      <table class="tbl compact">
+        <thead><tr><th>Opponent</th><th class="num">G</th><th class="num">Record</th></tr></thead>
+        {% for o in d.opps %}<tr><td><a href="../opponents/{{ o.slug }}.html">{{ o.name }}</a></td><td class="num">{{ o.n }}</td><td class="num strong">{{ o.w }}–{{ o.l }}</td></tr>{% endfor %}
+      </table>
+    </section>
+    {% endif %}
+  </div>
+  {% endif %}
+</div>
+{% endblock %}

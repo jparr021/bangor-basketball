@@ -3,10 +3,12 @@
 Run the whole pipeline:
   .venv/bin/python scripts/convert.py && .venv/bin/python scripts/records.py && .venv/bin/python scripts/build_site.py
 """
-import csv, datetime as dt, json, os, posixpath, re, shutil
+import csv, datetime as dt, json, math, os, posixpath, re, shutil
 from collections import defaultdict, OrderedDict
 
 from jinja2 import Environment, FileSystemLoader, select_autoescape
+
+import charts
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DATA = os.path.join(ROOT, "data")
@@ -244,21 +246,34 @@ def count_note(word):
     return sum(1 for h in history if word.lower() in h["notes"].lower())
 
 
+TITLE_RES = {  # what counts as each kind of title, from the record book's season notes
+    "conf": re.compile(r"conference champion", re.I),
+    "regional": re.compile(r"regional (tournament )?champion", re.I),
+    "sectional": re.compile(r"sectional (tournament )?champion", re.I),
+    "state": re.compile(r"state (champion|runner|semifinal|tour)", re.I),
+}
 coaches = OrderedDict()
+COACH_OF = {}  # season -> coach slug
 for h in history:
     c = h["coach"].strip()
     if not c:
         continue
-    d = coaches.setdefault(c, {"name": c, "w": 0, "l": 0, "t": 0, "seasons": [], "titles": 0})
+    d = coaches.setdefault(c, {"name": c, "slug": slug(c), "w": 0, "l": 0, "t": 0, "seasons": [], "titles": 0,
+                               "regional": 0, "sectional": 0, "state": 0})
+    COACH_OF[h["season"]] = d["slug"]
     d["w"] += int(h["w"] or 0); d["l"] += int(h["l"] or 0); d["t"] += int(h["t"] or 0)
     d["seasons"].append(h["season"])
-    if "conference champions" in h["notes"].lower():
+    if TITLE_RES["conf"].search(h["notes"]):
         d["titles"] += 1
+    for k in ("regional", "sectional", "state"):
+        if TITLE_RES[k].search(h["notes"]):
+            d[k] += 1
 for c in coaches.values():
     c["years"] = c["seasons"][0][:4] + ("–" + str(season_end_year(c["seasons"][-1])) if len(c["seasons"]) > 1 or True else "")
     g = c["w"] + c["l"] + c["t"]
     c["pct"] = f"{(c['w'] + 0.5 * c['t']) / g:.3f}".lstrip("0") if g else ""
 coach_list = sorted(coaches.values(), key=lambda c: (-c["w"], c["l"]))
+COACH_SLUGS = {c["name"]: c["slug"] for c in coach_list}
 
 W, L, T = history_totals()
 FACTS = {
@@ -662,6 +677,7 @@ def render(tpl, path, **ctx):
     ctx["clean"] = CLEAN_URLS
     ctx["build_id"] = BUILD_ID
     ctx["page_url"] = SITE_URL + clean_path(path)
+    ctx["coach_slugs"] = COACH_SLUGS
     html = env.get_template(tpl).render(**ctx)
     if CLEAN_URLS:
         html = absolute_links(html, path)
@@ -695,6 +711,180 @@ def leaders(season, n=1):
         out.append({"label": label, "name": best["name"], "slug": best["slug"], "value": fmt_int(best[k]),
                     "avg": fmt_avg(best[k], best["gp"])})
     return out
+
+
+def wl(gs):
+    w = sum(g["result"] == "W" for g in gs)
+    return {"w": w, "l": sum(g["result"] == "L" for g in gs), "n": len(gs)}
+
+
+def streaks(gs):
+    """(current streak like 'W3', longest winning streak) over finished games in date order."""
+    cur_kind, cur_n, best, run = "", 0, 0, 0
+    for g in gs:
+        r = g["result"]
+        cur_n = cur_n + 1 if r == cur_kind else 1
+        cur_kind = r
+        run = run + 1 if r == "W" else 0
+        best = max(best, run)
+    return (f"{cur_kind}{cur_n}" if cur_kind else ""), best
+
+
+def margin_items(gs, xlabel, label_extremes=True):
+    """Chart items for margin_chart: one per finished game, with the running record in the tooltip."""
+    items, w, l = [], 0, 0
+    for g in gs:
+        w += g["result"] == "W"
+        l += g["result"] == "L"
+        m = int(g["bs"] - g["os"])
+        tip = (f"{'+' if m > 0 else ('−' if m < 0 else '')}{abs(m)} · {g['result']} {g['bangor_score']}–{g['opp_score']}{' (OT)' if g['ot'] else ''}\n"
+               f"{'at' if g['site'] == 'away' else 'vs'} {g['opponent']}, {fmt_date(g['date'])}")
+        items.append({"margin": m, "tip": tip, "record": f"{w}–{l}", "href": f"../games/{g['game_id']}.html",
+                      "xlabel": xlabel(g, items[-1] if items else None), "g": g})
+    if label_extremes and items:
+        hi = max(items, key=lambda i: i["margin"])
+        lo = min(items, key=lambda i: i["margin"])
+        for it in (hi, lo):
+            it["label"] = True
+    return items
+
+
+def month_label(g, prev):
+    m = g["date"][5:7]
+    return "" if prev and prev["g"]["date"][5:7] == m else dt.date.fromisoformat(g["date"]).strftime("%b")
+
+
+def season_label_x(g, prev):
+    s = g["season"]
+    return "" if prev and prev["g"]["season"] == s else "’" + s[5:7]
+
+
+def head_to_head(o):
+    """Everything on an opponent page beyond the list of games."""
+    gs = o["games"]
+    cur, best = streaks(gs)
+    out = {"streak": cur, "best_streak": best}
+    out["splits"] = [(label, wl([g for g in gs if test(g)])) for label, test in [
+        ("Home", lambda g: g["site"] == "home"), ("Away", lambda g: g["site"] == "away"),
+        ("Neutral", lambda g: g["site"] == "neutral"), ("Playoffs", lambda g: g["game_type"] == "playoff")]]
+    out["splits"] = [s for s in out["splits"] if s[1]["n"]]
+    if gs:
+        out["ppg"] = fmt_avg(sum(g["bs"] for g in gs), len(gs))
+        out["oppg"] = fmt_avg(sum(g["os"] for g in gs), len(gs))
+        margin = sum(g["bs"] - g["os"] for g in gs) / len(gs)
+        out["margin"] = f"{'+' if margin > 0 else ''}{margin:.1f}"
+        wins = [g for g in gs if g["result"] == "W"]
+        losses = [g for g in gs if g["result"] == "L"]
+        out["biggest_win"] = max(wins, key=lambda g: (g["bs"] - g["os"], g["date"])) if wins else None
+        out["worst_loss"] = max(losses, key=lambda g: (g["os"] - g["bs"], g["date"])) if losses else None
+        # by coach, for the coaches who've faced them most
+        by_coach = OrderedDict()
+        for g in gs:
+            c = hist_by_season.get(g["season"], {}).get("coach", "")
+            if c:
+                by_coach.setdefault(c, []).append(g)
+        out["coaches"] = [{"name": c, "slug": slug(c), **wl(v)} for c, v in by_coach.items()]
+        out["chart"] = charts.margin_chart(margin_items(gs, season_label_x),
+                                           f"Bangor's scoring margin in each game against {o['name']}")
+    # Bangor players against them
+    ids = {g["game_id"] for g in gs}
+    rows = [r for gid in ids for r in pg_by_game.get(gid, []) if r.get("pts") is not None]
+    agg = {}
+    for r in rows:
+        a = agg.setdefault(r["slug"], {"name": r["name"], "slug": r["slug"], "pts": 0, "gp": 0, "best": None})
+        a["pts"] += r["pts"]; a["gp"] += 1
+        if a["best"] is None or r["pts"] > a["best"]["pts"]:
+            a["best"] = r
+    top = sorted(agg.values(), key=lambda a: (-a["pts"], a["name"]))[:8]
+    out["scorers"] = [{**a, "pts": fmt_int(a["pts"]), "avg": fmt_avg(a["pts"], a["gp"]), "best_pts": fmt_int(a["best"]["pts"]),
+                       "best_g": games_by_id[a["best"]["game_id"]]} for a in top if a["pts"]]
+    out["bangor_games"] = [{"name": r["name"], "slug": r["slug"], "pts": fmt_int(r["pts"]), "g": games_by_id[r["game_id"]]}
+                           for r in sorted(rows, key=lambda r: (-r["pts"], r["date"]))[:5] if r["pts"]]
+    # their players against Bangor
+    orows = [r for gid in ids for r in opg_by_game.get(gid, []) if r.get("pts") is not None]
+    out["opp_games"] = [{"name": r["name"], "pts": fmt_int(r["pts"]), "g": games_by_id[r["game_id"]]}
+                        for r in sorted(orows, key=lambda r: (-r["pts"], r["date"]))[:5] if r["pts"]]
+    oagg = {}
+    for r in orows:
+        a = oagg.setdefault(slug(r["name"]), {"name": r["name"], "pts": 0, "gp": 0, "seasons": set()})
+        a["pts"] += r["pts"]; a["gp"] += 1; a["seasons"].add(r["season"])
+    out["opp_scorers"] = [{"name": a["name"], "pts": fmt_int(a["pts"]), "gp": a["gp"], "avg": fmt_avg(a["pts"], a["gp"]),
+                           "years": (lambda s: s[0][:4] + "–" + str(season_end_year(s[-1])))(sorted(a["seasons"]))}
+                          for a in sorted(oagg.values(), key=lambda a: (-a["pts"], a["name"]))[:5] if a["pts"] and a["gp"] > 1]
+    return out
+
+
+def season_charts(season, gs):
+    """The game-by-game margin chart and per-player scoring lines for a season page."""
+    played = [g for g in gs if g["result"] in ("W", "L") and g["bs"] is not None]
+    items = margin_items(played, month_label)
+    for it in items:
+        it["tip"] += f"\nRecord: {it['record']}"
+    margin = charts.margin_chart(items, f"Bangor's scoring margin in each {season} game") if len(items) >= 2 else ""
+    # top scorers with a box score in most games
+    by_player = defaultdict(dict)
+    for g in played:
+        for r in pg_by_game.get(g["game_id"], []):
+            if r.get("pts") is not None:
+                by_player[r["slug"]][g["game_id"]] = r
+    lines = []
+    ranked = [kv for kv in sorted(by_player.items(), key=lambda kv: -sum(r["pts"] for r in kv[1].values()))[:6]
+              if len(kv[1]) >= 3]
+    top = max([r["pts"] for _, rows in ranked for r in rows.values()] + [10])
+    ymax = math.ceil(top / 10) * 10
+    for sl, rows in ranked:
+        if len(rows) < 3:
+            continue
+        name = next(iter(rows.values()))["name"]
+        total = sum(r["pts"] for r in rows.values())
+        pts = []
+        for g in played:
+            r = rows.get(g["game_id"])
+            v = r["pts"] if r else None
+            tip = (f"{fmt_int(v)} pts" if r else "Did not play") + \
+                  f"\n{'at' if g['site'] == 'away' else 'vs'} {g['opponent']}, {fmt_date(g['date'])}"
+            pts.append({"v": v, "tip": tip, "href": f"../games/{g['game_id']}.html"})
+        avg = total / len(rows)
+        lines.append({"name": name, "slug": sl, "gp": len(rows), "avg": f"{avg:.1f}",
+                      "high": fmt_int(max(r["pts"] for r in rows.values())),
+                      "svg": charts.game_line(pts, avg, f"{name}'s points in each {season} game", ymax)})
+    return margin, [l for l in lines if l["svg"]]
+
+
+def coach_page_data(c):
+    seasons = [season_summary(s) for s in c["seasons"]]
+    for s in seasons:
+        g = int(s["w"] or 0) + int(s["l"] or 0) + int(s["t"] or 0)
+        s["pct"] = (int(s["w"] or 0) + 0.5 * int(s["t"] or 0)) / g if g else None
+        s["pct_txt"] = f"{s['pct']:.3f}".lstrip("0") if s["pct"] is not None else ""
+    data_gs = [g for s in c["seasons"] for g in games_by_season.get(s, []) if g["result"] in ("W", "L")]
+    playoff = wl([g for g in data_gs if g["game_type"] == "playoff"])
+    best = max((s for s in seasons if s["pct"] is not None and int(s["w"] or 0) + int(s["l"] or 0) >= 8),
+               key=lambda s: (s["pct"], int(s["w"] or 0)), default=None)
+    # players: points scored in this coach's seasons
+    agg = {}
+    for s in c["seasons"]:
+        for r in ps_by_season.get(s, []):
+            if not r.get("pts"):
+                continue
+            a = agg.setdefault(r["slug"], {"name": r["name"], "slug": r["slug"], "pts": 0, "gp": 0, "seasons": []})
+            a["pts"] += r["pts"]; a["gp"] += r.get("gp") or 0; a["seasons"].append(s)
+    players = [{**a, "pts": fmt_int(a["pts"]), "avg": fmt_avg(a["pts"], a["gp"]),
+                "years": a["seasons"][0][:4] + "–" + str(season_end_year(a["seasons"][-1]))}
+               for a in sorted(agg.values(), key=lambda a: -a["pts"])[:10]]
+    # most-played opponents
+    opp = defaultdict(list)
+    for g in data_gs:
+        opp[g["opponent"]].append(g)
+    opps = [{"name": k, "slug": slug(k), **wl(v)} for k, v in sorted(opp.items(), key=lambda kv: (-len(kv[1]), kv[0]))[:8]]
+    chart_items = [{"pct": s["pct"], "xlabel": "’" + s["season"][5:7] if len(seasons) <= 16 or i % 2 == 0 else "",
+                    "href": f"../seasons/{s['season']}.html" if s["has_data"] else "",
+                    "tip": f"{s['pct_txt']} · {s['w']}–{s['l']}{('–' + s['t']) if s['t'] else ''}\n"
+                           f"{s['season'].replace('-', '–')}" + (f"\n{s['notes']}" if s["notes"] else "")}
+                   for i, s in enumerate(seasons)]
+    chart = charts.pct_columns(chart_items, f"{c['name']}'s winning percentage each season") if len(seasons) >= 2 else ""
+    return {"seasons": seasons, "playoff": playoff, "best": best, "players": players, "opps": opps, "chart": chart,
+            "data_games": len(data_gs)}
 
 
 def build():
@@ -734,7 +924,9 @@ def build():
         tot["gp"] = len([g for g in gs if g["result"]])
         team_row = season_stat_row(tot)
         partial = [g for g in gs if g["box_score"] == "none" and g["result"]]
+        margin_svg, scoring_lines = season_charts(s, gs)
         render("season.html", f"seasons/{s}.html", s=season_summary(s), games=gs, players=prow, cols=cols,
+               margin_svg=margin_svg, scoring_lines=scoring_lines,
                team=team_row, leaders=leaders(s), partial=partial,
                prev=DATA_SEASONS[i - 1] if i else None, next=DATA_SEASONS[i + 1] if i + 1 < len(DATA_SEASONS) else None,
                source_note=any(r.get("source") == "season tab" for r in players),
@@ -835,19 +1027,27 @@ def build():
     # ---- history & coaches
     render("history.html", "history/index.html", seasons=[season_summary(h["season"]) for h in history],
            coaches=coach_list)
+    chrono = sorted(coach_list, key=lambda c: c["seasons"][0])
+    for i, c in enumerate(chrono):
+        render("coach.html", f"coaches/{c['slug']}.html", c=c, d=coach_page_data(c),
+               prev=chrono[i - 1] if i else None, next=chrono[i + 1] if i + 1 < len(chrono) else None)
 
     # ---- opponents
     opps = OrderedDict()
     for g in games_by_id.values():
-        if not g["result"]:
-            continue
-        o = opps.setdefault(g["opp_slug"], {"name": g["opponent"], "slug": g["opp_slug"], "w": 0, "l": 0, "games": []})
-        o["w" if g["result"] == "W" else "l"] += 1
-        o["games"].append(g)
-    olist = sorted(opps.values(), key=lambda o: (-(o["w"] + o["l"]), o["name"]))
-    for o in olist:
-        o["last"] = o["games"][-1]
+        o = opps.setdefault(g["opp_slug"], {"name": g["opponent"], "slug": g["opp_slug"], "w": 0, "l": 0, "games": [],
+                                            "upcoming": []})
+        if g["result"] in ("W", "L"):
+            o["w" if g["result"] == "W" else "l"] += 1
+            o["games"].append(g)
+        elif g["status"] == "upcoming":
+            o["upcoming"].append(g)
+    # every opponent on the schedule gets a page (a game page links to it), even before the first meeting
+    for o in opps.values():
+        o["last"] = o["games"][-1] if o["games"] else None
+        o["h2h"] = head_to_head(o)
         render("opponent.html", f"opponents/{o['slug']}.html", o=o)
+    olist = sorted((o for o in opps.values() if o["games"]), key=lambda o: (-(o["w"] + o["l"]), o["name"]))
     render("opponents.html", "opponents/index.html", opps=olist, first=DATA_SEASONS[0])
 
     # ---- game film index
@@ -881,7 +1081,7 @@ def build():
                     "k": "player"})
     for c in coach_list:
         rec = f"{c['w']}–{c['l']}" + (f"–{c['t']}" if c["t"] else "")
-        idx.append({"t": c["name"], "s": f"Coach · {c['years']} · {rec}", "u": "history/index.html#coaches", "k": "coach"})
+        idx.append({"t": c["name"], "s": f"Coach · {c['years']} · {rec}", "u": f"coaches/{c['slug']}.html", "k": "coach"})
     for o in olist:
         idx.append({"t": o["name"], "s": f"Opponent · Bangor is {o['w']}–{o['l']}", "u": f"opponents/{o['slug']}.html",
                     "k": "opponent"})

@@ -39,7 +39,7 @@
 <div class="wrap grid-2">
   <section class="card">
     <div class="card-head"><h2>{{ latest.season | replace('-', '–') }} season</h2><a href="seasons/{{ latest.season }}.html">Full season →</a></div>
-    <p class="record-line"><span class="big-rec">{{ latest.w }}–{{ latest.l }}</span> <span class="muted">Coach {{ latest.coach }}</span></p>
+    <p class="record-line"><span class="big-rec">{{ latest.w }}–{{ latest.l }}</span> <span class="muted">Coach {% set cs = coach_slugs.get(latest.coach | trim) %}{% if cs %}<a href="coaches/{{ cs }}.html">{{ latest.coach }}</a>{% else %}{{ latest.coach }}{% endif %}</span></p>
     <ul class="leaders">
       {% for l in latest_leaders %}<li><span class="lbl">{{ l.label }}</span><a href="players/{{ l.slug }}.html">{{ l.name }}</a><span class="val">{{ l.value }} <small>({{ l.avg }}/g)</small></span></li>{% endfor %}
     </ul>
@@ -89,7 +89,7 @@
     <table class="tbl">
       <thead><tr><th>Season</th><th>Record</th><th>Coach</th><th class="hide-sm">Highlights</th></tr></thead>
       {% for s in recent %}
-      <tr><td><a href="seasons/{{ s.season }}.html">{{ s.season | replace('-', '–') }}</a></td><td>{{ s.w }}–{{ s.l }}</td><td>{{ s.coach }}</td><td class="hide-sm muted">{{ s.notes }}</td></tr>
+      <tr><td><a href="seasons/{{ s.season }}.html">{{ s.season | replace('-', '–') }}</a></td><td>{{ s.w }}–{{ s.l }}</td><td>{% set cs = coach_slugs.get(s.coach | trim) %}{% if cs %}<a href="coaches/{{ cs }}.html">{{ s.coach }}</a>{% else %}{{ s.coach }}{% endif %}</td><td class="hide-sm muted">{{ s.notes }}</td></tr>
       {% endfor %}
     </table>
   </section>

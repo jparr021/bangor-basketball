@@ -17,7 +17,7 @@
         <td>{% if s.has_data %}<a href="{{ s.season }}.html">{{ s.season | replace('-', '–') }}</a>{% else %}{{ s.season | replace('-', '–') }}{% endif %}</td>
         <td class="num">{{ s.w if s.w != '' else '—' }}</td><td class="num">{{ s.l if s.l != '' else '—' }}</td>
         <td class="num">{% if s.w != '' %}{{ '%.3f' | format((s.w|int + 0.5 * (s.t|int if s.t else 0)) / (s.w|int + s.l|int + (s.t|int if s.t else 0))) | replace('0.', '.') }}{% endif %}</td>
-        <td>{{ s.coach }}</td><td class="hide-sm muted">{{ s.notes }}</td>
+        <td>{% set cs = coach_slugs.get(s.coach | trim) %}{% if cs %}<a href="../coaches/{{ cs }}.html">{{ s.coach }}</a>{% else %}{{ s.coach }}{% endif %}</td><td class="hide-sm muted">{{ s.notes }}</td>
       </tr>
       {% endfor %}
       </tbody>

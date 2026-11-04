@@ -1446,7 +1446,8 @@ def build():
                         "badges": B["game_ind"].get((gid, r["slug"]), []), **box_row(r)} for r in bangor],
                bcols=box_cols(bangor), btot=box_row(bt) if bangor else None,
                opp=[{"name": r["name"], "number": r["number"], **box_row(r)} for r in opp],
-               ocols=box_cols(opp), otot=box_row(ot) if opp else None, periods=periods, preview=PREVIEWS.get(gid))
+               ocols=box_cols(opp), otot=box_row(ot) if opp else None, periods=periods, preview=PREVIEWS.get(gid),
+               opp_complete=bool(opp) and ot.get("pts") == g["os"])
 
     # ---- players
     plist = []

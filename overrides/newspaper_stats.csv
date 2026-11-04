@@ -1,53 +1,76 @@
-date,team,number,name,pts,reb,tpm,source
-2002-12-03,Bangor,35,Troy Bolcerek,23,7,,Newspaper clipping
-2002-12-03,Bangor,3,Brandon Meyer,21,,,Newspaper clipping
-2002-12-03,Bangor,15,Chris Chandler,11,,,Newspaper clipping
-2002-12-03,Gale-Ettrick-Trempealeau,,Aaron Salsman,19,8,,Newspaper clipping
-2002-12-03,Gale-Ettrick-Trempealeau,,Ian Simmonson,16,,,Newspaper clipping
-2002-12-03,Gale-Ettrick-Trempealeau,,Kyle Berg,14,,,Newspaper clipping
-2002-12-09,Bangor,35,Troy Bolcerek,19,,,Newspaper clipping
-2002-12-09,Bangor,15,Chris Chandler,17,17,,Newspaper clipping
-2002-12-09,Bangor,3,Brandon Meyer,9,,,Newspaper clipping
-2002-12-09,Melrose-Mindoro,,Josh House,19,7,,Newspaper clipping
-2002-12-09,Melrose-Mindoro,,A.G. Stern,9,,,Newspaper clipping
-2002-12-09,Melrose-Mindoro,,Skye Hurst,7,,,Newspaper clipping
-2002-12-13,Bangor,35,Troy Bolcerek,21,,,Newspaper clipping
-2002-12-13,Bangor,21,Kyle Schroeder,16,,,Newspaper clipping
-2002-12-13,Bangor,15,Chris Chandler,,7,,Newspaper clipping
-2002-12-13,Brookwood,,Jon Wopat,13,,,Newspaper clipping
-2002-12-13,Brookwood,,Kiel Burnstad,12,9,,Newspaper clipping
-2002-12-13,Brookwood,,Kevin Buchholz,11,,,Newspaper clipping
-2002-12-17,Bangor,21,Kyle Schroeder,12,,,Newspaper clipping
-2002-12-17,Bangor,35,Troy Bolcerek,10,,,Newspaper clipping
-2002-12-17,Bangor,11,Eddie Ikert,9,,,Newspaper clipping
-2002-12-17,Bangor,15,Chris Chandler,,7,,Newspaper clipping
-2002-12-17,Royall,,Sam Overlien,12,,,Newspaper clipping
-2002-12-17,Royall,,Kyle Witt,8,,,Newspaper clipping
-2002-12-17,Royall,,Dan Stanek,7,,,Newspaper clipping
-2002-12-17,Royall,,Josh Harris,,6,,Newspaper clipping
-2003-01-07,Bangor,35,Troy Bolcerek,21,6,,Newspaper clipping
-2003-01-07,Bangor,15,Chris Chandler,10,,,Newspaper clipping
-2003-01-07,Bangor,21,Kyle Schroeder,7,,,Newspaper clipping
-2003-01-07,Bangor,41,Chad Jerome,,6,,Newspaper clipping
-2003-01-07,Luther,,Steve Lehman,10,,,Newspaper clipping
-2003-01-07,Luther,,Adam Piurkowski,5,,,Newspaper clipping
-2003-01-17,Bangor,35,Troy Bolcerek,24,,1,Newspaper clipping
-2003-01-17,Bangor,15,Chris Chandler,17,,1,Newspaper clipping
-2003-01-17,Bangor,21,Kyle Schroeder,10,,1,Newspaper clipping
-2003-01-17,Bangor,25,Lukas Ermis,6,,0,Newspaper clipping
-2003-01-17,Bangor,41,Chad Jerome,6,,0,Newspaper clipping
-2003-01-17,Bangor,11,Eddie Ikert,4,,0,Newspaper clipping
-2003-01-17,Bangor,3,Brandon Meyer,3,,0,Newspaper clipping
-2003-01-17,Bangor,23,Joe Olsen,3,,1,Newspaper clipping
-2003-01-17,Bangor,13,Jeff Parr,2,,0,Newspaper clipping
-2003-01-17,Hillsboro,,Greg Jefferies,26,,5,Newspaper clipping
-2003-01-17,Hillsboro,,Matt Nowak,12,,2,Newspaper clipping
-2003-01-17,Hillsboro,,Brock Donovan,9,,3,Newspaper clipping
-2003-01-17,Hillsboro,,Alexander,6,,0,Newspaper clipping
-2003-01-17,Hillsboro,,Turpin,4,,0,Newspaper clipping
-2003-01-17,Hillsboro,,Benish,3,,0,Newspaper clipping
-2003-01-17,Hillsboro,,Stanek,2,,0,Newspaper clipping
-2003-01-20,Bangor,21,Kyle Schroeder,17,,5,Coulee News and La Crosse Tribune clippings
-2003-01-20,Bangor,35,Troy Bolcerek,15,,,Coulee News and La Crosse Tribune clippings
-2003-01-20,West Salem,,Eric McClintock,17,,,Coulee News and La Crosse Tribune clippings
-2003-01-20,West Salem,,Christopher Johnson,10,,,Coulee News and La Crosse Tribune clippings
+date,team,number,name,fgm,fga,tpm,tpa,ftm,fta,reb,blk,pts,source
+2002-12-03,Bangor,35,Troy Bolcerek,,,,,,,7,,23,Newspaper clipping
+2002-12-03,Bangor,3,Brandon Meyer,,,,,,,,,21,Newspaper clipping
+2002-12-03,Bangor,15,Chris Chandler,,,,,,,,,11,Newspaper clipping
+2002-12-03,Gale-Ettrick-Trempealeau,,Aaron Salsman,,,,,,,8,,19,Newspaper clipping
+2002-12-03,Gale-Ettrick-Trempealeau,,Ian Simmonson,,,,,,,,,16,Newspaper clipping
+2002-12-03,Gale-Ettrick-Trempealeau,,Kyle Berg,,,,,,,,,14,Newspaper clipping
+2002-12-09,Bangor,35,Troy Bolcerek,,,,,,,,,19,Newspaper clipping
+2002-12-09,Bangor,15,Chris Chandler,,,,,,,17,,17,Newspaper clipping
+2002-12-09,Bangor,3,Brandon Meyer,,,,,,,,,9,Newspaper clipping
+2002-12-09,Melrose-Mindoro,,Josh House,,,,,,,7,,19,Newspaper clipping
+2002-12-09,Melrose-Mindoro,,A.G. Stern,,,,,,,,,9,Newspaper clipping
+2002-12-09,Melrose-Mindoro,,Skye Hurst,,,,,,,,,7,Newspaper clipping
+2002-12-13,Bangor,35,Troy Bolcerek,,,,,,,,,21,Newspaper clipping
+2002-12-13,Bangor,21,Kyle Schroeder,,,,,,,,,16,Newspaper clipping
+2002-12-13,Bangor,15,Chris Chandler,,,,,,,7,,,Newspaper clipping
+2002-12-13,Brookwood,,Jon Wopat,,,,,,,,,13,Newspaper clipping
+2002-12-13,Brookwood,,Kiel Burnstad,,,,,,,9,,12,Newspaper clipping
+2002-12-13,Brookwood,,Kevin Buchholz,,,,,,,,,11,Newspaper clipping
+2002-12-17,Bangor,21,Kyle Schroeder,,,,,,,,,12,Newspaper clipping
+2002-12-17,Bangor,35,Troy Bolcerek,,,,,,,,,10,Newspaper clipping
+2002-12-17,Bangor,11,Eddie Ikert,,,,,,,,,9,Newspaper clipping
+2002-12-17,Bangor,15,Chris Chandler,,,,,,,7,,,Newspaper clipping
+2002-12-17,Royall,,Sam Overlien,,,,,,,,,12,Newspaper clipping
+2002-12-17,Royall,,Kyle Witt,,,,,,,,,8,Newspaper clipping
+2002-12-17,Royall,,Dan Stanek,,,,,,,,,7,Newspaper clipping
+2002-12-17,Royall,,Josh Harris,,,,,,,6,,,Newspaper clipping
+2003-01-07,Bangor,35,Troy Bolcerek,,,,,,,6,,21,Newspaper clipping
+2003-01-07,Bangor,15,Chris Chandler,,,,,,,,,10,Newspaper clipping
+2003-01-07,Bangor,21,Kyle Schroeder,,,,,,,,,7,Newspaper clipping
+2003-01-07,Bangor,41,Chad Jerome,,,,,,,6,,,Newspaper clipping
+2003-01-07,Luther,,Steve Lehman,,,,,,,,,10,Newspaper clipping
+2003-01-07,Luther,,Adam Piurkowski,,,,,,,,,5,Newspaper clipping
+2003-01-17,Bangor,35,Troy Bolcerek,,,1,,,,,,24,Newspaper clipping
+2003-01-17,Bangor,15,Chris Chandler,,,1,,,,,,17,Newspaper clipping
+2003-01-17,Bangor,21,Kyle Schroeder,,,1,,,,,,10,Newspaper clipping
+2003-01-17,Bangor,25,Lukas Ermis,,,0,,,,,,6,Newspaper clipping
+2003-01-17,Bangor,41,Chad Jerome,,,0,,,,,,6,Newspaper clipping
+2003-01-17,Bangor,11,Eddie Ikert,,,0,,,,,,4,Newspaper clipping
+2003-01-17,Bangor,3,Brandon Meyer,,,0,,,,,,3,Newspaper clipping
+2003-01-17,Bangor,23,Joe Olsen,,,1,,,,,,3,Newspaper clipping
+2003-01-17,Bangor,13,Jeff Parr,,,0,,,,,,2,Newspaper clipping
+2003-01-17,Hillsboro,,Greg Jefferies,,,5,,,,,,26,Newspaper clipping
+2003-01-17,Hillsboro,,Matt Nowak,,,2,,,,,,12,Newspaper clipping
+2003-01-17,Hillsboro,,Brock Donovan,,,3,,,,,,9,Newspaper clipping
+2003-01-17,Hillsboro,,Alexander,,,0,,,,,,6,Newspaper clipping
+2003-01-17,Hillsboro,,Turpin,,,0,,,,,,4,Newspaper clipping
+2003-01-17,Hillsboro,,Benish,,,0,,,,,,3,Newspaper clipping
+2003-01-17,Hillsboro,,Stanek,,,0,,,,,,2,Newspaper clipping
+2003-01-20,Bangor,21,Kyle Schroeder,,,5,,,,,,17,Coulee News and La Crosse Tribune clippings
+2003-01-20,Bangor,35,Troy Bolcerek,,,,,,,,,15,Coulee News and La Crosse Tribune clippings
+2003-01-20,West Salem,,Eric McClintock,,,,,,,,,17,Coulee News and La Crosse Tribune clippings
+2003-01-20,West Salem,,Christopher Johnson,,,,,,,,,10,Coulee News and La Crosse Tribune clippings
+2003-01-23,Bangor,11,Eddie Ikert,6,9,2,5,0,0,,,14,La Crosse Tribune clipping
+2003-01-23,Bangor,15,Chris Chandler,0,2,0,0,0,0,,,0,La Crosse Tribune clipping
+2003-01-23,Bangor,21,Kyle Schroeder,3,5,2,3,0,0,,,8,La Crosse Tribune clipping
+2003-01-23,Bangor,35,Troy Bolcerek,9,19,1,4,3,5,9,2,22,La Crosse Tribune clipping
+2003-01-23,Bangor,41,Chad Jerome,3,5,0,0,0,0,,,6,La Crosse Tribune clipping
+2003-01-23,Bangor,25,Lukas Ermis,2,4,1,2,0,0,,,5,La Crosse Tribune clipping
+2003-01-23,Bangor,3,Brandon Meyer,3,7,2,5,1,3,,,9,La Crosse Tribune clipping
+2003-01-23,Bangor,43,Andy Thielker,1,1,0,0,1,1,,,3,La Crosse Tribune clipping
+2003-01-23,Bangor,23,Joe Olsen,0,0,0,0,1,2,,,1,La Crosse Tribune clipping
+2003-01-23,Bangor,13,Jeff Parr,1,1,0,0,1,2,,,3,La Crosse Tribune clipping
+2003-01-23,Bangor,31,Josh Herman,0,1,0,0,0,0,,,0,La Crosse Tribune clipping
+2003-01-23,Bangor,51,Ben Helt,1,1,0,0,0,0,,,2,La Crosse Tribune clipping
+2003-01-23,Cashton,,Jesse Dickman,6,20,2,9,3,4,,,17,La Crosse Tribune clipping
+2003-01-23,Cashton,,Steve Oium,3,5,0,0,0,0,,,6,La Crosse Tribune clipping
+2003-01-23,Cashton,,Tim Herricks,2,2,0,0,0,0,,,4,La Crosse Tribune clipping
+2003-01-23,Cashton,,Drew Johnson,2,9,0,2,0,2,6,,4,La Crosse Tribune clipping
+2003-01-23,Cashton,,Mike Kast,3,3,0,0,0,2,,,6,La Crosse Tribune clipping
+2003-01-23,Cashton,,Mark Needham,2,5,1,2,2,3,,,7,La Crosse Tribune clipping
+2003-01-23,Cashton,,Jonathon Resheske,0,1,0,0,2,2,,,2,La Crosse Tribune clipping
+2003-01-23,Cashton,,Ben Brueggen,2,7,0,0,2,2,,,6,La Crosse Tribune clipping
+2003-01-23,Cashton,,Caleb Hundt,0,2,0,0,0,2,,,0,La Crosse Tribune clipping
+2003-01-23,Cashton,,Brad Lusk,1,3,0,0,0,0,,,2,La Crosse Tribune clipping
+2003-01-23,Cashton,,Mike Gutierrez,1,1,1,1,0,0,,,3,La Crosse Tribune clipping

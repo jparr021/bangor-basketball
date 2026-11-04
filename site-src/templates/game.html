@@ -109,10 +109,10 @@
       <tr><td class="muted">{{ p.number }}</td><td class="nowrap"><a href="../players/{{ p.slug }}.html">{{ p.name }}</a>{% if p.cls %} <small class="muted">{{ p.cls }}</small>{% endif %}{% for b in p.badges %} {{ rb.tag(b) }}{% endfor %}</td>{% for k, h in bcols %}<td class="num">{{ p[k] }}</td>{% endfor %}</tr>
       {% endfor %}
       </tbody>
-      {% if g.box_source != 'newspaper' %}<tfoot><tr><td></td><td>Totals</td>{% for k, h in bcols %}<td class="num">{{ btot[k] }}</td>{% endfor %}</tr></tfoot>{% endif %}
+      {% if g.box_source != 'newspaper' or g.box_complete == 'Y' %}<tfoot><tr><td></td><td>Totals</td>{% for k, h in bcols %}<td class="num">{{ btot[k] if g.box_source != 'newspaper' or k in ('pts', 'fg', 'tp', 'ft', 'tpm') else '' }}</td>{% endfor %}</tr></tfoot>{% endif %}
     </table>
     </div>
-    {% if g.box_source == 'newspaper' %}<p class="note">{% if g.box_complete == 'Y' %}Every player's points from a newspaper box score, not a full stat sheet.{% else %}Leading scorers and rebounders from a newspaper clipping, not a full box score. They account for {{ g.box_points }} of Bangor's {{ g.bangor_score }} points.{% endif %} This game already counts in the season totals from the season stat sheet.</p>
+    {% if g.box_source == 'newspaper' %}<p class="note">{% if g.box_complete == 'Y' %}Every player's {{ 'shooting and points' if bcols | selectattr(0, 'equalto', 'fg') | list else 'points' }} from a newspaper box score{% if bcols | selectattr(0, 'equalto', 'reb') | list %}, which gives rebounds only for the team leader{% endif %}. It's not a full stat sheet.{% else %}Leading scorers and rebounders from a newspaper clipping, not a full box score. They account for {{ g.box_points }} of Bangor's {{ g.bangor_score }} points.{% endif %} This game already counts in the season totals from the season stat sheet.</p>
     {% elif g.box_complete == 'N' %}<p class="note">This box score accounts for {{ g.box_points }} of Bangor's {{ g.bangor_score }} points. The original stat sheet is incomplete.</p>{% endif %}
     {% elif g.status in ('upcoming', 'pending') %}
     <p class="note">Stats will appear here after the game.</p>
@@ -132,10 +132,10 @@
       <tr><td class="muted">{{ p.number }}</td><td class="nowrap">{{ p.name }}</td>{% for k, h in ocols %}<td class="num">{{ p[k] }}</td>{% endfor %}</tr>
       {% endfor %}
       </tbody>
-      {% if g.box_source != 'newspaper' %}<tfoot><tr><td></td><td>Totals</td>{% for k, h in ocols %}<td class="num">{{ otot[k] }}</td>{% endfor %}</tr></tfoot>{% endif %}
+      {% if g.box_source != 'newspaper' or opp_complete %}<tfoot><tr><td></td><td>Totals</td>{% for k, h in ocols %}<td class="num">{{ otot[k] if g.box_source != 'newspaper' or k in ('pts', 'fg', 'tp', 'ft', 'tpm') else '' }}</td>{% endfor %}</tr></tfoot>{% endif %}
     </table>
     </div>
-    {% if g.box_source == 'newspaper' %}<p class="note">{{ 'Points' if g.box_complete == 'Y' else 'Leading scorers and rebounders' }} from a newspaper clipping.</p>{% endif %}
+    {% if g.box_source == 'newspaper' %}<p class="note">{{ 'Box score' if opp_complete else 'Leading scorers and rebounders' }} from a newspaper clipping.</p>{% endif %}
   </section>
   {% endif %}
 </div>

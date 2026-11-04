@@ -74,7 +74,7 @@ The footer on every page can show a "Spot an error, or have an old photo, progra
 
 ## Web address, link previews and search
 - Page addresses are clean (`/players/hayden-massman`). Old `.html` links redirect automatically.
-- Each page has a link preview (title, description, logo image) for texts and social posts. There's also a `sitemap.xml` and `robots.txt` for Google.
+- Each page has a link preview (title, description and image) for texts and social posts. Game, player, season, coach and opponent pages get their own preview image (the score, career stats, record and so on), drawn during the build by `scripts/share_images.py` in the site's fonts (`site-src/fonts`). Other pages use the logo. There's also a `sitemap.xml` and `robots.txt` for Google.
 - These use the site's production address, which Vercel supplies at build time. **Adding a custom domain needs no code change.** Add it in Vercel (Project → Settings → Domains), set it as the primary domain, and the next build uses it everywhere. After switching, submit `https://<your-domain>/sitemap.xml` in Google Search Console.
 
 ## Rebuild locally

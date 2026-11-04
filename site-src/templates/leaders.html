@@ -10,6 +10,7 @@
   <nav class="tabs leader-tabs" aria-label="Choose a stat">
     {% for b in boards %}<a href="#{{ b.stat }}" data-board="{{ b.stat }}">{{ b.title }}</a>{% endfor %}
   </nav>
+  <p class="small"><a href="season-leaders.html">Team leaders by season →</a></p>
   <input class="search" type="search" placeholder="Find a player…" aria-label="Find a player in the list" data-leader-filter>
 </div>
 

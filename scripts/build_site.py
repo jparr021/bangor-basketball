@@ -887,6 +887,108 @@ def coach_page_data(c):
             "data_games": len(data_gs)}
 
 
+# ---------------------------------------------------------------- graduating classes
+CLASS_OFFSET = {"SR": 0, "JR": 1, "SO": 2, "FR": 3, "12": 0, "11": 1, "10": 2, "9": 3}
+GRAD_OVERRIDES = {}  # overrides/grad_years.csv: name,grad_year,note — fixes for estimated years
+_gpath = os.path.join(OV, "grad_years.csv")
+if os.path.exists(_gpath):
+    for r in load(_gpath):
+        if r.get("name") and (r.get("grad_year") or "").strip().isdigit():
+            GRAD_OVERRIDES[slug(canon(r["name"]))] = int(r["grad_year"])
+
+
+def grad_year(sl):
+    """(year, how): from overrides, from the class column (SR/JR/...), or estimated from the last season played."""
+    if sl in GRAD_OVERRIDES:
+        return GRAD_OVERRIDES[sl], "set"
+    for r in sorted(pg_by_player.get(sl, []), key=lambda r: r["date"], reverse=True):
+        off = CLASS_OFFSET.get((r.get("class") or "").strip().upper())
+        if off is not None:
+            return season_end_year(r["season"]) + off, "class"
+    seasons = sorted(r["season"] for r in ps_by_player.get(sl, []))
+    return (season_end_year(seasons[-1]), "estimated") if seasons else (None, "")
+
+
+def book_players():
+    """Record-book players with no player page: graduating year and career marks, from historical_records.csv."""
+    out = {}
+    for h in hist_records:
+        if not h["name"] or slug(h["name"]) in PLAYER_PAGES:
+            continue
+        e = out.setdefault(slug(h["name"]), {"name": h["name"], "year": None, "years": "", "marks": {}, "gp": ""})
+        text = f"{h['season']} {h['note']}"
+        m = re.search(r"Class of (\d{4})", text)
+        rng = re.search(r"(\d{4})-\d{2} to (\d{4})-\d{2}", h["season"])
+        if m:
+            e["year"] = e["year"] or int(m.group(1))
+        elif rng:
+            e["year"] = e["year"] or int(rng.group(2)) + 1
+        if rng:
+            e["years"] = career_years(h["season"])
+        if h["period"] == "career" and h["value"]:
+            e["marks"][h["stat"]] = fmt_int(h["value"])
+            if h["gp"]:
+                e["gp"] = h["gp"]
+    return out
+
+
+def classes_data(plist):
+    """Every graduating class: stat-sheet players (with their pages) plus record-book players."""
+    by_year = defaultdict(list)
+    for p in plist:
+        if p["grad"]:
+            by_year[p["grad"]].append({"name": p["name"], "slug": p["slug"], "years": p["years"], "gp": p["gp"],
+                                       "pts": p["pts"], "reb": p["reb"], "ast": p["ast"], "est": p["grad_how"] == "estimated",
+                                       "pts_raw": p["pts_raw"], "book": False})
+    for e in book_players().values():
+        if e["year"]:
+            m = e["marks"]
+            by_year[e["year"]].append({"name": e["name"], "slug": None, "years": e["years"], "gp": e["gp"],
+                                       "pts": m.get("pts", ""), "reb": m.get("reb", ""), "ast": m.get("ast", ""),
+                                       "est": False, "book": True,
+                                       "pts_raw": float(m["pts"].replace(",", "")) if m.get("pts") else 0})
+    latest_end = season_end_year(DATA_SEASONS[-1])
+    out = []
+    for y in sorted(by_year, reverse=True):
+        rows = sorted(by_year[y], key=lambda r: (-r["pts_raw"], r["name"]))
+        out.append({"year": y, "players": rows, "current": y > latest_end, "book_only": all(r["book"] for r in rows),
+                    "any_est": any(r["est"] for r in rows)})
+    return out
+
+
+# ---------------------------------------------------------------- team leaders by season
+SEASON_LEADER_STATS = [("pts", "Points"), ("reb", "Rebounds"), ("ast", "Assists"), ("stl", "Steals"),
+                       ("blk", "Blocks"), ("tpm", "3-pointers")]
+
+
+def season_leaders_data():
+    rows, led = [], {k: defaultdict(list) for k, _ in SEASON_LEADER_STATS}
+    for s in reversed(DATA_SEASONS):
+        ps = ps_by_season.get(s, [])
+        cells = []
+        for k, _ in SEASON_LEADER_STATS:
+            vals = [r for r in ps if r.get(k)]
+            if not vals:
+                cells.append(None)
+                continue
+            top = max(r[k] for r in vals)
+            who = sorted((r for r in vals if r[k] == top), key=lambda r: r["name"])
+            for r in who:
+                led[k][r["slug"]].append(s)
+            cells.append({"value": fmt_int(top), "players": [{"name": r["name"], "slug": r["slug"],
+                                                               "avg": fmt_avg(r[k], r.get("gp"))} for r in who]})
+        if any(cells):
+            rows.append({"s": season_summary(s), "cells": cells})
+    most = []
+    for k, title in SEASON_LEADER_STATS:
+        ranked = sorted(((sl, ss) for sl, ss in led[k].items() if len(ss) >= 2), key=lambda kv: (-len(kv[1]), kv[1][-1]))
+        if ranked:
+            most.append({"title": title, "players": [{"name": PLAYER_PAGES.get(sl, sl), "slug": sl, "n": len(ss),
+                                                      "seasons": ", ".join(x.replace("-", "–") for x in sorted(ss))}
+                                                     for sl, ss in ranked[:5]]})
+    return rows, most
+
+
 def build():
     if os.path.exists(OUT):
         shutil.rmtree(OUT)
@@ -965,7 +1067,8 @@ def build():
                       "years": seasons[0][:4] + "–" + str(season_end_year(seasons[-1])),
                       "gp": fmt_int(c["gp"]) if c else "", "pts": fmt_int(c["pts"]) if c else "",
                       "pts_raw": (c or {}).get("pts") or 0,
-                      "reb": fmt_int(c["reb"]) if c else "", "ast": fmt_int(c["ast"]) if c else ""})
+                      "reb": fmt_int(c["reb"]) if c else "", "ast": fmt_int(c["ast"]) if c else "",
+                      **dict(zip(("grad", "grad_how"), grad_year(sl)))})
         rows = sorted(ps_by_player[sl], key=lambda r: r["season"])
         cols = cols_for(rows + ([c] if c else []))
         srows = [{"season": r["season"], "number": r.get("number", ""), "source": r.get("source", ""),
@@ -1017,12 +1120,18 @@ def build():
         cls = next((r.get("class") for r in reversed(log) if r.get("class")), "")
         render("player.html", f"players/{sl}.html", name=name, seasons=srows, career=crow, cols=cols, log=by_season,
                lcols=lcols, highs=highs, numbers=numbers, cls=cls, years=plist[-1]["years"],
+               grad=plist[-1]["grad"], grad_est=plist[-1]["grad_how"] == "estimated",
                partial=bool(partial_stats),
                override=(c or {}).get("override_note", ""), record_badges=B["player"].get(sl, []),
                player_news=player_news)
     plist.sort(key=lambda p: p["name"].split()[-1] + " " + p["name"])
     render("players.html", "players/index.html", players=plist)
     render("leaders.html", "records/career-leaders.html", boards=career_boards(), latest_season=DATA_SEASONS[-1])
+    classes = classes_data(plist)
+    render("classes.html", "players/classes.html", classes=classes)
+    srows, smost = season_leaders_data()
+    render("season_leaders.html", "records/season-leaders.html", rows=srows, most=smost,
+           stats=SEASON_LEADER_STATS)
 
     # ---- history & coaches
     render("history.html", "history/index.html", seasons=[season_summary(h["season"]) for h in history],
@@ -1092,7 +1201,13 @@ def build():
         url = f"seasons/{s}.html" if s in games_by_season else f"history/index.html#s{s}"
         idx.append({"t": f"{season_label(s)} season", "s": sub, "u": url, "k": "season",
                     "x": f"{s} {s[:4]} {season_end_year(s)} {h['coach']} {h['notes']}"})
-    for t, u, x in [("Record Book", "records/index.html", "records top 10"), ("Career Leaders", "records/career-leaders.html", "leaderboard all-time career points rebounds assists list"), ("History & Coaches", "history/index.html", "coaches"),
+    for cl in classes:
+        idx.append({"t": f"Class of {cl['year']}", "s": f"Graduating class · {len(cl['players'])} player"
+                    + ("s" if len(cl["players"]) > 1 else ""), "u": f"players/classes.html#c{cl['year']}", "k": "page",
+                    "x": f"{cl['year']} seniors graduates"})
+    for t, u, x in [("Team leaders by season", "records/season-leaders.html", "season leaders scoring leader rebounding"),
+                    ("Graduating classes", "players/classes.html", "class of seniors graduates roster"),
+                    ("Record Book", "records/index.html", "records top 10"), ("Career Leaders", "records/career-leaders.html", "leaderboard all-time career points rebounds assists list"), ("History & Coaches", "history/index.html", "coaches"),
                     ("All seasons", "seasons/index.html", ""), ("All players", "players/index.html", "roster"),
                     ("All opponents", "opponents/index.html", "")] + ([("Game film", "film/index.html", "video youtube hudl")]
                                                                      if FILM_GAMES or HUDL_ONLY else []):

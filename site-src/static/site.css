@@ -317,3 +317,12 @@ main:focus { outline: none; }
 .spark-head { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; margin-bottom: 4px; }
 .spark-head a { font-weight: 600; }
 .h2h-next { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin: 4px 0 0; font-weight: 600; }
+
+/* ---- team leaders by season, graduating classes */
+.btn-row { display: flex; flex-wrap: wrap; gap: 8px; }
+.season-leaders td.sl-cell { min-width: 150px; line-height: 1.35; }
+.sl-val { display: block; font-family: var(--head); font-size: 1.15rem; line-height: 1.1; }
+.class-card { scroll-margin-top: 90px; }
+.class-card h2 { margin-bottom: 8px; }
+.class-tabs a { padding: 3px 9px; font-size: .8rem; }
+.sl-avg { display: block; margin-bottom: 2px; }

@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% set section = 'records' %}
+{% block title %}Team Leaders by Season · Bangor Cardinals Boys Basketball{% endblock %}
+{% block description %}Bangor Cardinals boys basketball team leaders in points, rebounds, assists, steals, blocks and 3-pointers for every season since 2007–08.{% endblock %}
+{% block content %}
+<div class="wrap page-head">
+  <p class="eyebrow"><a href="index.html">Record Book</a></p>
+  <h1>Team leaders by season</h1>
+  <p class="muted">Each season's leader in total points, rebounds, assists, steals, blocks and 3-pointers made, with per-game averages. Points are in the stat sheets from 2007–08, the other stats from 2014–15. Ties list every player.</p>
+  <nav class="tabs"><a href="#by-season">By season</a>{% if most %}<a href="#most">Led the team most often</a>{% endif %}<a href="career-leaders.html">Career leaders</a></nav>
+</div>
+<div class="wrap">
+  <section class="card" id="by-season">
+    <div class="scroll">
+    <table class="tbl season-leaders">
+      <thead><tr><th>Season</th><th class="hide-sm">Record</th>{% for k, t in stats %}<th>{{ t }}</th>{% endfor %}</tr></thead>
+      <tbody>
+      {% for r in rows %}
+      <tr>
+        <td class="nowrap"><a href="../seasons/{{ r.s.season }}.html">{{ r.s.season | replace('-', '–') }}</a></td>
+        <td class="nowrap hide-sm muted">{{ r.s.w }}–{{ r.s.l }}</td>
+        {% for c in r.cells %}
+        <td class="sl-cell">{% if c %}
+          <span class="sl-val">{{ c.value }}</span>
+          {% for p in c.players %}<a href="../players/{{ p.slug }}.html">{{ p.name }}</a>{% if p.avg %}<small class="muted sl-avg">{{ p.avg }} per game</small>{% elif not loop.last %}<br>{% endif %}{% endfor %}
+        {% else %}<span class="muted">—</span>{% endif %}</td>
+        {% endfor %}
+      </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+    </div>
+  </section>
+
+  {% if most %}
+  <section id="most" class="record-section">
+    <h2 class="section-title">Led the team most often</h2>
+    <div class="record-grid">
+      {% for m in most %}
+      <div class="card record-card">
+        <h3>{{ m.title }}</h3>
+        <table class="tbl compact">
+          {% for p in m.players %}
+          <tr><td class="num strong">{{ p.n }}×</td><td><a href="../players/{{ p.slug }}.html">{{ p.name }}</a><br><span class="muted small">{{ p.seasons }}</span></td></tr>
+          {% endfor %}
+        </table>
+      </div>
+      {% endfor %}
+    </div>
+  </section>
+  {% endif %}
+</div>
+{% endblock %}

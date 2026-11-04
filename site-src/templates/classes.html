@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% set section = 'players' %}
+{% block title %}Graduating Classes · Bangor Cardinals Boys Basketball{% endblock %}
+{% block description %}Bangor Cardinals boys basketball players by graduating class, from the record book's early greats to today's roster.{% endblock %}
+{% block content %}
+<div class="wrap page-head">
+  <p class="eyebrow"><a href="index.html">Players</a></p>
+  <h1>Graduating classes</h1>
+  <p class="muted">Every player in the stat sheets (2007–08 on) by the year he graduated, plus earlier players listed in the record book (<span class="book-tag">Record book</span>). Classes before 2008 show only record-book players.</p>
+  <p class="muted small">The stat sheets list each player's class only from 2025–26. For earlier players the year is taken from his last season and marked <em>est.</em> Fixes go in <code>overrides/grad_years.csv</code>.</p>
+  <nav class="tabs class-tabs" aria-label="Jump to a class">
+    {% for c in classes %}<a href="#c{{ c.year }}">{{ c.year }}</a>{% endfor %}
+  </nav>
+</div>
+<div class="wrap">
+  {% for c in classes %}
+  <section class="card class-card" id="c{{ c.year }}">
+    <h2>Class of {{ c.year }} <small class="muted rb-count">{{ c.players | length }} player{{ 's' if c.players | length > 1 }}{% if c.current %} · still in school{% endif %}</small></h2>
+    <div class="scroll">
+    <table class="tbl compact">
+      <thead><tr><th>Player</th><th>Years</th><th class="num">G</th><th class="num">PTS</th><th class="num">REB</th><th class="num">AST</th></tr></thead>
+      <tbody>
+      {% for p in c.players %}
+      <tr>
+        <td class="nowrap">{% if p.slug %}<a href="{{ p.slug }}.html">{{ p.name }}</a>{% else %}{{ p.name }}{% endif %}{% if p.book %} <span class="book-tag">Record book</span>{% endif %}{% if p.est %} <small class="muted">est.</small>{% endif %}</td>
+        <td class="muted nowrap">{{ p.years }}</td><td class="num">{{ p.gp }}</td><td class="num strong">{{ p.pts }}</td><td class="num">{{ p.reb }}</td><td class="num">{{ p.ast }}</td>
+      </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+    </div>
+  </section>
+  {% endfor %}
+</div>
+{% endblock %}

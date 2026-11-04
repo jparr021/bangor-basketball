@@ -4,7 +4,7 @@
 
 | Season | Games | W-L | Box scores (full / points-only / none) | Box scores missing points |
 |---|---|---|---|---|
-| 2001-02 | 24 | 17-7 | 0 / 6 / 18 | 5 |
+| 2001-02 | 24 | 17-7 | 0 / 8 / 16 | 7 |
 | 2002-03 | 24 | 22-2 | 1 / 19 / 4 | 15 |
 | 2003-04 | 20 | 2-18 | 0 / 0 / 20 | 0 |
 | 2004-05 | 20 | 5-15 | 0 / 0 / 20 | 0 |
@@ -244,3 +244,5 @@ A check compares one player's season total for one stat. A match means the sum o
 - 2001-12-07 vs Hillsboro: box score adds to 55, final 63
 - 2001-12-13 vs New Lisbon: box score adds to 47, final 62
 - 2001-12-18 vs Cashton: box score adds to 29, final 47
+- 2001-12-21 vs West Salem: box score adds to 48, final 57
+- 2002-01-04 vs Royall: box score adds to 37, final 53

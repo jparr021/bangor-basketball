@@ -42,6 +42,8 @@ New games flow into season stats, player pages, career totals and the record boo
 
 **On game day** every page shows a "Game today" banner under the menu, with the livestream link. Pages correct their own labels to the visitor's time (Wisconsin time): *Today*, then *Live now* from just before the start time until about 2¼ hours later, then *Score coming soon* until the score is in the sheet and the next rebuild runs. Without a start time, the game counts as over at 10:30 pm. After the game, a livestream link to that one game becomes *Watch replay*; a link to a channel page is hidden.
 
+**Before each game** its page shows a *Head to head* preview: Bangor's all-time record against that opponent (and at that site, and in the playoffs for a playoff game), the current streak, the last meeting and who led Bangor in it, the average score, the biggest win and worst loss, and how today's players have done against them. The home page's upcoming games show the series record. It all comes from games already in the data, so there's nothing to fill in.
+
 **Sheet check.** Each build looks for likely mistakes in the sheets: a missing final score for a game already played, a W with the lower score, a date in the wrong year, the same game listed twice, an opponent or player name spelled two ways, made shots that don't add up to a player's points, and more. The current season's findings are printed in the Vercel build log and listed at **/sheet-check**, a page that isn't linked from the site or shown to search engines. Nothing on the list stops the site from updating. To see the same list on your computer: `.venv/bin/python scripts/sheet_check.py` (add `--all` for every season).
 
 ## End of season

@@ -333,7 +333,10 @@ main:focus { outline: none; }
 .spark-card { border: 1px solid var(--line); border-radius: 8px; padding: 10px 12px 6px; }
 .spark-head { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; margin-bottom: 4px; }
 .spark-head a { font-weight: 600; }
-.h2h-next { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin: 4px 0 0; font-weight: 600; }
+.preview-lede { margin: 2px 0 16px; font-size: 1.02rem; }
+.preview .leader-cards { margin-bottom: 8px; }
+.up-h2h { font-weight: 600; margin-top: 2px; }
+.h2h-next {display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin: 4px 0 0; font-weight: 600; }
 
 /* ---- team leaders by season, graduating classes */
 .btn-row { display: flex; flex-wrap: wrap; gap: 8px; }

@@ -30,6 +30,7 @@
         <span class="up-date"{{ gd.attrs(g, 'label') }}>{{ 'Today' if g.is_today else g.date | d }}{% if g.time %} · {{ g.time }}{% endif %}</span>
         <a class="up-opp" href="games/{{ g.game_id }}.html">{{ 'at' if g.site == 'away' else 'vs' }} {{ g.opponent }}</a>
         <span class="muted small">{{ g.location }}{% if g.conference == 'Y' %} · Conference{% endif %}</span>
+        {% if g.preview %}<a class="up-h2h small" href="games/{{ g.game_id }}.html#preview">{% if g.preview.n %}Series: Bangor {{ g.preview.rec.w }}–{{ g.preview.rec.l }}{% if g.preview.streak %} · {{ 'Won' if g.preview.streak[0] == 'W' else 'Lost' }} {{ 'last meeting' if g.preview.streak[1:] == '1' else 'last ' ~ g.preview.streak[1:] }}{% endif %}{% else %}First meeting{% endif %} →</a>{% endif %}
         {% if g.stream_url %}<a class="btn live" href="{{ g.stream_url }}"{{ gd.attrs(g, 'live') }} target="_blank" rel="noopener">● Watch live</a>{% endif %}
       </div>
       {% endfor %}

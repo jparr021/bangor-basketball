@@ -960,6 +960,83 @@ def head_to_head(o):
     return out
 
 
+def opponent_index():
+    """Every opponent, with its finished games (date order) and upcoming games."""
+    opps = OrderedDict()
+    for g in sorted(list(games_by_id.values()) + DATED_RESULTS, key=lambda g: g["date"]):
+        o = opps.setdefault(g["opp_slug"], {"name": g["opponent"], "slug": g["opp_slug"], "w": 0, "l": 0, "games": [],
+                                            "upcoming": []})
+        if g["result"] in ("W", "L"):
+            o["w" if g["result"] == "W" else "l"] += 1
+            o["games"].append(g)
+        elif g.get("status") == "upcoming":
+            o["upcoming"].append(g)
+    return opps
+
+
+def current_roster(g):
+    """Player slugs on Bangor's roster for a game not yet played: whoever has played earlier that season, or before
+    the first game, last season's players who haven't graduated."""
+    season = g["season"]
+    played = {r["slug"] for x in games_by_season.get(season, []) if x["date"] < g["date"]
+              for r in pg_by_game.get(x["game_id"], [])}
+    if played:
+        return played
+    earlier = [s for s in DATA_SEASONS if s < season]
+    if not earlier:
+        return set()
+    end = season_end_year(season)
+    return {r["slug"] for r in ps_by_season.get(earlier[-1], []) if (grad_year(r["slug"])[0] or 0) >= end}
+
+
+def game_preview(g, o):
+    """Head-to-head preview for a game that hasn't been played (or whose score isn't in yet)."""
+    prior = [x for x in (o["games"] if o else []) if x["date"] < g["date"]]
+    season_done = [x for x in games_by_season.get(g["season"], []) if x["date"] < g["date"] and x["result"] in ("W", "L")]
+    out = {"n": len(prior), "season_rec": wl(season_done) if season_done else None,
+           "since": min([DATA_SEASONS[0]] + [x["season"] for x in DATED_RESULTS])}
+    if not prior:
+        return out
+    rec = wl(prior)
+    cur, _ = streaks(prior)
+    out.update(rec=rec, first=prior[0], streak=cur)
+    site_games = [x for x in prior if x["site"] == g["site"]]
+    out["site_rec"] = wl(site_games) if site_games and len(site_games) < len(prior) else None
+    out["site_label"] = {"away": "On the road", "neutral": "At neutral sites"}.get(g["site"], "At home")
+    if g["game_type"] == "playoff":
+        po = [x for x in prior if x["game_type"] == "playoff"]
+        out["playoff_rec"] = wl(po) if po else None
+    out["this_season"] = [x for x in prior if x["season"] == g["season"]]
+    last = prior[-1]
+    top = max((r for r in pg_by_game.get(last.get("game_id"), []) if r.get("pts")), key=lambda r: r["pts"], default=None)
+    out["last"] = {"g": last, "top": top and {"name": top["name"], "slug": top["slug"], "pts": fmt_int(top["pts"])}}
+    wins = [x for x in prior if x["result"] == "W"]
+    losses = [x for x in prior if x["result"] == "L"]
+    out["biggest_win"] = max(wins, key=lambda x: (x["bs"] - x["os"], x["date"])) if wins else None
+    out["worst_loss"] = max(losses, key=lambda x: (x["os"] - x["bs"], x["date"])) if losses else None
+    for k in ("biggest_win", "worst_loss"):  # already shown as the last meeting
+        if out[k] is last:
+            out[k] = None
+    out["ppg"] = fmt_avg(sum(x["bs"] for x in prior), len(prior))
+    out["oppg"] = fmt_avg(sum(x["os"] for x in prior), len(prior))
+    # current Cardinals' history against this opponent
+    roster = current_roster(g)
+    ids = {x.get("game_id") for x in prior}
+    agg = {}
+    for gid in ids:
+        for r in pg_by_game.get(gid, []):
+            if r["slug"] not in roster or r.get("pts") is None:
+                continue
+            a = agg.setdefault(r["slug"], {"name": r["name"], "slug": r["slug"], "pts": 0, "gp": 0, "best": None})
+            a["pts"] += r["pts"]; a["gp"] += 1
+            if a["best"] is None or r["pts"] > a["best"]["pts"]:
+                a["best"] = r
+    out["players"] = [{**a, "pts": fmt_int(a["pts"]), "avg": fmt_avg(a["pts"], a["gp"]), "best_pts": fmt_int(a["best"]["pts"]),
+                       "best_g": games_by_id[a["best"]["game_id"]]}
+                      for a in sorted(agg.values(), key=lambda a: (-a["pts"], a["name"]))[:6]]
+    return out
+
+
 def season_charts(season, gs):
     """The game-by-game margin chart and per-player scoring lines for a season page."""
     played = [g for g in gs if g["result"] in ("W", "L") and g["bs"] is not None]
@@ -1151,6 +1228,11 @@ def build():
     B = collect_badges(sections)
     render("records.html", "records/index.html", sections=list(sections.values()), mins=MINS)
 
+    # ---- head-to-head previews for games not yet played (game pages and the home page's upcoming list)
+    opps = opponent_index()
+    PREVIEWS = {g["game_id"]: game_preview(g, opps.get(g["opp_slug"]))
+                for g in games_by_id.values() if g["status"] in ("upcoming", "pending")}
+
     # ---- home
     latest = DATA_SEASONS[-1]
     top_career = merged("individual", "career", "pts", "int")[:5]
@@ -1160,7 +1242,7 @@ def build():
     recent = [season_summary(s) for s in reversed(DATA_SEASONS[-6:])]
     render("home.html", "index.html", latest=season_summary(latest), latest_leaders=leaders(latest),
            latest_games=[g for g in games_by_season[latest] if g["status"] == "final"][-5:][::-1],
-           upcoming=UPCOMING[:6], top_career=top_career, top_game=top_game,
+           upcoming=[{**g, "preview": PREVIEWS.get(g["game_id"])} for g in UPCOMING[:6]], top_career=top_career, top_game=top_game,
            champs=champs, recent=recent)
 
     # ---- seasons index
@@ -1265,7 +1347,7 @@ def build():
                         "badges": B["game_ind"].get((gid, r["slug"]), []), **box_row(r)} for r in bangor],
                bcols=box_cols(bangor), btot=box_row(bt) if bangor else None,
                opp=[{"name": r["name"], "number": r["number"], **box_row(r)} for r in opp],
-               ocols=box_cols(opp), otot=box_row(ot) if opp else None, periods=periods)
+               ocols=box_cols(opp), otot=box_row(ot) if opp else None, periods=periods, preview=PREVIEWS.get(gid))
 
     # ---- players
     plist = []
@@ -1391,15 +1473,6 @@ def build():
                prev=chrono[i - 1] if i else None, next=chrono[i + 1] if i + 1 < len(chrono) else None)
 
     # ---- opponents
-    opps = OrderedDict()
-    for g in sorted(list(games_by_id.values()) + DATED_RESULTS, key=lambda g: g["date"]):
-        o = opps.setdefault(g["opp_slug"], {"name": g["opponent"], "slug": g["opp_slug"], "w": 0, "l": 0, "games": [],
-                                            "upcoming": []})
-        if g["result"] in ("W", "L"):
-            o["w" if g["result"] == "W" else "l"] += 1
-            o["games"].append(g)
-        elif g.get("status") == "upcoming":
-            o["upcoming"].append(g)
     # every opponent on the schedule gets a page (a game page links to it), even before the first meeting
     for o in opps.values():
         o["last"] = o["games"][-1] if o["games"] else None

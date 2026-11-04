@@ -441,7 +441,7 @@ def load_extra_boxscores():
         with open(p3) as f:
             for r in csv.DictReader(f):
                 d = {"number": (r.get("number") or "").strip(), "name": r["name"].strip(), **{k: None for k in STAT_COLS}}
-                d["pts"], d["reb"] = num(r.get("pts")), num(r.get("reb"))
+                d["pts"], d["reb"], d["tpm"] = num(r.get("pts")), num(r.get("reb")), num(r.get("tpm"))
                 news[r["date"]]["bangor" if r["team"].strip().lower() == "bangor" else "opp"].append(d)
     return opp, lines, news
 

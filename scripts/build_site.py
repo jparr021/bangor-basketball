@@ -620,7 +620,7 @@ SEASON_COLS = [  # (key, header, needs)
     ("tpm", "3PM", "tpa"), ("tpa", "3PA", "tpa"), ("tp_pct", "3P%", "tpa"),
     ("ftm", "FTM", "fta"), ("fta", "FTA", "fta"), ("ft_pct", "FT%", "fta"),
 ]
-BOX_COLS = [("min", "MIN"), ("pts", "PTS"), ("fg", "FG"), ("tp", "3PT"), ("ft", "FT"), ("oreb", "OREB"),
+BOX_COLS = [("min", "MIN"), ("pts", "PTS"), ("fg", "FG"), ("tp", "3PT"), ("tpm", "3PM"), ("ft", "FT"), ("oreb", "OREB"),
             ("dreb", "DREB"), ("reb", "REB"), ("ast", "AST"), ("stl", "STL"), ("blk", "BLK"), ("to", "TO"),
             ("pf", "PF"), ("chg", "CHG")]
 
@@ -634,12 +634,16 @@ def box_row(r):
         return "" if r.get(a) is None else f"{int(r[m])}-{int(r[a])}"
     d = {k: fmt_int(r.get(k)) for k in ["min", "pts", "oreb", "dreb", "reb", "ast", "stl", "blk", "to", "pf", "chg"]}
     d["fg"], d["tp"], d["ft"] = ma("fgm", "fga"), ma("tpm", "tpa"), ma("ftm", "fta")
+    d["tpm"] = fmt_int(r.get("tpm"))  # 3-pointers made with no attempts (a newspaper box score)
     return d
 
 
 def box_cols(rows):
     need = {"fg": "fga", "tp": "tpa", "ft": "fta"}
-    return [(k, h) for k, h in BOX_COLS if any(r.get(need.get(k, k)) is not None for r in rows)]
+    cols = [(k, h) for k, h in BOX_COLS if any(r.get(need.get(k, k)) is not None for r in rows)]
+    if any(k == "tp" for k, _ in cols):  # made-attempted already shows the makes
+        cols = [(k, h) for k, h in cols if k != "tpm"]
+    return cols
 
 
 def box_totals(rows):

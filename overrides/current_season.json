@@ -1,5 +1,5 @@
 {
   "season": "2026-27",
-  "sheet_url": "",
+  "sheet_url": "https://docs.google.com/spreadsheets/d/1iflz79lEmSqx9793UerVfy_hy_xVL3QgV9ArvPNJFJo/edit?usp=sharing",
   "_help": "Paste the current season's Google Sheet link into sheet_url. In Google Sheets, set Share > General access to 'Anyone with the link' (Viewer). Each build downloads the sheet into source-sheets/ automatically. At the end of the season, leave the downloaded file in source-sheets/ and change 'season' and 'sheet_url' for the next year."
 }

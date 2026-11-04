@@ -141,7 +141,29 @@ def link_of(v, links, rownum, colnum):
     return s if s.startswith("http") else ""
 
 
-TIME_RE = re.compile(r"^\d{1,2}:\d{2}\s*(AM|PM)?$", re.I)
+TIME_RE = re.compile(r"^\d{1,2}:\d{2}\s*(AM|PM)?(\s*(CT|CST|CDT))?$", re.I)
+TEXT_DATE_RE = re.compile(r"^\s*(?:[A-Za-z]{3,9}\.?,?\s*)?(\d{1,2})/(\d{1,2})(?:/(\d{2,4}))?\s*$")
+
+
+def clean_time(t):
+    """'7:00 PM CT' -> '7:00 PM' (the site is all Wisconsin time)."""
+    return re.sub(r"\s*(CT|CST|CDT)$", "", str(t or "").strip(), flags=re.I)
+
+
+def clean_location(loc):
+    """'Bangor High School High School Main Gym' (doubled by the scheduling export) -> 'Bangor High School Main Gym'."""
+    loc = re.sub(r"\s+", " ", str(loc or "")).strip()
+    return re.sub(r"\b(High School)( \1)+\b", r"\1", loc)
+
+
+def sched_date(v):
+    """A schedule date cell: a real date, or text like 'Mon11/30/26' or '11/30/2026'."""
+    if isinstance(v, (dt.datetime, dt.date)):
+        return v
+    m = TEXT_DATE_RE.match(str(v or ""))
+    if not m:
+        return None
+    return dt.date(2000, int(m.group(1)), int(m.group(2)))  # the year comes from the season
 
 
 def parse_schedule(season, ws, links=None):
@@ -153,11 +175,18 @@ def parse_schedule(season, ws, links=None):
         return []
     hdr = [str(h) for h in numbered[0][1]]
     col = {h.strip().lower(): i for i, h in enumerate(hdr)}
+    if not any(k in col for k in ("c", "conf", "conference")):
+        # the conference column often has no header: an unlabeled column holding only "C" and blanks
+        for i, h in enumerate(hdr):
+            vals = {str((r + [""] * (i + 1))[i]).strip().upper() for _, r in numbered[1:]}
+            if i and h.strip().lower() in ("", "none") and "C" in vals and vals <= {"", "C"}:
+                col["c"] = i
+                break
     games = []
     for rownum, r in numbered[1:]:
         r = r + [""] * (8 - len(r))
-        d = r[0]
-        if not isinstance(d, (dt.datetime, dt.date)):
+        d = sched_date(r[0])
+        if d is None:
             warn(season, f"schedule row with unreadable date skipped: {r[:4]}")
             continue
         date = season_date(season, d.month, d.day)  # sheet years are wrong; month/day are right
@@ -177,7 +206,7 @@ def parse_schedule(season, ws, links=None):
         tv, _ = get("time")
         if isinstance(tv, (dt.time, dt.datetime)):
             tv = tv.strftime("%-I:%M %p")
-        g["time"] = str(tv or "").strip()
+        g["time"] = clean_time(tv)
         res = str(r[1])
         m = re.match(r"^\s*([WLT])\s*\n?\s*(\d+)\s*-\s*(\d+)", res)
         if hdr[1] == "Result" and m:
@@ -218,7 +247,7 @@ def parse_schedule(season, ws, links=None):
             conf, _ = get("c", "conf", "conference")
             g["conference"] = "Y" if str(conf).strip().upper() in ("C", "Y", "YES") else "N"
             g["note"] = str(get("caption", "notes", "event")[0])
-            g["location"] = str(get("location")[0])
+            g["location"] = clean_location(get("location")[0])
             res = str(get("result")[0]).strip()
             m2 = re.match(r"^\s*([WL])\s+(\d+)\s*-\s*(\d+)", res)
             if m2:
@@ -228,7 +257,7 @@ def parse_schedule(season, ws, links=None):
             else:
                 g["result"] = ""
                 if TIME_RE.match(res) and not g["time"]:
-                    g["time"] = res
+                    g["time"] = clean_time(res)
                 elif res.upper() in ("PPD", "POSTPONED"):
                     g["note"] = g["note"] or "Postponed"
                 elif res.upper() in ("CANCELED", "CANCELLED", "CXL"):

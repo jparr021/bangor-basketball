@@ -559,28 +559,52 @@ game_id,season,date,opponent,site,location,event,conference,bangor_score,opp_sco
 2024-25-25,2024-25,2025-03-04,Whitehall,neutral,WIAA Regional,WIAA Regional,,68,62,W,,1|2,32|36,27|35,,https://www.youtube.com/@wsdvideos/streams,,full,68,Y,,,schedule+tab,playoff
 2024-25-26,2024-25,2025-03-07,Aquinas,neutral,WIAA Regional,WIAA Regional,,45,87,L,,1|2,22|23,50|37,,https://www.youtube.com/watch?v=pGuESNDQgMI,,full,45,Y,,,schedule+tab,playoff
 2025-26-01,2025-26,2025-12-02,Arcadia,away,Arcadia High School,,N,67,69,L,,1|2,34|33,41|28,,,,full,67,Y,,,schedule+tab,regular
-2025-26-02,2025-26,2025-12-12,New Lisbon,away,New Lisbon High School,,N,77,53,W,,1|2,46|31,22|31,,,,full,77,Y,,,schedule+tab,regular
+2025-26-02,2025-26,2025-12-12,New Lisbon,away,New Lisbon High School,,Y,77,53,W,,1|2,46|31,22|31,,,,full,77,Y,,,schedule+tab,regular
 2025-26-03,2025-26,2025-12-22,Melrose-Mindoro,home,Bangor High School,,N,81,46,W,,1|2,37|44,21|25,,,,full,81,Y,,,schedule+tab,regular
 2025-26-04,2025-26,2025-12-23,Westby,away,Westby High School,,N,49,73,L,,1|2,28|21,35|38,,,,full,49,Y,,,schedule+tab,regular
 2025-26-05,2025-26,2025-12-26,Glenwood City,neutral,JustAgame Field House,JAG Holiday Classic,N,71,70,W,1,1|2|OT,34|28|9,27|35|8,,,,full,71,Y,,,schedule+tab,tournament
 2025-26-06,2025-26,2025-12-27,Reedsburg,neutral,JustAgame Field House,JAG Holiday Classic,N,47,56,L,,1|2,27|20,31|25,,,,full,47,Y,,,schedule+tab,tournament
-2025-26-07,2025-26,2026-01-08,Necedah,away,Necedah High School,,N,70,50,W,,1|2,29|41,22|28,,,,full,70,Y,,,schedule+tab,regular
-2025-26-08,2025-26,2026-01-09,Brookwood,home,Bangor High School,,N,88,47,W,,1|2,49|39,26|21,,,,full,88,Y,,,schedule+tab,regular
+2025-26-07,2025-26,2026-01-08,Necedah,away,Necedah High School,,Y,70,50,W,,1|2,29|41,22|28,,,,full,70,Y,,,schedule+tab,regular
+2025-26-08,2025-26,2026-01-09,Brookwood,home,Bangor High School,,Y,88,47,W,,1|2,49|39,26|21,,,,full,88,Y,,,schedule+tab,regular
 2025-26-09,2025-26,2026-01-12,Luther,away,Luther High School,,N,40,66,L,,1|2,23|17,34|32,,,,full,40,Y,,,schedule+tab,regular
-2025-26-10,2025-26,2026-01-13,Wonewoc-Center,away,Wonewoc-Center High School,,N,73,64,W,,1|2,35|38,27|37,,,,full,73,Y,,,schedule+tab,regular
-2025-26-11,2025-26,2026-01-16,Hillsboro,home,Bangor High School,,N,71,43,W,,1|2,38|33,21|22,,,,full,71,Y,,,schedule+tab,regular
-2025-26-12,2025-26,2026-01-19,Cashton,home,Bangor High School,,N,84,54,W,,1|2,42|42,21|33,,,,full,84,Y,,,schedule+tab,regular
-2025-26-13,2025-26,2026-01-22,Royall,away,Royall High School,,N,47,61,L,,1|2,22|25,29|32,,,,full,47,Y,,,schedule+tab,regular
-2025-26-14,2025-26,2026-01-27,Cashton,away,Cashton High School,,N,79,49,W,,1|2,38|41,19|30,,,,full,79,Y,,,schedule+tab,regular
-2025-26-15,2025-26,2026-01-30,New Lisbon,home,Bangor High School,,N,68,60,W,,1|2,30|38,27|33,,,,full,68,Y,,,schedule+tab,regular
+2025-26-10,2025-26,2026-01-13,Wonewoc-Center,away,Wonewoc-Center High School,,Y,73,64,W,,1|2,35|38,27|37,,,,full,73,Y,,,schedule+tab,regular
+2025-26-11,2025-26,2026-01-16,Hillsboro,home,Bangor High School,,Y,71,43,W,,1|2,38|33,21|22,,,,full,71,Y,,,schedule+tab,regular
+2025-26-12,2025-26,2026-01-19,Cashton,home,Bangor High School,,Y,84,54,W,,1|2,42|42,21|33,,,,full,84,Y,,,schedule+tab,regular
+2025-26-13,2025-26,2026-01-22,Royall,away,Royall High School,,Y,47,61,L,,1|2,22|25,29|32,,,,full,47,Y,,,schedule+tab,regular
+2025-26-14,2025-26,2026-01-27,Cashton,away,Cashton High School,,Y,79,49,W,,1|2,38|41,19|30,,,,full,79,Y,,,schedule+tab,regular
+2025-26-15,2025-26,2026-01-30,New Lisbon,home,Bangor High School,,Y,68,60,W,,1|2,30|38,27|33,,,,full,68,Y,,,schedule+tab,regular
 2025-26-16,2025-26,2026-02-02,Gale-Ettrick-Trempealeau,home,Bangor High School,,N,39,77,L,,1|2,27|12,44|33,,,,full,39,Y,,,schedule+tab,regular
-2025-26-17,2025-26,2026-02-05,Brookwood,away,Brookwood High School,,N,65,54,W,,1|2,34|31,25|29,,,,full,65,Y,,,schedule+tab,regular
+2025-26-17,2025-26,2026-02-05,Brookwood,away,Brookwood High School,,Y,65,54,W,,1|2,34|31,25|29,,,,full,65,Y,,,schedule+tab,regular
 2025-26-18,2025-26,2026-02-09,Black River Falls,home,Bangor High School,,N,99,70,W,,1|2,51|48,33|37,,,,full,99,Y,,,schedule+tab,regular
-2025-26-19,2025-26,2026-02-10,Necedah,home,Bangor High School,,N,55,41,W,,1|2,24|31,23|18,,,,full,55,Y,,,schedule+tab,regular
-2025-26-20,2025-26,2026-02-13,Wonewoc-Center,home,Bangor High School,,N,90,69,W,,1|2,40|50,44|25,,,,full,90,Y,,,schedule+tab,regular
+2025-26-19,2025-26,2026-02-10,Necedah,home,Bangor High School,,Y,55,41,W,,1|2,24|31,23|18,,,,full,55,Y,,,schedule+tab,regular
+2025-26-20,2025-26,2026-02-13,Wonewoc-Center,home,Bangor High School,,Y,90,69,W,,1|2,40|50,44|25,,,,full,90,Y,,,schedule+tab,regular
 2025-26-21,2025-26,2026-02-16,De Soto,home,Bangor High School,,N,53,64,L,,1|2,32|21,29|35,,,,full,53,Y,,,schedule+tab,regular
-2025-26-22,2025-26,2026-02-19,Hillsboro,away,Hillsboro High School,,N,60,73,L,,1|2,31|29,42|31,,,,full,60,Y,,,schedule+tab,regular
-2025-26-23,2025-26,2026-02-23,Royall,home,Bangor High School,,N,68,76,L,,1|2,28|40,26|50,,,,full,68,Y,,,schedule+tab,regular
+2025-26-22,2025-26,2026-02-19,Hillsboro,away,Hillsboro High School,,Y,60,73,L,,1|2,31|29,42|31,,,,full,60,Y,,,schedule+tab,regular
+2025-26-23,2025-26,2026-02-23,Royall,home,Bangor High School,,Y,68,76,L,,1|2,28|40,26|50,,,,full,68,Y,,,schedule+tab,regular
 2025-26-24,2025-26,2026-02-26,Birchwood,away,,,,94,58,W,,1|2,44|50,29|29,,,,full,94,Y,,,tab,regular
 2025-26-25,2025-26,2026-03-03,Eleva-Strum,home,,Sectional 1B First Round,,61,59,W,,1|2,31|30,26|33,,,,full,61,Y,,,tab,playoff
 2025-26-26,2025-26,2026-03-06,Regis,away,,Sectional 1B Regional Semifinal,,80,91,L,,1|2,32|48,51|40,,,,full,80,Y,,,tab,playoff
+2026-27-01,2026-27,2026-11-30,Black River Falls,away,Tiger Fieldhouse Main Court,,N,,,,,,,,7:00 PM,https://fan.hudl.com/usa/wi/bangor/organization/7161/bangor-high-school/team/26707/boys-varsity-basketball,,none,,,,,schedule,regular
+2026-27-02,2026-27,2026-12-03,Arcadia,home,Bangor High School,,N,,,,,,,,7:00 PM,https://fan.hudl.com/usa/wi/bangor/organization/7161/bangor-high-school/team/26707/boys-varsity-basketball,,none,,,,,schedule,regular
+2026-27-03,2026-27,2026-12-08,Cashton,away,Cashton Elementary School,,Y,,,,,,,,7:00 PM,https://fan.hudl.com/usa/wi/bangor/organization/7161/bangor-high-school/team/26707/boys-varsity-basketball,,none,,,,,schedule,regular
+2026-27-04,2026-27,2026-12-11,New Lisbon,home,Bangor High School Main Gym,,Y,,,,,,,,7:00 PM,https://fan.hudl.com/usa/wi/bangor/organization/7161/bangor-high-school/team/26707/boys-varsity-basketball,,none,,,,,schedule,regular
+2026-27-05,2026-27,2026-12-14,Melrose-Mindoro,away,Melrose-Mindoro High School Gym,,N,,,,,,,,7:15 PM,https://fan.hudl.com/usa/wi/bangor/organization/7161/bangor-high-school/team/26707/boys-varsity-basketball,,none,,,,,schedule,regular
+2026-27-06,2026-27,2026-12-15,Seneca,away,Seneca High School Seneca High School Gym,,N,,,,,,,,7:15 PM,https://fan.hudl.com/usa/wi/bangor/organization/7161/bangor-high-school/team/26707/boys-varsity-basketball,,none,,,,,schedule,regular
+2026-27-07,2026-27,2026-12-17,Brookwood,away,Brookwood High School Fieldhouse,,Y,,,,,,,,7:00 PM,https://fan.hudl.com/usa/wi/bangor/organization/7161/bangor-high-school/team/26707/boys-varsity-basketball,,none,,,,,schedule,regular
+2026-27-08,2026-27,2026-12-21,Westby,home,Bangor High School Main Gym,,N,,,,,,,,7:00 PM,https://fan.hudl.com/usa/wi/bangor/organization/7161/bangor-high-school/team/26707/boys-varsity-basketball,,none,,,,,schedule,regular
+2026-27-09,2026-27,2026-12-29,Regis,home,Bangor High School Main Gym,,N,,,,,,,,5:30 PM,https://fan.hudl.com/usa/wi/bangor/organization/7161/bangor-high-school/team/26707/boys-varsity-basketball,,none,,,,,schedule,regular
+2026-27-10,2026-27,2027-01-04,Luther,home,Bangor High School,,N,,,,,,,,7:00 PM,https://fan.hudl.com/usa/wi/bangor/organization/7161/bangor-high-school/team/26707/boys-varsity-basketball,,none,,,,,schedule,regular
+2026-27-11,2026-27,2027-01-07,Necedah,home,Bangor High School Main Gym,,Y,,,,,,,,7:00 PM,https://fan.hudl.com/usa/wi/bangor/organization/7161/bangor-high-school/team/26707/boys-varsity-basketball,,none,,,,,schedule,regular
+2026-27-12,2026-27,2027-01-12,Wonewoc-Center,home,Bangor High School Main Gym,,Y,,,,,,,,7:00 PM,https://fan.hudl.com/usa/wi/bangor/organization/7161/bangor-high-school/team/26707/boys-varsity-basketball,,none,,,,,schedule,regular
+2026-27-13,2026-27,2027-01-15,Hillsboro,away,Hillsboro High School Gym,,Y,,,,,,,,7:00 PM,https://fan.hudl.com/usa/wi/bangor/organization/7161/bangor-high-school/team/26707/boys-varsity-basketball,,none,,,,,schedule,regular
+2026-27-14,2026-27,2027-01-18,Sparta,home,Bangor High School Main Gym,,N,,,,,,,,7:00 PM,https://fan.hudl.com/usa/wi/bangor/organization/7161/bangor-high-school/team/26707/boys-varsity-basketball,,none,,,,,schedule,regular
+2026-27-15,2026-27,2027-01-21,Royall,home,Bangor High School Main Gym,,Y,,,,,,,,7:00 PM,https://fan.hudl.com/usa/wi/bangor/organization/7161/bangor-high-school/team/26707/boys-varsity-basketball,,none,,,,,schedule,regular
+2026-27-16,2026-27,2027-01-26,Cashton,home,Bangor High School Main Gym,,Y,,,,,,,,7:00 PM,https://fan.hudl.com/usa/wi/bangor/organization/7161/bangor-high-school/team/26707/boys-varsity-basketball,,none,,,,,schedule,regular
+2026-27-17,2026-27,2027-01-29,New Lisbon,away,New Lisbon High School Gym,,Y,,,,,,,,7:00 PM,https://fan.hudl.com/usa/wi/bangor/organization/7161/bangor-high-school/team/26707/boys-varsity-basketball,,none,,,,,schedule,regular
+2026-27-18,2026-27,2027-02-02,Gale-Ettrick-Trempealeau,away,Gale-Ettrick-Trempealeau High School North Gym - Rm 605,,N,,,,,,,,7:00 PM,https://fan.hudl.com/usa/wi/bangor/organization/7161/bangor-high-school/team/26707/boys-varsity-basketball,,none,,,,,schedule,regular
+2026-27-19,2026-27,2027-02-04,Brookwood,home,Bangor High School Main Gym,,Y,,,,,,,,7:00 PM,https://fan.hudl.com/usa/wi/bangor/organization/7161/bangor-high-school/team/26707/boys-varsity-basketball,,none,,,,,schedule,regular
+2026-27-20,2026-27,2027-02-08,De Soto,away,De Soto High School (New) Gym,,N,,,,,,,,7:15 PM,https://fan.hudl.com/usa/wi/bangor/organization/7161/bangor-high-school/team/26707/boys-varsity-basketball,,none,,,,,schedule,regular
+2026-27-21,2026-27,2027-02-09,Necedah,away,Necedah High School Gym,,Y,,,,,,,,7:00 PM,https://fan.hudl.com/usa/wi/bangor/organization/7161/bangor-high-school/team/26707/boys-varsity-basketball,,none,,,,,schedule,regular
+2026-27-22,2026-27,2027-02-12,Wonewoc-Center,away,Wonewoc-Center High School Highschool Gym,,Y,,,,,,,,7:00 PM,https://fan.hudl.com/usa/wi/bangor/organization/7161/bangor-high-school/team/26707/boys-varsity-basketball,,none,,,,,schedule,regular
+2026-27-23,2026-27,2027-02-18,Hillsboro,home,Bangor High School Main Gym,,Y,,,,,,,,7:00 PM,https://fan.hudl.com/usa/wi/bangor/organization/7161/bangor-high-school/team/26707/boys-varsity-basketball,,none,,,,,schedule,regular
+2026-27-24,2026-27,2027-02-22,Royall,away,Royall High School New Gym,,Y,,,,,,,,7:00 PM,https://fan.hudl.com/usa/wi/bangor/organization/7161/bangor-high-school/team/26707/boys-varsity-basketball,,none,,,,,schedule,regular

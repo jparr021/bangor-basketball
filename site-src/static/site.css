@@ -465,3 +465,8 @@ button.btn[hidden] { display: none; }
 .story-toc p { margin: 0 0 4px; text-transform: uppercase; letter-spacing: .05em; }
 .story-toc ol { margin: 0; padding-left: 1.4em; columns: 2; column-gap: 2em; font-size: .95rem; }
 @media (max-width: 600px) { .story-toc ol { columns: 1; } }
+.game-extra td { border-top: 0; padding-top: 0; }
+.game-extra summary { cursor: pointer; color: var(--red); font-size: .9rem; }
+.game-extra-body { padding: 6px 0 10px; max-width: 680px; }
+.game-extra-body .linescore { max-width: 420px; margin: 6px 0; }
+.news-tag { border-color: var(--muted); color: var(--muted); }

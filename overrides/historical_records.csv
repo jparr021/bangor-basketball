@@ -1,247 +1,249 @@
-scope,period,stat,value,name,date,season,opponent,gp,note
-individual,game,pts,44,Andy Kick,1988-03-11,1987-88,Eleva-Strum,,
-individual,game,reb,27,Augie Zabel,1963-11-22,1963-64,Trempealeau,,
-individual,game,reb,20,Connor Kaiser,2012-03-08,2011-12,Luther,,
-individual,game,ast,14,Joe Stekel,1981-01-20,1980-81,Brookwood,,
-individual,game,ast,12,Joel Torgerud,1987-01-20,1986-87,Brookwood,,
-individual,game,ast,9,Connor Kaiser,2011-03-10,2010-11,Blair-Taylor,,
-individual,game,ast,9,Connor Kaiser,2011-03-04,2010-11,Boscobel,,
-individual,game,ast,9,Connor Kaiser,2011-02-18,2010-11,Royall,,
-individual,game,ast,9,Connor Kaiser,2011-12-02,2011-12,Brookwood,,
-individual,game,ast,9,Connor Kaiser,2012-01-24,2011-12,Brookwood,,
-individual,game,ast,10,Jaymeson Freit,2018-12-07,2018-19,New Lisbon,,
-individual,game,stl,9,Brad Skaer,2001-01-16,2000-01,Brookwood,,
-individual,game,fga,31,Bob Steigerwald,1966-12-16,1966-67,Onalaska,,
-individual,game,tpm,9,Connor Kaiser,2012-02-02,2011-12,Hillsboro,,
-individual,game,tpa,14,Travis Bolcerek,1996-01-05,1995-96,New Lisbon,,
-individual,game,ftm,16,Connor Kaiser,2010-12-21,2010-11,West Salem,,16-16
-individual,game,oreb,16,Don Herman,1973-11-20,1973-74,Cochrane-Fountain City,,
-individual,game,dreb,22,Augie Zabel,1963-11-22,1963-64,Trempealeau,,
-individual,season,pts,518,Brad Skaer,,2001-02,,24,
-individual,season,pts,489,Troy Bolcerek,,2002-03,,24,
-individual,season,pts,473,Bob Steigerwald,,1969-70,,,
-individual,season,reb,237,Gordie Horstman,,1966-67,,18,
-individual,season,reb,236,Connor Kaiser,,2011-12,,,
-individual,season,reb,207,Adam Wuensch,,2010-11,,24,
-individual,season,reb,204,Canon O'Heron,,2012-13,,24,
-individual,season,ast,150,Joel Torgerud,,1986-87,,,
-individual,season,ast,147,Connor Kaiser,,2011-12,,,
-individual,season,ast,144,Joe Stekel,,1980-81,,,
-individual,season,ast,106,Connor Kaiser,,2010-11,,24,
-individual,season,tpa,160,Nate Hamilton,,1998-99,,,
-individual,season,ftm,150,Brad Skaer,,2001-02,,,
-individual,season,fta,199,Brad Skaer,,2001-02,,,
-individual,season,pf,93,Shane Amundson,,1998-99,,,
-individual,season,tp_pct,0.505,Andy Kick,,1987-88,,,48-95
-individual,career,pts,1251,Brad Skaer,,1998-99 to 2001-02,,68,Class of 2002
-individual,career,pts,1232,Troy Bolcerek,,1999-00 to 2002-03,,94,Class of 2003
-individual,career,pts,1219,Dick Chapiewsky,,Class of 1953,,,
-individual,career,pts,1129,Bob Steigerwald,,1966-67 to 1969-70,,,Class of 1970
-individual,career,pts,1014,Tim Anderson,,Class of 1963,,61,
-individual,career,pts,710,Cory Nicolai,,Class of 1992,,,
-individual,career,pts,698,Travis Hansen,,Class of 1988,,,
-individual,career,pts,685,Chris Tiona,,Class of 1987,,,1984 not included
-individual,career,pts,671,Todd Oliver,,Class of 1987,,,1984 not included
-individual,career,pts,652,Andy Kick,,Class of 1988,,,
-individual,career,reb,562,Chris Tiona,,Class of 1987,,,
-individual,career,reb,522,Gordie Horstman,,Class of 1967,,,
-individual,career,reb,455,Travis Hansen,,Class of 1988,,,
-individual,career,reb,361,Cory Nicolai,,Class of 1992,,,
-individual,career,reb,355,Adam Wuensch,,2008-09 to 2010-11,,49,Class of 2011
-individual,career,ast,237,Joel Torgerud,,Class of 1987,,,
-individual,career,ast,209,Pat Hansen,,Class of 1992,,,
-individual,career,ast,179,Todd Oliver,,Class of 1987,,,1984 not included
-individual,career,ftm,299,Bob Steigerwald,,1966-67 to 1969-70,,,Class of 1970
-individual,career,tpm,,Brad Skaer,,1998-99 to 2001-02,,,Total unknown (listed as *** in the record book)
-team,game,quarter_pts,40,,1987-03-05,1986-87,Alma Center Lincoln,,
-team,game,half_pts,67,,2001-01-16,2000-01,Brookwood,,1st half
-team,game,fga,80,,1973-11-20,1973-74,Cochrane-Fountain City,,
-team,game,fga,80,,1992-02-21,1991-92,New Lisbon,,
-team,game,ftm,35,,1965-01-15,1964-65,Melrose-Mindoro,,
-team,game,fta,46,,1965-01-15,1964-65,Melrose-Mindoro,,
-team,game,reb,65,,1963-11-22,1963-64,Trempealeau,,
-team,game,oreb,41,,1973-11-20,1973-74,Cochrane-Fountain City,,
-team,game,dreb,52,,1963-11-22,1963-64,Trempealeau,,
-team,game,ast,31,,1987-03-05,1986-87,Alma Center Lincoln,,
-team,game,fg_pct,0.698,,1996-01-09,1995-96,Cashton,,30-43
-team,season,tp_pct,0.438,,,1987-88,,,57-130
-team,season,ft_pct,0.73,,,1968-69,,,
-individual,career,pts,594,Travis Bolcerek,,Class of 1996,,,1999-2000 record book (through 2-5-00); 3 varsity seasons
-individual,career,pts,587,Pat Hansen,,Class of 1992,,,1999-2000 record book (through 2-5-00); 3 varsity seasons
-individual,career,pts,548,Jason Rentz,,Class of 1989,,,1999-2000 record book (through 2-5-00); 2 varsity seasons
-individual,career,pts,529,Scott Herman,,Class of 1990,,,1999-2000 record book (through 2-5-00); 2 varsity seasons
-individual,career,pts,521,Merlin Jones,,Class of 1992,,,1999-2000 record book (through 2-5-00); 3 varsity seasons
-individual,career,pts,486,Shane Amundson,,Class of 1999,,,1999-2000 record book (through 2-5-00); 2 varsity seasons
-individual,career,pts,482,Nate Hamilton,,Class of 1999,,,1999-2000 record book (through 2-5-00); 2 varsity seasons
-individual,career,pts,445,Ryan Schroeder,,Class of 1998,,,1999-2000 record book (through 2-5-00); 3 varsity seasons
-individual,career,pts,433,Chad Anderson,,Class of 1994,,,1999-2000 record book (through 2-5-00); 2 varsity seasons
-individual,career,pts,413,Greg Sprehn,,Class of 1995,,,1999-2000 record book (through 2-5-00); 2 varsity seasons
-individual,career,pts,392,Kyle Klos,,Class of 1996,,,1999-2000 record book (through 2-5-00); 3 varsity seasons
-individual,career,pts,363,Joel Torgerud,,Class of 1987,,,1999-2000 record book (through 2-5-00); 2 varsity seasons
-individual,career,pts,359,Eric Beron,,Class of 1993,,,1999-2000 record book (through 2-5-00); 3 varsity seasons
-individual,career,pts,357,Blake Horstman,,Class of 1994,,,1999-2000 record book (through 2-5-00); 2 varsity seasons
-individual,career,pts,346,Ryan Lockington,,Class of 1992,,,1999-2000 record book (through 2-5-00); 2 varsity seasons
-individual,career,pts,325,Blaine Sondreal,,Class of 1997,,,1999-2000 record book (through 2-5-00); 3 varsity seasons
-individual,career,pts,315,Mike Freit,,Class of 1991,,,1999-2000 record book (through 2-5-00); 2 varsity seasons
-individual,career,pts,315,Justin Peterson,,Class of 1998,,,1999-2000 record book (through 2-5-00); 3 varsity seasons
-individual,career,pts,301,Steve Koch,,Class of 1987,,,1999-2000 record book (through 2-5-00); 4 varsity seasons; 1984 not included
-individual,career,pts,300,Dave Garves,,Class of 1990,,,1999-2000 record book (through 2-5-00); 3 varsity seasons
-individual,career,pts,299,Greg Johnson,,Class of 1999,,,1999-2000 record book (through 2-5-00); 2 varsity seasons
-individual,career,pts,296,Randy Tenner,,Class of 1987,,,1999-2000 record book (through 2-5-00); 2 varsity seasons
-individual,career,pts,292,Ryan Tenner,,Class of 1994,,,1999-2000 record book (through 2-5-00); 2 varsity seasons
-individual,career,pts,284,Ryan Johnson,,Class of 1997,,,1999-2000 record book (through 2-5-00); 3 varsity seasons
-individual,career,pts,272,Tony Kaiser,,Class of 1996,,,1999-2000 record book (through 2-5-00); 3 varsity seasons
-individual,career,pts,260,Ryan Nicolai,,Class of 1999,,,1999-2000 record book (through 2-5-00); 2 varsity seasons
-individual,career,reb,283,Kyle Klos,,Class of 1996,,,1999-2000 record book (through 2-5-00); 3 varsity seasons
-individual,career,reb,280,Tony Kaiser,,Class of 1996,,,1999-2000 record book (through 2-5-00); 3 varsity seasons
-individual,career,reb,274,Greg Sprehn,,Class of 1995,,,1999-2000 record book (through 2-5-00); 2 varsity seasons
-individual,career,reb,273,Dave Garves,,Class of 1990,,,1999-2000 record book (through 2-5-00); 3 varsity seasons
-individual,career,reb,272,Blake Horstman,,Class of 1994,,,1999-2000 record book (through 2-5-00); 2 varsity seasons
-individual,career,reb,269,Shane Amundson,,Class of 1999,,,1999-2000 record book (through 2-5-00); 2 varsity seasons
-individual,career,reb,262,Scott Herman,,Class of 1990,,,1999-2000 record book (through 2-5-00); 2 varsity seasons
-individual,career,reb,260,Jason Rentz,,Class of 1989,,,1999-2000 record book (through 2-5-00); 2 varsity seasons
-individual,career,reb,259,Ryan Lockington,,Class of 1992,,,1999-2000 record book (through 2-5-00); 2 varsity seasons
-individual,career,reb,233,Merlin Jones,,Class of 1992,,,1999-2000 record book (through 2-5-00); 3 varsity seasons
-individual,career,reb,232,Greg Johnson,,Class of 1999,,,1999-2000 record book (through 2-5-00); 2 varsity seasons
-individual,career,reb,228,Todd Oliver,,Class of 1987,,,1999-2000 record book (through 2-5-00); 4 varsity seasons; 1984 not included
-individual,career,reb,224,Pat Hansen,,Class of 1992,,,1999-2000 record book (through 2-5-00); 3 varsity seasons
-individual,career,reb,211,Paul Wittmershaus,,Class of 1988,,,1999-2000 record book (through 2-5-00); 3 varsity seasons
-individual,career,reb,210,Chad Anderson,,Class of 1994,,,1999-2000 record book (through 2-5-00); 2 varsity seasons
-individual,career,reb,191,Andy Kick,,Class of 1988,,,1999-2000 record book (through 2-5-00); 3 varsity seasons
-individual,career,reb,182,Jason McAlear,,Class of 1997,,,1999-2000 record book (through 2-5-00); 2 varsity seasons; spelled MC ALEAR in the book
-individual,career,reb,162,Joel Torgerud,,Class of 1987,,,1999-2000 record book (through 2-5-00); 2 varsity seasons
-individual,career,reb,160,Nate Hamilton,,Class of 1999,,,1999-2000 record book (through 2-5-00); 2 varsity seasons
-individual,career,reb,160,Eric Beron,,Class of 1993,,,1999-2000 record book (through 2-5-00); 3 varsity seasons
-individual,career,reb,156,Ben Campbell,,Class of 1998,,,1999-2000 record book (through 2-5-00); 2 varsity seasons
-individual,career,reb,154,Nathan Broers,,Class of 1990,,,1999-2000 record book (through 2-5-00); 1 varsity season
-individual,career,reb,151,Chad Johnson,,Class of 1997,,,1999-2000 record book (through 2-5-00); 2 varsity seasons
-individual,career,reb,151,Steve Koch,,Class of 1987,,,1999-2000 record book (through 2-5-00); 4 varsity seasons; 1984 not included
-individual,career,reb,142,Travis Bolcerek,,Class of 1996,,,1999-2000 record book (through 2-5-00); 3 varsity seasons
-individual,career,reb,137,Brian Hansen,,Class of 1989,,,1999-2000 record book (through 2-5-00); 2 varsity seasons
-individual,career,reb,126,Mike Freit,,Class of 1991,,,1999-2000 record book (through 2-5-00); 2 varsity seasons
-individual,career,ast,160,Jason Rentz,,Class of 1989,,,1999-2000 record book (through 2-5-00); 2 varsity seasons
-individual,career,ast,139,Andy Kick,,Class of 1988,,,1999-2000 record book (through 2-5-00); 3 varsity seasons
-individual,career,ast,131,Merlin Jones,,Class of 1992,,,1999-2000 record book (through 2-5-00); 3 varsity seasons
-individual,career,ast,126,Brian Hansen,,Class of 1989,,,1999-2000 record book (through 2-5-00); 2 varsity seasons
-individual,career,ast,118,Ryan Johnson,,Class of 1997,,,1999-2000 record book (through 2-5-00); 3 varsity seasons
-individual,career,ast,110,Mike Freit,,Class of 1991,,,1999-2000 record book (through 2-5-00); 2 varsity seasons
-individual,career,ast,102,Steve Koch,,Class of 1987,,,1999-2000 record book (through 2-5-00); 4 varsity seasons; 1984 not included
-individual,career,ast,100,Eric Beron,,Class of 1993,,,1999-2000 record book (through 2-5-00); 3 varsity seasons
-individual,career,ast,97,Travis Bolcerek,,Class of 1996,,,1999-2000 record book (through 2-5-00); 3 varsity seasons
-individual,career,ast,91,Paul Wittmershaus,,Class of 1988,,,1999-2000 record book (through 2-5-00); 3 varsity seasons
-individual,career,ast,88,Jeff Schmidt,,Class of 1996,,,1999-2000 record book (through 2-5-00); 3 varsity seasons
-individual,career,ast,83,Ryan Schroeder,,Class of 1998,,,1999-2000 record book (through 2-5-00); 3 varsity seasons
-individual,career,ast,82,Scott Greeno,,Class of 1999,,,1999-2000 record book (through 2-5-00); 2 varsity seasons
-individual,career,ast,81,Artie Sommerfield,,Class of 1992,,,1999-2000 record book (through 2-5-00); 2 varsity seasons
-individual,career,ast,77,Randy Tenner,,Class of 1987,,,1999-2000 record book (through 2-5-00); 2 varsity seasons
-individual,career,ast,70,Ryan Lockington,,Class of 1992,,,1999-2000 record book (through 2-5-00); 2 varsity seasons
-individual,career,ast,68,Ryan Tenner,,Class of 1994,,,1999-2000 record book (through 2-5-00); 2 varsity seasons
-individual,career,ast,68,Blaine Sondreal,,Class of 1997,,,1999-2000 record book (through 2-5-00); 3 varsity seasons
-individual,career,ast,67,Ryan Nicolai,,Class of 1999,,,1999-2000 record book (through 2-5-00); 2 varsity seasons
-individual,career,ast,64,Brett Cavadini,,Class of 1990,,,1999-2000 record book (through 2-5-00); 2 varsity seasons
-individual,career,ast,63,Nate Hamilton,,Class of 1999,,,1999-2000 record book (through 2-5-00); 2 varsity seasons
-individual,career,ast,62,Shane Sondreal,,Class of 1994,,,1999-2000 record book (through 2-5-00); 1 varsity season
-individual,career,ast,62,Jerry Peters,,Class of 1989,,,1999-2000 record book (through 2-5-00); 2 varsity seasons
-individual,career,ast,54,Chad Leis,,Class of 1993,,,1999-2000 record book (through 2-5-00); 3 varsity seasons
-individual,career,ast,52,Wade Kendhammer,,Class of 1993,,,1999-2000 record book (through 2-5-00); 2 varsity seasons
-individual,career,ast,47,Shane Amundson,,Class of 1999,,,1999-2000 record book (through 2-5-00); 2 varsity seasons
-individual,career,ast,40,Todd Paulus,,Class of 1989,,,1999-2000 record book (through 2-5-00); 2 varsity seasons
-individual,career,ast,38,Greg Sprehn,,Class of 1995,,,1999-2000 record book (through 2-5-00); 2 varsity seasons
-individual,career,ast,38,Travis Hansen,,Class of 1988,,,1999-2000 record book (through 2-5-00); 3 varsity seasons
-individual,career,ast,37,Blake Horstman,,Class of 1994,,,1999-2000 record book (through 2-5-00); 2 varsity seasons
-individual,game,fgm,16,Andy Kick,1988-03-11,1987-88,Eleva-Strum,,
-individual,game,tpm,7,Andy Kick,1988-03-11,1987-88,Eleva-Strum,,
-individual,game,tpm,7,Nate Hamilton,1999-03-12,1998-99,Pepin,,
-individual,game,ftm,13,Dan Horstman,1969-01-24,1968-69,Arcadia,,
-individual,game,ftm,13,Jeff Schmidt,1995-01-28,1994-95,Melrose-Mindoro,,
-individual,game,stl,8,Todd Oliver,1985-01-15,1984-85,Brookwood,,
-individual,game,stl,8,Todd Oliver,1985-02-01,1984-85,Hillsboro,,
-individual,game,stl,8,Ryan Johnson,1996-12-12,1996-97,Cashton,,
-individual,season,fg_pct,0.612,Jason McAlear,,1996-97,,,60-98
-individual,season,tpm,60,Nate Hamilton,,1998-99,,,
-individual,season,ft_pct,0.852,Randy Mashak,,1966-67,,,23-27
-individual,season,stl,59,Jason Rentz,,1988-89,,,
-individual,career,stl,133,Todd Oliver,,Class of 1987,,,1984-87
-team,game,pts,99,,,,Mindoro,,1956
-team,game,fgm,39,,1964-01-07,1963-64,Brookwood,,
-team,game,fgm,39,,1987-01-30,1986-87,Wonewoc-Center,,
-team,game,tpm,9,,1994-01-13,1993-94,Brookwood,,
-team,game,tpa,25,,1996-12-06,1996-97,Hillsboro,,
-team,game,stl,23,,1985-01-15,1984-85,Brookwood,,
-team,game,stl,23,,1996-12-12,1996-97,Cashton,,
-team,season,fg_pct,0.49,,,1965-66,,,
-team,season,tpm,78,,,1997-98,,,
-team,season,tpa,260,,,1997-98,,,
-team,season,ast,382,,,1986-87,,,
-team,season,stl,210,,,1985-86,,,
-team,season,ppg,47.1,,,1984-85,,,7-12
-team,season,opp_ppg,51.4,,,1984-85,,,7-12
-team,season,fg_pct,0.363,,,1984-85,,,7-12
-team,season,ft_pct,0.469,,,1984-85,,,7-12
-team,season,ppg,60.7,,,1985-86,,,12-9
-team,season,opp_ppg,57.2,,,1985-86,,,12-9
-team,season,fg_pct,0.441,,,1985-86,,,12-9
-team,season,ft_pct,0.593,,,1985-86,,,12-9
-team,season,ppg,67.7,,,1986-87,,,14-6
-team,season,opp_ppg,55.7,,,1986-87,,,14-6
-team,season,fg_pct,0.479,,,1986-87,,,14-6
-team,season,ft_pct,0.561,,,1986-87,,,14-6
-team,season,ppg,57.8,,,1987-88,,,17-9
-team,season,opp_ppg,57.1,,,1987-88,,,17-9
-team,season,fg_pct,0.407,,,1987-88,,,17-9
-team,season,ft_pct,0.583,,,1987-88,,,17-9
-team,season,ppg,56.6,,,1988-89,,,8-13
-team,season,opp_ppg,58.1,,,1988-89,,,8-13
-team,season,fg_pct,0.398,,,1988-89,,,8-13
-team,season,tp_pct,0.27,,,1988-89,,,8-13
-team,season,ft_pct,0.481,,,1988-89,,,8-13
-team,season,ppg,49.7,,,1989-90,,,7-14
-team,season,opp_ppg,57.6,,,1989-90,,,7-14
-team,season,fg_pct,0.364,,,1989-90,,,7-14
-team,season,tp_pct,0.292,,,1989-90,,,7-14
-team,season,ft_pct,0.522,,,1989-90,,,7-14
-team,season,ppg,61.0,,,1990-91,,,11-11
-team,season,opp_ppg,64.7,,,1990-91,,,11-11
-team,season,fg_pct,0.385,,,1990-91,,,11-11
-team,season,tp_pct,0.281,,,1990-91,,,11-11
-team,season,ft_pct,0.645,,,1990-91,,,11-11
-team,season,ppg,66.2,,,1991-92,,,14-8
-team,season,opp_ppg,60.3,,,1991-92,,,14-8
-team,season,fg_pct,0.425,,,1991-92,,,14-8
-team,season,tp_pct,0.348,,,1991-92,,,14-8
-team,season,ft_pct,0.642,,,1991-92,,,14-8
-team,season,ppg,54.2,,,1992-93,,,9-12
-team,season,opp_ppg,59.2,,,1992-93,,,9-12
-team,season,fg_pct,0.386,,,1992-93,,,9-12
-team,season,tp_pct,0.207,,,1992-93,,,9-12
-team,season,ft_pct,0.672,,,1992-93,,,9-12
-team,season,ppg,57.4,,,1993-94,,,15-8
-team,season,opp_ppg,54.6,,,1993-94,,,15-8
-team,season,fg_pct,0.408,,,1993-94,,,15-8
-team,season,tp_pct,0.327,,,1993-94,,,15-8
-team,season,ft_pct,0.623,,,1993-94,,,15-8
-team,season,ppg,50.4,,,1994-95,,,7-14
-team,season,opp_ppg,58.5,,,1994-95,,,7-14
-team,season,fg_pct,0.357,,,1994-95,,,7-14
-team,season,tp_pct,0.276,,,1994-95,,,7-14
-team,season,ft_pct,0.644,,,1994-95,,,7-14
-team,season,ppg,56.9,,,1995-96,,,10-11
-team,season,opp_ppg,53.3,,,1995-96,,,10-11
-team,season,fg_pct,0.401,,,1995-96,,,10-11
-team,season,tp_pct,0.27,,,1995-96,,,10-11
-team,season,ft_pct,0.598,,,1995-96,,,10-11
-team,season,ppg,53.0,,,1996-97,,,13-9
-team,season,opp_ppg,53.7,,,1996-97,,,13-9
-team,season,fg_pct,0.399,,,1996-97,,,13-9
-team,season,tp_pct,0.3,,,1996-97,,,13-9
-team,season,ft_pct,0.615,,,1996-97,,,13-9
-team,season,ppg,54.6,,,1997-98,,,13-8
-team,season,opp_ppg,54.0,,,1997-98,,,13-8
-team,season,fg_pct,0.384,,,1997-98,,,13-8
-team,season,tp_pct,0.3,,,1997-98,,,13-8
-team,season,ft_pct,0.574,,,1997-98,,,13-8
-team,season,ppg,57.0,,,1998-99,,,12-8
-team,season,opp_ppg,55.0,,,1998-99,,,12-8
-team,season,fg_pct,0.401,,,1998-99,,,12-8
-team,season,tp_pct,0.301,,,1998-99,,,12-8
-team,season,ft_pct,0.572,,,1998-99,,,12-8
+scope,period,stat,value,name,date,season,opponent,gp,note,source
+individual,game,pts,44,Andy Kick,1988-03-11,1987-88,Eleva-Strum,,,
+individual,game,reb,27,Augie Zabel,1963-11-22,1963-64,Trempealeau,,,
+individual,game,reb,20,Connor Kaiser,2012-03-08,2011-12,Luther,,,
+individual,game,ast,14,Joe Stekel,1981-01-20,1980-81,Brookwood,,,
+individual,game,ast,12,Joel Torgerud,1987-01-20,1986-87,Brookwood,,,
+individual,game,ast,9,Connor Kaiser,2011-03-10,2010-11,Blair-Taylor,,,
+individual,game,ast,9,Connor Kaiser,2011-03-04,2010-11,Boscobel,,,
+individual,game,ast,9,Connor Kaiser,2011-02-18,2010-11,Royall,,,
+individual,game,ast,9,Connor Kaiser,2011-12-02,2011-12,Brookwood,,,
+individual,game,ast,9,Connor Kaiser,2012-01-24,2011-12,Brookwood,,,
+individual,game,ast,10,Jaymeson Freit,2018-12-07,2018-19,New Lisbon,,,
+individual,game,stl,9,Brad Skaer,2001-01-16,2000-01,Brookwood,,,
+individual,game,fga,31,Bob Steigerwald,1966-12-16,1966-67,Onalaska,,,
+individual,game,tpm,9,Connor Kaiser,2012-02-02,2011-12,Hillsboro,,,
+individual,game,tpa,14,Travis Bolcerek,1996-01-05,1995-96,New Lisbon,,,
+individual,game,ftm,16,Connor Kaiser,2010-12-21,2010-11,West Salem,,16-16,
+individual,game,oreb,16,Don Herman,1973-11-20,1973-74,Cochrane-Fountain City,,,
+individual,game,dreb,22,Augie Zabel,1963-11-22,1963-64,Trempealeau,,,
+individual,season,pts,518,Brad Skaer,,2001-02,,24,,
+individual,season,pts,489,Troy Bolcerek,,2002-03,,24,,
+individual,season,pts,473,Bob Steigerwald,,1969-70,,,,
+individual,season,reb,237,Gordie Horstman,,1966-67,,18,,
+individual,season,reb,236,Connor Kaiser,,2011-12,,,,
+individual,season,reb,207,Adam Wuensch,,2010-11,,24,,
+individual,season,reb,204,Canon O'Heron,,2012-13,,24,,
+individual,season,ast,150,Joel Torgerud,,1986-87,,,,
+individual,season,ast,147,Connor Kaiser,,2011-12,,,,
+individual,season,ast,144,Joe Stekel,,1980-81,,,,
+individual,season,ast,106,Connor Kaiser,,2010-11,,24,,
+individual,season,tpa,160,Nate Hamilton,,1998-99,,,,
+individual,season,ftm,150,Brad Skaer,,2001-02,,,,
+individual,season,fta,199,Brad Skaer,,2001-02,,,,
+individual,season,pf,93,Shane Amundson,,1998-99,,,,
+individual,season,tp_pct,0.505,Andy Kick,,1987-88,,,48-95,
+individual,career,pts,1251,Brad Skaer,,1998-99 to 2001-02,,68,Class of 2002,
+individual,career,pts,1232,Troy Bolcerek,,1999-00 to 2002-03,,94,Class of 2003,
+individual,career,pts,1219,Dick Chapiewsky,,Class of 1953,,,,
+individual,career,pts,1129,Bob Steigerwald,,1966-67 to 1969-70,,,Class of 1970,
+individual,career,pts,1014,Tim Anderson,,Class of 1963,,61,,
+individual,career,pts,710,Cory Nicolai,,Class of 1992,,,,
+individual,career,pts,698,Travis Hansen,,Class of 1988,,,,
+individual,career,pts,685,Chris Tiona,,Class of 1987,,,1984 not included,
+individual,career,pts,671,Todd Oliver,,Class of 1987,,,1984 not included,
+individual,career,pts,652,Andy Kick,,Class of 1988,,,,
+individual,career,reb,562,Chris Tiona,,Class of 1987,,,,
+individual,career,reb,522,Gordie Horstman,,Class of 1967,,,,
+individual,career,reb,455,Travis Hansen,,Class of 1988,,,,
+individual,career,reb,361,Cory Nicolai,,Class of 1992,,,,
+individual,career,reb,355,Adam Wuensch,,2008-09 to 2010-11,,49,Class of 2011,
+individual,career,ast,237,Joel Torgerud,,Class of 1987,,,,
+individual,career,ast,209,Pat Hansen,,Class of 1992,,,,
+individual,career,ast,179,Todd Oliver,,Class of 1987,,,1984 not included,
+individual,career,ftm,299,Bob Steigerwald,,1966-67 to 1969-70,,,Class of 1970,
+individual,career,tpm,,Brad Skaer,,1998-99 to 2001-02,,,Total unknown (listed as *** in the record book),
+team,game,quarter_pts,40,,1987-03-05,1986-87,Alma Center Lincoln,,,
+team,game,half_pts,67,,2001-01-16,2000-01,Brookwood,,1st half,
+team,game,fga,80,,1973-11-20,1973-74,Cochrane-Fountain City,,,
+team,game,fga,80,,1992-02-21,1991-92,New Lisbon,,,
+team,game,ftm,35,,1965-01-15,1964-65,Melrose-Mindoro,,,
+team,game,fta,46,,1965-01-15,1964-65,Melrose-Mindoro,,,
+team,game,reb,65,,1963-11-22,1963-64,Trempealeau,,,
+team,game,oreb,41,,1973-11-20,1973-74,Cochrane-Fountain City,,,
+team,game,dreb,52,,1963-11-22,1963-64,Trempealeau,,,
+team,game,ast,31,,1987-03-05,1986-87,Alma Center Lincoln,,,
+team,game,fg_pct,0.698,,1996-01-09,1995-96,Cashton,,30-43,
+team,season,tp_pct,0.438,,,1987-88,,,57-130,
+team,season,ft_pct,0.73,,,1968-69,,,,
+individual,career,pts,594,Travis Bolcerek,,Class of 1996,,,1999-2000 record book (through 2-5-00); 3 varsity seasons,
+individual,career,pts,587,Pat Hansen,,Class of 1992,,,1999-2000 record book (through 2-5-00); 3 varsity seasons,
+individual,career,pts,548,Jason Rentz,,Class of 1989,,,1999-2000 record book (through 2-5-00); 2 varsity seasons,
+individual,career,pts,529,Scott Herman,,Class of 1990,,,1999-2000 record book (through 2-5-00); 2 varsity seasons,
+individual,career,pts,521,Merlin Jones,,Class of 1992,,,1999-2000 record book (through 2-5-00); 3 varsity seasons,
+individual,career,pts,486,Shane Amundson,,Class of 1999,,,1999-2000 record book (through 2-5-00); 2 varsity seasons,
+individual,career,pts,482,Nate Hamilton,,Class of 1999,,,1999-2000 record book (through 2-5-00); 2 varsity seasons,
+individual,career,pts,445,Ryan Schroeder,,Class of 1998,,,1999-2000 record book (through 2-5-00); 3 varsity seasons,
+individual,career,pts,433,Chad Anderson,,Class of 1994,,,1999-2000 record book (through 2-5-00); 2 varsity seasons,
+individual,career,pts,413,Greg Sprehn,,Class of 1995,,,1999-2000 record book (through 2-5-00); 2 varsity seasons,
+individual,career,pts,392,Kyle Klos,,Class of 1996,,,1999-2000 record book (through 2-5-00); 3 varsity seasons,
+individual,career,pts,363,Joel Torgerud,,Class of 1987,,,1999-2000 record book (through 2-5-00); 2 varsity seasons,
+individual,career,pts,359,Eric Beron,,Class of 1993,,,1999-2000 record book (through 2-5-00); 3 varsity seasons,
+individual,career,pts,357,Blake Horstman,,Class of 1994,,,1999-2000 record book (through 2-5-00); 2 varsity seasons,
+individual,career,pts,346,Ryan Lockington,,Class of 1992,,,1999-2000 record book (through 2-5-00); 2 varsity seasons,
+individual,career,pts,325,Blaine Sondreal,,Class of 1997,,,1999-2000 record book (through 2-5-00); 3 varsity seasons,
+individual,career,pts,315,Mike Freit,,Class of 1991,,,1999-2000 record book (through 2-5-00); 2 varsity seasons,
+individual,career,pts,315,Justin Peterson,,Class of 1998,,,1999-2000 record book (through 2-5-00); 3 varsity seasons,
+individual,career,pts,301,Steve Koch,,Class of 1987,,,1999-2000 record book (through 2-5-00); 4 varsity seasons; 1984 not included,
+individual,career,pts,300,Dave Garves,,Class of 1990,,,1999-2000 record book (through 2-5-00); 3 varsity seasons,
+individual,career,pts,299,Greg Johnson,,Class of 1999,,,1999-2000 record book (through 2-5-00); 2 varsity seasons,
+individual,career,pts,296,Randy Tenner,,Class of 1987,,,1999-2000 record book (through 2-5-00); 2 varsity seasons,
+individual,career,pts,292,Ryan Tenner,,Class of 1994,,,1999-2000 record book (through 2-5-00); 2 varsity seasons,
+individual,career,pts,284,Ryan Johnson,,Class of 1997,,,1999-2000 record book (through 2-5-00); 3 varsity seasons,
+individual,career,pts,272,Tony Kaiser,,Class of 1996,,,1999-2000 record book (through 2-5-00); 3 varsity seasons,
+individual,career,pts,260,Ryan Nicolai,,Class of 1999,,,1999-2000 record book (through 2-5-00); 2 varsity seasons,
+individual,career,reb,283,Kyle Klos,,Class of 1996,,,1999-2000 record book (through 2-5-00); 3 varsity seasons,
+individual,career,reb,280,Tony Kaiser,,Class of 1996,,,1999-2000 record book (through 2-5-00); 3 varsity seasons,
+individual,career,reb,274,Greg Sprehn,,Class of 1995,,,1999-2000 record book (through 2-5-00); 2 varsity seasons,
+individual,career,reb,273,Dave Garves,,Class of 1990,,,1999-2000 record book (through 2-5-00); 3 varsity seasons,
+individual,career,reb,272,Blake Horstman,,Class of 1994,,,1999-2000 record book (through 2-5-00); 2 varsity seasons,
+individual,career,reb,269,Shane Amundson,,Class of 1999,,,1999-2000 record book (through 2-5-00); 2 varsity seasons,
+individual,career,reb,262,Scott Herman,,Class of 1990,,,1999-2000 record book (through 2-5-00); 2 varsity seasons,
+individual,career,reb,260,Jason Rentz,,Class of 1989,,,1999-2000 record book (through 2-5-00); 2 varsity seasons,
+individual,career,reb,259,Ryan Lockington,,Class of 1992,,,1999-2000 record book (through 2-5-00); 2 varsity seasons,
+individual,career,reb,233,Merlin Jones,,Class of 1992,,,1999-2000 record book (through 2-5-00); 3 varsity seasons,
+individual,career,reb,232,Greg Johnson,,Class of 1999,,,1999-2000 record book (through 2-5-00); 2 varsity seasons,
+individual,career,reb,228,Todd Oliver,,Class of 1987,,,1999-2000 record book (through 2-5-00); 4 varsity seasons; 1984 not included,
+individual,career,reb,224,Pat Hansen,,Class of 1992,,,1999-2000 record book (through 2-5-00); 3 varsity seasons,
+individual,career,reb,211,Paul Wittmershaus,,Class of 1988,,,1999-2000 record book (through 2-5-00); 3 varsity seasons,
+individual,career,reb,210,Chad Anderson,,Class of 1994,,,1999-2000 record book (through 2-5-00); 2 varsity seasons,
+individual,career,reb,191,Andy Kick,,Class of 1988,,,1999-2000 record book (through 2-5-00); 3 varsity seasons,
+individual,career,reb,182,Jason McAlear,,Class of 1997,,,1999-2000 record book (through 2-5-00); 2 varsity seasons; spelled MC ALEAR in the book,
+individual,career,reb,162,Joel Torgerud,,Class of 1987,,,1999-2000 record book (through 2-5-00); 2 varsity seasons,
+individual,career,reb,160,Nate Hamilton,,Class of 1999,,,1999-2000 record book (through 2-5-00); 2 varsity seasons,
+individual,career,reb,160,Eric Beron,,Class of 1993,,,1999-2000 record book (through 2-5-00); 3 varsity seasons,
+individual,career,reb,156,Ben Campbell,,Class of 1998,,,1999-2000 record book (through 2-5-00); 2 varsity seasons,
+individual,career,reb,154,Nathan Broers,,Class of 1990,,,1999-2000 record book (through 2-5-00); 1 varsity season,
+individual,career,reb,151,Chad Johnson,,Class of 1997,,,1999-2000 record book (through 2-5-00); 2 varsity seasons,
+individual,career,reb,151,Steve Koch,,Class of 1987,,,1999-2000 record book (through 2-5-00); 4 varsity seasons; 1984 not included,
+individual,career,reb,142,Travis Bolcerek,,Class of 1996,,,1999-2000 record book (through 2-5-00); 3 varsity seasons,
+individual,career,reb,137,Brian Hansen,,Class of 1989,,,1999-2000 record book (through 2-5-00); 2 varsity seasons,
+individual,career,reb,126,Mike Freit,,Class of 1991,,,1999-2000 record book (through 2-5-00); 2 varsity seasons,
+individual,career,ast,160,Jason Rentz,,Class of 1989,,,1999-2000 record book (through 2-5-00); 2 varsity seasons,
+individual,career,ast,139,Andy Kick,,Class of 1988,,,1999-2000 record book (through 2-5-00); 3 varsity seasons,
+individual,career,ast,131,Merlin Jones,,Class of 1992,,,1999-2000 record book (through 2-5-00); 3 varsity seasons,
+individual,career,ast,126,Brian Hansen,,Class of 1989,,,1999-2000 record book (through 2-5-00); 2 varsity seasons,
+individual,career,ast,118,Ryan Johnson,,Class of 1997,,,1999-2000 record book (through 2-5-00); 3 varsity seasons,
+individual,career,ast,110,Mike Freit,,Class of 1991,,,1999-2000 record book (through 2-5-00); 2 varsity seasons,
+individual,career,ast,102,Steve Koch,,Class of 1987,,,1999-2000 record book (through 2-5-00); 4 varsity seasons; 1984 not included,
+individual,career,ast,100,Eric Beron,,Class of 1993,,,1999-2000 record book (through 2-5-00); 3 varsity seasons,
+individual,career,ast,97,Travis Bolcerek,,Class of 1996,,,1999-2000 record book (through 2-5-00); 3 varsity seasons,
+individual,career,ast,91,Paul Wittmershaus,,Class of 1988,,,1999-2000 record book (through 2-5-00); 3 varsity seasons,
+individual,career,ast,88,Jeff Schmidt,,Class of 1996,,,1999-2000 record book (through 2-5-00); 3 varsity seasons,
+individual,career,ast,83,Ryan Schroeder,,Class of 1998,,,1999-2000 record book (through 2-5-00); 3 varsity seasons,
+individual,career,ast,82,Scott Greeno,,Class of 1999,,,1999-2000 record book (through 2-5-00); 2 varsity seasons,
+individual,career,ast,81,Artie Sommerfield,,Class of 1992,,,1999-2000 record book (through 2-5-00); 2 varsity seasons,
+individual,career,ast,77,Randy Tenner,,Class of 1987,,,1999-2000 record book (through 2-5-00); 2 varsity seasons,
+individual,career,ast,70,Ryan Lockington,,Class of 1992,,,1999-2000 record book (through 2-5-00); 2 varsity seasons,
+individual,career,ast,68,Ryan Tenner,,Class of 1994,,,1999-2000 record book (through 2-5-00); 2 varsity seasons,
+individual,career,ast,68,Blaine Sondreal,,Class of 1997,,,1999-2000 record book (through 2-5-00); 3 varsity seasons,
+individual,career,ast,67,Ryan Nicolai,,Class of 1999,,,1999-2000 record book (through 2-5-00); 2 varsity seasons,
+individual,career,ast,64,Brett Cavadini,,Class of 1990,,,1999-2000 record book (through 2-5-00); 2 varsity seasons,
+individual,career,ast,63,Nate Hamilton,,Class of 1999,,,1999-2000 record book (through 2-5-00); 2 varsity seasons,
+individual,career,ast,62,Shane Sondreal,,Class of 1994,,,1999-2000 record book (through 2-5-00); 1 varsity season,
+individual,career,ast,62,Jerry Peters,,Class of 1989,,,1999-2000 record book (through 2-5-00); 2 varsity seasons,
+individual,career,ast,54,Chad Leis,,Class of 1993,,,1999-2000 record book (through 2-5-00); 3 varsity seasons,
+individual,career,ast,52,Wade Kendhammer,,Class of 1993,,,1999-2000 record book (through 2-5-00); 2 varsity seasons,
+individual,career,ast,47,Shane Amundson,,Class of 1999,,,1999-2000 record book (through 2-5-00); 2 varsity seasons,
+individual,career,ast,40,Todd Paulus,,Class of 1989,,,1999-2000 record book (through 2-5-00); 2 varsity seasons,
+individual,career,ast,38,Greg Sprehn,,Class of 1995,,,1999-2000 record book (through 2-5-00); 2 varsity seasons,
+individual,career,ast,38,Travis Hansen,,Class of 1988,,,1999-2000 record book (through 2-5-00); 3 varsity seasons,
+individual,career,ast,37,Blake Horstman,,Class of 1994,,,1999-2000 record book (through 2-5-00); 2 varsity seasons,
+individual,game,fgm,16,Andy Kick,1988-03-11,1987-88,Eleva-Strum,,,
+individual,game,tpm,7,Andy Kick,1988-03-11,1987-88,Eleva-Strum,,,
+individual,game,tpm,7,Nate Hamilton,1999-03-12,1998-99,Pepin,,,
+individual,game,ftm,13,Dan Horstman,1969-01-24,1968-69,Arcadia,,,
+individual,game,ftm,13,Jeff Schmidt,1995-01-28,1994-95,Melrose-Mindoro,,,
+individual,game,stl,8,Todd Oliver,1985-01-15,1984-85,Brookwood,,,
+individual,game,stl,8,Todd Oliver,1985-02-01,1984-85,Hillsboro,,,
+individual,game,stl,8,Ryan Johnson,1996-12-12,1996-97,Cashton,,,
+individual,season,fg_pct,0.612,Jason McAlear,,1996-97,,,60-98,
+individual,season,tpm,60,Nate Hamilton,,1998-99,,,,
+individual,season,ft_pct,0.852,Randy Mashak,,1966-67,,,23-27,
+individual,season,stl,59,Jason Rentz,,1988-89,,,,
+individual,career,stl,133,Todd Oliver,,Class of 1987,,,1984-87,
+team,game,pts,99,,,,Mindoro,,1956,
+team,game,fgm,39,,1964-01-07,1963-64,Brookwood,,,
+team,game,fgm,39,,1987-01-30,1986-87,Wonewoc-Center,,,
+team,game,tpm,9,,1994-01-13,1993-94,Brookwood,,,
+team,game,tpa,25,,1996-12-06,1996-97,Hillsboro,,,
+team,game,stl,23,,1985-01-15,1984-85,Brookwood,,,
+team,game,stl,23,,1996-12-12,1996-97,Cashton,,,
+team,season,fg_pct,0.49,,,1965-66,,,,
+team,season,tpm,78,,,1997-98,,,,
+team,season,tpa,260,,,1997-98,,,,
+team,season,ast,382,,,1986-87,,,,
+team,season,stl,210,,,1985-86,,,,
+team,season,ppg,47.1,,,1984-85,,,7-12,
+team,season,opp_ppg,51.4,,,1984-85,,,7-12,
+team,season,fg_pct,0.363,,,1984-85,,,7-12,
+team,season,ft_pct,0.469,,,1984-85,,,7-12,
+team,season,ppg,60.7,,,1985-86,,,12-9,
+team,season,opp_ppg,57.2,,,1985-86,,,12-9,
+team,season,fg_pct,0.441,,,1985-86,,,12-9,
+team,season,ft_pct,0.593,,,1985-86,,,12-9,
+team,season,ppg,67.7,,,1986-87,,,14-6,
+team,season,opp_ppg,55.7,,,1986-87,,,14-6,
+team,season,fg_pct,0.479,,,1986-87,,,14-6,
+team,season,ft_pct,0.561,,,1986-87,,,14-6,
+team,season,ppg,57.8,,,1987-88,,,17-9,
+team,season,opp_ppg,57.1,,,1987-88,,,17-9,
+team,season,fg_pct,0.407,,,1987-88,,,17-9,
+team,season,ft_pct,0.583,,,1987-88,,,17-9,
+team,season,ppg,56.6,,,1988-89,,,8-13,
+team,season,opp_ppg,58.1,,,1988-89,,,8-13,
+team,season,fg_pct,0.398,,,1988-89,,,8-13,
+team,season,tp_pct,0.27,,,1988-89,,,8-13,
+team,season,ft_pct,0.481,,,1988-89,,,8-13,
+team,season,ppg,49.7,,,1989-90,,,7-14,
+team,season,opp_ppg,57.6,,,1989-90,,,7-14,
+team,season,fg_pct,0.364,,,1989-90,,,7-14,
+team,season,tp_pct,0.292,,,1989-90,,,7-14,
+team,season,ft_pct,0.522,,,1989-90,,,7-14,
+team,season,ppg,61.0,,,1990-91,,,11-11,
+team,season,opp_ppg,64.7,,,1990-91,,,11-11,
+team,season,fg_pct,0.385,,,1990-91,,,11-11,
+team,season,tp_pct,0.281,,,1990-91,,,11-11,
+team,season,ft_pct,0.645,,,1990-91,,,11-11,
+team,season,ppg,66.2,,,1991-92,,,14-8,
+team,season,opp_ppg,60.3,,,1991-92,,,14-8,
+team,season,fg_pct,0.425,,,1991-92,,,14-8,
+team,season,tp_pct,0.348,,,1991-92,,,14-8,
+team,season,ft_pct,0.642,,,1991-92,,,14-8,
+team,season,ppg,54.2,,,1992-93,,,9-12,
+team,season,opp_ppg,59.2,,,1992-93,,,9-12,
+team,season,fg_pct,0.386,,,1992-93,,,9-12,
+team,season,tp_pct,0.207,,,1992-93,,,9-12,
+team,season,ft_pct,0.672,,,1992-93,,,9-12,
+team,season,ppg,57.4,,,1993-94,,,15-8,
+team,season,opp_ppg,54.6,,,1993-94,,,15-8,
+team,season,fg_pct,0.408,,,1993-94,,,15-8,
+team,season,tp_pct,0.327,,,1993-94,,,15-8,
+team,season,ft_pct,0.623,,,1993-94,,,15-8,
+team,season,ppg,50.4,,,1994-95,,,7-14,
+team,season,opp_ppg,58.5,,,1994-95,,,7-14,
+team,season,fg_pct,0.357,,,1994-95,,,7-14,
+team,season,tp_pct,0.276,,,1994-95,,,7-14,
+team,season,ft_pct,0.644,,,1994-95,,,7-14,
+team,season,ppg,56.9,,,1995-96,,,10-11,
+team,season,opp_ppg,53.3,,,1995-96,,,10-11,
+team,season,fg_pct,0.401,,,1995-96,,,10-11,
+team,season,tp_pct,0.27,,,1995-96,,,10-11,
+team,season,ft_pct,0.598,,,1995-96,,,10-11,
+team,season,ppg,53.0,,,1996-97,,,13-9,
+team,season,opp_ppg,53.7,,,1996-97,,,13-9,
+team,season,fg_pct,0.399,,,1996-97,,,13-9,
+team,season,tp_pct,0.3,,,1996-97,,,13-9,
+team,season,ft_pct,0.615,,,1996-97,,,13-9,
+team,season,ppg,54.6,,,1997-98,,,13-8,
+team,season,opp_ppg,54.0,,,1997-98,,,13-8,
+team,season,fg_pct,0.384,,,1997-98,,,13-8,
+team,season,tp_pct,0.3,,,1997-98,,,13-8,
+team,season,ft_pct,0.574,,,1997-98,,,13-8,
+team,season,ppg,57.0,,,1998-99,,,12-8,
+team,season,opp_ppg,55.0,,,1998-99,,,12-8,
+team,season,fg_pct,0.401,,,1998-99,,,12-8,
+team,season,tp_pct,0.301,,,1998-99,,,12-8,
+team,season,ft_pct,0.572,,,1998-99,,,12-8,
+individual,game,pts,40,Brad Skaer,2001-12-04,2001-02,Wonewoc-Center,,"6-8 3PT, 12-13 FT",newspaper
+individual,game,pts,36,Brad Skaer,2001-12-07,2001-02,Hillsboro,,,newspaper

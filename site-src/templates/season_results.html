@@ -62,6 +62,30 @@
         <td class="num">{% if m is not none %}{{ '+' if m > 0 }}{{ m if m >= 0 else '−' ~ (-m) }}{% endif %}</td>
         <td class="num muted">{{ g.record }}</td>
       </tr>
+      {% if g.periods or g.leaders or g.recap %}
+      {% set ncol = 5 + (1 if any_dates else 0) %}
+      <tr class="game-extra"><td></td><td colspan="{{ ncol }}">
+        <details>
+          <summary>From the newspaper{% if g.leaders %}: {% for p in g.leaders.bangor if p.pts %}{{ p.name.split()[-1] }} {{ p.pts }}{{ ', ' if not loop.last }}{% endfor %}{% endif %}</summary>
+          <div class="game-extra-body">
+            {% if g.recap %}<p>{{ g.recap }}</p>{% endif %}
+            {% if g.periods %}
+            <table class="tbl linescore compact">
+              <thead><tr><th></th>{% for l in g.periods.labels %}<th class="num">{{ l }}</th>{% endfor %}<th class="num">T</th></tr></thead>
+              <tr><td>Bangor</td>{% for v in g.periods.bangor %}<td class="num">{{ v }}</td>{% endfor %}<td class="num strong">{{ g.bangor_score }}</td></tr>
+              <tr><td>{{ g.opponent }}</td>{% for v in g.periods.opp %}<td class="num">{{ v }}</td>{% endfor %}<td class="num strong">{{ g.opp_score }}</td></tr>
+            </table>
+            {% endif %}
+            {% if g.leaders %}
+            {% for side, label in [('bangor', 'Bangor'), ('opp', g.opponent)] %}{% if g.leaders[side] %}
+            <p class="small"><strong>{{ label }}:</strong> {% for p in g.leaders[side] %}{% if side == 'bangor' and p.slug in player_pages %}<a href="../players/{{ p.slug }}.html">{{ p.name }}</a>{% else %}{{ p.name }}{% endif %}{% if p.pts %} {{ p.pts }}{% endif %}{% if p.extra %} <span class="muted">({{ p.extra }})</span>{% endif %}{{ ' · ' if not loop.last }}{% endfor %}</p>
+            {% endif %}{% endfor %}
+            {% endif %}
+            {% if g.clip_source %}<p class="muted small">Leading scorers and rebounders from a {{ g.clip_source }}, not a full box score.</p>{% endif %}
+          </div>
+        </details>
+      </td></tr>
+      {% endif %}
       {% endfor %}
       </tbody>
     </table>

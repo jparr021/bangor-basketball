@@ -127,6 +127,33 @@ if os.path.exists(os.path.join(OV, "season_results.csv")):
     for gs in RESULTS_ONLY.values():
         gs.sort(key=lambda r: int(r["game"]))
 
+
+def clipping_details():
+    """Quarter scores, a recap and leading scorers from newspaper clippings (line_scores.csv and
+    newspaper_stats.csv) for results-only games, which have no game page: shown on the season page."""
+    by_date = {g["date"]: g for gs in RESULTS_ONLY.values() for g in gs if g.get("date")}
+    lp, np_ = os.path.join(OV, "line_scores.csv"), os.path.join(OV, "newspaper_stats.csv")
+    for r in (load(lp) if os.path.exists(lp) else []):
+        g = by_date.get(r["date"])
+        if not g:
+            continue
+        if r.get("period_labels"):
+            labels = r["period_labels"].split("|")
+            g["periods"] = {"labels": [("Q" + l if l.isdigit() else l) for l in labels],
+                            "bangor": r["bangor_periods"].split("|"), "opp": r["opp_periods"].split("|")}
+        g["recap"] = r.get("recap", "")
+        g["clip_source"] = r.get("source", "")
+    for r in (load(np_) if os.path.exists(np_) else []):
+        g = by_date.get(r["date"])
+        if not g:
+            continue
+        bits = [f"{int(float(r[k]))} {lab}" for k, lab in (("tpm", "3PM"), ("reb", "reb"), ("ast", "ast"), ("blk", "blk"))
+                if r.get(k) not in ("", None) and float(r[k])]
+        side = "bangor" if r["team"].strip().lower() == "bangor" else "opp"
+        g.setdefault("leaders", {"bangor": [], "opp": []})[side].append(
+            {"name": r["name"], "slug": slug(r["name"]), "pts": fmt_int(num(r["pts"])) if r.get("pts") else "",
+             "extra": ", ".join(bits)})
+
 # The printed team totals line of a season stat sheet (a "Team" row in overrides/season_totals.csv)
 TEAM_LINE = {}
 _TCOL = {"pts": "PTS", "fgm": "FGM", "fga": "FGA", "tpm": "3PM", "tpa": "3PA", "ftm": "FTM", "fta": "FTA", "oreb": "OFF",
@@ -501,7 +528,8 @@ def merged(scope, period, stat, kind):
             continue
         entries.append({"value": float(h["value"]), "name": h["name"] or None, "player": slug(h["name"]) if h["name"] else None,
                         "date": h["date"] or None, "season": h["season"], "opponent": h["opponent"] or None,
-                        "gp": int(h["gp"]) if h["gp"] else None, "detail": h["note"], "source": "book"})
+                        "gp": int(h["gp"]) if h["gp"] else None, "detail": h["note"],
+                        "source": "news" if (h.get("source") or "").strip().lower() == "newspaper" else "book"})
     entries.sort(key=lambda e: e["value"], reverse=reverse)
     out, rank, prev = [], 0, None
     for idx, e in enumerate(entries):
@@ -600,7 +628,7 @@ def collect_badges(sections):
                      "title": c["title"], "abbr": BADGE_ABBR.get(c["stat"], c["title"]), "display": e["display"],
                      "period": period, "anchor": f"{sec['id']}-{c['stat']}", "season": e.get("season"),
                      "g": games_by_id.get(gid) if gid else None, "name": e.get("name"), "slug": e.get("player"),
-                     "book": e.get("source") == "book"}
+                     "book": e.get("source") == "book", "news": e.get("source") == "news"}
                 if scope == "team":
                     if period == "game" and gid:
                         out["game_team"][gid].append(b)
@@ -1402,6 +1430,7 @@ def build():
                 "player_badges": B["season_ind"].get(s, []), "team_badges": B["season_team"].get(s, []),
                 "team_line": bool(line)}
 
+    clipping_details()
     for s in [s for s in RESULTS_ONLY if s not in games_by_season]:
         gs = RESULTS_ONLY[s]
         ss = season_summary(s)
@@ -1439,7 +1468,7 @@ def build():
         render("season_results.html", f"seasons/{s}.html", s=ss, games=gs, w=w, l=l, sources=sources,
                dated=all(g.get("date") for g in gs), any_dates=any(g.get("date") for g in gs),
                any_sites=any(g.get("site") for g in gs), story=STORIES.get(s), **results_players(s, gs),
-               margin_svg=margin_svg, opp_pages=OPP_PAGES, **pager(s), **sh)
+               margin_svg=margin_svg, opp_pages=OPP_PAGES, player_pages=PLAYER_PAGES, **pager(s), **sh)
 
     for i, s in enumerate(DATA_SEASONS):
         gs = games_by_season[s]

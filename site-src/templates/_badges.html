@@ -28,7 +28,7 @@
     <li class="{{ 'first' if b.rank == 1 }}">
       <a class="rb-place" href="{{ root }}records/index.html#{{ b.anchor }}">{{ b.place }}</a>
       <span class="rb-what">
-        <span><strong>{{ b.display }}</strong> {{ b.title | lower }} <span class="muted">· {{ period_label(b) }}</span>{% if b.book %} <span class="book-tag">Record book</span>{% endif %}</span>
+        <span><strong>{{ b.display }}</strong> {{ b.title | lower }} <span class="muted">· {{ period_label(b) }}</span>{% if b.book %} <span class="book-tag">Record book</span>{% elif b.news %} <span class="book-tag news-tag">Newspaper</span>{% endif %}</span>
         <span class="rb-who muted small">
           {%- if who %}{% if b.slug %}<a href="{{ root }}players/{{ b.slug }}.html">{{ b.name }}</a>{% elif b.name %}{{ b.name }}{% else %}Bangor{% endif %}{% endif -%}
           {%- if when %}{% if who %} · {% endif %}{% if b.g %}<a href="{{ root }}games/{{ b.g.game_id }}.html">{{ 'at' if b.g.site == 'away' else 'vs' }} {{ b.g.opponent }}, {{ b.g.date | d }}</a>{% elif b.season %}{{ b.season | replace('-', '–') }}{% endif %}{% endif -%}

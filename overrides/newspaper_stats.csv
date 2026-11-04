@@ -43,8 +43,8 @@ date,team,number,name,fgm,fga,tpm,tpa,ftm,fta,reb,blk,pts,source
 2003-01-17,Hillsboro,,Greg Jefferies,,,5,,,,,,26,Newspaper clipping
 2003-01-17,Hillsboro,,Matt Nowak,,,2,,,,,,12,Newspaper clipping
 2003-01-17,Hillsboro,,Brock Donovan,,,3,,,,,,9,Newspaper clipping
-2003-01-17,Hillsboro,,Alexander,,,0,,,,,,6,Newspaper clipping
-2003-01-17,Hillsboro,,Turpin,,,0,,,,,,4,Newspaper clipping
+2003-01-17,Hillsboro,,Drew Alexander,,,0,,,,,,6,Newspaper clipping
+2003-01-17,Hillsboro,,Tony Turpin,,,0,,,,,,4,Newspaper clipping
 2003-01-17,Hillsboro,,Benish,,,0,,,,,,3,Newspaper clipping
 2003-01-17,Hillsboro,,Stanek,,,0,,,,,,2,Newspaper clipping
 2003-01-20,Bangor,21,Kyle Schroeder,,,5,,,,,,17,Coulee News and La Crosse Tribune clippings
@@ -94,3 +94,17 @@ date,team,number,name,fgm,fga,tpm,tpa,ftm,fta,reb,blk,pts,source
 2003-02-06,Bangor,41,Chad Jerome,,,,,,,,,11,Bangor News story (Travis Hansen)
 2003-02-06,Royall,,Sam Overlien,,,,,,,,,13,Bangor News story (Travis Hansen)
 2003-02-06,Royall,,Ryan Witt,,,,,,,,,13,Bangor News story (Travis Hansen)
+2003-02-11,Bangor,35,Troy Bolcerek,,,,,,,7,,24,"Story by Eddie Ikert, Bangor journalism student"
+2003-02-17,Bangor,35,Troy Bolcerek,,,,,,,9,,21,La Crosse Tribune clipping
+2003-02-17,Bangor,15,Chris Chandler,,,,,,,,,13,La Crosse Tribune clipping
+2003-02-17,Bangor,41,Chad Jerome,,,,,,,,,10,La Crosse Tribune clipping
+2003-02-17,Arcadia,,Matt Losinski,,,,,,,,,17,La Crosse Tribune clipping
+2003-02-17,Arcadia,,Tyler Slaby,,,,,,,,,11,La Crosse Tribune clipping
+2003-02-17,Arcadia,,Adam Meinerz,,,,,,,,,9,La Crosse Tribune clipping
+2003-02-17,Arcadia,,Matt Deck,,,,,,,6,,,La Crosse Tribune clipping
+2003-02-20,Bangor,15,Chris Chandler,,,,,,,6,,16,La Crosse Tribune clipping
+2003-02-20,Bangor,21,Kyle Schroeder,,,,,,,,,12,La Crosse Tribune clipping
+2003-02-20,Bangor,35,Troy Bolcerek,,,,,,,6,,11,La Crosse Tribune clipping
+2003-02-20,Hillsboro,,Drew Alexander,,,,,,,,,21,La Crosse Tribune clipping
+2003-02-20,Hillsboro,,Greg Jefferies,,,5,,,,,,19,La Crosse Tribune clipping
+2003-02-20,Hillsboro,,Tony Turpin,,,,,,,7,,,La Crosse Tribune clipping

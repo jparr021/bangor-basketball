@@ -4,7 +4,7 @@
 
 | Season | Games | W-L | Box scores (full / points-only / none) | Box scores missing points |
 |---|---|---|---|---|
-| 2002-03 | 24 | 22-2 | 1 / 11 / 12 | 10 |
+| 2002-03 | 24 | 22-2 | 1 / 14 / 9 | 13 |
 | 2003-04 | 20 | 2-18 | 0 / 0 / 20 | 0 |
 | 2004-05 | 20 | 5-15 | 0 / 0 / 20 | 0 |
 | 2005-06 | 21 | 14-7 | 0 / 0 / 21 | 0 |
@@ -181,6 +181,9 @@ A check compares one player's season total for one stat. A match means the sum o
 - 2003-01-28 vs Wonewoc-Center: box score adds to 15, final 70
 - 2003-01-31 vs Brookwood: box score adds to 33, final 44
 - 2003-02-06 vs Royall: box score adds to 30, final 46
+- 2003-02-11 vs Necedah: box score adds to 24, final 70
+- 2003-02-17 vs Arcadia: box score adds to 44, final 64
+- 2003-02-20 vs Hillsboro: box score adds to 39, final 56
 - 2007-12-10 vs Gale-Ettrick-Trempealeau: box score adds to 22, final 24
 - 2008-12-06 vs Blair-Taylor: box score adds to 28, final 31
 - 2008-12-12 vs Brookwood: box score adds to 31, final 34

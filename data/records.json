@@ -219,31 +219,13 @@
      "game_id": "2025-26-15"
     },
     {
-     "value": 32,
-     "name": "Canon O'Heron",
-     "player": "canon-oheron",
-     "date": "2014-12-11",
-     "opponent": "Wonewoc-Center",
-     "season": "2014-15",
-     "game_id": "2014-15-03"
-    },
-    {
-     "value": 32,
-     "name": "Dustin McDonald",
-     "player": "dustin-mcdonald",
-     "date": "2023-02-20",
-     "opponent": "Cashton",
-     "season": "2022-23",
-     "game_id": "2022-23-23"
-    },
-    {
-     "value": 32,
+     "value": 33,
      "name": "Brad Skaer",
      "player": "brad-skaer",
-     "date": "2001-11-27",
-     "opponent": "Luther",
+     "date": "2002-02-26",
+     "opponent": "La Farge",
      "season": "2001-02",
-     "game_id": "2001-02-01"
+     "game_id": "2001-02-21"
     }
    ],
    "reb": [
@@ -2254,6 +2236,15 @@
      "game_id": "2022-23-05"
     },
     {
+     "value": 14,
+     "name": "Brad Skaer",
+     "player": "brad-skaer",
+     "date": "2002-02-26",
+     "opponent": "La Farge",
+     "season": "2001-02",
+     "game_id": "2001-02-21"
+    },
+    {
      "value": 13,
      "name": "Canon O'Heron",
      "player": "canon-oheron",
@@ -2470,6 +2461,15 @@
      "opponent": "Arcadia",
      "season": "2025-26",
      "game_id": "2025-26-01"
+    },
+    {
+     "value": 24,
+     "name": "Brad Skaer",
+     "player": "brad-skaer",
+     "date": "2002-03-08",
+     "opponent": "Greenwood",
+     "season": "2001-02",
+     "game_id": "2001-02-24"
     },
     {
      "value": 23,
@@ -2940,6 +2940,15 @@
      "opponent": "Arcadia",
      "season": "2001-02",
      "game_id": "2001-02-13"
+    },
+    {
+     "value": 5,
+     "name": "Brad Skaer",
+     "player": "brad-skaer",
+     "date": "2002-02-26",
+     "opponent": "La Farge",
+     "season": "2001-02",
+     "game_id": "2001-02-21"
     }
    ],
    "tpa": [
@@ -3050,6 +3059,15 @@
      "opponent": "Wonewoc-Center",
      "season": "2025-26",
      "game_id": "2025-26-10"
+    },
+    {
+     "value": 11,
+     "name": "Brad Skaer",
+     "player": "brad-skaer",
+     "date": "2002-03-08",
+     "opponent": "Greenwood",
+     "season": "2001-02",
+     "game_id": "2001-02-24"
     },
     {
      "value": 10,
@@ -3356,6 +3374,15 @@
      "opponent": "Regis",
      "season": "2025-26",
      "game_id": "2025-26-26"
+    },
+    {
+     "value": 9,
+     "name": "Brad Skaer",
+     "player": "brad-skaer",
+     "date": "2002-02-26",
+     "opponent": "La Farge",
+     "season": "2001-02",
+     "game_id": "2001-02-21"
     }
    ],
    "ftm": [
@@ -3576,184 +3603,13 @@
      "game_id": "2025-26-22"
     },
     {
-     "value": 7,
-     "name": "Luke Reader",
-     "player": "luke-reader",
-     "date": "2015-01-20",
-     "opponent": "Melrose-Mindoro",
-     "season": "2014-15",
-     "game_id": "2014-15-13"
-    },
-    {
-     "value": 7,
-     "name": "Canon O'Heron",
-     "player": "canon-oheron",
-     "date": "2015-01-20",
-     "opponent": "Melrose-Mindoro",
-     "season": "2014-15",
-     "game_id": "2014-15-13"
-    },
-    {
-     "value": 7,
-     "name": "Luke Reader",
-     "player": "luke-reader",
-     "date": "2015-12-22",
-     "opponent": "West Salem",
-     "season": "2015-16",
-     "game_id": "2015-16-06"
-    },
-    {
-     "value": 7,
-     "name": "Drew Johnson",
-     "player": "drew-johnson",
-     "date": "2017-02-13",
-     "opponent": "Luther",
-     "season": "2016-17",
-     "game_id": "2016-17-19"
-    },
-    {
-     "value": 7,
-     "name": "Luke Reader",
-     "player": "luke-reader",
-     "date": "2017-03-03",
-     "opponent": "Blair-Taylor",
-     "season": "2016-17",
-     "game_id": "2016-17-24"
-    },
-    {
-     "value": 7,
-     "name": "Grant Manke",
-     "player": "grant-manke",
-     "date": "2018-03-17",
-     "opponent": "McDonell Central",
-     "season": "2017-18",
-     "game_id": "2017-18-29"
-    },
-    {
-     "value": 7,
-     "name": "Grant Manke",
-     "player": "grant-manke",
-     "date": "2019-01-17",
-     "opponent": "Cashton",
-     "season": "2018-19",
-     "game_id": "2018-19-12"
-    },
-    {
-     "value": 7,
-     "name": "Grant Manke",
-     "player": "grant-manke",
-     "date": "2019-02-15",
-     "opponent": "Black River Falls",
-     "season": "2018-19",
-     "game_id": "2018-19-18"
-    },
-    {
-     "value": 7,
-     "name": "Grant Manke",
-     "player": "grant-manke",
-     "date": "2019-02-21",
-     "opponent": "Brookwood",
-     "season": "2018-19",
-     "game_id": "2018-19-21"
-    },
-    {
-     "value": 7,
-     "name": "Grant Manke",
-     "player": "grant-manke",
-     "date": "2019-03-09",
-     "opponent": "Southwestern",
-     "season": "2018-19",
-     "game_id": "2018-19-26"
-    },
-    {
-     "value": 7,
-     "name": "Grant Manke",
-     "player": "grant-manke",
-     "date": "2020-01-06",
-     "opponent": "Luther",
-     "season": "2019-20",
-     "game_id": "2019-20-08"
-    },
-    {
-     "value": 7,
-     "name": "Zane Langrehr",
-     "player": "zane-langrehr",
-     "date": "2020-01-31",
-     "opponent": "Brookwood",
-     "season": "2019-20",
-     "game_id": "2019-20-15"
-    },
-    {
-     "value": 7,
-     "name": "Grant Manke",
-     "player": "grant-manke",
-     "date": "2020-03-12",
-     "opponent": "Blair-Taylor",
-     "season": "2019-20",
-     "game_id": "2019-20-27"
-    },
-    {
-     "value": 7,
-     "name": "Hank Reader",
-     "player": "hank-reader",
-     "date": "2020-12-21",
-     "opponent": "Cochrane-Fountain City",
-     "season": "2020-21",
-     "game_id": "2020-21-04"
-    },
-    {
-     "value": 7,
-     "name": "Chase Horstman",
-     "player": "chase-horstman",
-     "date": "2023-02-16",
-     "opponent": "Royall",
-     "season": "2022-23",
-     "game_id": "2022-23-21"
-    },
-    {
-     "value": 7,
-     "name": "Nolan Michek",
-     "player": "nolan-michek",
-     "date": "2024-01-16",
-     "opponent": "Wonewoc-Center",
-     "season": "2023-24",
-     "game_id": "2023-24-10"
-    },
-    {
-     "value": 7,
-     "name": "Chase Horstman",
-     "player": "chase-horstman",
-     "date": "2024-01-20",
-     "opponent": "Aquinas",
-     "season": "2023-24",
-     "game_id": "2023-24-12"
-    },
-    {
-     "value": 7,
-     "name": "Chase Horstman",
-     "player": "chase-horstman",
-     "date": "2024-02-17",
-     "opponent": "Melrose-Mindoro",
-     "season": "2023-24",
-     "game_id": "2023-24-21"
-    },
-    {
-     "value": 7,
-     "name": "Hayden Massman",
-     "player": "hayden-massman",
-     "date": "2025-01-09",
-     "opponent": "New Lisbon",
-     "season": "2024-25",
-     "game_id": "2024-25-10"
-    },
-    {
-     "value": 7,
-     "name": "Hayden Massman",
-     "player": "hayden-massman",
-     "date": "2026-03-06",
-     "opponent": "Regis",
-     "season": "2025-26",
-     "game_id": "2025-26-26"
+     "value": 8,
+     "name": "Brad Skaer",
+     "player": "brad-skaer",
+     "date": "2002-03-08",
+     "opponent": "Greenwood",
+     "season": "2001-02",
+     "game_id": "2001-02-24"
     }
    ],
    "fta": [
@@ -10897,6 +10753,13 @@
      "opponent": "Necedah",
      "season": "2001-02",
      "game_id": "2001-02-11"
+    },
+    {
+     "value": 24,
+     "date": "2002-02-26",
+     "opponent": "La Farge",
+     "season": "2001-02",
+     "game_id": "2001-02-21"
     }
    ],
    "half_pts": [
@@ -11880,6 +11743,13 @@
      "opponent": "Brookwood",
      "season": "2025-26",
      "game_id": "2025-26-17"
+    },
+    {
+     "value": 25,
+     "date": "2002-03-08",
+     "opponent": "Greenwood",
+     "season": "2001-02",
+     "game_id": "2001-02-24"
     }
    ],
    "ftm": [
@@ -13636,7 +13506,7 @@
      "detail": "11-15"
     },
     {
-     "value": 57.25,
+     "value": 57.375,
      "season": "2001-02",
      "detail": "17-7"
     },

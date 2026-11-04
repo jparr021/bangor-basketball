@@ -4,7 +4,7 @@
 
 | Season | Games | W-L | Box scores (full / points-only / none) | Box scores missing points |
 |---|---|---|---|---|
-| 2001-02 | 24 | 17-7 | 1 / 16 / 7 | 15 |
+| 2001-02 | 24 | 17-7 | 5 / 19 / 0 | 19 |
 | 2002-03 | 24 | 22-2 | 1 / 19 / 4 | 15 |
 | 2003-04 | 20 | 2-18 | 0 / 0 / 20 | 0 |
 | 2004-05 | 20 | 5-15 | 0 / 0 / 20 | 0 |
@@ -254,3 +254,7 @@ A check compares one player's season total for one stat. A match means the sum o
 - 2002-01-24 vs Hillsboro: box score adds to 36, final 65
 - 2002-01-29 vs New Lisbon: box score adds to 53, final 74
 - 2002-02-01 vs Cashton: box score adds to 32, final 53
+- 2002-02-14 vs Brookwood: box score adds to 37, final 55
+- 2002-02-18 vs Gale-Ettrick-Trempealeau: box score adds to 30, final 58
+- 2002-02-22 vs Necedah: box score adds to 31, final 48
+- 2002-02-26 vs La Farge: box score adds to 52, final 65

@@ -1,0 +1,29 @@
+{# Local news coverage. Import with:  {% import "_stories.html" as news with context %} #}
+{% macro list(stories, game_links=False) %}
+<ul class="news-list">
+  {% for s in stories %}
+  <li>
+    <span class="news-outlet">{{ s.outlet }}</span>
+    <span class="news-body">
+      <a class="news-title" href="{{ s.links[0].url }}" target="_blank" rel="noopener">{{ s.title }}</a>
+      <span class="news-meta muted small">
+        {%- for l in s.links %}{% if not loop.first %} · {% endif %}<a href="{{ l.url }}" target="_blank" rel="noopener">{{ {'video': '▶ Video', 'photos': 'Photo gallery'}.get(l.kind, 'Article') }}</a>{% endfor -%}
+        {%- if s.access == 'subscriber' and s.links | selectattr('kind', 'equalto', 'article') | list %} · article may need a subscription{% endif -%}
+        {%- if game_links and s.g %} · <a href="{{ root }}games/{{ s.g.game_id }}.html">{{ 'at' if s.g.site == 'away' else 'vs' }} {{ s.g.opponent }}, {{ s.g.date | d }}</a>{% endif -%}
+        {%- if s.published and not s.g %} · {{ s.published | d }}{% endif -%}
+      </span>
+    </span>
+  </li>
+  {% endfor %}
+</ul>
+{% endmacro %}
+
+{% macro card(stories, heading='In the news', id='news', game_links=False) %}
+{% if stories %}
+<section class="card news-card" id="{{ id }}">
+  <h2>{{ heading }}</h2>
+  {{ list(stories, game_links) }}
+  <p class="muted small news-note">Links go to the outlets' own sites.</p>
+</section>
+{% endif %}
+{% endmacro %}

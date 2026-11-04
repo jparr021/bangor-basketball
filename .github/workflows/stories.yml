@@ -1,0 +1,40 @@
+# Checks WKBT News 8, WXOW 19 and the La Crosse Tribune for new stories about Bangor boys basketball
+# games and links them (overrides/news_stories.csv). A change is committed, and the commit makes
+# Vercel republish the site. Add-only: it never removes a story, and changes nothing if the sites
+# can't be reached. Uncertain matches go to data/stories_review.csv.
+name: Add new local news stories
+
+on:
+  schedule:
+    - cron: "50 */3 * 11,12,1,2,3 *"   # every 3 hours, November through March (UTC)
+  workflow_dispatch: {}                 # "Run workflow" button in GitHub, to check right away
+
+permissions:
+  contents: write
+
+jobs:
+  match:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+      - name: Find and match new stories
+        run: python scripts/match_stories.py --days 21
+      - name: Publish if anything new was linked
+        run: |
+          if git diff --quiet -- overrides/news_stories.csv; then
+            echo "No new stories."
+            exit 0
+          fi
+          git config user.name "bangor-bb-news-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add overrides/news_stories.csv data/stories_review.csv
+          git commit -m "Add new local news stories"
+          git pull --rebase
+          git push
+          # Vercel may skip deploys for bot commits, so also ask for a rebuild directly
+          if [ -n "$HOOK" ]; then curl -fsS -X POST "$HOOK"; fi
+        env:
+          HOOK: ${{ secrets.VERCEL_DEPLOY_HOOK }}

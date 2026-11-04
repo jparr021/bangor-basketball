@@ -20,6 +20,7 @@ A static website with Bangor High School (WI) boys basketball history: every sea
 | `historical_records.csv` | Record-book marks older than (or missing from) the stat sheets. |
 | `career_totals.csv` | Official career totals where the stat sheets are incomplete. |
 | `game_film.csv` | YouTube film for each game (filled by the film matcher, editable by hand). |
+| `news_stories.csv` | Local news stories linked to games and players (filled by the story finder, editable by hand). |
 
 ## During the season (automatic)
 1. The current season's Google Sheet is shared as **Anyone with the link → Viewer**, and its link is in `overrides/current_season.json`.
@@ -45,6 +46,22 @@ New games flow into season stats, player pages, career totals and the record boo
 **By hand:** matches are saved in `overrides/game_film.csv`. Anything uncertain goes to `data/film_review.csv`, including a new video for a game that already has film. To fix, swap or add one, edit `game_film.csv` and set `matched_by` to `manual`. Manual rows are never overwritten. To re-match the whole channel:
 ```
 .venv/bin/python scripts/match_film.py "https://www.youtube.com/channel/UCMQOY87AZs0Hl4VQc61JTKg"
+```
+
+## Local news stories
+**Automatic:** every 3 hours from November through March, GitHub checks WKBT News 8, WXOW 19 and the La Crosse Tribune for stories about Bangor boys basketball (`.github/workflows/stories.yml`). It links a story to a game when the headline mentions Bangor, the story names the opponent within a few days of a game against them, and the story gives the final score or says "boys". Girls stories are skipped. A station's highlight video is linked when the same station already has a confirmed boys story on that game. "Play of the Week" features go on the player's page. It only adds stories and never removes any. To check right away: GitHub → Actions → *Add new local news stories* → **Run workflow**.
+
+**Where they show:** a "Game coverage" section on the game page, a *News* link on the season schedule and home page, and an "In the news" section on player pages (features, plus game stories whose headline names the player). Tribune articles are marked "may need a subscription".
+
+**GX3 Media photo galleries** (gx3media.smugmug.com): SmugMug doesn't allow automated crawling, so the gallery list is kept by hand in `overrides/gx3_galleries.csv` (season, gallery title as GX3 names it, link). 99 galleries from 2009-10 to 2025-26 are in it. After adding new ones, run:
+```
+.venv/bin/python scripts/match_gx3.py
+```
+It places each gallery by the date in its title, or by opponent + home/away + season (and late-season games for playoff galleries), adds it to `news_stories.csv`, and lists any it can't place. GX3 has one whole-season gallery for 2007-08 and 2008-09 (`BaHSBBB0708`, `BaHSBBB0809` in the Bangor school folders), which aren't linked to single games. Galleries show in a game's coverage list as "Photo gallery". Any other outlet's gallery can be added straight to `news_stories.csv` with `kind` set to `photos`.
+
+**By hand:** stories are saved in `overrides/news_stories.csv`. Uncertain ones go to `data/stories_review.csv` with the reason. To add or fix one, add a row to `news_stories.csv` (`game_date` and `opponent` for a game story, or `player` for a feature) and set `matched_by` to `manual`. To search past seasons again:
+```
+.venv/bin/python scripts/match_stories.py --all
 ```
 
 ## Web address, link previews and search

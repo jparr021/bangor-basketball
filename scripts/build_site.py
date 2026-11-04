@@ -192,6 +192,32 @@ for g in games_by_id.values():
     g["hudl_full"] = full
     g["hudl_recap"] = h.get("recap")
     g["has_video"] = bool(g["film_id"] or full or g["hudl_recap"])
+# Local news stories (overrides/news_stories.csv, filled by scripts/match_stories.py). A headline that
+# an outlet posted as both an article and a video becomes one entry with both links.
+STORIES_BY_DATE = defaultdict(OrderedDict)
+FEATURES_BY_PLAYER = defaultdict(list)
+spath = os.path.join(OV, "news_stories.csv")
+if os.path.exists(spath):
+    for r in sorted(load(spath), key=lambda r: (r["published"], r["kind"] != "article")):
+        if not r.get("url"):
+            continue
+        if r.get("player") and not r.get("game_date"):
+            FEATURES_BY_PLAYER[slug(canon(r["player"]))].append(r)
+            continue
+        key = (r["outlet"], re.sub(r"\W+", " ", r["title"].lower()).strip())
+        s = STORIES_BY_DATE[r.get("game_date", "")].setdefault(
+            key, {"outlet": r["outlet"], "title": r["title"], "access": r.get("access", ""), "links": []})
+        if all(l["url"] != r["url"] for l in s["links"]):
+            s["links"].append({"kind": r["kind"], "url": r["url"]})
+for g in games_by_id.values():
+    entries = list(STORIES_BY_DATE.get(g["date"], {}).values())
+    # a station's highlight video (its own headline) folds into that station's written recap of the game
+    for s in [e for e in entries if all(l["kind"] == "video" for l in e["links"])]:
+        recap = next((e for e in entries if e["outlet"] == s["outlet"] and any(l["kind"] == "article" for l in e["links"])), None)
+        if recap:
+            recap["links"] += [l for l in s["links"] if l not in recap["links"]]
+            entries.remove(s)
+    g["stories"] = sorted(entries, key=lambda s: (s["access"] == "subscriber", s["outlet"], s["title"]))
 FILM_GAMES = [g for g in games_by_id.values() if g["film_id"]]
 HUDL_ONLY = [g for g in games_by_id.values() if not g["film_id"] and (g["hudl_full"] or g["hudl_recap"])]
 UPCOMING = [g for g in games_by_id.values() if g["status"] == "upcoming"]
@@ -706,12 +732,30 @@ def build():
             if cands and max(r[k] for r in cands) > 0:
                 best = max(cands, key=lambda r: (r[k], r["date"]))
                 highs.append({"label": label, "value": fmt_int(best[k]), "g": games_by_id[best["game_id"]]})
+        # in the news: features about the player, and game stories whose headline names them
+        # (a last name alone counts only if no teammate in that game shares it)
+        player_news = [{"outlet": f["outlet"], "title": f["title"], "access": f.get("access", ""),
+                        "links": [{"kind": f["kind"], "url": f["url"]}], "published": f["published"], "g": None}
+                       for f in FEATURES_BY_PLAYER.get(sl, [])]
+        last = name.split()[-1].lower()
+        for r in log:
+            g = games_by_id[r["game_id"]]
+            if not g["stories"]:
+                continue
+            same_last = sum(1 for o in pg_by_game[g["game_id"]] if o["name"].split()[-1].lower() == last)
+            for s in g["stories"]:
+                words = re.findall(r"[a-z']+", s["title"].lower().replace("’", "'"))
+                hit = name.lower() in s["title"].lower() or (same_last == 1 and (last in words or f"{last}'s" in words))
+                if hit:
+                    player_news.append(dict(s, g=g, published=g["date"]))
+        player_news.sort(key=lambda s: s["published"], reverse=True)
         numbers = sorted({r.get("number") for r in rows if r.get("number")}, key=lambda x: int(x) if x.isdigit() else 999)
         cls = next((r.get("class") for r in reversed(log) if r.get("class")), "")
         render("player.html", f"players/{sl}.html", name=name, seasons=srows, career=crow, cols=cols, log=by_season,
                lcols=lcols, highs=highs, numbers=numbers, cls=cls, years=plist[-1]["years"],
                partial=bool(partial_stats),
-               override=(c or {}).get("override_note", ""), record_badges=B["player"].get(sl, []))
+               override=(c or {}).get("override_note", ""), record_badges=B["player"].get(sl, []),
+               player_news=player_news)
     plist.sort(key=lambda p: p["name"].split()[-1] + " " + p["name"])
     render("players.html", "players/index.html", players=plist)
 

@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% import "_stories.html" as news with context %}
 {% import "_badges.html" as rb with context %}
 {% set section = 'players' %}
 {% block title %}{{ name }} · Bangor Cardinals Boys Basketball{% endblock %}
@@ -55,6 +56,8 @@
   {% endif %}
 
   {{ rb.card(record_badges, who=False) }}
+
+  {{ news.card(player_news, game_links=True) }}
 
   {% if log %}
   <section class="card">

@@ -47,6 +47,7 @@
           {% if g.status == 'upcoming' and g.stream_url %}<a class="btn live" href="{{ g.stream_url }}" target="_blank" rel="noopener">● Watch live</a>{% endif %}
           {% if g.box_score != 'none' %}<a href="../games/{{ g.game_id }}.html">Box score</a>{% endif %}
           {% if g.film_id or g.hudl_full %}<a class="film-link" href="../games/{{ g.game_id }}.html#film">▶ Film</a>{% elif g.hudl_recap %}<a class="film-link" href="../games/{{ g.game_id }}.html#film">▶ Highlights</a>{% elif g.replay_url %}<a href="{{ g.replay_url }}" target="_blank" rel="noopener">Replay</a>{% endif %}
+          {% if g.stories %}<a class="news-link" href="../games/{{ g.game_id }}.html#news" title="{{ g.stories | length }} local news {{ 'story' if g.stories | length == 1 else 'stories' }}">News</a>{% endif %}
         </td>
       </tr>
       {% endfor %}

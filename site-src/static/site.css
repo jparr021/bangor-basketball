@@ -333,6 +333,19 @@ main:focus { outline: none; }
 .spark-card { border: 1px solid var(--line); border-radius: 8px; padding: 10px 12px 6px; }
 .spark-head { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; margin-bottom: 4px; }
 .spark-head a { font-weight: 600; }
+.nf-head h1 { font-size: clamp(2.4rem, 7vw, 3.6rem); }
+.nf-lede { font-size: 1.05rem; margin: 6px 0 14px; }
+.nf-path { background: #f3f3f3; border-radius: 4px; padding: 2px 6px; overflow-wrap: anywhere; }
+.nf-list { list-style: none; margin: 0; padding: 0; }
+.nf-list a { display: grid; grid-template-columns: 82px 1fr; column-gap: 12px; padding: 10px 12px; border-radius: 6px; color: var(--ink); text-decoration: none; }
+.nf-list a:hover, .nf-list a:focus { background: #f6f6f6; }
+.nf-list .sr-kind { color: var(--red); }
+.nf-list .sr-s { color: var(--muted); }
+.nf-links { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 12px; }
+.nf-link { display: flex; flex-direction: column; gap: 2px; border: 1px solid var(--line); border-top: 4px solid var(--red); border-radius: 8px; padding: 12px 14px; text-decoration: none; color: var(--ink); }
+.nf-link:hover, .nf-link:focus { border-color: var(--red); }
+.nf-t { font-family: var(--head); font-size: 1.15rem; text-transform: uppercase; }
+.nf-home { margin: 16px 0 0; }
 .preview-lede { margin: 2px 0 16px; font-size: 1.02rem; }
 .preview .leader-cards { margin-bottom: 8px; }
 .up-h2h { font-weight: 600; margin-top: 2px; }

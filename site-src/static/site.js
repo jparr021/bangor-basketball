@@ -141,6 +141,39 @@
     });
   }
 
+  // ------------------------------------------------------------ 404 page: "Were you looking for…"
+  Array.prototype.forEach.call(document.querySelectorAll("[data-open-search]"), function (b) {
+    b.addEventListener("click", function (ev) { ev.stopPropagation(); if (toggle && panel) openSearch(); });
+  });
+  var nfPath = document.getElementById("nf-path");
+  if (nfPath) {
+    var path = decodeURIComponent(window.location.pathname);
+    nfPath.textContent = path;
+    // the words in the address: "/players/hayden-masman.html" -> "hayden masman"
+    var words = path.split("/").filter(Boolean).pop() || "";
+    words = words.replace(/\.html?$/i, "").replace(/[-_+.]+/g, " ").trim();
+    var guess = function (q) {
+      var r = search(q);
+      if (!r.length) {  // a typo: try each word alone and keep the best few
+        q.split(" ").filter(function (w) { return w.length > 2; }).forEach(function (w) { r = r.concat(search(w)); });
+        var seen = {};
+        r = r.filter(function (it) { return seen[it.u] ? false : (seen[it.u] = true); });
+      }
+      return r.slice(0, 5);
+    };
+    if (words && !/^(index|players|seasons|games|opponents|coaches|records|history|film)$/i.test(words)) {
+      loadIndex(function () {
+        var r = guess(words);
+        if (!r.length) return;
+        document.getElementById("nf-list").innerHTML = r.map(function (it) {
+          return '<li><a href="' + esc(href(it.u)) + '"><span class="sr-kind">' + KIND_LABEL[it.k] + '</span>' +
+            '<span class="sr-t">' + esc(it.t) + '</span><span class="sr-s">' + esc(it.s) + "</span></a></li>";
+        }).join("");
+        document.getElementById("nf-guess").hidden = false;
+      });
+    }
+  }
+
   document.addEventListener("keydown", function (ev) {
     var tag = (ev.target.tagName || "").toLowerCase();
     var typing = tag === "input" || tag === "textarea" || tag === "select" || ev.target.isContentEditable;

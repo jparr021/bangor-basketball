@@ -1561,6 +1561,12 @@ def build():
            built_at=NOW.strftime("%B %-d, %Y at %-I:%M %p"))
     PAGES.remove("sheet-check.html")  # kept out of the sitemap
 
+    # ---- 404 page. Vercel serves it for any missing address, at any depth, so its links start at the site root
+    # (clean URLs make every link root-relative anyway; locally, root="/" does it).
+    render("404.html", "404.html", root="" if CLEAN_URLS else "/", season=DATA_SEASONS[-1],
+           next_game=next((g for g in UPCOMING if g["season"] == CURRENT), None))
+    PAGES.remove("404.html")
+
     # ---- the current season's game dates, read by the GitHub refresh workflow to rebuild often on game nights
     with open(os.path.join(OUT, "game-days.json"), "w") as f:
         json.dump(sorted({g["date"] for g in games_by_season.get(CURRENT, [])}), f)

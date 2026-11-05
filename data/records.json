@@ -1182,6 +1182,15 @@
     },
     {
      "value": 2,
+     "name": "Caleb Miller",
+     "player": "caleb-miller",
+     "date": "2013-02-01",
+     "opponent": "Hillsboro",
+     "season": "2012-13",
+     "game_id": "2012-13-17"
+    },
+    {
+     "value": 2,
      "name": "Canon O'Heron",
      "player": "canon-oheron",
      "date": "2014-12-29",
@@ -3932,6 +3941,15 @@
     },
     {
      "value": 5,
+     "name": "Canon O'Heron",
+     "player": "canon-oheron",
+     "date": "2013-01-08",
+     "opponent": "Hillsboro",
+     "season": "2012-13",
+     "game_id": "2012-13-11"
+    },
+    {
+     "value": 5,
      "name": "Brody Edwards",
      "player": "brody-edwards",
      "date": "2025-12-12",
@@ -4019,6 +4037,33 @@
      "opponent": "Alma Center Lincoln",
      "season": "2012-13",
      "game_id": "2012-13-01"
+    },
+    {
+     "value": 3,
+     "name": "Broedy Jepson",
+     "player": "broedy-jepson",
+     "date": "2013-01-08",
+     "opponent": "Hillsboro",
+     "season": "2012-13",
+     "game_id": "2012-13-11"
+    },
+    {
+     "value": 3,
+     "name": "Caleb Miller",
+     "player": "caleb-miller",
+     "date": "2013-02-01",
+     "opponent": "Hillsboro",
+     "season": "2012-13",
+     "game_id": "2012-13-17"
+    },
+    {
+     "value": 3,
+     "name": "Canon O'Heron",
+     "player": "canon-oheron",
+     "date": "2013-02-01",
+     "opponent": "Hillsboro",
+     "season": "2012-13",
+     "game_id": "2012-13-17"
     },
     {
      "value": 3,
@@ -4294,6 +4339,15 @@
     },
     {
      "value": 8,
+     "name": "Caleb Miller",
+     "player": "caleb-miller",
+     "date": "2013-02-01",
+     "opponent": "Hillsboro",
+     "season": "2012-13",
+     "game_id": "2012-13-17"
+    },
+    {
+     "value": 8,
      "name": "Brody Edwards",
      "player": "brody-edwards",
      "date": "2026-01-09",
@@ -4426,78 +4480,6 @@
      "opponent": "Regis",
      "season": "2025-26",
      "game_id": "2025-26-26"
-    },
-    {
-     "value": 6,
-     "name": "Dayne Langrehr",
-     "player": "dayne-langrehr",
-     "date": "2025-12-12",
-     "opponent": "New Lisbon",
-     "season": "2025-26",
-     "game_id": "2025-26-02"
-    },
-    {
-     "value": 6,
-     "name": "Brody Edwards",
-     "player": "brody-edwards",
-     "date": "2025-12-22",
-     "opponent": "Melrose-Mindoro",
-     "season": "2025-26",
-     "game_id": "2025-26-03"
-    },
-    {
-     "value": 6,
-     "name": "Hayden Massman",
-     "player": "hayden-massman",
-     "date": "2025-12-27",
-     "opponent": "Reedsburg",
-     "season": "2025-26",
-     "game_id": "2025-26-06"
-    },
-    {
-     "value": 6,
-     "name": "Hayden Massman",
-     "player": "hayden-massman",
-     "date": "2026-01-16",
-     "opponent": "Hillsboro",
-     "season": "2025-26",
-     "game_id": "2025-26-11"
-    },
-    {
-     "value": 6,
-     "name": "Sawyer Jacobson",
-     "player": "sawyer-jacobson",
-     "date": "2026-01-16",
-     "opponent": "Hillsboro",
-     "season": "2025-26",
-     "game_id": "2025-26-11"
-    },
-    {
-     "value": 6,
-     "name": "Dayne Langrehr",
-     "player": "dayne-langrehr",
-     "date": "2026-01-19",
-     "opponent": "Cashton",
-     "season": "2025-26",
-     "game_id": "2025-26-12"
-    },
-    {
-     "value": 6,
-     "name": "Dayne Langrehr",
-     "player": "dayne-langrehr",
-     "date": "2026-02-05",
-     "opponent": "Brookwood",
-     "season": "2025-26",
-     "game_id": "2025-26-17"
-    },
-    {
-     "value": 6,
-     "name": "Dayne Langrehr",
-     "player": "dayne-langrehr",
-     "date": "2026-02-10",
-     "opponent": "Necedah",
-     "season": "2025-26",
-     "game_id": "2025-26-19"
     }
    ]
   },
@@ -6784,6 +6766,14 @@
      "detail": "361 pts / 22 G"
     },
     {
+     "value": 16.1429,
+     "name": "Canon O'Heron",
+     "player": "canon-oheron",
+     "season": "2012-13",
+     "gp": 21,
+     "detail": "339 pts / 21 G"
+    },
+    {
      "value": 15.9286,
      "name": "Luke Reader",
      "player": "luke-reader",
@@ -6798,14 +6788,6 @@
      "season": "2016-17",
      "gp": 25,
      "detail": "398 pts / 25 G"
-    },
-    {
-     "value": 15.45,
-     "name": "Canon O'Heron",
-     "player": "canon-oheron",
-     "season": "2012-13",
-     "gp": 20,
-     "detail": "309 pts / 20 G"
     },
     {
      "value": 14.84,
@@ -7564,6 +7546,13 @@
      "gp": 51
     },
     {
+     "value": 626,
+     "name": "Andrew Lockington",
+     "player": "andrew-lockington",
+     "season": "2011-12 to 2013-14",
+     "gp": 68
+    },
+    {
      "value": 619,
      "name": "Chase Horstman",
      "player": "chase-horstman",
@@ -7571,18 +7560,11 @@
      "gp": 78
     },
     {
-     "value": 618,
-     "name": "Andrew Lockington",
-     "player": "andrew-lockington",
-     "season": "2011-12 to 2013-14",
-     "gp": 67
-    },
-    {
-     "value": 577,
+     "value": 592,
      "name": "Caleb Miller",
      "player": "caleb-miller",
      "season": "2011-12 to 2013-14",
-     "gp": 62
+     "gp": 63
     },
     {
      "value": 522,
@@ -7592,11 +7574,11 @@
      "gp": 44
     },
     {
-     "value": 489,
+     "value": 499,
      "name": "Broedy Jepson",
      "player": "broedy-jepson",
      "season": "2011-12 to 2013-14",
-     "gp": 61
+     "gp": 63
     },
     {
      "value": 456,
@@ -7992,7 +7974,7 @@
      "name": "Wyatt McDonald",
      "player": "wyatt-mcdonald",
      "season": "2012-13 to 2014-15",
-     "gp": 55
+     "gp": 57
     }
    ],
    "stl": [
@@ -9560,17 +9542,17 @@
      "gp": 78
     },
     {
+     "value": 68,
+     "name": "Andrew Lockington",
+     "player": "andrew-lockington",
+     "season": "2011-12 to 2013-14",
+     "gp": 68
+    },
+    {
      "value": 67,
      "name": "Jack Reader",
      "player": "jack-reader",
      "season": "2013-14 to 2015-16",
-     "gp": 67
-    },
-    {
-     "value": 67,
-     "name": "Andrew Lockington",
-     "player": "andrew-lockington",
-     "season": "2011-12 to 2013-14",
      "gp": 67
     },
     {
@@ -9581,11 +9563,18 @@
      "gp": 64
     },
     {
-     "value": 62,
+     "value": 63,
      "name": "Caleb Miller",
      "player": "caleb-miller",
      "season": "2011-12 to 2013-14",
-     "gp": 62
+     "gp": 63
+    },
+    {
+     "value": 63,
+     "name": "Broedy Jepson",
+     "player": "broedy-jepson",
+     "season": "2011-12 to 2013-14",
+     "gp": 63
     },
     {
      "value": 62,
@@ -9593,13 +9582,6 @@
      "player": "eli-tucker",
      "season": "2022-23 to 2024-25",
      "gp": 62
-    },
-    {
-     "value": 61,
-     "name": "Broedy Jepson",
-     "player": "broedy-jepson",
-     "season": "2011-12 to 2013-14",
-     "gp": 61
     },
     {
      "value": 61,
@@ -9616,17 +9598,17 @@
      "gp": 58
     },
     {
+     "value": 57,
+     "name": "Wyatt McDonald",
+     "player": "wyatt-mcdonald",
+     "season": "2012-13 to 2014-15",
+     "gp": 57
+    },
+    {
      "value": 55,
      "name": "Trevor Jones",
      "player": "trevor-jones",
      "season": "2017-18 to 2018-19",
-     "gp": 55
-    },
-    {
-     "value": 55,
-     "name": "Wyatt McDonald",
-     "player": "wyatt-mcdonald",
-     "season": "2012-13 to 2014-15",
      "gp": 55
     },
     {

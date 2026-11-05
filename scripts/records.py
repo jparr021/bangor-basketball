@@ -71,19 +71,18 @@ if os.path.exists(_ovsr):
 
 # ------------------------------------------------------------- player seasons
 box = defaultdict(lambda: {"gp": 0, **{k: None for k in STATS}})
-printout_pts, printout_gp = defaultdict(float), defaultdict(int)  # printout games: not in the season tab
+printout_seasons = set()  # (season, player) with a printout game
 for r in pg:
     key = (r["season"], canon(r["name"]))
     b = box[key]
     b["gp"] += 1
     b["number"] = r["number"]; b["class"] = r.get("class", "")
     # A full box score typed in from a printout (overrides/boxscores.csv) fills a game the season's sheet
-    # has no tab for. It adds only points to the season, which the sheet's other games track: one game's
+    # has no stats for. It adds only points to the season, which the sheet's other games track: one game's
     # rebounds or shooting would read as a whole season's.
     printout = games.get(r["game_id"], {}).get("box_source") == "printout"
     if printout:
-        printout_pts[key] += num(r.get("pts")) or 0
-        printout_gp[key] += 1
+        printout_seasons.add(key)
     for k in STATS:
         v = num(r.get(k))
         if v is not None and not (printout and k != "pts"):
@@ -104,14 +103,16 @@ for r in src:
         v = num(r.get(col))
         if v is None or (v == 0 and s.get(k) in (None, 0) and col not in ("PTS",)):
             continue
-        if k == "pts":
-            v += printout_pts.get(key, 0)
+        if k == "pts" and key in printout_seasons:
+            # The 2012-13 season tab is the sum of the game tabs, plus the Jan 8 game for only some players.
+            # With the printouts, the box scores cover every game, so they give points and games played.
+            continue
         if s.get(k) != v:
             used = True
         s[k] = v
     gp = num(r.get("GP"))
-    if gp:
-        gp += printout_gp.get(key, 0)
+    if key in printout_seasons:
+        gp = None
     if gp:
         s["gp"] = gp if (s["gp"] is None or gp > s["gp"]) else s["gp"]
     if used:

@@ -229,13 +229,13 @@ game_id,season,date,opponent,site,location,event,conference,bangor_score,opp_sco
 2012-13-08,2012-13,2012-12-27,Iowa-Grant,neutral,Westby (Westby Tournament),Westby (Westby Tournament),,59,49,W,,1|2|3|4,14|11|16|18,3|15|21|10,,,,points,6,N,,,schedule+tab,tournament
 2012-13-09,2012-13,2012-12-28,Westby,away,Westby (Westby Tournament),Westby (Westby Tournament),,36,71,L,,1|2|3|4,10|7|10|9,10|17|28|16,,,,points,7,N,,,schedule+tab,tournament
 2012-13-10,2012-13,2013-01-04,New Lisbon,home,Bangor,Bangor,,63,44,W,,,,,,,,points,63,Y,,,schedule+tab,regular
-2012-13-11,2012-13,2013-01-08,Hillsboro,home,Bangor,,,54,52,W,,,,,,,,none,,,,,schedule,regular
+2012-13-11,2012-13,2013-01-08,Hillsboro,home,Bangor,,,54,52,W,,,,,,,,full,54,Y,printout,"Bangor's and Hillsboro's box scores come from a printout of the team's stat program, which has no quarter scores.",schedule,regular
 2012-13-12,2012-13,2013-01-10,Cashton,away,Cashton,Cashton,,73,46,W,,1|2|3|4,14|23|21|15,6|19|7|14,,,,points,73,Y,,,schedule+tab,regular
 2012-13-13,2012-13,2013-01-15,Wonewoc-Center,home,Bangor,Bangor,,68,55,W,,1|2|3|4,19|19|13|17,11|19|10|15,,,,points,68,Y,,,schedule+tab,regular
 2012-13-14,2012-13,2013-01-18,Necedah,away,Necedah,Necedah,,67,61,W,,1|2|3|4,20|11|16|20,16|17|15|13,,,,points,65,N,,,schedule+tab,regular
 2012-13-15,2012-13,2013-01-24,Brookwood,away,Brookwood,Brookwood,,62,51,W,,1|2|3|4,11|20|17|14,10|6|25|10,,,,points,62,Y,,,schedule+tab,regular
 2012-13-16,2012-13,2013-01-29,Royall,home,Bangor,Bangor,,59,52,W,,1|2|3|4,11|13|17|18,12|14|13|13,,,,points,59,Y,,,schedule+tab,regular
-2012-13-17,2012-13,2013-02-01,Hillsboro,away,Hillsboro,,,61,47,W,,,,,,,,none,,,,,schedule,regular
+2012-13-17,2012-13,2013-02-01,Hillsboro,away,Hillsboro,,,61,47,W,,,,,,,,full,61,Y,printout,"Bangor's and Hillsboro's box scores come from a printout of the team's stat program, which has no quarter scores. The printout is dated 02/05/13 and lists the game at home, but its 61-47 score matches this game.",schedule,regular
 2012-13-18,2012-13,2013-02-05,Melrose-Mindoro,home,Bangor,Bangor,,66,32,W,,1|2|3|4,17|13|17|19,7|9|8|8,,,,points,67,N,,,schedule+tab,regular
 2012-13-19,2012-13,2013-02-07,New Lisbon,away,New Lisbon,New Lisbon,,66,32,W,,1|2|3|4,22|8|19|17,4|5|13|10,,,,points,66,Y,,,schedule+tab,regular
 2012-13-20,2012-13,2013-02-09,Mondovi,away,Mondovi,Mondovi,,35,67,L,,1|2|3|4,8|10|7|10,21|19|12|15,,,,points,35,Y,,,schedule+tab,regular

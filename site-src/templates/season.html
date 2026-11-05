@@ -14,7 +14,7 @@
   <p class="eyebrow">Season</p>
   <h1>{{ s.season | replace('-', '–') }}</h1>
   <div class="season-meta">
-    <span class="big-rec">{{ s.w }}–{{ s.l }}</span>
+    <span class="big-rec">{{ s.w }}–{{ s.l }}{% if s.t and s.t != "0" %}–{{ s.t }}{% endif %}</span>
     <span>Coach <strong>{% set cs = coach_slugs.get(s.coach | trim) %}{% if cs %}<a href="../coaches/{{ cs }}.html">{{ s.coach }}</a>{% else %}{{ s.coach }}{% endif %}</strong></span>
     {% if s.ppg %}<span>{{ s.ppg }} PPG · {{ s.oppg }} allowed</span>{% endif %}
   </div>

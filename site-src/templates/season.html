@@ -100,6 +100,21 @@
     </div>
   </section>
   {% endif %}
+  {% elif roster %}
+  <section class="card">
+    <h2>Roster</h2>
+    <div class="scroll">
+    <table class="tbl">
+      <thead><tr><th>#</th><th>Player</th><th>Pos.</th>{% if roster | selectattr('height') | list %}<th class="num">Ht.</th>{% endif %}{% if roster | selectattr('class_year') | list %}<th class="num">Class</th>{% endif %}</tr></thead>
+      <tbody>
+      {% for p in roster %}
+      <tr><td class="muted">{{ p.number }}</td><td class="nowrap">{{ p.name }}</td><td>{{ p.position }}</td>{% if roster | selectattr('height') | list %}<td class="num nowrap">{{ p.height }}</td>{% endif %}{% if roster | selectattr('class_year') | list %}<td class="num">{{ p.class_year }}</td>{% endif %}</tr>
+      {% endfor %}
+      </tbody>
+    </table>
+    </div>
+    <p class="note">From the {{ roster[0].source }}. There are no player stats for this season.</p>
+  </section>
   {% else %}
   <p class="note">Player stats aren't available for this season. Only game results were recorded.</p>
   {% endif %}

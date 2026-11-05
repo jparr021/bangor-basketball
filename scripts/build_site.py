@@ -1752,7 +1752,7 @@ def build():
                    f"Season{' · Coach ' + ss['coach'] if ss['coach'] else ''}", s.replace("-", "–"), ss["notes"], tiles, "Season")
         render("season.html", f"seasons/{s}.html", s=ss, games=gs, players=prow, cols=cols, **sh,
                margin_svg=margin_svg, scoring_lines=scoring_lines,
-               team_game_stats=any(g["date"] in TEAM_GAME for g in gs),
+               team_game_stats=any(g["date"] in TEAM_GAME for g in gs), roster=ROSTERS.get(s, []),
                team=team_row, leaders=leaders(s), partial=partial,
                **pager(s),
                source_note=any(r.get("source") == "season tab" for r in players),

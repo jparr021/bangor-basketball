@@ -280,8 +280,13 @@ for r in pgn:
     for k in STATS:
         if r[k] is not None:
             t[k] += r[k]; tracked[r["game_id"]].add(k)
+# Games from the program's first seasons (1914-15), when scores were in the teens and twenties, count in
+# head-to-head records but not in the team scoring records.
+RECORDS_FROM = "1930-31"
 tg_rows = []
 for gid, g in games.items():
+    if g["season"] < RECORDS_FROM:
+        continue
     row = {"game_id": gid, "season": g["season"], "date": g["date"], "opponent": g["opponent"],
            "pts": num(g["bangor_score"]), "opp_pts": num(g["opp_score"]),
            "margin": (num(g["bangor_score"]) - num(g["opp_score"])) if g["bangor_score"] else None,
@@ -312,6 +317,8 @@ R["team"]["game"]["fg_pct"] = top(tg_rows, lambda r: r["fgm"] / r["fga"] if r.ge
 # ---- team seasons
 ts = defaultdict(lambda: {"w": 0, "l": 0, "pts": 0, "opp": 0, "g": 0})
 for g in games.values():
+    if g["season"] < RECORDS_FROM:
+        continue
     t = ts[g["season"]]
     if g["result"] in ("W", "L"):
         t["w" if g["result"] == "W" else "l"] += 1

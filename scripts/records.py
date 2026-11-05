@@ -80,6 +80,7 @@ if os.path.exists(_ovsr):
 # ------------------------------------------------------------- player seasons
 box = defaultdict(lambda: {"gp": 0, **{k: None for k in STATS}})
 printout_seasons = set()  # (season, player) with a printout game
+real_box = set()
 for r in pg:
     key = (r["season"], canon(r["name"]))
     b = box[key]
@@ -88,6 +89,8 @@ for r in pg:
     # A full box score typed in from a printout (overrides/boxscores.csv) fills a game the season's sheet
     # has no stats for. It adds only points to the season, which the sheet's other games track: one game's
     # rebounds or shooting would read as a whole season's.
+    if games.get(r["game_id"], {}).get("box_source") != "newspaper":
+        real_box.add(key)  # a game with a real box score, not just a clipping's leading scorers
     printout = games.get(r["game_id"], {}).get("box_source") == "printout"
     if printout:
         printout_seasons.add(key)
@@ -121,6 +124,8 @@ for r in src:
     gp = num(r.get("GP"))
     if key in printout_seasons:
         gp = None
+    if not gp and key not in real_box:
+        s["gp"] = None  # the sheet gives no games played, and clippings cover only some games
     if gp:
         s["gp"] = gp if (s["gp"] is None or gp > s["gp"]) else s["gp"]
     if used:
@@ -161,7 +166,7 @@ career_rows = []
 for name, c in careers.items():
     ss = sorted(c["seasons"])
     row = {"name": name, "first_season": ss[0], "last_season": ss[-1], "n_seasons": len(ss),
-           "seasons": "|".join(ss), "gp": c["gp"], **{k: c[k] for k in STATS}, "override_note": "",
+           "seasons": "|".join(ss), "gp": c["gp"] or "", **{k: c[k] for k in STATS}, "override_note": "",
            "_untracked": c.get("untracked", set())}
     notes = []
     for stat, ov in overrides.get(name, {}).items():

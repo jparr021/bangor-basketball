@@ -560,7 +560,8 @@ def merged(scope, period, stat, kind):
                        for r in rows if r["g"] >= 10]
     else:
         # a game mark whose box score is a newspaper clipping is labeled like one
-        entries = [dict(e, source="news" if games_by_id.get(e.get("game_id") or "", {}).get("box_source") == "newspaper" else "data")
+        entries = [dict(e, source="news" if games_by_id.get(e.get("game_id") or "", {}).get("box_source") == "newspaper"
+                        and not (scope == "team" and games_by_id[e["game_id"]]["date"] in TEAM_GAME) else "data")
                    for e in REC.get(scope, {}).get(period, {}).get(stat, [])]
     # record-book entries
     for h in hist_records:
@@ -952,7 +953,7 @@ def box_cols(rows):
 def team_stats_rows(g, bangor):
     """Bangor's and the opponent's team totals for a game without a Bangor box score."""
     tg = TEAM_GAME.get(g["date"])
-    if not tg or bangor:
+    if not tg or (bangor and g.get("box_source") != "newspaper"):  # a clipping's leaders don't replace team totals
         return None
     rows = [(name, tg[side]) for side, name in (("bangor", "Bangor"), ("opp", g["opponent"])) if tg.get(side)]
     cols = box_cols([r for _, r in rows])

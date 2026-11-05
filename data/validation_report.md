@@ -4,7 +4,7 @@
 
 | Season | Games | W-L | Box scores (full / points-only / none) | Box scores missing points |
 |---|---|---|---|---|
-| 1997-98 | 21 | 13-8 | 0 / 0 / 21 | 0 |
+| 1997-98 | 21 | 13-8 | 0 / 5 / 16 | 5 |
 | 2001-02 | 24 | 17-7 | 5 / 19 / 0 | 19 |
 | 2002-03 | 24 | 22-2 | 1 / 19 / 4 | 15 |
 | 2003-04 | 20 | 2-18 | 0 / 0 / 20 | 0 |
@@ -225,6 +225,11 @@ A check compares one player's season total for one stat. A match means the sum o
 - 2022-01-28 vs Brookwood: box score adds to 85, final 86
 - 2022-02-03 vs Hillsboro: box score adds to 76, final 77
 - 2022-03-10 vs Blair-Taylor: box score adds to 73, final 72
+- 1997-11-29 vs West Salem: box score adds to 28, final 43
+- 1997-12-09 vs Necedah: box score adds to 11, final 47
+- 1997-12-12 vs Royall: box score adds to 12, final 39
+- 1997-12-18 vs Hillsboro: box score adds to 38, final 60
+- 1997-12-26 vs Mabel-Canton: box score adds to 39, final 62
 - 2001-11-27 vs Luther: box score adds to 42, final 47
 - 2001-12-04 vs Wonewoc-Center: box score adds to 59, final 67
 - 2001-12-07 vs Hillsboro: box score adds to 55, final 63

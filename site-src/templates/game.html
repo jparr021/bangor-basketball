@@ -111,9 +111,10 @@
       </tbody>
     </table>
     </div>
-    <p class="note">Team totals from the {{ team_stats.source | replace(' team game stats', '') }}. There's no box score by player for this game.</p>
+    <p class="note">Team totals from the {{ team_stats.source | replace(' team game stats', '') }}.{% if not bangor %} There's no box score by player for this game.{% endif %}</p>
   </section>
-  {% else %}
+  {% endif %}
+  {% if not team_stats or bangor %}
   <section class="card">
     <h2>Bangor</h2>
     {% if bangor %}

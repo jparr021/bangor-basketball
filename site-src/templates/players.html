@@ -1,11 +1,11 @@
 {% extends "base.html" %}
 {% set section = 'players' %}
 {% block title %}Players · Bangor Cardinals Boys Basketball{% endblock %}
-{% block description %}Every Bangor Cardinals varsity boys basketball player in the stat sheets (1997–98, 2001–02, 2002–03 and 2007–08 on), with career points, rebounds and assists.{% endblock %}
+{% block description %}Every known Bangor Cardinals varsity boys basketball player since 1914, with career points, rebounds and assists.{% endblock %}
 {% block content %}
 <div class="wrap page-head">
   <h1>Players</h1>
-  <p class="muted">Every Bangor varsity player in the stat sheets: 1997–98, 2001–02, 2002–03, and every season from 2007–08 on ({{ players | length }} players). Earlier greats are listed in the <a href="../records/index.html">Record Book</a>.</p>
+  <p class="muted">Every Bangor varsity player we know of ({{ players | length }} players): everyone in the stat sheets (1997–98, 2001–02, 2002–03, and every season from 2007–08 on), plus earlier players from rosters, team photos, the record book and newspaper clippings (marked <span class="book-tag">Archive</span>). For those, G, PTS, REB and AST are record-book career totals where the book has them.</p>
   <p><a class="btn" href="classes.html">Players by graduating class →</a></p>
   <input class="search" type="search" placeholder="Search players…" data-filter="#player-table" aria-label="Search players">
 </div>
@@ -16,7 +16,7 @@
       <thead><tr><th>Player</th><th>Years</th><th class="num hide-sm">Class</th><th class="num">G</th><th class="num">PTS</th><th class="num">REB</th><th class="num">AST</th></tr></thead>
       <tbody>
       {% for p in players %}
-      <tr><td><a href="{{ p.slug }}.html">{{ p.name }}</a></td><td class="nowrap">{{ p.years }}</td><td class="num hide-sm">{% if p.grad %}<a href="classes.html#c{{ p.grad }}">{{ p.grad }}</a>{% endif %}</td><td class="num">{{ p.gp }}</td><td class="num">{{ p.pts }}</td><td class="num">{{ p.reb }}</td><td class="num">{{ p.ast }}</td></tr>
+      <tr><td><a href="{{ p.slug }}.html">{{ p.name }}</a>{% if p.archive %} <span class="book-tag">Archive</span>{% endif %}</td><td class="nowrap">{{ p.years }}</td><td class="num hide-sm">{% if p.grad %}<a href="classes.html#c{{ p.grad }}">{{ p.grad }}</a>{% endif %}</td><td class="num">{{ p.gp }}</td><td class="num">{{ p.pts }}</td><td class="num">{{ p.reb }}</td><td class="num">{{ p.ast }}</td></tr>
       {% endfor %}
       </tbody>
     </table>

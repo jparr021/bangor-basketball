@@ -1,0 +1,45 @@
+{# Team photos and player headshots, with a placeholder when there's no photo yet.
+   Import with:  {% import "_photo.html" as photo with context %}
+   Photos are listed in overrides/photos.csv (see the README). #}
+{% macro src(p) %}{{ (root ~ p.url) if p.local else p.url }}{% endmacro %}
+
+{% macro share_link(what) -%}
+{%- if corrections_url %}<a href="{{ corrections_url }}" target="_blank" rel="noopener">Share {{ what }} →</a>
+{%- else %}<a href="{{ root }}history/gaps.html">How to share {{ what }} →</a>{% endif -%}
+{%- endmacro %}
+
+{# the season's team photo(s), or a slim placeholder asking for one #}
+{% macro team(photos, season) %}
+{% set label = season | replace('-', '–') %}
+{% if photos %}
+<section class="card team-photo">
+  {% for p in photos %}
+  <figure>
+    <img src="{{ src(p) }}" alt="{{ p.caption or ('The ' ~ label ~ ' Bangor Cardinals') }}" loading="lazy"{% if p.w %} width="{{ p.w }}" height="{{ p.h }}"{% endif %}>
+    {% if p.caption or p.credit %}<figcaption>{{ p.caption }}{% if p.credit %} <span class="muted">Photo: {{ p.credit }}</span>{% endif %}</figcaption>{% endif %}
+  </figure>
+  {% endfor %}
+</section>
+{% else %}
+<div class="photo-ph team-ph">
+  <svg class="ph-icon" viewBox="0 0 48 48" aria-hidden="true"><rect x="4" y="10" width="40" height="30" rx="4" fill="none" stroke="currentColor" stroke-width="2.5"/><circle cx="17" cy="21" r="4" fill="currentColor"/><path d="M8 36l11-10 7 6 6-5 8 9" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round"/></svg>
+  <div class="ph-text">
+    <strong>No {{ label }} team photo yet</strong>
+    <span class="muted small">Have one from a yearbook, game program, newspaper or scrapbook? {{ share_link('a photo') }}</span>
+  </div>
+</div>
+{% endif %}
+{% endmacro %}
+
+{# a player's headshot, or a jersey-style placeholder with his number (or initials) #}
+{% macro headshot(p, name, numbers=[]) %}
+{% if p %}
+<img class="headshot" src="{{ src(p) }}" alt="{{ name }}"{% if p.w %} width="{{ p.w }}" height="{{ p.h }}"{% endif %}>
+{% else %}
+{% set parts = name.replace('.', ' ').split() %}
+<div class="headshot headshot-ph" role="img" aria-label="No photo of {{ name }} yet">
+  <span class="ph-num">{% if numbers %}{{ numbers[0] }}{% else %}{{ parts[0][0] }}{{ parts[-1][0] }}{% endif %}</span>
+  <span class="ph-lbl">No photo yet</span>
+</div>
+{% endif %}
+{% endmacro %}

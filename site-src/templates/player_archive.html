@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+{% import "_stories.html" as news with context %}
+{% import "_badges.html" as rb with context %}
+{% import "_photo.html" as photo with context %}
+{% set section = 'players' %}
+{% set STAT = {'pts': 'Points', 'reb': 'Rebounds', 'ast': 'Assists', 'stl': 'Steals', 'blk': 'Blocks', 'tpm': '3-pointers', 'ftm': 'Free throws', 'fgm': 'Field goals', 'gp': 'Games'} %}
+{% block title %}{{ name }} · Bangor Cardinals Boys Basketball{% endblock %}
+{% block description %}{{ name }}, Bangor Cardinals boys basketball{% if years %} {{ years }}{% endif %}{% if book_career %}: {% for b in book_career[:3] %}{{ b.value }} career {{ STAT.get(b.stat, b.stat) | lower }}{{ ', ' if not loop.last }}{% endfor %}{% endif %}. Rosters, record-book marks and newspaper box scores.{% endblock %}
+{% block content %}
+<div class="wrap page-head head-row">
+  {{ photo.headshot(headshot, name, numbers) }}
+  <div>
+    <p class="eyebrow"><a href="index.html">Players</a></p>
+    <h1>{{ name }}</h1>
+    <div class="season-meta">
+      {% if years %}<span>{{ years }}</span>{% endif %}
+      {% if numbers %}<span>#{{ numbers | join(', #') }}</span>{% endif %}
+      {% if positions %}<span>{{ positions | join(', ') }}</span>{% endif %}
+      {% if grad %}<span><a href="classes.html#c{{ grad }}">Class of {{ grad }}</a></span>{% endif %}
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+  {% if tiles %}
+  <div class="leader-cards">
+    {% for t in tiles %}<div class="leader-card"><span class="lbl">{{ t.label }}</span><span class="val">{{ t.value }}</span>{% if t.sub %}<span class="muted">{{ t.sub }}</span>{% endif %}</div>{% endfor %}
+  </div>
+  {% endif %}
+
+  {% if seasons %}
+  <section class="card">
+    <h2>Seasons</h2>
+    <div class="scroll">
+    <table class="tbl">
+      {% set has_pos = seasons | selectattr('position') | list %}{% set has_ht = seasons | selectattr('height') | list %}{% set has_gr = seasons | selectattr('grade') | list %}
+      <thead><tr><th>Season</th><th>#</th>{% if has_pos %}<th>Pos.</th>{% endif %}{% if has_ht %}<th class="num">Ht.</th>{% endif %}{% if has_gr %}<th class="num">Grade</th>{% endif %}<th>Team</th><th class="hide-sm">Source</th></tr></thead>
+      <tbody>
+      {% for s in seasons %}
+      <tr><td class="nowrap"><a href="{{ s.href }}">{{ s.season | replace('-', '–') }}</a></td><td class="muted">{{ s.number }}</td>{% if has_pos %}<td>{{ s.position }}</td>{% endif %}{% if has_ht %}<td class="num nowrap">{{ s.height }}</td>{% endif %}{% if has_gr %}<td class="num">{{ s.grade }}</td>{% endif %}
+        <td class="nowrap">{% if s.record %}{{ s.record }}{% endif %}{% if s.notes %} <span class="muted small">{{ s.notes }}</span>{% endif %}</td>
+        <td class="hide-sm muted small">{{ s.source }}</td></tr>
+      {% endfor %}
+      </tbody>
+    </table>
+    </div>
+  </section>
+  {% endif %}
+
+  {% if book_career %}
+  <section class="card">
+    <h2>Career, from the record book</h2>
+    <table class="tbl compact">
+      {% for b in book_career %}<tr><td>{{ STAT.get(b.stat, b.stat) }}</td><td class="num strong">{{ b.value }}</td><td class="muted">{{ b.season }}{% if b.gp %} · {{ b.gp }} games{% endif %}{% if b.note %}<br><span class="small">{{ b.note }}</span>{% endif %}</td><td><span class="book-tag">Record book</span></td></tr>{% endfor %}
+    </table>
+  </section>
+  {% endif %}
+
+  {{ rb.card(record_badges, who=False) }}
+
+  {% if clips %}
+  <section class="card">
+    <h2>From the newspaper</h2>
+    <div class="scroll">
+    <table class="tbl stats compact">
+      <thead><tr><th>Date</th><th>Opponent</th><th>Result</th>{% for k, h in clip_cols %}<th class="num">{{ h }}</th>{% endfor %}</tr></thead>
+      <tbody>
+      {% for c in clips %}
+      <tr><td class="nowrap"><a href="../seasons/{{ c.g.season }}.html#g{{ c.g.anchor }}">{{ c.g.date | d }}</a></td>
+        <td class="nowrap">{{ '@' if c.g.site == 'away' else 'vs' }} {{ c.g.opponent }}</td>
+        <td class="res {{ c.g.result }} nowrap">{{ c.g.result }} {{ c.g.bangor_score }}–{{ c.g.opp_score }}</td>
+        {% for k, h in clip_cols %}<td class="num">{{ c[k] }}</td>{% endfor %}</tr>
+      {% endfor %}
+      </tbody>
+    </table>
+    </div>
+    <p class="note">Leading scorers from newspaper clippings, not full box scores, so these are only the games where the paper named him.</p>
+  </section>
+  {% endif %}
+
+  {{ news.card(player_news, game_links=False) }}
+
+  <p class="note archive-note">Bangor's stat sheets start in 1997–98, so this page collects what's known about {{ name }} from {{ sources | join(', ') }}. Have a box score, clipping, program or photo with him in it? {{ photo.share_link('it') }}</p>
+</div>
+{% endblock %}

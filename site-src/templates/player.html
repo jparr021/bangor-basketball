@@ -1,11 +1,14 @@
 {% extends "base.html" %}
 {% import "_stories.html" as news with context %}
 {% import "_badges.html" as rb with context %}
+{% import "_photo.html" as photo with context %}
 {% set section = 'players' %}
 {% block title %}{{ name }} · Bangor Cardinals Boys Basketball{% endblock %}
 {% block description %}{{ name }}, Bangor Cardinals boys basketball {{ years }}{% if career and career.pts %}: {{ career.pts }} career points{% if career.reb %}, {{ career.reb }} rebounds{% endif %}{% if career.ast %}, {{ career.ast }} assists{% endif %}{% endif %}. Season stats, career highs and game log.{% endblock %}
 {% block content %}
-<div class="wrap page-head">
+<div class="wrap page-head head-row">
+  {{ photo.headshot(headshot, name, numbers) }}
+  <div>
   <p class="eyebrow"><a href="index.html">Players</a></p>
   <h1>{{ name }}</h1>
   <div class="season-meta">
@@ -13,6 +16,7 @@
     {% if numbers %}<span>#{{ numbers | join(', #') }}</span>{% endif %}
     {% if grad %}<span><a href="classes.html#c{{ grad }}">Class of {{ grad }}</a>{% if grad_est %} <small>(est.)</small>{% endif %}</span>{% endif %}
     {% if cls %}<span>{{ cls }} in {{ latest_season | replace('-', '–') }}</span>{% endif %}
+  </div>
   </div>
 </div>
 

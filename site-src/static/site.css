@@ -499,3 +499,26 @@ button.btn[hidden] { display: none; }
 .otd-list a:hover { text-decoration: none; background: var(--red-tint); }
 .otd-when { font-size: .75rem; text-transform: uppercase; letter-spacing: .1em; font-weight: 600; color: var(--red); }
 .otd-text { font-size: .93rem; line-height: 1.45; }
+
+/* ---- photos: team photos on season pages, headshots on player pages, and their placeholders */
+.head-row { display: flex; align-items: center; gap: 20px; }
+.head-row > div { min-width: 0; }
+.headshot { flex: none; width: 112px; height: 112px; border-radius: var(--radius); object-fit: cover; border-top: 4px solid var(--red); background: var(--black); }
+.headshot-ph { display: flex; flex-direction: column; align-items: center; justify-content: center; color: #fff; }
+.headshot-ph .ph-num { font-family: var(--head); font-weight: 700; font-size: 2.6rem; line-height: 1; letter-spacing: .02em; }
+.headshot-ph .ph-lbl { font-size: .62rem; text-transform: uppercase; letter-spacing: .12em; color: #a9acb2; margin-top: 6px; }
+.team-photo figure { margin: 0; }
+.team-photo figure + figure { margin-top: 16px; }
+.team-photo img { display: block; width: 100%; height: auto; border-radius: 6px; }
+.team-photo figcaption { font-size: .88rem; margin-top: 8px; }
+.photo-ph { display: flex; align-items: center; gap: 14px; border: 2px dashed var(--line); border-radius: var(--radius); padding: 14px 18px; margin-bottom: 22px; background: #fff; }
+.photo-ph .ph-icon { flex: none; width: 40px; height: 40px; color: #c3c6cc; }
+.photo-ph .ph-text { display: flex; flex-direction: column; gap: 2px; }
+.archive-note { margin-top: 0; }
+@media (max-width: 760px) {
+  .head-row { gap: 14px; }
+  .headshot { width: 76px; height: 76px; }
+  .headshot-ph .ph-num { font-size: 1.8rem; }
+  .headshot-ph .ph-lbl { font-size: .52rem; letter-spacing: .08em; }
+}
+@media print { .photo-ph, .headshot-ph { display: none; } }

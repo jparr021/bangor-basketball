@@ -27,6 +27,7 @@ A static website with Bangor High School (WI) boys basketball history: every sea
 | `newspaper_stats.csv` | Leading scorers and rebounders from newspaper clippings (date, team, number, name and any box-score columns: fgm, fga, tpm, tpa, ftm, fta, reb, ast, blk, pts), for games with no box score. They show on the game page and in player game logs, marked as partial. They don't add to season totals that come from a season stat sheet, and don't count as a player's game highs. |
 | `boxscores.csv` | Full Bangor box scores typed in from a printed stat sheet (date, team, number, name and the box-score columns), for a game the season sheet has no stats for, or only points. A printout replaces the sheet's game tab. They count like any box score on the game page, in game records and in game highs. In a season whose sheet tracks only points (2012–13), they add only points to the season totals, and a player's points and games that season come from the box scores rather than the sheet's season tab, which counted some of these games for some players. |
 | `team_game_stats.csv` | Team totals for games with no box score by player (date, team, then fgm, fga, tpm, tpa, ftm, fta, oreb, dreb, reb, ast, stl, to, pf, chg, pts and source), one row for Bangor and one for the opponent, from a yearbook's game-by-game team stats (1997–98). They show as a Team stats table on the game page, and Bangor's count in the team game records. FGM/FGA include 3-pointers. |
+| `photos.csv` + `photos/` | Team photos and player headshots (see *Photos*). |
 | `grad_years.csv` | Class years (name, grad_year, note) for players the sheets don't give one for, or to fix an estimated year. |
 | `career_totals.csv` | Official career totals where the stat sheets are incomplete. |
 | `game_film.csv` | YouTube film for each game (filled by the film matcher, editable by hand). |
@@ -62,6 +63,19 @@ Every finished game's page opens with a short paragraph about the game, written 
 
 ## On this day
 The home page has an "On this day" card: up to three games or record-book nights from today's date in past seasons, one per year, playoff games and record nights first. Each is a one- or two-sentence summary (the same writer as the game summaries) linking to the game, or to the record book for a game with no page. The build writes them all to `static/on-this-day.js`, and the visitor's browser picks today's date in Wisconsin time, so the card stays right between rebuilds and through the summer. With nothing on today's date it shows *This week in Bangor history* (three days either way), and in the off-season *From the archives*: a few of the biggest nights, the same ones all day. New games and record-book marks with a date join automatically.
+
+## Players from before the stat sheets
+Every player named in `rosters.csv`, `historical_records.csv` or a newspaper clipping of a results-only game (`newspaper_stats.csv`) gets a player page, even with no stats. It shows his seasons (number, position, height and grade from the roster, the team's record that year), his record-book career totals and top-10 marks, and the clippings that name him. He's in the Players list (marked *Archive*), his graduating class, search, and everywhere else his name appears. There's nothing to fill in: add a roster, a record-book line or a clipping and the page appears or grows on the next build.
+
+A last name alone (`Schroeder` on a team-photo list) gets no page, since it can't be told apart from another player with the same name. Write the full name in `rosters.csv` when it's known. A player spelled two ways gets two pages: fix the spelling in the override file so both match.
+
+## Photos
+Season pages have a spot for the team photo and player pages for a headshot. Until one is added, the page shows a placeholder (a dashed "No team photo yet" box, or the player's jersey number or initials) with a link asking visitors to share one.
+1. Put the image file (JPEG, PNG or WebP, any size) in `overrides/photos/`.
+2. Add a line to `overrides/photos.csv`: `kind` (`team` or `player`), `season` (for a team photo, e.g. `1925-26`), `player` (for a headshot, the name as the site spells it), `image` (the file name, or a full `https://` link to a photo hosted elsewhere), and an optional `caption` and `credit`.
+3. Rebuild. The build shrinks each photo to a web size (team photos 1,600 px wide, headshots 600 px) so pages stay fast. A season can have more than one team photo. A file listed but missing is skipped and named in the build log.
+
+Only add photos you have permission to share (your own, the school's, or with the photographer's OK).
 
 ## Help fill in the gaps
 `/history/gaps` (linked from the History page and in search) shows what the site has for every season: results, box scores, player stats, a roster and film. Seasons with everything are marked complete. A "Most wanted" list shows title and tournament teams whose results are still missing, and the page explains what kinds of old material help. It's all worked out from the data each build, so adding a season's results, rosters or clippings updates it automatically. Its "Share something" buttons appear once the corrections form is set up (see *Corrections form*).

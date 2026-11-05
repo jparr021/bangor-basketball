@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% import "_gameday.html" as gd with context %}
 {% import "_badges.html" as rb with context %}
+{% import "_photo.html" as photo with context %}
 {% import "_calendar.html" as calm with context %}
 {% set section = 'seasons' %}
 {% block title %}{{ s.season | replace('-', '–') }} season · Bangor Cardinals Boys Basketball{% endblock %}
@@ -22,6 +23,8 @@
 </div>
 
 <div class="wrap">
+  {{ photo.team(team_photos, s.season) }}
+
   {% if leaders %}
   <div class="leader-cards">
     {% for l in leaders %}

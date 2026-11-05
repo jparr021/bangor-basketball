@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% import "_badges.html" as rb with context %}
+{% import "_photo.html" as photo with context %}
 {% set section = 'seasons' %}
 {% block title %}{{ s.season | replace('-', '–') }} season · Bangor Cardinals Boys Basketball{% endblock %}
 {% block description %}The {{ s.season | replace('-', '–') }} Bangor Cardinals{% if s.w != '' %} went {{ s.w }}–{{ s.l }}{% endif %}{% if s.coach %} under coach {{ s.coach }}{% endif %}. Every result, in order.{% endblock %}
@@ -30,6 +31,8 @@
 {% endif %}
 
 <div class="wrap">
+  {{ photo.team(team_photos, s.season) }}
+
   {% if leaders %}
   <div class="leader-cards">
     {% for l in leaders %}

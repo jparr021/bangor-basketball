@@ -283,6 +283,54 @@ FORM_FIELD = re.sub(r"\D", "", str(SETTINGS.get("corrections_page_field") or "")
 ANALYTICS = SETTINGS.get("vercel_analytics") is True and os.environ.get("VERCEL") == "1"
 
 
+# ---- photos (overrides/photos.csv, image files in overrides/photos/): team photos on season pages and
+# headshots on player pages. Pages without one show a placeholder asking for it.
+PHOTO_DIR = os.path.join(OV, "photos")
+TEAM_PHOTOS = defaultdict(list)
+PLAYER_PHOTOS = {}
+if os.path.exists(os.path.join(OV, "photos.csv")):
+    for _r in load(os.path.join(OV, "photos.csv")):
+        _img = (_r.get("image") or "").strip()
+        _kind = (_r.get("kind") or "").strip().lower()
+        if not _img:
+            continue
+        _p = {"src": _img, "local": not re.match(r"https?://", _img), "url": _img, "w": None, "h": None,
+              "caption": (_r.get("caption") or "").strip(), "credit": (_r.get("credit") or "").strip()}
+        if _kind == "team" and (_r.get("season") or "").strip():
+            TEAM_PHOTOS[_r["season"].strip()].append(_p)
+        elif _kind == "player" and (_r.get("player") or "").strip():
+            PLAYER_PHOTOS.setdefault(slug(canon(_r["player"])), _p)
+
+
+def publish_photos():
+    """Copy each photo in overrides/photos/ into the site, shrunk to a web size (team photos 1600 px wide,
+    headshots 600 px) as a JPEG. A photo whose file is missing is dropped (and listed in the build log)."""
+    from PIL import Image, ImageOps
+    out_dir = os.path.join(OUT, "static", "photos")
+    os.makedirs(out_dir, exist_ok=True)
+    for photos, max_w in ((p for ps in TEAM_PHOTOS.values() for p in ps), 1600), (PLAYER_PHOTOS.values(), 600):
+        for p in list(photos):
+            if not p["local"]:
+                continue
+            path = os.path.join(PHOTO_DIR, p["src"])
+            if not os.path.exists(path):
+                print(f"photos: {p['src']} is listed in overrides/photos.csv but isn't in overrides/photos/")
+                p["missing"] = True
+                continue
+            name = slug(os.path.splitext(p["src"])[0]) + ".jpg"
+            with Image.open(path) as im:
+                im = ImageOps.exif_transpose(im).convert("RGB")
+                if im.width > max_w:
+                    im = im.resize((max_w, round(im.height * max_w / im.width)), Image.LANCZOS)
+                im.save(os.path.join(out_dir, name), "JPEG", quality=82, optimize=True, progressive=True)
+                p["w"], p["h"] = im.width, im.height
+            p["url"] = f"static/photos/{name}"
+    for s in list(TEAM_PHOTOS):
+        TEAM_PHOTOS[s] = [p for p in TEAM_PHOTOS[s] if not p.get("missing")]
+    for k in [k for k, p in PLAYER_PHOTOS.items() if p.get("missing")]:
+        del PLAYER_PHOTOS[k]
+
+
 def corrections_link(page_url):
     """The corrections form, with the visitor's page filled in when the form's 'Page' question is set up."""
     if not FORM_URL:
@@ -901,6 +949,63 @@ for slug_, rows in pg_by_player.items():
     PLAYER_PAGES[slug_] = rows[0]["name"]
 for r in pseasons:
     PLAYER_PAGES.setdefault(r["slug"], r["name"])
+
+# Players from before the stat sheets: known only from rosters (rosters.csv), the record book
+# (historical_records.csv) and newspaper clippings of results-only games (newspaper_stats.csv). Each gets a
+# shorter player page. A name with no first name or initial ("Schroeder") gets none, since it can't be told
+# apart from another player of the same name.
+ARCHIVE = OrderedDict()
+
+
+def _season_span(a, b):
+    return [f"{y}-{str(y + 1)[2:]}" for y in range(int(a[:4]), int(b[:4]) + 1)]
+
+
+def _archive(name):
+    name = canon(name)
+    sl = slug(name)
+    if not sl or sl in PLAYER_PAGES and sl not in ARCHIVE or len(name.split()) < 2:
+        return None
+    return ARCHIVE.setdefault(sl, {"slug": sl, "name": name, "roster": [], "book": [], "clips": [], "seasons": set(),
+                                   "grad": None, "grad_how": ""})
+
+
+for _s, _rs in ROSTERS.items():
+    for _r in _rs:
+        _a = _archive(_r["name"])
+        if _a:
+            _a["roster"].append(_r)
+            _a["seasons"].add(_s)
+            if _r["class_year"] and not _a["grad"]:
+                _a["grad"], _a["grad_how"] = _r["class_year"], "grade"
+for _h in hist_records:
+    _a = _archive(_h["name"]) if _h["name"] else None
+    if not _a:
+        continue
+    _a["book"].append(_h)
+    _txt = f"{_h['season']} {_h['note']}"
+    _cls = re.search(r"Class of (\d{4})", _txt)
+    _rng = re.search(r"(\d{4}-\d{2}) to (\d{4}-\d{2})", _h["season"])
+    if _cls and _a["grad_how"] != "book":
+        _a["grad"], _a["grad_how"] = int(_cls.group(1)), "book"  # the record book's class year wins over a grade
+    if _rng:
+        _a["seasons"].update(_season_span(*_rng.groups()))
+        if not _a["grad"]:
+            _a["grad"], _a["grad_how"] = season_end_year(_rng.group(2)), "book"
+    elif re.fullmatch(r"\d{4}-\d{2}", _h["season"]):
+        _a["seasons"].add(_h["season"])
+_ro_by_date = {g["date"]: g for gs in RESULTS_ONLY.values() for g in gs if g.get("date")}
+if os.path.exists(os.path.join(OV, "newspaper_stats.csv")):
+    for _r in load(os.path.join(OV, "newspaper_stats.csv")):
+        _g = _ro_by_date.get(_r["date"])
+        _a = _archive(_r["name"]) if _g and _r["team"].strip().lower() == "bangor" else None
+        if _a:
+            _a["clips"].append({"g": _g, **{k: num(_r.get(k)) for k in ("pts", "fgm", "fga", "tpm", "tpa", "ftm", "fta",
+                                                                          "reb", "ast", "blk")},
+                                "number": _r.get("number", ""), "source": _r.get("source", "")})
+            _a["seasons"].add(_g["season"])
+for _sl, _a in ARCHIVE.items():
+    PLAYER_PAGES[_sl] = _a["name"]
 
 
 def season_stat_row(r):
@@ -1638,6 +1743,7 @@ def build():
     if os.path.exists(OUT):
         shutil.rmtree(OUT)
     shutil.copytree(os.path.join(SRC, "static"), os.path.join(OUT, "static"))
+    publish_photos()
 
     # ---- records first: game, season and player pages show their record-book entries
     sections = record_sections()
@@ -1727,7 +1833,7 @@ def build():
                dated=all(g.get("date") for g in gs), any_dates=any(g.get("date") for g in gs),
                in_h2h=complete_schedule(s, gs),
                any_sites=any(g.get("site") for g in gs), story=STORIES.get(s), **results_players(s, gs),
-               roster=ROSTERS.get(s, []),
+               roster=ROSTERS.get(s, []), team_photos=TEAM_PHOTOS.get(s, []),
                margin_svg=margin_svg, opp_pages=OPP_PAGES, player_pages=PLAYER_PAGES, **pager(s), **sh)
 
     for i, s in enumerate(DATA_SEASONS):
@@ -1753,6 +1859,7 @@ def build():
         render("season.html", f"seasons/{s}.html", s=ss, games=gs, players=prow, cols=cols, **sh,
                margin_svg=margin_svg, scoring_lines=scoring_lines,
                team_game_stats=any(g["date"] in TEAM_GAME for g in gs), roster=ROSTERS.get(s, []),
+               team_photos=TEAM_PHOTOS.get(s, []),
                team=team_row, leaders=leaders(s), partial=partial,
                **pager(s),
                source_note=any(r.get("source") == "season tab" for r in players),
@@ -1889,7 +1996,65 @@ def build():
                grad=plist[-1]["grad"], grad_est=plist[-1]["grad_how"] == "estimated",
                partial=bool(partial_stats), part_career=part, span=span, book_career=book_career,
                override=(c or {}).get("override_note", ""), record_badges=B["player"].get(sl, []),
-               player_news=player_news, **sh)
+               player_news=player_news, headshot=PLAYER_PHOTOS.get(sl), **sh)
+    # ---- players from before the stat sheets (rosters, record book, newspaper clippings)
+    for sl, a in ARCHIVE.items():
+        roster_by = {r["season"]: r for r in a["roster"]}
+        clips = sorted(a["clips"], key=lambda c: c["g"]["date"])
+        seasons, numbers, positions = [], [], []
+        for s in sorted(a["seasons"]):
+            r = roster_by.get(s, {})
+            num_ = r.get("number") or next((c["number"] for c in clips if c["g"]["season"] == s and c["number"]), "")
+            pos = "" if "photo" in (r.get("position") or "").lower() else (r.get("position") or "")
+            h = hist_by_season.get(s, {})
+            rec = (f"{h['w']}–{h['l']}" + (f"–{h['t']}" if (h.get("t") or "0") != "0" else "")) if h.get("w") else ""
+            src = r.get("source") or ("Newspaper clippings" if any(c["g"]["season"] == s for c in clips) else "Record book")
+            seasons.append({"season": s, "number": num_, "position": pos, "height": r.get("height", ""),
+                            "grade": r.get("grade", ""), "record": rec, "notes": h.get("notes", ""), "source": src,
+                            "href": f"../seasons/{s}.html" if s in games_by_season or s in RESULTS_ONLY
+                            else f"../history/index.html#s{s}"})
+            for x, lst in ((num_, numbers), (pos, positions)):
+                if x and x not in lst:
+                    lst.append(x)
+        book_career = [{"stat": h["stat"], "value": fmt_int(h["value"]), "gp": h["gp"], "season": career_years(h["season"]),
+                        "note": h["note"]} for h in a["book"] if h["period"] == "career" and h["value"]]
+        marks = {b["stat"]: b for b in book_career}
+        tiles = [{"label": f"Career {lbl}", "value": marks[k]["value"],
+                  "sub": (f"{fmt_avg(float(marks[k]['value'].replace(',', '')), int(marks[k]['gp']))} per game"
+                          if marks[k]["gp"] else "Record book")}
+                 for k, lbl in (("pts", "points"), ("reb", "rebounds"), ("ast", "assists")) if k in marks]
+        gp = next((b["gp"] for b in book_career if b["gp"]), "")
+        if gp:
+            tiles.append({"label": "Games played", "value": gp, "sub": "Record book"})
+        if not tiles and seasons:
+            tiles.append({"label": "Seasons on file", "value": str(len(seasons)),
+                          "sub": f"{seasons[0]['season'][:4]}–{season_end_year(seasons[-1]['season'])}"})
+        years = (seasons[0]["season"].replace("-", "–") if len(seasons) == 1 else
+                 f"{seasons[0]['season'][:4]}–{season_end_year(seasons[-1]['season'])}") if seasons else ""
+        clip_cols = [(k, h) for k, h in (("pts", "PTS"), ("fgm", "FGM"), ("tpm", "3PM"), ("ftm", "FTM"), ("fta", "FTA"),
+                                         ("reb", "REB"), ("ast", "AST"), ("blk", "BLK"))
+                     if any(c.get(k) is not None for c in clips)]
+        clips = [{**c, **{k: fmt_int(c[k]) for k, _ in clip_cols}} for c in clips]
+        sources = [x for x, have in (("game programs and team photos" if any("program" in r["source"].lower() for r in a["roster"])
+                                      else "team photos and line-ups", a["roster"]),
+                                     ("the Bangor record book", a["book"]), ("newspaper clippings", clips)) if have]
+        player_news = [{"outlet": f["outlet"], "title": f["title"], "access": f.get("access", ""),
+                        "links": [{"kind": f["kind"], "url": f["url"]}], "published": f["published"], "g": None}
+                       for f in FEATURES_BY_PLAYER.get(sl, [])]
+        grad = a["grad"]
+        plist.append({"slug": sl, "name": a["name"], "years": years or (f"Class of {grad}" if grad else ""),
+                      "gp": gp, "pts": marks.get("pts", {}).get("value", ""), "reb": marks.get("reb", {}).get("value", ""),
+                      "ast": marks.get("ast", {}).get("value", ""),
+                      "pts_raw": float(marks["pts"]["value"].replace(",", "")) if "pts" in marks else 0,
+                      "grad": grad, "grad_how": "set" if grad else "", "archive": True})
+        sub = " · ".join(x for x in [years, ("#" + ", #".join(numbers)) if numbers else "",
+                                     f"Class of {grad}" if grad else ""] if x)
+        sh = share("players", sl, share_images.player_card, f"{a['name']}, Bangor Cardinals boys basketball"
+                   + (f", {years}" if years else ""), a["name"], sub, [(t["value"], t["label"]) for t in tiles[:4]])
+        render("player_archive.html", f"players/{sl}.html", name=a["name"], years=years, numbers=numbers,
+               positions=positions, grad=grad, seasons=seasons, book_career=book_career, tiles=tiles, clips=clips,
+               clip_cols=clip_cols, record_badges=B["player"].get(sl, []), player_news=player_news, sources=sources,
+               headshot=PLAYER_PHOTOS.get(sl), **sh)
     plist.sort(key=lambda p: p["name"].split()[-1] + " " + p["name"])
     render("players.html", "players/index.html", players=plist)
     render("leaders.html", "records/career-leaders.html", boards=career_boards(), latest_season=DATA_SEASONS[-1],

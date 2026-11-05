@@ -9,6 +9,7 @@ from collections import defaultdict, OrderedDict
 from jinja2 import Environment, FileSystemLoader, select_autoescape
 
 import charts
+import recaps
 import share_images
 import sheet_check
 
@@ -687,6 +688,56 @@ def collect_badges(sections):
         for v in d.values():
             v.sort(key=lambda b: ((order[b["period"]],) if k == "player" else ()) + (b["rank"], b["title"]))
     return out
+
+
+def gaps_data():
+    """What the site has for each season (results, box scores, player stats, roster, film), for the
+    "Help fill in the gaps" page. Call after clipping_details(), which attaches newspaper details."""
+    def cell(have, of, label=None):
+        if not have:
+            return {"level": "none", "text": "—"}
+        if of and have >= of:
+            return {"level": "full", "text": label or (f"All {of}" if of > 1 else "Yes")}
+        return {"level": "part", "text": label or (f"{have} of {of}" if of else f"{have}")}
+
+    rows = []
+    for h in history:
+        s = h["season"]
+        if s == CURRENT:
+            continue
+        exp = sum(int(h[k]) for k in ("w", "l", "t") if (h.get(k) or "").strip().isdigit()) or None
+        if s in games_by_season:
+            gs = [g for g in games_by_season[s] if g["result"]]
+            box = sum(1 for g in gs if g["box_score"] != "none" or g["date"] in TEAM_GAME)
+            film = sum(1 for g in gs if g.get("has_video"))
+        else:
+            gs = RESULTS_ONLY.get(s, [])
+            box = sum(1 for g in gs if g.get("leaders") or g.get("periods") or g.get("date") in TEAM_GAME)
+            film = 0
+        known = len(gs)
+        of = exp or known
+        per_game = any(pg_by_game.get(g["game_id"]) for g in games_by_season.get(s, []))
+        totals = bool(ps_by_season.get(s))
+        roster = len(ROSTERS.get(s, [])) or len(ps_by_season.get(s, []))
+        r = {"season": s, "w": h["w"], "l": h["l"], "t": h["t"], "notes": h["notes"],
+             "href": f"../seasons/{s}.html" if s in games_by_season or s in RESULTS_ONLY else f"index.html#s{s}",
+             "results": cell(known, of) if exp else ({"level": "part", "text": f"{known} games"} if known else cell(0, 0)),
+             "box": cell(box, of),
+             "stats": cell(2 if per_game else (1 if totals else 0), 2, "Game by game" if per_game else "Season totals"),
+             "roster": cell(roster, 1, f"{roster} players"),
+             "film": cell(film, of)}
+        r["complete"] = all(r[k]["level"] == "full" for k in ("results", "box", "stats", "roster"))
+        rows.append(r)
+    big = re.compile(r"champion|state|sectional|regional|conference", re.I)
+    wanted = [r for r in rows if big.search(r["notes"]) and r["results"]["level"] != "full"]
+    n = len(rows)
+    summary = {"n": n, "first": rows[0]["season"] if rows else "", "last": rows[-1]["season"] if rows else "",
+               "results": sum(r["results"]["level"] == "full" for r in rows),
+               "box": sum(r["box"]["level"] != "none" for r in rows),
+               "stats": sum(r["stats"]["level"] != "none" for r in rows),
+               "roster": sum(r["roster"]["level"] != "none" for r in rows),
+               "film": sum(r["film"]["level"] != "none" for r in rows)}
+    return rows, wanted, summary
 
 
 # ---------------------------------------------------------------- players
@@ -1569,7 +1620,9 @@ def build():
                         tot[k] = None
         ind = [b for r in bangor for b in B["game_ind"].get((gid, r["slug"]), [])]
         ind += [b for (bg, bs), bl in B["game_ind"].items() if bg == gid and bs not in {r["slug"] for r in bangor} for b in bl]
-        render("game.html", f"games/{gid}.html", g=g, **game_share(g),
+        auto_recap = "" if g["recap"] else recaps.write(g, bangor, opp, games_by_season[g["season"]], ind,
+                                                         final_season=g["season"] != CURRENT)
+        render("game.html", f"games/{gid}.html", g=g, **game_share(g), auto_recap=auto_recap,
                record_badges=sorted(B["game_team"].get(gid, []) + ind, key=lambda b: (b["rank"], b["title"])),
                bangor=[{"name": r["name"], "slug": r["slug"], "number": r["number"], "cls": r.get("class", ""),
                         "badges": B["game_ind"].get((gid, r["slug"]), []), **box_row(r)} for r in bangor],
@@ -1689,6 +1742,8 @@ def build():
     # ---- history & coaches
     render("history.html", "history/index.html", seasons=[season_summary(h["season"]) for h in history],
            coaches=coach_list)
+    gap_rows, wanted, gap_sum = gaps_data()
+    render("gaps.html", "history/gaps.html", rows=list(reversed(gap_rows)), wanted=wanted, sm=gap_sum, form_url=FORM_URL)
     chrono = sorted(coach_list, key=lambda c: c["seasons"][0])
     for i, c in enumerate(chrono):
         rec = f"{c['w']}–{c['l']}" + (f"–{c['t']}" if c["t"] else "")
@@ -1770,6 +1825,7 @@ def build():
     for t, u, x in [("Team leaders by season", "records/season-leaders.html", "season leaders scoring leader rebounding"),
                     ("Graduating classes", "players/classes.html", "class of seniors graduates roster"),
                     ("Record Book", "records/index.html", "records top 10"), ("Career Leaders", "records/career-leaders.html", "leaderboard all-time career points rebounds assists list"), ("History & Coaches", "history/index.html", "coaches"),
+                    ("Help fill in the gaps", "history/gaps.html", "missing share programs yearbooks clippings photos film contribute"),
                     ("All seasons", "seasons/index.html", ""), ("All players", "players/index.html", "roster"),
                     ("All opponents", "opponents/index.html", "")] + ([("Game film", "film/index.html", "video youtube hudl")]
                                                                      if FILM_GAMES or HUDL_ONLY else []):

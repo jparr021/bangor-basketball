@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+{% set section = 'history' %}
+{% block title %}Help fill in the gaps · Bangor Cardinals Boys Basketball{% endblock %}
+{% block description %}What's still missing from the history of Bangor Cardinals boys basketball, season by season, and how to share old programs, yearbooks, clippings, photos and film.{% endblock %}
+{% block content %}
+<div class="wrap page-head">
+  <p class="eyebrow"><a href="index.html">History</a></p>
+  <h1>Help fill in the gaps</h1>
+  <p class="lede">Bangor has played basketball since {{ sm.first[:4] }}, but most of those seasons survive only as a won-lost record. Every season page from before 2002 was built from an old game program, a yearbook page or a newspaper clipping. If you have something like that in a closet or a scrapbook, it can add a season to this site.</p>
+  {% if form_url %}<p><a class="btn live big" href="{{ form_url }}" target="_blank" rel="noopener">Share something →</a></p>{% endif %}
+  <nav class="tabs"><a href="#wanted">Most wanted</a><a href="#share">What helps</a><a href="#seasons">Season by season</a></nav>
+</div>
+
+<div class="wrap">
+  <div class="leader-cards gap-tiles">
+    <div class="leader-card"><span class="lbl">Seasons</span><span class="val">{{ sm.n }}</span><span class="muted small">{{ sm.first | replace('-', '–') }} to {{ sm.last | replace('-', '–') }}</span></div>
+    <div class="leader-card"><span class="lbl">Every result known</span><span class="val">{{ sm.results }}</span><span class="muted small">of {{ sm.n }} seasons</span></div>
+    <div class="leader-card"><span class="lbl">Any box scores</span><span class="val">{{ sm.box }}</span><span class="muted small">of {{ sm.n }} seasons</span></div>
+    <div class="leader-card"><span class="lbl">Player stats</span><span class="val">{{ sm.stats }}</span><span class="muted small">of {{ sm.n }} seasons</span></div>
+    <div class="leader-card"><span class="lbl">A roster</span><span class="val">{{ sm.roster }}</span><span class="muted small">of {{ sm.n }} seasons</span></div>
+  </div>
+
+  {% if wanted %}
+  <section class="card" id="wanted">
+    <h2>Most wanted</h2>
+    <p class="muted">Title and tournament teams whose seasons are missing some or all of their game results.</p>
+    <div class="scroll">
+    <table class="tbl">
+      <thead><tr><th>Season</th><th class="num">Record</th><th>Results known</th><th>What they did</th></tr></thead>
+      <tbody>
+      {% for r in wanted | reverse %}
+      <tr><td class="nowrap"><a href="{{ r.href }}">{{ r.season | replace('-', '–') }}</a></td>
+        <td class="num nowrap">{% if r.w != '' %}{{ r.w }}–{{ r.l }}{% if r.t and r.t != '0' %}–{{ r.t }}{% endif %}{% else %}—{% endif %}</td>
+        <td class="nowrap"><span class="gap {{ r.results.level }}">{{ r.results.text if r.results.level != 'none' else 'None' }}</span></td>
+        <td class="muted small">{{ r.notes }}</td></tr>
+      {% endfor %}
+      </tbody>
+    </table>
+    </div>
+  </section>
+  {% endif %}
+
+  <section class="card" id="share">
+    <h2>What helps</h2>
+    <ul class="gap-list">
+      <li><strong>Game programs.</strong> Rosters with numbers, heights and grades, plus season results and records printed inside.</li>
+      <li><strong>Yearbook sports pages.</strong> Season scores, team photos, and sometimes team and player stats.</li>
+      <li><strong>Newspaper clippings.</strong> Box scores, quarter scores and game stories from the La Crosse Tribune, the county papers and the Bangor paper. Even a single game helps.</li>
+      <li><strong>Scorebooks and stat sheets.</strong> A coach's or manager's book can fill in a whole season of box scores.</li>
+      <li><strong>Photos and film.</strong> Team pictures, game photos, and VHS or DVD recordings of games.</li>
+      <li><strong>Corrections.</strong> A wrong score, a misspelled name or a missing class year.</li>
+    </ul>
+    <p class="muted">A phone photo of each page is fine. Originals aren't needed, and nothing has to be mailed.</p>
+    {% if form_url %}<p><a class="btn" href="{{ form_url }}" target="_blank" rel="noopener">Share something →</a></p>{% endif %}
+  </section>
+
+  <section class="card" id="seasons">
+    <h2>Season by season</h2>
+    <input type="checkbox" id="only-gaps" class="gap-filter">
+    <label for="only-gaps" class="small">Show only seasons with something missing</label>
+    <p class="muted small gap-key"><span class="gap full">Complete</span> <span class="gap part">Some</span> <span class="gap none">—</span> Nothing yet. Film is listed but doesn't count toward a complete season.</p>
+    <div class="scroll">
+    <table class="tbl gap-table">
+      <thead><tr><th>Season</th><th class="num">Record</th><th>Results</th><th>Box scores</th><th>Player stats</th><th>Roster</th><th class="hide-sm">Film</th></tr></thead>
+      <tbody>
+      {% for r in rows %}
+      <tr id="s{{ r.season }}" class="{{ 'complete' if r.complete }}">
+        <td class="nowrap"><a href="{{ r.href }}">{{ r.season | replace('-', '–') }}</a></td>
+        <td class="num nowrap">{% if r.w != '' %}{{ r.w }}–{{ r.l }}{% if r.t and r.t != '0' %}–{{ r.t }}{% endif %}{% else %}—{% endif %}</td>
+        {% for k in ('results', 'box', 'stats', 'roster') %}<td class="nowrap"><span class="gap {{ r[k].level }}">{{ r[k].text }}</span></td>{% endfor %}
+        <td class="nowrap hide-sm"><span class="gap {{ 'part' if r.film.level != 'none' else 'none' }}">{{ r.film.text }}</span></td>
+      </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+    </div>
+  </section>
+</div>
+{% endblock %}

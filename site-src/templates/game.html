@@ -83,7 +83,7 @@
   {% elif g.replay_url %}
   <p class="center"><a class="btn" href="{{ g.replay_url }}" target="_blank" rel="noopener">Watch the replay</a></p>
   {% endif %}
-  {% if g.recap %}<p class="game-recap">{{ g.recap }}</p>{% endif %}
+  {% if g.recap %}<p class="game-recap">{{ g.recap }}</p>{% elif auto_recap %}<p class="game-recap auto">{{ auto_recap }}</p>{% endif %}
   {{ news.card(g.stories, heading='Game coverage') }}
 
   {% if periods %}

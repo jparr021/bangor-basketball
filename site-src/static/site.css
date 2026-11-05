@@ -470,3 +470,16 @@ button.btn[hidden] { display: none; }
 .game-extra-body { padding: 6px 0 10px; max-width: 680px; }
 .game-extra-body .linescore { max-width: 420px; margin: 6px 0; }
 .news-tag { border-color: var(--muted); color: var(--muted); }
+
+/* Help fill in the gaps (history/gaps.html) */
+.lede { max-width: 760px; font-size: 1.05rem; }
+.gap-tiles .val { font-size: 1.7rem; }
+.gap-list { padding-left: 20px; max-width: 760px; }
+.gap-list li { margin-bottom: 6px; }
+.gap { display: inline-block; font-size: .8rem; font-weight: 600; padding: 1px 8px; border-radius: 999px; }
+.gap.full { background: #e3f3e8; color: var(--win); }
+.gap.part { background: #fff3d6; color: #8a5a00; }
+.gap.none { color: #b7bbc2; padding-left: 0; }
+.gap-key .gap { margin-right: 4px; }
+.gap-filter { margin: 0 6px 0 0; vertical-align: middle; accent-color: var(--red); }
+.gap-filter:checked ~ .scroll tr.complete { display: none; }

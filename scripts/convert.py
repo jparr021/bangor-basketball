@@ -472,7 +472,15 @@ def load_extra_boxscores():
                 d = {"number": (r.get("number") or "").strip(), "name": r["name"].strip(),
                      **{k: num(r.get(k)) for k in STAT_COLS}}
                 news[r["date"]]["bangor" if r["team"].strip().lower() == "bangor" else "opp"].append(d)
-    return opp, lines, news
+    # Full Bangor box scores typed in from a printed stat sheet, for games the season sheet has no tab for
+    box = defaultdict(list)
+    p4 = os.path.join(ROOT, "overrides", "boxscores.csv")
+    if os.path.exists(p4):
+        with open(p4) as f:
+            for r in csv.DictReader(f):
+                box[r["date"]].append({"number": (r.get("number") or "").strip(), "name": r["name"].strip(),
+                                       **{k: num(r.get(k)) for k in STAT_COLS}})
+    return opp, lines, news, box
 
 
 
@@ -506,7 +514,7 @@ def dated_results(sheet_seasons):
 
 # ---------------------------------------------------------------- main
 def main():
-    extra_opp, extra_lines, extra_news = load_extra_boxscores()
+    extra_opp, extra_lines, extra_news, extra_box = load_extra_boxscores()
     os.makedirs(OUT, exist_ok=True)
     games_out, pg_out, opp_out, totals_out = [], [], [], []
     sources = [p for p in sorted(glob.glob(os.path.join(SRC, "*.xlsx")))]
@@ -655,6 +663,9 @@ def main():
                 g["recap"] = xl["recap"]
             opp_players = (t or {}).get("opp_players") or extra_opp.get(g["date"])
             players = (t or {}).get("players")
+            if not players and extra_box.get(g["date"]):  # a full box score from a printed stat sheet
+                players = extra_box[g["date"]]
+                g["box_source"] = "printout"
             nw = extra_news.get(g["date"])
             if nw and not players:  # newspaper leaders only: points and rebounds for a few players
                 players = nw["bangor"]

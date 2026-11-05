@@ -52,7 +52,10 @@ for s in sorted(by_season):
 sums = defaultdict(lambda: defaultdict(float))
 tracked = defaultdict(lambda: defaultdict(int))
 gp = defaultdict(int)
+added = {g["game_id"] for g in games if g.get("box_source") in ("printout", "newspaper")}
 for r in pg:
+    if r["game_id"] in added:  # box scores typed in from other sources aren't on the sheet's season tab
+        continue
     key = (r["season"], r["name"].strip().lower())
     gp[key] += 1
     for k in MAP:

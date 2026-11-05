@@ -3922,6 +3922,15 @@
      "game_id": "2025-26-10"
     },
     {
+     "value": 6,
+     "name": "Robert Martin",
+     "player": "robert-martin",
+     "date": "2012-11-27",
+     "opponent": "Alma Center Lincoln",
+     "season": "2012-13",
+     "game_id": "2012-13-01"
+    },
+    {
      "value": 5,
      "name": "Brody Edwards",
      "player": "brody-edwards",
@@ -3947,6 +3956,15 @@
      "opponent": "New Lisbon",
      "season": "2025-26",
      "game_id": "2025-26-15"
+    },
+    {
+     "value": 4,
+     "name": "Canon O'Heron",
+     "player": "canon-oheron",
+     "date": "2012-11-27",
+     "opponent": "Alma Center Lincoln",
+     "season": "2012-13",
+     "game_id": "2012-13-01"
     },
     {
      "value": 4,
@@ -3992,6 +4010,15 @@
      "opponent": "Birchwood",
      "season": "2025-26",
      "game_id": "2025-26-24"
+    },
+    {
+     "value": 3,
+     "name": "Ben Puent",
+     "player": "ben-puent",
+     "date": "2012-11-27",
+     "opponent": "Alma Center Lincoln",
+     "season": "2012-13",
+     "game_id": "2012-13-01"
     },
     {
      "value": 3,
@@ -4300,6 +4327,15 @@
      "opponent": "Eleva-Strum",
      "season": "2025-26",
      "game_id": "2025-26-25"
+    },
+    {
+     "value": 7,
+     "name": "Canon O'Heron",
+     "player": "canon-oheron",
+     "date": "2012-11-27",
+     "opponent": "Alma Center Lincoln",
+     "season": "2012-13",
+     "game_id": "2012-13-01"
     },
     {
      "value": 7,
@@ -6764,12 +6800,12 @@
      "detail": "398 pts / 25 G"
     },
     {
-     "value": 15.2632,
+     "value": 15.45,
      "name": "Canon O'Heron",
      "player": "canon-oheron",
      "season": "2012-13",
-     "gp": 19,
-     "detail": "290 pts / 19 G"
+     "gp": 20,
+     "detail": "309 pts / 20 G"
     },
     {
      "value": 14.84,
@@ -7535,18 +7571,18 @@
      "gp": 78
     },
     {
-     "value": 613,
+     "value": 618,
      "name": "Andrew Lockington",
      "player": "andrew-lockington",
      "season": "2011-12 to 2013-14",
-     "gp": 66
+     "gp": 67
     },
     {
-     "value": 574,
+     "value": 577,
      "name": "Caleb Miller",
      "player": "caleb-miller",
      "season": "2011-12 to 2013-14",
-     "gp": 61
+     "gp": 62
     },
     {
      "value": 522,
@@ -7556,11 +7592,11 @@
      "gp": 44
     },
     {
-     "value": 478,
+     "value": 489,
      "name": "Broedy Jepson",
      "player": "broedy-jepson",
      "season": "2011-12 to 2013-14",
-     "gp": 60
+     "gp": 61
     },
     {
      "value": 456,
@@ -7956,7 +7992,7 @@
      "name": "Wyatt McDonald",
      "player": "wyatt-mcdonald",
      "season": "2012-13 to 2014-15",
-     "gp": 54
+     "gp": 55
     }
    ],
    "stl": [
@@ -9531,11 +9567,11 @@
      "gp": 67
     },
     {
-     "value": 66,
+     "value": 67,
      "name": "Andrew Lockington",
      "player": "andrew-lockington",
      "season": "2011-12 to 2013-14",
-     "gp": 66
+     "gp": 67
     },
     {
      "value": 64,
@@ -9546,6 +9582,13 @@
     },
     {
      "value": 62,
+     "name": "Caleb Miller",
+     "player": "caleb-miller",
+     "season": "2011-12 to 2013-14",
+     "gp": 62
+    },
+    {
+     "value": 62,
      "name": "Eli Tucker",
      "player": "eli-tucker",
      "season": "2022-23 to 2024-25",
@@ -9553,8 +9596,8 @@
     },
     {
      "value": 61,
-     "name": "Caleb Miller",
-     "player": "caleb-miller",
+     "name": "Broedy Jepson",
+     "player": "broedy-jepson",
      "season": "2011-12 to 2013-14",
      "gp": 61
     },
@@ -9564,13 +9607,6 @@
      "player": "dayne-langrehr",
      "season": "2023-24 to 2025-26",
      "gp": 61
-    },
-    {
-     "value": 60,
-     "name": "Broedy Jepson",
-     "player": "broedy-jepson",
-     "season": "2011-12 to 2013-14",
-     "gp": 60
     },
     {
      "value": 58,
@@ -9587,11 +9623,11 @@
      "gp": 55
     },
     {
-     "value": 54,
+     "value": 55,
      "name": "Wyatt McDonald",
      "player": "wyatt-mcdonald",
      "season": "2012-13 to 2014-15",
-     "gp": 54
+     "gp": 55
     },
     {
      "value": 54,
@@ -12044,6 +12080,13 @@
     },
     {
      "value": 30,
+     "date": "2012-11-27",
+     "opponent": "Alma Center Lincoln",
+     "season": "2012-13",
+     "game_id": "2012-13-01"
+    },
+    {
+     "value": 30,
      "date": "2018-03-03",
      "opponent": "Eleva-Strum",
      "season": "2017-18",
@@ -12097,34 +12140,6 @@
      "opponent": "Reedsburg",
      "season": "2023-24",
      "game_id": "2023-24-06"
-    },
-    {
-     "value": 27,
-     "date": "2015-01-20",
-     "opponent": "Melrose-Mindoro",
-     "season": "2014-15",
-     "game_id": "2014-15-13"
-    },
-    {
-     "value": 27,
-     "date": "2018-01-29",
-     "opponent": "Gale-Ettrick-Trempealeau",
-     "season": "2017-18",
-     "game_id": "2017-18-13"
-    },
-    {
-     "value": 27,
-     "date": "2020-12-21",
-     "opponent": "Cochrane-Fountain City",
-     "season": "2020-21",
-     "game_id": "2020-21-04"
-    },
-    {
-     "value": 27,
-     "date": "2024-02-17",
-     "opponent": "Melrose-Mindoro",
-     "season": "2023-24",
-     "game_id": "2023-24-21"
     }
    ],
    "reb": [
@@ -12705,6 +12720,13 @@
      "opponent": "Wonewoc-Center",
      "season": "2020-21",
      "game_id": "2020-21-01"
+    },
+    {
+     "value": 19,
+     "date": "2012-11-27",
+     "opponent": "Alma Center Lincoln",
+     "season": "2012-13",
+     "game_id": "2012-13-01"
     },
     {
      "value": 19,

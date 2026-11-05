@@ -16,7 +16,7 @@
       <thead><tr><th>Player</th><th>Years</th><th class="num hide-sm">Class</th><th class="num">G</th><th class="num">PTS</th><th class="num">REB</th><th class="num">AST</th></tr></thead>
       <tbody>
       {% for p in players %}
-      <tr><td><a href="{{ p.slug }}.html">{{ p.name }}</a></td><td class="nowrap">{{ p.years }}</td><td class="num hide-sm"><a href="classes.html#c{{ p.grad }}">{{ p.grad }}</a></td><td class="num">{{ p.gp }}</td><td class="num">{{ p.pts }}</td><td class="num">{{ p.reb }}</td><td class="num">{{ p.ast }}</td></tr>
+      <tr><td><a href="{{ p.slug }}.html">{{ p.name }}</a></td><td class="nowrap">{{ p.years }}</td><td class="num hide-sm">{% if p.grad %}<a href="classes.html#c{{ p.grad }}">{{ p.grad }}</a>{% endif %}</td><td class="num">{{ p.gp }}</td><td class="num">{{ p.pts }}</td><td class="num">{{ p.reb }}</td><td class="num">{{ p.ast }}</td></tr>
       {% endfor %}
       </tbody>
     </table>

@@ -1,4 +1,7 @@
 /* Bangor Cardinals Boys Basketball — red, black & white */
+/* Fonts are served from the site (static/fonts): Latin-only subsets of the variable fonts in site-src/fonts. */
+@font-face { font-family: "Inter"; src: url("fonts/inter.woff2") format("woff2"); font-weight: 400 700; font-style: normal; font-display: swap; }
+@font-face { font-family: "Oswald"; src: url("fonts/oswald.woff2") format("woff2"); font-weight: 500 700; font-style: normal; font-display: swap; }
 :root {
   --red: #c8102e;
   --red-dark: #9b0c23;
@@ -483,3 +486,9 @@ button.btn[hidden] { display: none; }
 .gap-key .gap { margin-right: 4px; }
 .gap-filter { margin: 0 6px 0 0; vertical-align: middle; accent-color: var(--red); }
 .gap-filter:checked ~ .scroll tr.complete { display: none; }
+
+/* CSV download links */
+.dl-link { margin: 10px 0 0; font-size: .85rem; }
+.dl-list { padding-left: 20px; margin: 0; }
+.dl-list li { margin-bottom: 6px; }
+@media print { .dl-link { display: none; } }

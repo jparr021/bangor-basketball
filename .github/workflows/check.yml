@@ -1,0 +1,28 @@
+# Builds the site the way Vercel does and checks every link inside it. A broken link (a missing page,
+# file or #anchor) fails this check, so GitHub marks the commit with a red X and emails you.
+# It never blocks Vercel: the live site keeps updating either way.
+name: Check site links
+
+on:
+  push:
+    branches: [main]
+  pull_request: {}
+  workflow_dispatch: {}   # "Run workflow" button in GitHub
+
+jobs:
+  links:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+      - name: Build the site
+        env:
+          CLEAN_URLS: "1"   # the same clean links Vercel serves
+        run: |
+          python -m venv .venv
+          .venv/bin/pip install -q -r requirements.txt
+          sh build.sh
+      - name: Check links
+        run: .venv/bin/python scripts/check_links.py --strict

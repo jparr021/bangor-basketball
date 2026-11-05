@@ -101,6 +101,18 @@ The footer on every page can show a "Spot an error, or have an old photo, progra
 - Each page has a link preview (title, description and image) for texts and social posts. Game, player, season, coach and opponent pages get their own preview image (the score, career stats, record and so on), drawn during the build by `scripts/share_images.py` in the site's fonts (`site-src/fonts`). Other pages use the logo. There's also a `sitemap.xml` and `robots.txt` for Google.
 - These use the site's production address, which Vercel supplies at build time. **Adding a custom domain needs no code change.** Add it in Vercel (Project → Settings → Domains), set it as the primary domain, and the next build uses it everywhere. After switching, submit `https://<your-domain>/sitemap.xml` in Google Search Console.
 
+## Data downloads
+Each build writes CSV files of the data to `/downloads/`: every game, player season totals, box scores, career totals and the record book, plus each season's results and player stats. They're linked from the Seasons page (*Download the data*), each season page, the Record Book and the Career Leaders page. A blank means the stat wasn't recorded.
+
+## Fonts
+The site serves its own fonts (`site-src/static/fonts/`), so pages don't load anything from Google. They're compressed, Latin-only copies of `site-src/fonts/Inter.ttf` and `Oswald.ttf`, which the share-image drawing still uses. To remake them after changing a font, run the `fontTools` subsetter (`pip install fonttools brotli`) with the weights the CSS uses: Inter 400–700 and Oswald 500–700.
+
+## Visitor stats
+Vercel Web Analytics counts page views without cookies. To turn it on: in Vercel, open the project → **Analytics** → **Enable**. Then set `vercel_analytics` to `true` in `overrides/site.json` and commit. The counter is added only on Vercel, never to local builds.
+
+## Broken-link check
+After each build, `scripts/check_links.py` follows every link inside the site and lists any that point to a missing page, file or `#section`. In the Vercel build it only reports (in the build log), so a broken link never stops a score update. The **Check site links** GitHub workflow (`.github/workflows/check.yml`) builds the site on every push and fails if any link is broken, so GitHub shows a red X on the commit and emails you. To check on your computer after a build: `.venv/bin/python scripts/check_links.py`.
+
 ## Rebuild locally
 ```
 ./build.sh

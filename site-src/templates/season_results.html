@@ -13,7 +13,7 @@
   <h1>{{ s.season | replace('-', '–') }}</h1>
   <div class="season-meta">
     {% if s.w != '' %}<span class="big-rec">{{ s.w }}–{{ s.l }}</span>{% else %}<span class="big-rec">{{ w }}–{{ l }}</span><span class="muted">in the {{ games | length }} known games</span>{% endif %}
-    <span>Coach <strong>{% set cs = coach_slugs.get(s.coach | trim) %}{% if cs %}<a href="../coaches/{{ cs }}.html">{{ s.coach }}</a>{% else %}{{ s.coach }}{% endif %}</strong></span>
+    {% if s.coach %}<span>Coach <strong>{% set cs = coach_slugs.get(s.coach | trim) %}{% if cs %}<a href="../coaches/{{ cs }}.html">{{ s.coach }}</a>{% else %}{{ s.coach }}{% endif %}</strong></span>{% endif %}
     {% if s.ppg and (s.w == '' or games | length * 2 >= s.w | int + s.l | int) %}<span>{{ s.ppg }} PPG · {{ s.oppg }} allowed</span>{% endif %}
   </div>
   {% if s.notes %}<p class="banner">{{ s.notes }}</p>{% endif %}
@@ -40,11 +40,13 @@
 
   {{ rb.card(team_badges + player_badges, heading="In the record book") }}
 
+  {% if margin_svg %}
   <section class="card">
     <h2>Game by game</h2>
     <p class="muted small chart-key"><span class="nowrap"><span class="key win"></span> Win</span> <span class="nowrap"><span class="key loss"></span> Loss</span> · Bars show the final margin, in the order the games were played. Tap a bar for the game.</p>
     <div class="scroll chart-wrap">{{ margin_svg }}</div>
   </section>
+  {% endif %}
 
   <section class="card">
     <h2>Schedule &amp; results</h2>
@@ -56,7 +58,7 @@
       <tr id="g{{ g.anchor }}">
         <td class="nowrap">{% if g.date %}{{ g.date | d }}{% else %}<span class="muted">Game {{ g.game }}</span>{% endif %}</td>
         <td>{% if g.site %}<span class="muted">{{ '@' if g.site == 'away' else 'vs' }}</span> {% endif %}{% if g.opp_slug in opp_pages %}<a href="../opponents/{{ g.opp_slug }}.html">{{ g.opponent }}</a>{% else %}{{ g.opponent }}{% endif %}</td>
-        <td class="res {{ g.result }} nowrap">{{ g.result }} {{ g.bangor_score }}–{{ g.opp_score if g.opp_score != '' else '?' }}{% if g.ot %} <small>(OT)</small>{% endif %}</td>
+        <td class="res {{ g.result }} nowrap">{{ g.result }}{% if g.bangor_score != '' %} {{ g.bangor_score }}–{{ g.opp_score if g.opp_score != '' else '?' }}{% endif %}{% if g.ot %} <small>(OT)</small>{% endif %}</td>
         <td class="hide-sm">{% if g.game_type == 'playoff' %}<span class="tag red">Playoff</span>{% elif g.game_type == 'tournament' %}<span class="tag">Tournament</span>{% endif %}</td>
         <td class="hide-sm muted small">{{ g.note }}</td>
         <td></td>
@@ -97,10 +99,10 @@
     <h2>Roster</h2>
     <div class="scroll">
     <table class="tbl">
-      <thead><tr><th>#</th><th>Player</th><th>Pos.</th><th class="num">Ht.</th><th class="num">Class</th></tr></thead>
+      {% set has_ht = roster | selectattr('height') | list %}{% set has_cls = roster | selectattr('class_year') | list %}<thead><tr><th>#</th><th>Player</th><th>Pos.</th>{% if has_ht %}<th class="num">Ht.</th>{% endif %}{% if has_cls %}<th class="num">Class</th>{% endif %}</tr></thead>
       <tbody>
       {% for p in roster %}
-      <tr><td class="muted">{{ p.number }}</td><td class="nowrap">{% if p.slug in player_pages %}<a href="../players/{{ p.slug }}.html">{{ p.name }}</a>{% else %}{{ p.name }}{% endif %}</td><td>{{ p.position }}</td><td class="num nowrap">{{ p.height }}</td><td class="num">{{ p.class_year }}</td></tr>
+      <tr><td class="muted">{{ p.number }}</td><td class="nowrap">{% if p.slug in player_pages %}<a href="../players/{{ p.slug }}.html">{{ p.name }}</a>{% else %}{{ p.name }}{% endif %}</td><td>{{ p.position }}</td>{% if has_ht %}<td class="num nowrap">{{ p.height }}</td>{% endif %}{% if has_cls %}<td class="num">{{ p.class_year }}</td>{% endif %}</tr>
       {% endfor %}
       </tbody>
     </table>

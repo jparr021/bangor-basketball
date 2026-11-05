@@ -105,7 +105,7 @@
       </tbody>
     </table>
     </div>
-    <p class="note">From the {{ roster[0].source }}. Class is the year each player would graduate, from his grade that season. There are no player stats for this season.</p>
+    <p class="note">From the {{ roster[0].source }}. {% if roster | selectattr('class_year') | list %}Class is the year each player would graduate, from his grade that season. {% endif %}There are no player stats for this season.</p>
   </section>
   {% endif %}
 

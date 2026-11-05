@@ -492,3 +492,10 @@ button.btn[hidden] { display: none; }
 .dl-list { padding-left: 20px; margin: 0; }
 .dl-list li { margin-bottom: 6px; }
 @media print { .dl-link { display: none; } }
+
+/* On this day (home page) */
+.otd-list { list-style: none; margin: 4px 0 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 12px; }
+.otd-list a { display: flex; flex-direction: column; gap: 4px; height: 100%; padding: 12px 14px; border: 1px solid var(--line); border-left: 4px solid var(--red); border-radius: 8px; color: var(--ink); }
+.otd-list a:hover { text-decoration: none; background: var(--red-tint); }
+.otd-when { font-size: .75rem; text-transform: uppercase; letter-spacing: .1em; font-weight: 600; color: var(--red); }
+.otd-text { font-size: .93rem; line-height: 1.45; }

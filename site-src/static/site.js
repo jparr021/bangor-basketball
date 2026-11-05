@@ -449,3 +449,82 @@ document.querySelectorAll("[data-print]").forEach(function (b) {
     if (rows.length && Array.prototype.every.call(rows, function (r) { return r.hidden; })) c.hidden = true;
   });
 })();
+
+// ------------------------------------------------------------ "On this day" (home page)
+// The build writes every dated game and record-book night to static/on-this-day.js, keyed by "MM-DD".
+// The card picks today's date in Wisconsin time; with nothing on today it shows this week, and with
+// nothing this week (the off-season) a few big nights from the archives, the same ones all day.
+(function () {
+  var card = document.querySelector("[data-otd]");
+  if (!card) return;
+  var body = document.body, ROOT = body.getAttribute("data-root") || "", CLEAN = body.getAttribute("data-clean") === "1";
+  var MONTHS = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+  function href(u) {
+    if (!CLEAN) return ROOT + u;
+    var parts = u.split("#"), p = parts[0].replace(/\.html$/, "").replace(/\/index$/, "");
+    return "/" + p + (parts[1] ? "#" + parts[1] : "");
+  }
+  function today() {  // {y, m, d} in Wisconsin time
+    var o = {};
+    try {
+      new Intl.DateTimeFormat("en-US", { timeZone: "America/Chicago", year: "numeric", month: "numeric", day: "numeric" })
+        .formatToParts(new Date()).forEach(function (p) { o[p.type] = +p.value; });
+    } catch (e) { var n = new Date(); o = { year: n.getFullYear(), month: n.getMonth() + 1, day: n.getDate() }; }
+    return { y: o.year, m: o.month, d: o.day };
+  }
+  function key(m, d) { return (m < 10 ? "0" : "") + m + "-" + (d < 10 ? "0" : "") + d; }
+  function pick(items, n) {  // the heaviest items, one per year
+    var out = [], years = {};
+    items.forEach(function (it) { if (out.length < n && !years[it.year]) { years[it.year] = 1; out.push(it); } });
+    return out;
+  }
+  function render() {
+    var data = window.BANGOR_OTD || {}, t = today(), shown = [], title = "", mode = "";
+    function items(m, d) {
+      return (data[key(m, d)] || []).map(function (r) { return { year: r[0], w: r[1], text: r[2], url: r[3], m: m, d: d }; })
+        .filter(function (it) { return it.year < t.y || (it.m !== t.m || it.d !== t.d); });
+    }
+    shown = pick(items(t.m, t.d), 3);
+    if (shown.length) { mode = "today"; title = "On this day · " + MONTHS[t.m - 1] + " " + t.d; }
+    if (!shown.length) {
+      var week = [];
+      [-1, 1, -2, 2, -3, 3].forEach(function (off) {
+        var dt = new Date(Date.UTC(t.y, t.m - 1, t.d + off));
+        week = week.concat(items(dt.getUTCMonth() + 1, dt.getUTCDate()));
+      });
+      week.sort(function (a, b) { return b.w - a.w || b.year - a.year; });
+      shown = pick(week, 3);
+      if (shown.length) { mode = "week"; title = "This week in Bangor history"; }
+    }
+    if (!shown.length) {  // the off-season: a few big nights, the same ones all day
+      var big = [];
+      Object.keys(data).sort().forEach(function (k) {
+        var p = k.split("-");
+        data[k].forEach(function (r) { if (r[1] >= 7) big.push({ year: r[0], w: r[1], text: r[2], url: r[3], m: +p[0], d: +p[1] }); });
+      });
+      var seed = t.y * 372 + t.m * 31 + t.d;
+      big.sort(function (a, b) { return ((a.year * 7919 + a.m * 131 + a.d * 17 + seed) % 997) - ((b.year * 7919 + b.m * 131 + b.d * 17 + seed) % 997); });
+      shown = pick(big, 3);
+      mode = "archive"; title = "From the archives";
+    }
+    if (!shown.length) return;
+    card.querySelector("[data-otd-title]").textContent = title;
+    var list = card.querySelector("[data-otd-list]");
+    shown.forEach(function (it) {
+      var li = document.createElement("li"), a = document.createElement("a");
+      a.href = href(it.url);
+      var when = document.createElement("span"); when.className = "otd-when";
+      var ago = t.y - it.year - ((it.m > t.m || (it.m === t.m && it.d > t.d)) ? 1 : 0);
+      when.textContent = mode === "today" ? it.year + " · " + (ago === 1 ? "1 year ago" : ago + " years ago")
+                                          : MONTHS[it.m - 1].slice(0, 3) + " " + it.d + ", " + it.year;
+      var text = document.createElement("span"); text.className = "otd-text"; text.textContent = it.text;
+      a.appendChild(when); a.appendChild(text); li.appendChild(a); list.appendChild(li);
+    });
+    card.hidden = false;
+  }
+  if (window.BANGOR_OTD) return render();
+  var s = document.createElement("script");
+  s.src = (CLEAN ? "/" : ROOT) + "static/on-this-day.js?v=" + (body.getAttribute("data-v") || "");
+  s.onload = render;
+  document.head.appendChild(s);
+})();

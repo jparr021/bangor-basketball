@@ -188,8 +188,9 @@ def _context(g, season_games, final_season):
     return f"The {noun} {'moved Bangor to' if res == 'W' else 'dropped Bangor to'} {rec}{tail}."
 
 
-def write(g, bangor, opp, season_games, badges, final_season, link=True):
-    """The summary as safe HTML (player names link to their pages), or '' for a game without a final score."""
+def write(g, bangor, opp, season_games, badges, final_season, link=True, short=False):
+    """The summary as safe HTML (player names link to their pages), or '' for a game without a final score.
+    short=True gives just the result, the leading scorer and any record-book mark (for "On this day")."""
     if g.get("result") not in ("W", "L") or g.get("bs") is None or g.get("os") is None:
         return ""
     win = g["result"] == "W"
@@ -261,9 +262,12 @@ def write(g, bangor, opp, season_games, badges, final_season, link=True):
         if ot_["pts"] >= 15 and sum(1 for r in o_scored if r["pts"] == ot_["pts"]) == 1:
             out.append((1, Markup(f"{escape(ot_['name'])} led {opp_name} with {_n(ot_['pts'])}.")))
 
+    if short:
+        return Markup(" ").join(x[1] for x in out if x[0] in (9, 8, 7))
+
     ctx = _context(g, season_games, final_season)
     if ctx:
-        out.append((9, Markup(ctx)))
+        out.append((10, Markup(ctx)))
 
     # keep it to a short paragraph: at most five sentences, dropping the least telling first
     while len(out) > 5:

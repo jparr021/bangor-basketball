@@ -39,6 +39,13 @@
   </section>
 </div>
 {% endif %}
+<div class="wrap">
+  <section class="card otd" data-otd hidden aria-live="polite">
+    <div class="card-head"><h2 data-otd-title>On this day</h2><a href="seasons/index.html">Every season →</a></div>
+    <ul class="otd-list" data-otd-list></ul>
+  </section>
+</div>
+
 <div class="wrap grid-2">
   <section class="card">
     <div class="card-head"><h2>{{ latest.season | replace('-', '–') }} season</h2><a href="seasons/{{ latest.season }}.html">Full season →</a></div>

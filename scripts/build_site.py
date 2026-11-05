@@ -7,6 +7,7 @@ import csv, datetime as dt, glob, json, math, os, posixpath, re, shutil
 from collections import defaultdict, OrderedDict
 
 from jinja2 import Environment, FileSystemLoader, select_autoescape
+from markupsafe import Markup
 
 import charts
 import recaps
@@ -816,6 +817,81 @@ def write_downloads(sections):
                              {"book": "Record book", "news": "Newspaper"}.get(e.get("source"), "Stat sheets")])
     _dl_write("bangor-record-book.csv", ["Scope", "Period", "Category", "Rank", "Value", "Player", "Season", "Date",
                                          "Opponent", "Detail", "Source"], book)
+
+
+# ---------------------------------------------------------------- "On this day" (home page)
+# Every dated game and record-book game mark, by month and day. The home page picks today's (in Wisconsin
+# time) in the visitor's browser, so it stays right between rebuilds and all summer.
+OTD = defaultdict(list)
+
+
+def otd_add(date, weight, text, url):
+    if date and text:
+        OTD[date[5:]].append([int(date[:4]), weight, str(Markup(text).unescape()) if isinstance(text, Markup) else text, url])
+
+
+def otd_game(g, url, text, badges):
+    """A finished game: its short summary, weighted so playoff games and record nights come first."""
+    if g.get("result") not in ("W", "L") or not g.get("date"):
+        return
+    ev = (g.get("event") or "").lower()
+    w = 1 + (g["result"] == "W")
+    w += 3 if g.get("game_type") == "playoff" else 0
+    w += 2 if g.get("game_type") == "playoff" and ("final" in ev or "state" in ev) else 0
+    w += 1 if g.get("ot") else 0
+    w += 1 if g.get("bs") is not None and abs(g["bs"] - g["os"]) >= 30 else 0
+    w += 1 if g["date"] < "2007" else 0  # older games are rarer
+    # only marks the summary can name (points, rebounds, assists ...), so the weight matches the text
+    top = min((b["rank"] for b in badges if b["anchor"].rsplit("-", 1)[-1] in recaps.STAT_NOUN), default=None)
+    w += 0 if top is None else (6 if top == 1 else 4 if top <= 3 else 2 if top <= 5 else 0)
+    otd_add(g["date"], w, text, url)
+
+
+_OTD_VERB = {"pts": ("scored", "points"), "reb": ("had", "rebounds"), "ast": ("had", "assists"), "stl": ("had", "steals"),
+             "blk": ("had", "blocks"), "tpm": ("made", "3-pointers"), "fgm": ("made", "field goals"), "ftm": ("made", "free throws")}
+
+
+def otd_records(sections, dated_games):
+    """Record-book game marks from games with no page of their own (mostly before the stat sheets).
+    One per player per night: the highest-ranked (points first on a tie)."""
+    best = {}
+    for sec in sections.values():
+        if sec["scope"] != "individual" or sec["period"] != "game":
+            continue
+        for c in sec["cats"]:
+            if c["stat"] not in _OTD_VERB:
+                continue
+            verb, noun = _OTD_VERB[c["stat"]]
+            for e in c["entries"]:
+                d = e.get("date")
+                if not d or not e.get("name") or e["rank"] > 5 or e.get("game_id") or d in dated_games:
+                    continue
+                place = {1: "the most", 2: "the second-most", 3: "the third-most", 4: "the fourth-most", 5: "the fifth-most"}[e["rank"]]
+                text = (f"{e['name']} {verb} {e['display']} {noun}{' against ' + e['opponent'] if e.get('opponent') else ''}, "
+                        f"{'tied for ' if e['tied'] else ''}{place} in a game in Bangor history.")
+                key, rank = (d, e["name"]), (e["rank"], list(_OTD_VERB).index(c["stat"]))
+                if key not in best or rank < best[key][0]:
+                    best[key] = (rank, d, 3 + (6 if e["rank"] == 1 else 4 if e["rank"] <= 3 else 2), text,
+                                 f"records/index.html#{sec['id']}-{c['stat']}")
+    for _, d, w, text, url in best.values():
+        otd_add(d, w, text, url)
+
+
+def write_otd(sections):
+    dated = {}
+    for s_, gs in RESULTS_ONLY.items():
+        if s_ in games_by_season:
+            continue
+        for g in gs:
+            if g.get("date") and g.get("scored"):
+                dated[g["date"]] = True
+                otd_game(g, f"seasons/{s_}.html#g{g['anchor']}", recaps.write(g, [], [], [], [], False, link=False, short=True), [])
+    dated.update({g["date"]: True for g in games_by_id.values()})
+    otd_records(sections, dated)
+    for v in OTD.values():
+        v.sort(key=lambda it: (-it[1], -it[0]))
+    with open(os.path.join(OUT, "static", "on-this-day.js"), "w") as f:
+        f.write("window.BANGOR_OTD=" + json.dumps(OTD, ensure_ascii=False, separators=(",", ":"), sort_keys=True) + ";\n")
 
 
 # ---------------------------------------------------------------- players
@@ -1702,6 +1778,8 @@ def build():
         ind += [b for (bg, bs), bl in B["game_ind"].items() if bg == gid and bs not in {r["slug"] for r in bangor} for b in bl]
         auto_recap = "" if g["recap"] else recaps.write(g, bangor, opp, games_by_season[g["season"]], ind,
                                                          final_season=g["season"] != CURRENT)
+        otd_game(g, f"games/{gid}.html", recaps.write(g, bangor, opp, [], ind, False, link=False, short=True),
+                 [b for b in ind if b["period"] == "game"])
         render("game.html", f"games/{gid}.html", g=g, **game_share(g), auto_recap=auto_recap,
                record_badges=sorted(B["game_team"].get(gid, []) + ind, key=lambda b: (b["rank"], b["title"])),
                bangor=[{"name": r["name"], "slug": r["slug"], "number": r["number"], "cls": r.get("class", ""),
@@ -1711,6 +1789,8 @@ def build():
                ocols=box_cols(opp), otot=box_row(ot) if opp else None, periods=periods, preview=PREVIEWS.get(gid),
                opp_complete=bool(opp) and ot.get("pts") == g["os"],
                team_stats=team_stats_rows(g, bangor))
+
+    write_otd(sections)
 
     # ---- players
     plist = []

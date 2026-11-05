@@ -280,7 +280,7 @@ for r in pgn:
     for k in STATS:
         if r[k] is not None:
             t[k] += r[k]; tracked[r["game_id"]].add(k)
-# Games from the program's first seasons (1914-15 and 1915-16), when scores were in the teens and twenties, count in
+# Games from the program's first seasons (1914-15 to 1916-17), when scores were in the teens and twenties, count in
 # head-to-head records but not in the team scoring records.
 RECORDS_FROM = "1930-31"
 tg_rows = []

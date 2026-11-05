@@ -230,8 +230,8 @@ for _p in sorted(glob.glob(os.path.join(OV, "stories", "*.txt"))):
 
 def complete_schedule(s, gs):
     """A printed results list with every game's date and site, and every game the record book counts."""
-    if not all(g.get("date") and g.get("site") for g in gs):
-        return False
+    if not all(g.get("date") and g.get("site") and g.get("scored") for g in gs):
+        return False  # a game with no date, site or score keeps the season a results page
     h = next((r for r in load(os.path.join(OV, "season_history.csv")) if r["season"] == s), None)
     n = sum(int(h[k]) for k in ("w", "l", "t") if h and (h.get(k) or "").strip().isdigit()) if h else 0
     return not n or len(gs) == n

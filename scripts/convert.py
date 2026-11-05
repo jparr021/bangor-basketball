@@ -507,7 +507,7 @@ def dated_results(sheet_seasons):
         for r in csv.DictReader(f):
             by_season[r["season"]].append(r)
     for season, rows in by_season.items():
-        if season in sheet_seasons or not all(r.get("date") and r.get("site") for r in rows):
+        if season in sheet_seasons or not all(r.get("date") and r.get("site") and r.get("bangor_score") and r.get("opp_score") for r in rows):
             continue
         if season in RECORD_GAMES and len(rows) != RECORD_GAMES[season]:
             continue  # only some of the season's games are known: it stays a results page

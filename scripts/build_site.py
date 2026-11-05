@@ -128,7 +128,10 @@ if os.path.exists(os.path.join(OV, "season_results.csv")):
             "tournament" if "tournament" in nt else "regular")
         RESULTS_ONLY[r["season"]].append(r)
     for gs in RESULTS_ONLY.values():
-        gs.sort(key=lambda r: int(r["game"]))
+        # a game whose place in the season isn't known has no game number: it sorts by date
+        gs.sort(key=lambda r: (int(r["game"]) if r["game"] else 0, r.get("date") or ""))
+        for r in gs:
+            r["anchor"] = r["game"] or (r.get("date") or "").replace("-", "")
 
 
 def clipping_details():
@@ -231,7 +234,7 @@ for s, gs in RESULTS_ONLY.items():
     if s in games_by_season or not complete_schedule(s, gs):
         continue
     for g in gs:
-        g.update(game_id="", box_score="none", has_video=False, href=f"../seasons/{s}.html#g{g['game']}",
+        g.update(game_id="", box_score="none", has_video=False, href=f"../seasons/{s}.html#g{g['anchor']}",
                  game_type="playoff" if re.search(r"regional|sectional|state", g.get("note", ""), re.I) else "regular")
         DATED_RESULTS.append(g)
 # every opponent in games.csv (or a dated results-only game) gets a page
@@ -1471,8 +1474,8 @@ def build():
             if not g["scored"]:
                 continue
             m = int(g["bs"] - g["os"])
-            items.append({"margin": m, "record": g["record"], "href": f"#g{g['game']}",
-                          "xlabel": g["game"] if g["game"] == "1" or int(g["game"]) % 5 == 0 else "",
+            items.append({"margin": m, "record": g["record"], "href": f"#g{g['anchor']}",
+                          "xlabel": g["game"] if g["game"] and (g["game"] == "1" or int(g["game"]) % 5 == 0) else "",
                           "tip": f"{'+' if m > 0 else ('−' if m < 0 else '')}{abs(m)} · {g['result']} {g['bangor_score']}–{g['opp_score']}"
                                  f"{' (OT)' if g['ot'] else ''}\n"
                                  f"{fmt_date(g['date']) if g.get('date') else 'Game ' + g['game']}: "

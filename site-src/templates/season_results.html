@@ -64,7 +64,7 @@
       {% if g.periods or g.leaders or g.recap %}
       <tr class="game-extra"><td colspan="6">
         <details>
-          <summary>From the newspaper{% if g.leaders %}: {% for p in (g.leaders.bangor | selectattr('pts') | list)[:3] %}{{ p.name.split()[-1] }} {{ p.pts }}{{ ', ' if not loop.last }}{% endfor %}{% endif %}</summary>
+          <summary>{{ 'From the game program' if 'program' in (g.clip_source or '') | lower else 'From the newspaper' }}{% if g.leaders %}: {% for p in (g.leaders.bangor | selectattr('pts') | list)[:3] %}{{ p.name.split()[-1] }} {{ p.pts }}{{ ', ' if not loop.last }}{% endfor %}{% endif %}</summary>
           <div class="game-extra-body">
             {% if g.recap %}<p>{{ g.recap }}</p>{% endif %}
             {% if g.periods %}
@@ -79,7 +79,7 @@
             <p class="small"><strong>{{ label }}:</strong> {% for p in g.leaders[side] %}{% if side == 'bangor' and p.slug in player_pages %}<a href="../players/{{ p.slug }}.html">{{ p.name }}</a>{% else %}{{ p.name }}{% endif %}{% if p.pts %} {{ p.pts }}{% endif %}{% if p.extra %} <span class="muted">({{ p.extra }})</span>{% endif %}{{ ' · ' if not loop.last }}{% endfor %}</p>
             {% endif %}{% endfor %}
             {% endif %}
-            {% if g.clip_source %}<p class="muted small">{{ "Every player's points" if g.clip_complete else 'Leading scorers and rebounders' }}, not a full box score. Source: {{ g.clip_source }}.</p>{% endif %}
+            {% if g.clip_source %}<p class="muted small">{% if g.leaders %}{{ "Every player's points" if g.clip_complete else 'Leading scorers and rebounders' }}, not a full box score. {% endif %}Source: {{ g.clip_source }}.</p>{% endif %}
           </div>
         </details>
       </td></tr>
@@ -90,6 +90,23 @@
     </div>
     <p class="note">Results from the {{ sources | join(' and ') if sources else 'printed season results' }}, {% if dated %}with dates and home or away{% elif any_dates %}in the order they were played, with dates{% if any_sites %} and home or away{% endif %} where the source gives them{% else %}in the order they were printed{% endif %}. {% if story and story.results_note %}{{ story.results_note }} {% endif %}The game-by-game records start in 2001–02, so this season has no {% if not any_dates %}dates, home and away, or {% endif %}box scores{% if dated %}. Its games count in the head-to-head records on opponent pages.{% else %}, and its games aren't in the head-to-head records on opponent pages.{% endif %}{% if s.w != '' and (w ~ '–' ~ l) != (s.w ~ '–' ~ s.l) %} The list has {{ games | length }} games ({{ w }}–{{ l }}); the record book has {{ s.w }}–{{ s.l }}, {% set miss = (s.w | int + s.l | int) - games | length %}so {{ 'a game is' if miss == 1 else (miss ~ ' games are' if miss > 1 else 'some games are') }} missing from the list.{% endif %}{% if corrections_url %} Know the missing details? <a href="{{ corrections_url }}" target="_blank" rel="noopener">Let us know</a>.{% endif %}</p>
   </section>
+
+  {% if roster and not players %}
+  <section class="card">
+    <h2>Roster</h2>
+    <div class="scroll">
+    <table class="tbl">
+      <thead><tr><th>#</th><th>Player</th><th>Pos.</th><th class="num">Ht.</th><th class="num">Class</th></tr></thead>
+      <tbody>
+      {% for p in roster %}
+      <tr><td class="muted">{{ p.number }}</td><td class="nowrap">{% if p.slug in player_pages %}<a href="../players/{{ p.slug }}.html">{{ p.name }}</a>{% else %}{{ p.name }}{% endif %}</td><td>{{ p.position }}</td><td class="num nowrap">{{ p.height }}</td><td class="num">{{ p.class_year }}</td></tr>
+      {% endfor %}
+      </tbody>
+    </table>
+    </div>
+    <p class="note">From the {{ roster[0].source }}. Class is the year each player would graduate, from his grade that season. There are no player stats for this season.</p>
+  </section>
+  {% endif %}
 
   {% if players %}
   <section class="card">

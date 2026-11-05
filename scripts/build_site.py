@@ -160,6 +160,18 @@ def clipping_details():
         if g.get("leaders") and g.get("bs") is not None:
             g["clip_complete"] = sum(p["pts_raw"] for p in g["leaders"]["bangor"]) == g["bs"]
 
+# Rosters from game programs (overrides/rosters.csv), for seasons with no player stats: number, name,
+# position, height and grade, with the class year worked out from the grade.
+ROSTERS = defaultdict(list)
+if os.path.exists(os.path.join(OV, "rosters.csv")):
+    for r in load(os.path.join(OV, "rosters.csv")):
+        gr = num(r.get("grade"))
+        r["class_year"] = int(r["season"][:4]) + 1 + (12 - int(gr)) if gr else ""
+        r["slug"] = slug(r["name"])
+        ROSTERS[r["season"]].append(r)
+    for rs in ROSTERS.values():
+        rs.sort(key=lambda r: int(num(r["number"]) or 0))
+
 # The printed team totals line of a season stat sheet (a "Team" row in overrides/season_totals.csv)
 TEAM_LINE = {}
 _TCOL = {"pts": "PTS", "fgm": "FGM", "fga": "FGA", "tpm": "3PM", "tpa": "3PA", "ftm": "FTM", "fta": "FTA", "oreb": "OFF",
@@ -1475,6 +1487,7 @@ def build():
         render("season_results.html", f"seasons/{s}.html", s=ss, games=gs, w=w, l=l, sources=sources,
                dated=all(g.get("date") for g in gs), any_dates=any(g.get("date") for g in gs),
                any_sites=any(g.get("site") for g in gs), story=STORIES.get(s), **results_players(s, gs),
+               roster=ROSTERS.get(s, []),
                margin_svg=margin_svg, opp_pages=OPP_PAGES, player_pages=PLAYER_PAGES, **pager(s), **sh)
 
     for i, s in enumerate(DATA_SEASONS):

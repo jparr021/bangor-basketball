@@ -23,7 +23,7 @@
     <div class="leader-card"><span class="lbl">Regional titles</span><span class="val">{{ c.regional }}</span></div>
     <div class="leader-card"><span class="lbl">Sectional titles</span><span class="val">{{ c.sectional }}</span></div>
     <div class="leader-card"><span class="lbl">State tournament trips</span><span class="val">{{ c.state }}</span></div>
-    {% if d.playoff.n %}<div class="leader-card"><span class="lbl">Playoff record</span><span class="val">{{ d.playoff.w }}–{{ d.playoff.l }}</span><span class="muted">Since 2001–02</span></div>{% endif %}
+    {% if d.playoff.n %}<div class="leader-card"><span class="lbl">Playoff record</span><span class="val">{{ d.playoff.w }}–{{ d.playoff.l }}</span><span class="muted">In the game records</span></div>{% endif %}
     {% if d.best and c.seasons | length > 1 %}<div class="leader-card"><span class="lbl">Best season</span><span class="val">{{ d.best.w }}–{{ d.best.l }}</span>
       <span class="muted">{% if d.best.has_data %}<a href="../seasons/{{ d.best.season }}.html">{{ d.best.season | replace('-', '–') }}</a>{% else %}{{ d.best.season | replace('-', '–') }}{% endif %}</span></div>{% endif %}
   </div>
@@ -63,7 +63,7 @@
         <thead><tr><th>Player</th><th>Years</th><th class="num">PTS</th><th class="num">PPG</th></tr></thead>
         {% for p in d.players %}<tr><td><a href="../players/{{ p.slug }}.html">{{ p.name }}</a></td><td class="muted">{{ p.years }}</td><td class="num strong">{{ p.pts }}</td><td class="num">{{ p.avg }}</td></tr>{% endfor %}
       </table>
-      <p class="muted small">Points scored in {{ c.name }}'s seasons, from the stat sheets (2001–02, 2002–03, and 2007–08 on).</p>
+      <p class="muted small">Points scored in {{ c.name }}'s seasons, from the stat sheets (1997–98, 2001–02, 2002–03, and 2007–08 on).</p>
     </section>
     {% endif %}
     {% if d.opps %}

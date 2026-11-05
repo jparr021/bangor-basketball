@@ -81,7 +81,8 @@
       <tfoot><tr><td></td><td>Team</td>{% for k, h in cols %}<td class="num">{{ team[k] }}</td>{% endfor %}</tr></tfoot>
     </table>
     </div>
-    {% if partial %}<p class="note">No box score for {{ partial | length }} game{{ 's' if partial|length > 1 }} this season ({% for g in partial %}{{ g.opponent }} {{ g.date | d }}{{ ', ' if not loop.last }}{% endfor %}). Where the season totals sheet includes those games, its totals are used above.</p>{% endif %}
+    {% if partial and partial | length == games | length %}<p class="note">There are no box scores by player for this season. The season totals come from the printed season stat sheet{% if team_game_stats %}, and each game page has both teams' totals from the yearbook{% endif %}.</p>
+    {% elif partial %}<p class="note">No box score for {{ partial | length }} game{{ 's' if partial|length > 1 }} this season ({% for g in partial %}{{ g.opponent }} {{ g.date | d }}{{ ', ' if not loop.last }}{% endfor %}). Where the season totals sheet includes those games, its totals are used above.</p>{% endif %}
   </section>
   {% if scoring_lines %}
   <section class="card">

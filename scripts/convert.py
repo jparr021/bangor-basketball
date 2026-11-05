@@ -696,7 +696,7 @@ def main():
                 g["period_labels"] = "|".join(p["labels"])
                 g["bangor_periods"] = "|".join("" if x is None else str(x) for x in p["bangor"])
                 g["opp_periods"] = "|".join("" if x is None else str(x) for x in p["opp"])
-                g["ot"] = str(sum(1 for l in p["labels"] if l.upper().startswith("OT")) or "")
+                g["ot"] = str(sum(1 for l in p["labels"] if "OT" in l.upper()) or "")
             if players:
                 pts_known = sum((p["pts"] or 0) for p in players)
                 full = any(p["fga"] is not None for p in players)

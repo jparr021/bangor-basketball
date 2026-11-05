@@ -19,7 +19,7 @@
     <div class="nf-links">
       <a class="nf-link" href="{{ root }}seasons/{{ season }}.html"><span class="nf-t">{{ season | replace('-', '–') }} season</span><span class="muted small">Schedule, results and stats</span></a>
       {% if next_game %}<a class="nf-link" href="{{ root }}games/{{ next_game.game_id }}.html"><span class="nf-t">Next game</span><span class="muted small">{{ 'at' if next_game.site == 'away' else 'vs' }} {{ next_game.opponent }}, {{ next_game.date | d }}</span></a>{% endif %}
-      <a class="nf-link" href="{{ root }}players/index.html"><span class="nf-t">Players</span><span class="muted small">Every player since 2001–02</span></a>
+      <a class="nf-link" href="{{ root }}players/index.html"><span class="nf-t">Players</span><span class="muted small">Every player in the stat sheets</span></a>
       <a class="nf-link" href="{{ root }}records/index.html"><span class="nf-t">Record book</span><span class="muted small">Game, season and career records</span></a>
       <a class="nf-link" href="{{ root }}opponents/index.html"><span class="nf-t">Opponents</span><span class="muted small">Head-to-head records</span></a>
       <a class="nf-link" href="{{ root }}history/index.html"><span class="nf-t">History</span><span class="muted small">Every season since {{ facts.first }}</span></a>

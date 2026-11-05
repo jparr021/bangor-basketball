@@ -6287,6 +6287,13 @@
     },
     {
      "value": 58,
+     "name": "Justin Peterson",
+     "player": "justin-peterson",
+     "season": "1997-98",
+     "gp": null
+    },
+    {
+     "value": 58,
      "name": "Dustin McDonald",
      "player": "dustin-mcdonald",
      "season": "2022-23",
@@ -6347,13 +6354,6 @@
      "player": "dayne-langrehr",
      "season": "2025-26",
      "gp": 26
-    },
-    {
-     "value": 45,
-     "name": "Tanner Jones",
-     "player": "tanner-jones",
-     "season": "2021-22",
-     "gp": 29
     }
    ],
    "fta": [
@@ -6506,6 +6506,13 @@
     },
     {
      "value": 73,
+     "name": "Justin Peterson",
+     "player": "justin-peterson",
+     "season": "1997-98",
+     "gp": null
+    },
+    {
+     "value": 73,
      "name": "Hayden Massman",
      "player": "hayden-massman",
      "season": "2024-25",
@@ -6524,13 +6531,6 @@
      "player": "chris-chandler",
      "season": "2002-03",
      "gp": 24
-    },
-    {
-     "value": 68,
-     "name": "Jack Reader",
-     "player": "jack-reader",
-     "season": "2014-15",
-     "gp": 22
     }
    ],
    "pf": [
@@ -6547,6 +6547,13 @@
      "player": "hunter-ellenburg",
      "season": "2016-17",
      "gp": 27
+    },
+    {
+     "value": 70,
+     "name": "Ben Campbell",
+     "player": "ben-campbell",
+     "season": "1997-98",
+     "gp": null
     },
     {
      "value": 69,
@@ -6610,6 +6617,13 @@
      "player": "dayne-langrehr",
      "season": "2025-26",
      "gp": 26
+    },
+    {
+     "value": 60,
+     "name": "Shane Amundson",
+     "player": "shane-amundson",
+     "season": "1997-98",
+     "gp": null
     },
     {
      "value": 60,
@@ -6694,27 +6708,6 @@
      "player": "brody-edwards",
      "season": "2025-26",
      "gp": 25
-    },
-    {
-     "value": 52,
-     "name": "Wyatt McDonald",
-     "player": "wyatt-mcdonald",
-     "season": "2014-15",
-     "gp": 24
-    },
-    {
-     "value": 52,
-     "name": "Caleb Miedema",
-     "player": "caleb-miedema",
-     "season": "2016-17",
-     "gp": 25
-    },
-    {
-     "value": 52,
-     "name": "Kyle Wingert",
-     "player": "kyle-wingert",
-     "season": "2016-17",
-     "gp": 26
     }
    ],
    "ppg": [
@@ -7283,6 +7276,14 @@
      "detail": "30-98"
     },
     {
+     "value": 0.3049,
+     "name": "Ryan Schroeder",
+     "player": "ryan-schroeder",
+     "season": "1997-98",
+     "gp": null,
+     "detail": "25-82"
+    },
+    {
      "value": 0.3005,
      "name": "Hayden Massman",
      "player": "hayden-massman",
@@ -7313,14 +7314,6 @@
      "season": "2017-18",
      "gp": 28,
      "detail": "26-98"
-    },
-    {
-     "value": 0.2593,
-     "name": "Nolan Michek",
-     "player": "nolan-michek",
-     "season": "2022-23",
-     "gp": 23,
-     "detail": "21-81"
     }
    ],
    "ft_pct": [
@@ -7381,6 +7374,14 @@
      "detail": "31-39"
     },
     {
+     "value": 0.7945,
+     "name": "Justin Peterson",
+     "player": "justin-peterson",
+     "season": "1997-98",
+     "gp": null,
+     "detail": "58-73"
+    },
+    {
      "value": 0.7656,
      "name": "Hank Reader",
      "player": "hank-reader",
@@ -7395,6 +7396,14 @@
      "season": "2021-22",
      "gp": 29,
      "detail": "45-59"
+    },
+    {
+     "value": 0.76,
+     "name": "Nate Hamilton",
+     "player": "nate-hamilton",
+     "season": "1997-98",
+     "gp": null,
+     "detail": "19-25"
     },
     {
      "value": 0.7544,
@@ -7507,22 +7516,6 @@
      "season": "2002-03",
      "gp": 24,
      "detail": "49-71"
-    },
-    {
-     "value": 0.688,
-     "name": "Troy Bolcerek",
-     "player": "troy-bolcerek",
-     "season": "2002-03",
-     "gp": 24,
-     "detail": "86-125"
-    },
-    {
-     "value": 0.6774,
-     "name": "Drew Johnson",
-     "player": "drew-johnson",
-     "season": "2015-16",
-     "gp": 27,
-     "detail": "42-62"
     }
    ]
   },
@@ -10652,6 +10645,13 @@
     },
     {
      "value": 27,
+     "date": "1998-02-19",
+     "opponent": "Cashton",
+     "season": "1997-98",
+     "game_id": "1997-98-18"
+    },
+    {
+     "value": 27,
      "date": "2002-01-29",
      "opponent": "New Lisbon",
      "season": "2001-02",
@@ -10742,123 +10742,11 @@
      "game_id": "2013-14-12"
     },
     {
-     "value": 24,
-     "date": "2003-01-17",
-     "opponent": "Hillsboro",
-     "season": "2002-03",
-     "game_id": "2002-03-09"
-    },
-    {
-     "value": 24,
-     "date": "2003-02-28",
-     "opponent": "Cashton",
-     "season": "2002-03",
-     "game_id": "2002-03-20"
-    },
-    {
-     "value": 24,
-     "date": "2009-11-24",
-     "opponent": "Alma Center Lincoln",
-     "season": "2009-10",
-     "game_id": "2009-10-01"
-    },
-    {
-     "value": 24,
-     "date": "2010-03-02",
-     "opponent": "Luther",
-     "season": "2009-10",
-     "game_id": "2009-10-23"
-    },
-    {
-     "value": 24,
-     "date": "2010-12-21",
-     "opponent": "West Salem",
-     "season": "2010-11",
-     "game_id": "2010-11-06"
-    },
-    {
-     "value": 24,
-     "date": "2011-02-15",
+     "value": 25,
+     "date": "1998-02-12",
      "opponent": "Brookwood",
-     "season": "2010-11",
-     "game_id": "2010-11-18"
-    },
-    {
-     "value": 24,
-     "date": "2011-03-05",
-     "opponent": "Westby",
-     "season": "2010-11",
-     "game_id": "2010-11-23"
-    },
-    {
-     "value": 24,
-     "date": "2012-01-05",
-     "opponent": "New Lisbon",
-     "season": "2011-12",
-     "game_id": "2011-12-10"
-    },
-    {
-     "value": 24,
-     "date": "2012-02-07",
-     "opponent": "New Lisbon",
-     "season": "2011-12",
-     "game_id": "2011-12-19"
-    },
-    {
-     "value": 24,
-     "date": "2012-11-29",
-     "opponent": "Luther",
-     "season": "2012-13",
-     "game_id": "2012-13-02"
-    },
-    {
-     "value": 24,
-     "date": "2012-12-11",
-     "opponent": "Brookwood",
-     "season": "2012-13",
-     "game_id": "2012-13-05"
-    },
-    {
-     "value": 24,
-     "date": "2013-02-19",
-     "opponent": "Boscobel",
-     "season": "2012-13",
-     "game_id": "2012-13-23"
-    },
-    {
-     "value": 24,
-     "date": "2014-02-13",
-     "opponent": "Cashton",
-     "season": "2013-14",
-     "game_id": "2013-14-19"
-    },
-    {
-     "value": 24,
-     "date": "2015-01-30",
-     "opponent": "Royall",
-     "season": "2014-15",
-     "game_id": "2014-15-16"
-    },
-    {
-     "value": 24,
-     "date": "2002-01-07",
-     "opponent": "Melrose-Mindoro",
-     "season": "2001-02",
-     "game_id": "2001-02-09"
-    },
-    {
-     "value": 24,
-     "date": "2002-01-15",
-     "opponent": "Necedah",
-     "season": "2001-02",
-     "game_id": "2001-02-11"
-    },
-    {
-     "value": 24,
-     "date": "2002-02-26",
-     "opponent": "La Farge",
-     "season": "2001-02",
-     "game_id": "2001-02-21"
+     "season": "1997-98",
+     "game_id": "1997-98-16"
     }
    ],
    "half_pts": [
@@ -11916,6 +11804,13 @@
      "game_id": "2024-25-10"
     },
     {
+     "value": 22,
+     "date": "1998-02-12",
+     "opponent": "Brookwood",
+     "season": "1997-98",
+     "game_id": "1997-98-16"
+    },
+    {
      "value": 20,
      "date": "2016-01-07",
      "opponent": "Cashton",
@@ -12007,6 +11902,13 @@
      "game_id": "2025-26-10"
     },
     {
+     "value": 19,
+     "date": "1997-12-27",
+     "opponent": "Blair-Taylor",
+     "season": "1997-98",
+     "game_id": "1997-98-06"
+    },
+    {
      "value": 18,
      "date": "2018-11-29",
      "opponent": "Gale-Ettrick-Trempealeau",
@@ -12044,6 +11946,13 @@
      "game_id": "2016-17-24"
     },
     {
+     "value": 38,
+     "date": "1997-12-27",
+     "opponent": "Blair-Taylor",
+     "season": "1997-98",
+     "game_id": "1997-98-06"
+    },
+    {
      "value": 37,
      "date": "2015-12-22",
      "opponent": "West Salem",
@@ -12077,6 +11986,13 @@
      "opponent": "Wausau East",
      "season": "2022-23",
      "game_id": "2022-23-05"
+    },
+    {
+     "value": 34,
+     "date": "1997-12-18",
+     "opponent": "Hillsboro",
+     "season": "1997-98",
+     "game_id": "1997-98-04"
     },
     {
      "value": 32,
@@ -12140,6 +12056,13 @@
      "opponent": "Aquinas",
      "season": "2023-24",
      "game_id": "2023-24-12"
+    },
+    {
+     "value": 31,
+     "date": "1998-02-12",
+     "opponent": "Brookwood",
+     "season": "1997-98",
+     "game_id": "1997-98-16"
     },
     {
      "value": 30,
@@ -13606,6 +13529,11 @@
      "detail": "14-7"
     },
     {
+     "value": 54.619,
+     "season": "1997-98",
+     "detail": "13-8"
+    },
+    {
      "value": 49.7143,
      "season": "2006-07",
      "detail": "12-9"
@@ -13624,11 +13552,6 @@
      "value": 38.45,
      "season": "2003-04",
      "detail": "2-18"
-    },
-    {
-     "value": 38.05,
-     "season": "2004-05",
-     "detail": "5-15"
     }
    ],
    "opp_ppg": [
@@ -13703,6 +13626,11 @@
      "detail": "19-6"
     },
     {
+     "value": 53.9524,
+     "season": "1997-98",
+     "detail": "13-8"
+    },
+    {
      "value": 54.1667,
      "season": "2012-13",
      "detail": "17-7"
@@ -13751,11 +13679,6 @@
      "value": 61.2692,
      "season": "2025-26",
      "detail": "16-10"
-    },
-    {
-     "value": 64.0769,
-     "season": "2024-25",
-     "detail": "11-15"
     }
    ],
    "tpm": [
@@ -13828,6 +13751,11 @@
      "value": 90,
      "season": "2014-15",
      "detail": "21-3"
+    },
+    {
+     "value": 78,
+     "season": "1997-98",
+     "detail": "13-8"
     }
    ],
    "tpa": [
@@ -13900,6 +13828,11 @@
      "value": 311,
      "season": "2014-15",
      "detail": "21-3"
+    },
+    {
+     "value": 260,
+     "season": "1997-98",
+     "detail": "13-8"
     }
    ],
    "ftm": [
@@ -13942,6 +13875,11 @@
      "value": 253,
      "season": "2002-03",
      "detail": "22-2"
+    },
+    {
+     "value": 249,
+     "season": "1997-98",
+     "detail": "13-8"
     },
     {
      "value": 244,
@@ -14009,6 +13947,11 @@
      "value": 438,
      "season": "2001-02",
      "detail": "17-7"
+    },
+    {
+     "value": 434,
+     "season": "1997-98",
+     "detail": "13-8"
     },
     {
      "value": 408,
@@ -14108,6 +14051,11 @@
      "detail": "19-3"
     },
     {
+     "value": 583,
+     "season": "1997-98",
+     "detail": "13-8"
+    },
+    {
      "value": 577,
      "season": "2001-02",
      "detail": "17-7"
@@ -14188,6 +14136,11 @@
      "value": 217,
      "season": "2001-02",
      "detail": "17-7"
+    },
+    {
+     "value": 119,
+     "season": "1997-98",
+     "detail": "13-8"
     }
    ],
    "stl": [
@@ -14255,6 +14208,11 @@
      "value": 216,
      "season": "2001-02",
      "detail": "17-7"
+    },
+    {
+     "value": 175,
+     "season": "1997-98",
+     "detail": "13-8"
     },
     {
      "value": 167,
@@ -14401,6 +14359,11 @@
      "detail": "536-1339"
     },
     {
+     "value": 0.3843,
+     "season": "1997-98",
+     "detail": "410-1067"
+    },
+    {
      "value": 0.3831,
      "season": "2024-25",
      "detail": "570-1488"
@@ -14461,6 +14424,11 @@
      "value": 0.3052,
      "season": "2015-16",
      "detail": "152-498"
+    },
+    {
+     "value": 0.3,
+     "season": "1997-98",
+     "detail": "78-260"
     },
     {
      "value": 0.2942,
@@ -14548,6 +14516,11 @@
      "value": 0.576,
      "season": "2014-15",
      "detail": "235-408"
+    },
+    {
+     "value": 0.5737,
+     "season": "1997-98",
+     "detail": "249-434"
     }
    ],
    "games": [
@@ -14665,6 +14638,11 @@
      "value": 21,
      "season": "2008-09",
      "detail": "3-18"
+    },
+    {
+     "value": 21,
+     "season": "1997-98",
+     "detail": "13-8"
     },
     {
      "value": 20,

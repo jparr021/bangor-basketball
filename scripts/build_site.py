@@ -175,6 +175,14 @@ if os.path.exists(os.path.join(OV, "rosters.csv")):
     for rs in ROSTERS.values():
         rs.sort(key=lambda r: int(num(r["number"]) or 0))
 
+# Team totals for a game with no player box score (overrides/team_game_stats.csv): one row for Bangor and
+# one for the opponent, from a yearbook's game-by-game team stats.
+TEAM_GAME = defaultdict(dict)
+if os.path.exists(os.path.join(OV, "team_game_stats.csv")):
+    for r in load(os.path.join(OV, "team_game_stats.csv")):
+        side = "bangor" if r["team"].strip().lower() == "bangor" else "opp"
+        TEAM_GAME[r["date"]][side] = {**{k: num(r.get(k)) for k in STATS}, "source": r.get("source", "")}
+
 # The printed team totals line of a season stat sheet (a "Team" row in overrides/season_totals.csv)
 TEAM_LINE = {}
 _TCOL = {"pts": "PTS", "fgm": "FGM", "fga": "FGA", "tpm": "3PM", "tpa": "3PA", "ftm": "FTM", "fta": "FTA", "oreb": "OFF",
@@ -734,6 +742,17 @@ def box_cols(rows):
     need = {"fg": ("fga",), "tp": ("tpa", "tpm"), "ft": ("fta",)}
     return [(k, h) for k, h in BOX_COLS
             if any(any(r.get(n) is not None for n in need.get(k, (k,))) for r in rows)]
+
+
+def team_stats_rows(g, bangor):
+    """Bangor's and the opponent's team totals for a game without a Bangor box score."""
+    tg = TEAM_GAME.get(g["date"])
+    if not tg or bangor:
+        return None
+    rows = [(name, tg[side]) for side, name in (("bangor", "Bangor"), ("opp", g["opponent"])) if tg.get(side)]
+    cols = box_cols([r for _, r in rows])
+    return {"rows": [{"name": n, **box_row(r)} for n, r in rows], "cols": cols,
+            "source": next((r["source"] for _, r in rows if r.get("source")), "")}
 
 
 def box_totals(rows):
@@ -1525,6 +1544,7 @@ def build():
                    f"Season{' · Coach ' + ss['coach'] if ss['coach'] else ''}", s.replace("-", "–"), ss["notes"], tiles, "Season")
         render("season.html", f"seasons/{s}.html", s=ss, games=gs, players=prow, cols=cols, **sh,
                margin_svg=margin_svg, scoring_lines=scoring_lines,
+               team_game_stats=any(g["date"] in TEAM_GAME for g in gs),
                team=team_row, leaders=leaders(s), partial=partial,
                **pager(s),
                source_note=any(r.get("source") == "season tab" for r in players),
@@ -1556,7 +1576,8 @@ def build():
                bcols=box_cols(bangor), btot=box_row(bt) if bangor else None,
                opp=[{"name": r["name"], "number": r["number"], **box_row(r)} for r in opp],
                ocols=box_cols(opp), otot=box_row(ot) if opp else None, periods=periods, preview=PREVIEWS.get(gid),
-               opp_complete=bool(opp) and ot.get("pts") == g["os"])
+               opp_complete=bool(opp) and ot.get("pts") == g["os"],
+               team_stats=team_stats_rows(g, bangor))
 
     # ---- players
     plist = []

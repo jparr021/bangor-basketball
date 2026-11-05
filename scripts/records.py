@@ -62,6 +62,14 @@ if os.path.exists(_ovst):
                 TEAM_TOTALS[r["season"]] = r
             else:
                 src.append(r)
+# Bangor's team totals for games with no player box score (overrides/team_game_stats.csv)
+TEAM_GAME = {}
+_ovtg = os.path.join(ROOT, "overrides", "team_game_stats.csv")
+if os.path.exists(_ovtg):
+    with open(_ovtg) as f:
+        for r in csv.DictReader(f):
+            if r["team"].strip().lower() == "bangor":
+                TEAM_GAME[r["date"]] = {k: num(r.get(k)) for k in STATS}
 _ovsr = os.path.join(ROOT, "overrides", "season_results.csv")
 RESULTS = defaultdict(list)
 if os.path.exists(_ovsr):
@@ -276,13 +284,18 @@ for gid, g in games.items():
     if g["bangor_periods"]:
         labs = g["period_labels"].split("|")
         vals = [num(x) for x in g["bangor_periods"].split("|")]
-        reg = [v for l, v in zip(labs, vals) if v is not None and not l.upper().startswith("OT")]
+        reg = [v for l, v in zip(labs, vals) if v is not None and "OT" not in l.upper()]
         if reg:
             row["quarter_pts" if len(reg) >= 4 else "half_pts"] = max(reg)
     full = g["box_score"] == "full" and g["box_complete"] == "Y"
     for k in STATS:
         if k != "pts":
             row[k] = team_games[gid][k] if (k in tracked[gid] and full) else None
+    tt = TEAM_GAME.get(g["date"]) if not full else None  # team totals from a yearbook (team_game_stats.csv)
+    if tt:
+        for k in STATS:
+            if k != "pts" and tt.get(k) is not None:
+                row[k] = tt[k]
     tg_rows.append(row)
 tlabel = lambda r: {"date": r["date"], "opponent": r["opponent"], "season": r["season"], "game_id": r["game_id"]}
 for k in ["pts", "margin", "quarter_pts", "half_pts", "fgm", "fga", "tpm", "tpa", "ftm", "fta", "reb", "ast", "stl", "blk"]:

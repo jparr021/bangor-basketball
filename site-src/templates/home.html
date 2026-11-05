@@ -78,7 +78,7 @@
     <div class="card-head"><h2>State tournament teams</h2><a href="history/index.html">All seasons →</a></div>
     <div class="champs">
       {% for h in champs | reverse %}
-      <a class="champ" href="{% if h.season >= '2001-02' or h.season in ('1945-46', '1999-00', '2000-01') %}seasons/{{ h.season }}.html{% else %}history/index.html#s{{ h.season }}{% endif %}">
+      <a class="champ" href="{% if h.season >= '2001-02' or h.season in ('1945-46', '1988-89', '1989-90', '1991-92', '1997-98', '1999-00', '2000-01') %}seasons/{{ h.season }}.html{% else %}history/index.html#s{{ h.season }}{% endif %}">
         <span class="champ-year">{{ h.season | replace('-', '–') }}</span>
         <span class="champ-rec">{{ h.w }}–{{ h.l }}</span>
         <span class="champ-note">{{ h.notes }}</span>

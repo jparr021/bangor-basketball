@@ -1,11 +1,11 @@
 season: 1920-21
 slug: 1920-21-story
-kicker: From the history book
+kicker: From Cardinals on the Court
 title: The 1920–21 season, the first girls' team and the vote for a gym
 summary: The boys' season game by game, the first girls' basketball team under Miss Page, and the April 1921 school meeting that voted to add a gymnasium.
-byline: From the Bangor basketball history book's pages for 1920–21.
+byline: From the 1920–21 pages of Cardinals on the Court: A History of Bangor High School Boys Basketball, compiled and edited by Joe Stekel.
 results_note: The schedule and the story in the book differ on a few dates and scores; the schedule is used, and each difference is noted with its game. The Dec. 3 game with the Onalaska Aggies did not count in the high school record, the book says, and the March 18 game at Onalaska was forfeited to Bangor.
-credit: Transcribed from the Bangor basketball history book. One page of the season story, covering January and early February, isn't in the copy here.
+credit: Transcribed from Cardinals on the Court: A History of Bangor High School Boys Basketball, compiled and edited by Joe Stekel. One page of the season story, covering January and early February, isn't in the copy here.
 ---
 # Basket Ball 1920–21
 The basket ball season for 1920–21 was started the second week in November. As we had no gymnasium the school board rented the Concordia hall once more for the basket ball team. The boys did not have a coach to start with, but every one was determined to put forth as good a basket ball team as possible. There were a few men left from last year's team and a number from last year's second team that furnished some good material.

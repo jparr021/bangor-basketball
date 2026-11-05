@@ -14,7 +14,7 @@
   <div class="season-meta">
     {% if s.w != '' %}<span class="big-rec">{{ s.w }}–{{ s.l }}</span>{% else %}<span class="big-rec">{{ w }}–{{ l }}</span><span class="muted">in the {{ games | length }} known games</span>{% endif %}
     <span>Coach <strong>{% set cs = coach_slugs.get(s.coach | trim) %}{% if cs %}<a href="../coaches/{{ cs }}.html">{{ s.coach }}</a>{% else %}{{ s.coach }}{% endif %}</strong></span>
-    {% if s.ppg %}<span>{{ s.ppg }} PPG · {{ s.oppg }} allowed</span>{% endif %}
+    {% if s.ppg and (s.w == '' or games | length * 2 >= s.w | int + s.l | int) %}<span>{{ s.ppg }} PPG · {{ s.oppg }} allowed</span>{% endif %}
   </div>
   {% if s.notes %}<p class="banner">{{ s.notes }}</p>{% endif %}
 </div>
@@ -88,7 +88,7 @@
       </tbody>
     </table>
     </div>
-    <p class="note">Results from the {{ sources | join(' and ') if sources else 'printed season results' }}, {% if dated %}with dates and home or away{% elif any_dates %}in the order they were played, with dates{% if any_sites %} and home or away{% endif %} where the source gives them{% else %}in the order they were printed{% endif %}. {% if story and story.results_note %}{{ story.results_note }} {% endif %}The game-by-game records start in 2001–02, so this season has no {% if not any_dates %}dates, home and away, or {% endif %}box scores{% if dated %}. Its games count in the head-to-head records on opponent pages.{% else %}, and its games aren't in the head-to-head records on opponent pages.{% endif %}{% if s.w != '' and (w ~ '–' ~ l) != (s.w ~ '–' ~ s.l) %} The list has {{ games | length }} games ({{ w }}–{{ l }}); the record book has {{ s.w }}–{{ s.l }}, {% set miss = (s.w | int + s.l | int) - games | length %}so {{ 'a game is' if miss == 1 else (miss ~ ' games are' if miss > 1 else 'some games are') }} missing from the list.{% endif %}{% if corrections_url %} Know the missing details? <a href="{{ corrections_url }}" target="_blank" rel="noopener">Let us know</a>.{% endif %}</p>
+    <p class="note">Results from the {{ sources | join(' and ') if sources else 'printed season results' }}, {% if dated %}with dates{% if any_sites %} and home or away{% endif %}{% elif any_dates %}in the order they were played, with dates{% if any_sites %} and home or away{% endif %} where the source gives them{% else %}in the order they were printed{% endif %}. {% if story and story.results_note %}{{ story.results_note }} {% endif %}The game-by-game records start in 2001–02, so this season has no {% if not any_dates %}dates, home and away, or {% endif %}box scores{% if in_h2h %}. Its games count in the head-to-head records on opponent pages.{% else %}, and its games aren't in the head-to-head records on opponent pages.{% endif %}{% if s.w != '' and (w ~ '–' ~ l) != (s.w ~ '–' ~ s.l) %} The list has {{ games | length }} game{{ 's' if games | length != 1 }} ({{ w }}–{{ l }}); the record book has {{ s.w }}–{{ s.l }}, {% set miss = (s.w | int + s.l | int) - games | length %}so {{ 'a game is' if miss == 1 else (miss ~ ' games are' if miss > 1 else 'some games are') }} missing from the list.{% endif %}{% if corrections_url %} Know the missing details? <a href="{{ corrections_url }}" target="_blank" rel="noopener">Let us know</a>.{% endif %}</p>
   </section>
 
   {% if roster and not players %}

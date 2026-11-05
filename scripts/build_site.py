@@ -1486,6 +1486,7 @@ def build():
                 ss["notes"], [(f"{w}–{l}", "Record in known games")], "Season"))
         render("season_results.html", f"seasons/{s}.html", s=ss, games=gs, w=w, l=l, sources=sources,
                dated=all(g.get("date") for g in gs), any_dates=any(g.get("date") for g in gs),
+               in_h2h=all(g.get("date") and g.get("site") for g in gs),
                any_sites=any(g.get("site") for g in gs), story=STORIES.get(s), **results_players(s, gs),
                roster=ROSTERS.get(s, []),
                margin_svg=margin_svg, opp_pages=OPP_PAGES, player_pages=PLAYER_PAGES, **pager(s), **sh)

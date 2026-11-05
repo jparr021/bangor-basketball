@@ -811,6 +811,15 @@
     },
     {
      "value": 6,
+     "name": "Andrew Lockington",
+     "player": "andrew-lockington",
+     "date": "2012-12-04",
+     "opponent": "Blair-Taylor",
+     "season": "2012-13",
+     "game_id": "2012-13-03"
+    },
+    {
+     "value": 6,
      "name": "Caleb Miedema",
      "player": "caleb-miedema",
      "date": "2016-02-12",
@@ -3943,6 +3952,33 @@
      "value": 5,
      "name": "Canon O'Heron",
      "player": "canon-oheron",
+     "date": "2012-12-04",
+     "opponent": "Blair-Taylor",
+     "season": "2012-13",
+     "game_id": "2012-13-03"
+    },
+    {
+     "value": 5,
+     "name": "Broedy Jepson",
+     "player": "broedy-jepson",
+     "date": "2012-12-27",
+     "opponent": "Iowa-Grant",
+     "season": "2012-13",
+     "game_id": "2012-13-08"
+    },
+    {
+     "value": 5,
+     "name": "Caleb Miller",
+     "player": "caleb-miller",
+     "date": "2012-12-27",
+     "opponent": "Iowa-Grant",
+     "season": "2012-13",
+     "game_id": "2012-13-08"
+    },
+    {
+     "value": 5,
+     "name": "Canon O'Heron",
+     "player": "canon-oheron",
      "date": "2013-01-08",
      "opponent": "Hillsboro",
      "season": "2012-13",
@@ -3983,6 +4019,24 @@
      "opponent": "Alma Center Lincoln",
      "season": "2012-13",
      "game_id": "2012-13-01"
+    },
+    {
+     "value": 4,
+     "name": "Caleb Miller",
+     "player": "caleb-miller",
+     "date": "2012-12-11",
+     "opponent": "Brookwood",
+     "season": "2012-13",
+     "game_id": "2012-13-05"
+    },
+    {
+     "value": 4,
+     "name": "Robert Martin",
+     "player": "robert-martin",
+     "date": "2012-12-11",
+     "opponent": "Brookwood",
+     "season": "2012-13",
+     "game_id": "2012-13-05"
     },
     {
      "value": 4,
@@ -4037,6 +4091,33 @@
      "opponent": "Alma Center Lincoln",
      "season": "2012-13",
      "game_id": "2012-13-01"
+    },
+    {
+     "value": 3,
+     "name": "Broedy Jepson",
+     "player": "broedy-jepson",
+     "date": "2012-12-04",
+     "opponent": "Blair-Taylor",
+     "season": "2012-13",
+     "game_id": "2012-13-03"
+    },
+    {
+     "value": 3,
+     "name": "JJ Hundt",
+     "player": "jj-hundt",
+     "date": "2012-12-11",
+     "opponent": "Brookwood",
+     "season": "2012-13",
+     "game_id": "2012-13-05"
+    },
+    {
+     "value": 3,
+     "name": "Robert Martin",
+     "player": "robert-martin",
+     "date": "2012-12-27",
+     "opponent": "Iowa-Grant",
+     "season": "2012-13",
+     "game_id": "2012-13-08"
     },
     {
      "value": 3,
@@ -4640,6 +4721,13 @@
      "gp": 25
     },
     {
+     "value": 364,
+     "name": "Canon O'Heron",
+     "player": "canon-oheron",
+     "season": "2012-13",
+     "gp": 23
+    },
+    {
      "value": 361,
      "name": "Zane Langrehr",
      "player": "zane-langrehr",
@@ -4652,13 +4740,6 @@
      "player": "drew-johnson",
      "season": "2016-17",
      "gp": 27
-    },
-    {
-     "value": 352,
-     "name": "Hayden Massman",
-     "player": "hayden-massman",
-     "season": "2024-25",
-     "gp": 26
     }
    ],
    "reb": [
@@ -6766,14 +6847,6 @@
      "detail": "361 pts / 22 G"
     },
     {
-     "value": 16.1429,
-     "name": "Canon O'Heron",
-     "player": "canon-oheron",
-     "season": "2012-13",
-     "gp": 21,
-     "detail": "339 pts / 21 G"
-    },
-    {
      "value": 15.9286,
      "name": "Luke Reader",
      "player": "luke-reader",
@@ -6788,6 +6861,14 @@
      "season": "2016-17",
      "gp": 25,
      "detail": "398 pts / 25 G"
+    },
+    {
+     "value": 15.8261,
+     "name": "Canon O'Heron",
+     "player": "canon-oheron",
+     "season": "2012-13",
+     "gp": 23,
+     "detail": "364 pts / 23 G"
     },
     {
      "value": 14.84,
@@ -7546,11 +7627,18 @@
      "gp": 51
     },
     {
-     "value": 626,
+     "value": 652,
      "name": "Andrew Lockington",
      "player": "andrew-lockington",
      "season": "2011-12 to 2013-14",
-     "gp": 68
+     "gp": 71
+    },
+    {
+     "value": 643,
+     "name": "Caleb Miller",
+     "player": "caleb-miller",
+     "season": "2011-12 to 2013-14",
+     "gp": 66
     },
     {
      "value": 619,
@@ -7560,13 +7648,6 @@
      "gp": 78
     },
     {
-     "value": 592,
-     "name": "Caleb Miller",
-     "player": "caleb-miller",
-     "season": "2011-12 to 2013-14",
-     "gp": 63
-    },
-    {
      "value": 522,
      "name": "Adam Wuensch",
      "player": "adam-wuensch",
@@ -7574,11 +7655,11 @@
      "gp": 44
     },
     {
-     "value": 499,
+     "value": 507,
      "name": "Broedy Jepson",
      "player": "broedy-jepson",
      "season": "2011-12 to 2013-14",
-     "gp": 63
+     "gp": 66
     },
     {
      "value": 456,
@@ -7974,7 +8055,7 @@
      "name": "Wyatt McDonald",
      "player": "wyatt-mcdonald",
      "season": "2012-13 to 2014-15",
-     "gp": 57
+     "gp": 58
     }
    ],
    "stl": [
@@ -9542,11 +9623,11 @@
      "gp": 78
     },
     {
-     "value": 68,
+     "value": 71,
      "name": "Andrew Lockington",
      "player": "andrew-lockington",
      "season": "2011-12 to 2013-14",
-     "gp": 68
+     "gp": 71
     },
     {
      "value": 67,
@@ -9556,25 +9637,25 @@
      "gp": 67
     },
     {
+     "value": 66,
+     "name": "Caleb Miller",
+     "player": "caleb-miller",
+     "season": "2011-12 to 2013-14",
+     "gp": 66
+    },
+    {
+     "value": 66,
+     "name": "Broedy Jepson",
+     "player": "broedy-jepson",
+     "season": "2011-12 to 2013-14",
+     "gp": 66
+    },
+    {
      "value": 64,
      "name": "Samuel Cropp",
      "player": "samuel-cropp",
      "season": "2021-22 to 2023-24",
      "gp": 64
-    },
-    {
-     "value": 63,
-     "name": "Caleb Miller",
-     "player": "caleb-miller",
-     "season": "2011-12 to 2013-14",
-     "gp": 63
-    },
-    {
-     "value": 63,
-     "name": "Broedy Jepson",
-     "player": "broedy-jepson",
-     "season": "2011-12 to 2013-14",
-     "gp": 63
     },
     {
      "value": 62,
@@ -9598,11 +9679,11 @@
      "gp": 58
     },
     {
-     "value": 57,
+     "value": 58,
      "name": "Wyatt McDonald",
      "player": "wyatt-mcdonald",
      "season": "2012-13 to 2014-15",
-     "gp": 57
+     "gp": 58
     },
     {
      "value": 55,
@@ -9612,11 +9693,11 @@
      "gp": 55
     },
     {
-     "value": 54,
-     "name": "Sam Wittmershaus",
-     "player": "sam-wittmershaus",
-     "season": "2018-19 to 2020-21",
-     "gp": 54
+     "value": 55,
+     "name": "Adam Meyers",
+     "player": "adam-meyers",
+     "season": "2010-11 to 2012-13",
+     "gp": 55
     }
    ],
    "fg_pct": [

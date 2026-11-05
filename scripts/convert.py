@@ -663,9 +663,18 @@ def main():
                 g["recap"] = xl["recap"]
             opp_players = (t or {}).get("opp_players") or extra_opp.get(g["date"])
             players = (t or {}).get("players")
-            if not players and extra_box.get(g["date"]):  # a full box score from a printed stat sheet
-                players = extra_box[g["date"]]
+            if extra_box.get(g["date"]):  # a full box score from a printed stat sheet: it replaces a tab
+                players = extra_box[g["date"]]  # that has only points (and is often missing some)
                 g["box_source"] = "printout"
+                if extra_opp.get(g["date"]):  # the printout's opponent box too, with the tab's first names
+                    tab_opp = (t or {}).get("opp_players") or []
+                    full = {}
+                    for q in tab_opp:
+                        full.setdefault(q["name"].split()[-1].lower(), []).append(q["name"])
+                    opp_players = []
+                    for q in extra_opp[g["date"]]:
+                        names = full.get(q["name"].lower(), [])
+                        opp_players.append(dict(q, name=names[0]) if len(names) == 1 and " " not in q["name"] else q)
             nw = extra_news.get(g["date"])
             if nw and not players:  # newspaper leaders only: points and rebounds for a few players
                 players = nw["bangor"]

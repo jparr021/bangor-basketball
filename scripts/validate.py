@@ -53,6 +53,8 @@ sums = defaultdict(lambda: defaultdict(float))
 tracked = defaultdict(lambda: defaultdict(int))
 gp = defaultdict(int)
 added = {g["game_id"] for g in games if g.get("box_source") in ("printout", "newspaper")}
+# Printouts replace some of a season's game tabs, so the sheet's season tab can't be checked against them
+printout_seasons = {g["season"] for g in games if g.get("box_source") == "printout"}
 for r in pg:
     if r["game_id"] in added:  # box scores typed in from other sources aren't on the sheet's season tab
         continue
@@ -73,7 +75,7 @@ season_stats = defaultdict(lambda: [0, 0, 0])
 for r in src:
     s, name = r["season"], r["name"].strip()
     key = (s, name.lower())
-    if not name:
+    if not name or s in printout_seasons:
         continue
     if key not in gp:
         season_stats[s][2] += 1

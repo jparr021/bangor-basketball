@@ -15,7 +15,7 @@
 | 2009-10 | 23 | 15-8 | 0 / 23 / 0 | 2 |
 | 2010-11 | 24 | 18-6 | 0 / 21 / 3 | 0 |
 | 2011-12 | 25 | 18-7 | 0 / 24 / 1 | 13 |
-| 2012-13 | 24 | 17-7 | 3 / 21 / 0 | 7 |
+| 2012-13 | 24 | 17-7 | 7 / 17 / 0 | 4 |
 | 2013-14 | 25 | 19-6 | 0 / 23 / 2 | 9 |
 | 2014-15 | 24 | 21-3 | 24 / 0 / 0 | 3 |
 | 2015-16 | 27 | 23-4 | 27 / 0 / 0 | 0 |
@@ -42,7 +42,6 @@ A check compares one player's season total for one stat. A match means the sum o
 | 2009-10 | 14 | 14 | 0 | 0 |
 | 2010-11 | 12 | 12 | 0 | 0 |
 | 2011-12 | 11 | 11 | 0 | 0 |
-| 2012-13 | 10 | 5 | 5 | 0 |
 | 2013-14 | 10 | 10 | 0 | 0 |
 | 2014-15 | 156 | 156 | 0 | 0 |
 | 2015-16 | 156 | 156 | 0 | 0 |
@@ -58,17 +57,6 @@ A check compares one player's season total for one stat. A match means the sum o
 
 ### Mismatch detail
 
-- 2012-13 **Ben Puent** PTS: sheet 31, converted 30
-- 2012-13 **Ben Puent** GP: sheet 10, converted 9
-- 2012-13 **JJ Hundt** PTS: sheet 50, converted 45
-- 2012-13 **JJ Hundt** GP: sheet 16, converted 15
-- 2012-13 **Adam Meyers** PTS: sheet 56, converted 47
-- 2012-13 **Adam Meyers** GP: sheet 13, converted 12
-- 2012-13 **Caleb Miller** PTS: sheet 188, converted 178
-- 2012-13 **Caleb Miller** GP: sheet 18, converted 17
-- 2012-13 **Andrew Lockington** PTS: sheet 202, converted 195
-- 2012-13 **Andrew Lockington** GP: sheet 19, converted 18
-- 2012-13 **Canon O'Heron** GP: sheet 19, converted 18
 - 2014-15 **Andrew Piske** GP: sheet 23, converted 24
 - 2015-16 **Andrew Piske** GP: sheet 23, converted 24
 - 2015-16 **Kyle Wingert** GP: sheet 26, converted 27
@@ -206,11 +194,8 @@ A check compares one player's season total for one stat. A match means the sum o
 - 2012-02-24 vs Necedah: box score adds to 70, final 69
 - 2012-03-02 vs Iowa-Grant: box score adds to 56, final 54
 - 2012-03-08 vs Luther: box score adds to 64, final 65
-- 2012-12-04 vs Blair-Taylor: box score adds to 44, final 65
-- 2012-12-11 vs Brookwood: box score adds to 47, final 72
 - 2012-12-18 vs West Salem: box score adds to 21, final 46
-- 2012-12-27 vs Iowa-Grant: box score adds to 6, final 59
-- 2012-12-28 vs Westby: box score adds to 7, final 36
+- 2012-12-27 vs Iowa-Grant: box score adds to 58, final 59
 - 2013-01-18 vs Necedah: box score adds to 65, final 67
 - 2013-02-05 vs Melrose-Mindoro: box score adds to 67, final 66
 - 2013-11-21 vs Luther: box score adds to 68, final 70

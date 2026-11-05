@@ -485,6 +485,15 @@ def load_extra_boxscores():
 
 
 RESULT_SCHEDULES = {}
+# Games in each season by the record book (overrides/season_history.csv), to tell a complete printed
+# schedule from a few known games
+RECORD_GAMES = {}
+if os.path.exists(os.path.join(ROOT, "overrides", "season_history.csv")):
+    with open(os.path.join(ROOT, "overrides", "season_history.csv")) as f:
+        for r in csv.DictReader(f):
+            n = sum(int(r.get(k) or 0) for k in ("w", "l", "t") if (r.get(k) or "").strip().isdigit())
+            if n:
+                RECORD_GAMES[r["season"]] = n
 
 
 def dated_results(sheet_seasons):
@@ -500,6 +509,8 @@ def dated_results(sheet_seasons):
     for season, rows in by_season.items():
         if season in sheet_seasons or not all(r.get("date") and r.get("site") for r in rows):
             continue
+        if season in RECORD_GAMES and len(rows) != RECORD_GAMES[season]:
+            continue  # only some of the season's games are known: it stays a results page
         sched = {}
         for r in rows:
             d = dt.date.fromisoformat(r["date"])

@@ -215,11 +215,20 @@ for _p in sorted(glob.glob(os.path.join(OV, "stories", "*.txt"))):
     _st = load_story(_p)
     STORIES[_st["season"]] = _st
 
+def complete_schedule(s, gs):
+    """A printed results list with every game's date and site, and every game the record book counts."""
+    if not all(g.get("date") and g.get("site") for g in gs):
+        return False
+    h = next((r for r in load(os.path.join(OV, "season_history.csv")) if r["season"] == s), None)
+    n = sum(int(h[k]) for k in ("w", "l", "t") if h and (h.get(k) or "").strip().isdigit()) if h else 0
+    return not n or len(gs) == n
+
+
 # Results-only games with a date and site (a printed schedule recap) count in the head-to-head records on
 # opponent pages. They have no box score, so they link to the game's row on the season page.
 DATED_RESULTS = []
 for s, gs in RESULTS_ONLY.items():
-    if s in games_by_season or not all(g.get("date") and g.get("site") for g in gs):
+    if s in games_by_season or not complete_schedule(s, gs):
         continue
     for g in gs:
         g.update(game_id="", box_score="none", has_video=False, href=f"../seasons/{s}.html#g{g['game']}",
@@ -1486,7 +1495,7 @@ def build():
                 ss["notes"], [(f"{w}–{l}", "Record in known games")], "Season"))
         render("season_results.html", f"seasons/{s}.html", s=ss, games=gs, w=w, l=l, sources=sources,
                dated=all(g.get("date") for g in gs), any_dates=any(g.get("date") for g in gs),
-               in_h2h=all(g.get("date") and g.get("site") for g in gs),
+               in_h2h=complete_schedule(s, gs),
                any_sites=any(g.get("site") for g in gs), story=STORIES.get(s), **results_players(s, gs),
                roster=ROSTERS.get(s, []),
                margin_svg=margin_svg, opp_pages=OPP_PAGES, player_pages=PLAYER_PAGES, **pager(s), **sh)

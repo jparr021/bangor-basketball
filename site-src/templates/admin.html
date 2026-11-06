@@ -26,6 +26,7 @@
       <button type="button" role="tab" data-tab="roster" aria-selected="false">Rosters</button>
       <button type="button" role="tab" data-tab="season" aria-selected="false">Seasons</button>
       <button type="button" role="tab" data-tab="grad" aria-selected="false">Class years</button>
+      <button type="button" role="tab" data-tab="review" aria-selected="false">To review <span class="admin-count" id="q-count" hidden></span></button>
       <button type="button" role="tab" data-tab="log" aria-selected="false">Recent changes</button>
       <button type="button" class="link-btn admin-signout" id="sign-out">Sign out</button>
     </div>
@@ -184,6 +185,20 @@
       </section>
     </div>
 
+    <!-- ================================================================ review queues -->
+    <div data-panel="review" hidden>
+      <section class="card">
+        <div class="card-head"><h2>News stories to check <small class="muted" id="q-story-n"></small></h2><button type="button" class="link-btn" id="q-refresh">Refresh</button></div>
+        <p class="muted small">Stories the news finder found but wasn't sure about. Open one to read it, then link it to its game, or choose <em>Not this</em> (a girls game, another sport, not a game story). Either way it leaves this list, and the finder won't suggest it again.</p>
+        <ul class="admin-list admin-review" id="q-story"><li class="muted">Loading…</li></ul>
+      </section>
+      <section class="card">
+        <div class="card-head"><h2>YouTube videos to check <small class="muted" id="q-film-n"></small></h2></div>
+        <p class="muted small">Videos on the team's channel the film finder couldn't place for sure. A game shows one YouTube film.</p>
+        <ul class="admin-list admin-review" id="q-film"><li class="muted">Loading…</li></ul>
+      </section>
+    </div>
+
     <!-- ================================================================ recent changes -->
     <div data-panel="log" hidden>
       <section class="card">
@@ -259,14 +274,15 @@
     each("[role=tab]", function (t) { t.setAttribute("aria-selected", t.dataset.tab === name ? "true" : "false"); });
     each("[data-panel]", function (p) { p.hidden = p.dataset.panel !== name; });
     history.replaceState(null, "", "#" + name);
-    if (!loaded[name]) { loaded[name] = true; ({ photos: loadList, links: loadGame, roster: loadRoster, season: loadSeason, grad: loadGrad, log: loadLog })[name](); }
+    if (!loaded[name]) { loaded[name] = true; ({ photos: loadList, links: loadGame, roster: loadRoster, season: loadSeason, grad: loadGrad, review: loadQueue, log: loadLog })[name](); }
     else if (name === "log") loadLog();
   }
   each("[role=tab]", function (t) { t.addEventListener("click", function () { showTab(t.dataset.tab); }); });
   function showPanel() {
     $("login").hidden = true; $("panel").hidden = false;
     var h = location.hash.slice(1);
-    showTab(["photos", "links", "roster", "season", "grad", "log"].indexOf(h) >= 0 ? h : "photos");
+    showTab(["photos", "links", "roster", "season", "grad", "review", "log"].indexOf(h) >= 0 ? h : "photos");
+    if (!loaded.review) { loaded.review = true; loadQueue(); } // fills in the count on the tab
   }
 
   $("login-form").addEventListener("submit", function (e) {
@@ -623,6 +639,96 @@
       .then(function () { delete gradRows[name]; showGrad(); saved($("c-msg")); })
       .catch(function (err) { msg($("c-msg"), err.message, false); });
   });
+
+  // ---------------------------------------------------------------- review queues
+  function seasonOf(d) { var y = +d.slice(0, 4), m = +d.slice(5, 7); if (m < 8) y--; return y + "-" + String(y + 1).slice(2); }
+  function gameName(g) { return fmtDate(g.date) + " " + (g.site === "away" ? "at " : "vs ") + g.opponent; }
+  // "2025-12-05 Gale-Ettrick-Trempealeau 61-48; 2025-12-09 Arcadia" -> the games it names
+  function candidates(text) {
+    var out = [];
+    String(text || "").split(";").forEach(function (c) {
+      c = c.trim();
+      var d = c.slice(0, 10), rest = c.slice(11);
+      GAMES.forEach(function (g) {
+        if (g.date === d && rest.indexOf(g.opponent) === 0 && out.indexOf(g) < 0) out.push(g);
+      });
+    });
+    return out;
+  }
+  var QN = { story: 0, film: 0 };
+  function showCount() {
+    var n = QN.story + QN.film;
+    $("q-count").textContent = n; $("q-count").hidden = !n;
+    $("q-story-n").textContent = QN.story ? "(" + QN.story + ")" : "";
+    $("q-film-n").textContent = QN.film ? "(" + QN.film + ")" : "";
+  }
+  function reviewItem(kind, x) {
+    var it = x.item, url = it.url || it.youtube_url, when = it.published || (it.upload_date ? it.upload_date.replace(/(\d{4})(\d\d)(\d\d)/, "$1-$2-$3") : "");
+    var li = el("li"), info = el("div");
+    var a = el("a", "", it.title || url); a.href = url; a.target = "_blank"; a.rel = "noopener";
+    var t = el("strong"); t.appendChild(a); info.appendChild(t);
+    info.appendChild(el("span", "muted small", [it.outlet, when ? (kind === "film" ? "uploaded " : "") + fmtDate(when) : ""].filter(Boolean).join(" · ")));
+    info.appendChild(el("span", "small", "Why it's here: " + it.reason));
+    var linkedGame = x.linked && GAMES.filter(function (g) { return g.date === x.linked.date && g.opponent === x.linked.opponent; })[0];
+    if (x.linked) info.appendChild(el("span", "small", "On the site now: linked to " + (linkedGame ? gameName(linkedGame) : fmtDate(x.linked.date) + " " + x.linked.opponent) + "."));
+    li.appendChild(info);
+    var bx = el("div", "admin-btns"), st = el("p", "admin-msg");
+    function act(verdict, game, label) {
+      var btns = bx.querySelectorAll("button, select, input");
+      Array.prototype.forEach.call(btns, function (b) { b.disabled = true; });
+      msg(st, "Saving…");
+      call({ action: "review", kind: kind, item: it, verdict: verdict, game: game })
+        .then(function () {
+          li.className = "admin-done"; bx.remove();
+          msg(st, label + " It will be on the site in about 2–3 minutes (undo it under Recent changes).", true);
+          QN[kind]--; showCount(); loaded.log = false;
+        })
+        .catch(function (err) { msg(st, err.message, false); Array.prototype.forEach.call(btns, function (b) { b.disabled = false; }); });
+    }
+    function btn(label, fn, cls) { var b = el("button", cls || "btn", label); b.type = "button"; b.addEventListener("click", fn); bx.appendChild(b); return b; }
+    if (x.linked) btn("Looks right", function () { act("ok", null, "Kept as it is."); }, "btn btn-solid");
+    candidates(it.candidates).forEach(function (g) {
+      if (linkedGame === g) return;
+      btn((x.linked ? "Move to " : "Link to ") + gameName(g), function () { act("link", { date: g.date, opponent: g.opponent }, "Linked to " + gameName(g) + "."); });
+    });
+    // any other game from that season
+    var other = el("select", "admin-pick"); other.setAttribute("aria-label", "Another game");
+    var season = when ? seasonOf(when) : DATA.current;
+    var gs = GAMES.filter(function (g) { return g.season === season; });
+    options(other, [["", gs.length ? "Another " + dash(season) + " game…" : "No games that season"]].concat(gs.map(function (g) { return [g.id, gameName(g)]; })));
+    other.addEventListener("change", function () {
+      var g = GAMES.filter(function (x) { return x.id === other.value; })[0];
+      if (g && confirm("Link it to " + gameName(g) + "?")) act("link", { date: g.date, opponent: g.opponent }, "Linked to " + gameName(g) + ".");
+      else other.value = "";
+    });
+    bx.appendChild(other);
+    if (kind === "story") {
+      btn("About a player…", function () {
+        var name = prompt("Which player is the story about? (It goes on the player's page.)\n\nType the name as it appears on the site.");
+        if (name == null) return;
+        var p = PLAYERS.filter(function (q) { return q.name.toLowerCase() === name.trim().toLowerCase(); })[0];
+        if (!p) { alert("No player named “" + name.trim() + "” on the site. Check the spelling (see the Class years tab for the list)."); return; }
+        act("link", { player: p.name }, "Linked to " + p.name + "'s page.");
+      }, "link-btn");
+    }
+    btn("Not this", function () { act("dismiss", null, "Dismissed."); }, "link-btn danger");
+    li.appendChild(bx); li.appendChild(st);
+    return li;
+  }
+  function loadQueue() {
+    var uls = { story: $("q-story"), film: $("q-film") };
+    Object.keys(uls).forEach(function (k) { uls[k].innerHTML = '<li class="muted">Loading…</li>'; });
+    call({ action: "queue" }).then(function (j) {
+      Object.keys(uls).forEach(function (k) {
+        var ul = uls[k], items = j[k] || [];
+        QN[k] = items.length; ul.innerHTML = "";
+        if (!items.length) ul.appendChild(el("li", "muted", "Nothing to check."));
+        items.forEach(function (x) { ul.appendChild(reviewItem(k, x)); });
+      });
+      showCount();
+    }).catch(function (err) { Object.keys(uls).forEach(function (k) { uls[k].innerHTML = ""; uls[k].appendChild(el("li", "admin-msg bad", err.message)); }); });
+  }
+  $("q-refresh").addEventListener("click", loadQueue);
 
   // ---------------------------------------------------------------- recent changes
   function ago(iso) {

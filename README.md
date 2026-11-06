@@ -79,6 +79,7 @@ A last name alone (`Schroeder` on a team-photo list) gets no page, since it can'
 - **Rosters.** Choose a season to see its roster from `rosters.csv`, then edit, remove or add players.
 - **Seasons.** A season's line in `season_history.csv`: wins, losses, ties, coach and highlights. For the current season the record is counted from the sheet's games, so only the coach and highlights matter until it ends.
 - **Class years.** Choose a player to see their class year on the site and where it comes from, and save a correction (`grad_years.csv`). The tab also lists every player whose year is only estimated (from the last season played), with a **Fix** button.
+- **To review.** What the story finder and film matcher weren't sure about (`data/stories_review.csv`, `data/film_review.csv`), with the reason and the games they might be. Open a story or video to check it, then link it to a suggested game, any other game that season, or (for a story) a player's page, or choose **Not this**. Either way it leaves the list in the same commit. A dismissed one is kept in `news_stories.csv` or `game_film.csv` marked `removed`, so the finders never suggest it again. A video the film matcher already linked (its title's date was a day off) shows where it's linked now, with **Looks right**. The tab shows how many are waiting.
 - **Recent changes.** Every change made on the page, newest first, with an **Undo** button. Undo puts the line (or photo) back the way it was, as a new commit. If the same line was changed again afterward, undo the later change first. The list lives in `overrides/admin_log.jsonl`. Changes made directly in GitHub or on a computer don't appear in it, but every change is a commit, so anything can also be undone from GitHub.
 
 *One-time setup* (the page says "isn't set up yet" until this is done):
@@ -108,7 +109,7 @@ Only add photos you have permission to share (your own, the school's, or with th
 
 **Priority on a game page:** YouTube film plays right on the page. Hudl full-game replays and recaps (`overrides/hudl_video.csv`) appear as buttons, and drop to "Also on Hudl" once a game has YouTube film.
 
-**By hand:** matches are saved in `overrides/game_film.csv`. Anything uncertain goes to `data/film_review.csv`, including a new video for a game that already has film. To fix, swap or add one, edit `game_film.csv` and set `matched_by` to `manual`. Manual rows are never overwritten. To re-match the whole channel:
+**By hand:** matches are saved in `overrides/game_film.csv`. Anything uncertain goes to `data/film_review.csv`, including a new video for a game that already has film; check those on the admin page's *To review* tab. To fix, swap or add one, edit `game_film.csv` and set `matched_by` to `manual`. Manual rows are never overwritten. To re-match the whole channel:
 ```
 .venv/bin/python scripts/match_film.py "https://www.youtube.com/channel/UCMQOY87AZs0Hl4VQc61JTKg"
 ```
@@ -124,7 +125,7 @@ Only add photos you have permission to share (your own, the school's, or with th
 ```
 It places each gallery by the date in its title, or by opponent + home/away + season (and late-season games for playoff galleries), adds it to `news_stories.csv`, and lists any it can't place. GX3 has one whole-season gallery for 2007-08 and 2008-09 (`BaHSBBB0708`, `BaHSBBB0809` in the Bangor school folders), which aren't linked to single games. Galleries show in a game's coverage list as "Photo gallery". Any other outlet's gallery can be added straight to `news_stories.csv` with `kind` set to `photos`.
 
-**By hand:** stories are saved in `overrides/news_stories.csv`. Uncertain ones go to `data/stories_review.csv` with the reason. To add or fix one, add a row to `news_stories.csv` (`game_date` and `opponent` for a game story, or `player` for a feature) and set `matched_by` to `manual`. To search past seasons again:
+**By hand:** stories are saved in `overrides/news_stories.csv`. Uncertain ones go to `data/stories_review.csv` with the reason; check those on the admin page's *To review* tab. To add or fix one, add a row to `news_stories.csv` (`game_date` and `opponent` for a game story, or `player` for a feature) and set `matched_by` to `manual`. To search past seasons again:
 ```
 .venv/bin/python scripts/match_stories.py --all
 ```

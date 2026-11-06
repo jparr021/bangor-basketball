@@ -8,7 +8,7 @@ const { install } = require("./fake_github");
 
 const ROOT = path.join(__dirname, "..");
 const FILES = ["photos.csv", "news_stories.csv", "game_film.csv", "hudl_video.csv", "rosters.csv", "season_history.csv",
-               "grad_years.csv"].map((f) => "overrides/" + f);
+               "grad_years.csv"].map((f) => "overrides/" + f).concat(["data/stories_review.csv", "data/film_review.csv"]);
 process.env.ADMIN_PASSWORD = "test-password";
 process.env.GITHUB_TOKEN = "test-token";
 const admin = require("../api/admin.js");
@@ -142,4 +142,63 @@ test("class years: one correction per player, saved, edited, removed", async () 
   assert.equal((await call({ action: "save", table: "grad", before: row, after: { ...row, grad_year: "2027" } })).status, 200);
   assert.equal((await call({ action: "save", table: "grad", before: { ...row, grad_year: "2027" }, after: null })).status, 200);
   assert.equal(gh.text("overrides/grad_years.csv"), original("overrides/grad_years.csv"));
+});
+
+test("review: link a story, dismiss one, and undo puts both back", async () => {
+  const gh = install(ROOT, FILES);
+  let q = (await call({ action: "queue" })).body;
+  assert.ok(q.story.length > 10, "stories to review");
+  const [a, b] = q.story;
+  const g = { date: "2025-12-02", opponent: "Arcadia" };
+  let r = await call({ action: "review", kind: "story", item: a.item, verdict: "link", game: g });
+  assert.equal(r.status, 200, r.body.error);
+  const news = admin.parseCsv(gh.text("overrides/news_stories.csv"));
+  const linked = news.find((x) => x.url === a.item.url);
+  assert.equal(linked.game_date, "2025-12-02");
+  assert.equal(linked.matched_by, "manual");
+  assert.equal(linked.access, a.item.outlet === "La Crosse Tribune" ? "subscriber" : "free");
+
+  assert.equal((await call({ action: "review", kind: "story", item: b.item, verdict: "dismiss" })).status, 200);
+  assert.equal(admin.parseCsv(gh.text("overrides/news_stories.csv")).find((x) => x.url === b.item.url).matched_by, "removed");
+  // both are gone from the list, and the review file lost exactly those two lines
+  q = (await call({ action: "queue" })).body;
+  assert.ok(!q.story.some((x) => x.item.url === a.item.url || x.item.url === b.item.url));
+  assert.equal(admin.parseCsv(gh.text("data/stories_review.csv")).length, admin.parseCsv(original("data/stories_review.csv")).length - 2);
+  // the same item twice is refused (someone else already handled it)
+  assert.equal((await call({ action: "review", kind: "story", item: b.item, verdict: "dismiss" })).status, 409);
+
+  for (const e of (await call({ action: "log" })).body.entries) if (e.undo) await call({ action: "undo", id: e.id });
+  assert.equal(gh.text("overrides/news_stories.csv"), original("overrides/news_stories.csv"));
+  assert.equal(gh.text("data/stories_review.csv"), original("data/stories_review.csv"));
+});
+
+test("review: a story about a player needs no game", async () => {
+  const gh = install(ROOT, FILES);
+  const item = (await call({ action: "queue" })).body.story[0].item;
+  assert.equal((await call({ action: "review", kind: "story", item, verdict: "link", game: { player: "Hayden Massman" } })).status, 200);
+  const row = admin.parseCsv(gh.text("overrides/news_stories.csv")).find((x) => x.url === item.url);
+  assert.equal(row.player, "Hayden Massman");
+  assert.equal(row.game_date, "");
+  assert.equal((await call({ action: "review", kind: "story", item: (await call({ action: "queue" })).body.story[0].item,
+                              verdict: "link", game: {} })).status, 400);
+});
+
+test("review: film already linked can be confirmed, moved or dismissed", async () => {
+  const gh = install(ROOT, FILES);
+  const vid = "https://www.youtube.com/watch?v=abcdefghijk";
+  // what the film finder leaves when a title's date is a day off: linked, and in the review list
+  gh.otherCommit("overrides/game_film.csv", original("overrides/game_film.csv") + `2025-12-02,Arcadia,${vid},Bangor vs Arcadia 12-3-25,"opponent, title date off by a day or two"\n`);
+  gh.otherCommit("data/film_review.csv", "title,youtube_url,upload_date,reason,candidates\n" +
+    `Bangor vs Arcadia 12-3-25,${vid},20251204,"matched, but off",2025-12-02 Arcadia\nRandom clip,https://youtu.be/zzzzzzzzzzz,,no date or opponent in title,\n`);
+  const q = (await call({ action: "queue" })).body.film;
+  assert.equal(q.length, 2);
+  assert.equal(q[0].linked.date, "2025-12-02");
+  assert.equal(q[1].linked, null);
+  assert.equal((await call({ action: "review", kind: "film", item: q[1].item, verdict: "ok" })).status, 400); // nothing to confirm
+  assert.equal((await call({ action: "review", kind: "film", item: q[0].item, verdict: "ok" })).status, 200);
+  assert.match(gh.text("overrides/game_film.csv"), /abcdefghijk,Bangor vs Arcadia 12-3-25,"opponent, title date off/); // unchanged
+  assert.equal((await call({ action: "review", kind: "film", item: q[1].item, verdict: "dismiss" })).status, 200);
+  assert.match(gh.text("overrides/game_film.csv"), /^,,https:\/\/youtu\.be\/zzzzzzzzzzz,Random clip,removed$/m);
+  assert.deepEqual((await call({ action: "queue" })).body.film, []);
+  assert.equal(gh.text("data/film_review.csv"), "title,youtube_url,upload_date,reason,candidates\n");
 });

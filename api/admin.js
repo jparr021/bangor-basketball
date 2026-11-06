@@ -2,7 +2,8 @@
 //
 // It checks the admin password, then saves changes straight into the GitHub repository, one commit per
 // change: photos (overrides/photos/ and photos.csv), links on game pages (news_stories.csv, game_film.csv,
-// hudl_video.csv), rosters (rosters.csv) and season lines (season_history.csv). Each change is also written
+// hudl_video.csv), rosters (rosters.csv), season lines (season_history.csv), class years (grad_years.csv), and
+// the news and film finders' review lists (data/stories_review.csv, data/film_review.csv). Each change is also written
 // to overrides/admin_log.jsonl, which is what the page's "Recent changes" list and its Undo buttons use.
 // Vercel rebuilds the site on every commit, so a change is live a few minutes later.
 //
@@ -42,19 +43,24 @@ const TABLES = {
     path: "overrides/news_stories.csv",
     cols: ["published", "outlet", "kind", "title", "url", "access", "game_date", "opponent", "player", "matched_by"],
     soft: true, // a removed row stays (marked removed) so the news-finder doesn't add it back
-    label: (r) => `${r.kind === "photos" ? "photo gallery" : r.kind === "video" ? "news video" : "news story"} “${r.title}” (${game(r, "game_date")})`,
-    check: (r) => ({
-      published: match(clean(r.published, 10), DATE, "Fill in the date it was published."),
-      outlet: need(clean(r.outlet, 60), "who published it"),
-      kind: oneOf(clean(r.kind, 10), ["article", "video", "photos"], "story, video or photos"),
-      title: need(clean(r.title, 200), "the headline"),
-      url: match(clean(r.url, 600), URL_RE, "The link has to start with https://"),
-      access: oneOf(clean(r.access, 12), ["free", "subscriber"], "free or subscriber-only"),
-      game_date: match(clean(r.game_date, 10), DATE, "Choose the game."),
-      opponent: need(clean(r.opponent, 60), "the opponent"),
-      player: clean(r.player, 80),
-      matched_by: "manual",
-    }),
+    label: (r) => `${r.kind === "photos" ? "photo gallery" : r.kind === "video" ? "news video" : "news story"} “${r.title}”` +
+                  (r.game_date ? ` (${game(r, "game_date")})` : r.player ? ` (about ${r.player})` : ""),
+    check: (r) => {
+      // a game story, or a feature about one player (Play of the Week and the like) with no game
+      const feature = !clean(r.game_date, 10) && clean(r.player, 80);
+      return {
+        published: match(clean(r.published, 10), DATE, "Fill in the date it was published."),
+        outlet: need(clean(r.outlet, 60), "who published it"),
+        kind: oneOf(clean(r.kind, 10), ["article", "video", "photos"], "story, video or photos"),
+        title: need(clean(r.title, 200), "the headline"),
+        url: match(clean(r.url, 600), URL_RE, "The link has to start with https://"),
+        access: oneOf(clean(r.access, 12), ["free", "subscriber"], "free or subscriber-only"),
+        game_date: feature ? "" : match(clean(r.game_date, 10), DATE, "Choose the game."),
+        opponent: feature ? "" : need(clean(r.opponent, 60), "the opponent"),
+        player: clean(r.player, 80),
+        matched_by: "manual",
+      };
+    },
   },
   film: {
     path: "overrides/game_film.csv", cols: ["date", "opponent", "youtube_url", "title", "matched_by"], soft: true,
@@ -110,6 +116,13 @@ const TABLES = {
       grad_year: match(clean(r.grad_year, 4), /^(19|20)\d\d$/, "The class year has to be a year, like 2027."),
       note: clean(r.note, 200),
     }),
+  },
+  // what the news and film finders weren't sure about (scripts/match_stories.py, scripts/match_film.py)
+  storyReview: {
+    path: "data/stories_review.csv", cols: ["published", "outlet", "kind", "title", "url", "reason", "candidates"],
+  },
+  filmReview: {
+    path: "data/film_review.csv", cols: ["title", "youtube_url", "upload_date", "reason", "candidates"],
   },
 };
 const EDITABLE = ["news", "film", "hudl", "roster", "season", "grad"];
@@ -243,17 +256,20 @@ const logText = (log) => log.slice(-LOG_KEEP).map((e) => JSON.stringify(e)).join
 // ---------------------------------------------------------------- row changes, and undoing them
 const sameRow = (a, b, cols) => cols.every((k) => (a[k] || "") === (b[k] || ""));
 
-// Apply one change to a table: before → after (before null = add, after null = remove).
-function applyOp(tb, before, after, cols) {
+// Apply one change to a table: before → after (before null = add, after null = remove). A removal
+// returns where the line was, and an add with `at` puts it back there (so an undo leaves the file as it was).
+function applyOp(tb, before, after, cols, at) {
   const t = TABLES[tb.name];
   if (before) {
     const i = tb.rows.findIndex((r) => sameRow(r, before, cols));
     if (i < 0) throw new Bad("That line has changed since this page loaded (or was already removed). Refresh and try again.", 409);
     if (after) tb.rows[i] = after; else tb.rows.splice(i, 1);
+    return i;
   } else if (after) {
     if (t.key && tb.rows.some((r) => r[t.key] === after[t.key])) throw new Bad(`There's already a line for ${after[t.key]}. Edit that one instead.`, 409);
-    tb.rows.push(after);
+    if (at != null && at >= 0 && at < tb.rows.length) tb.rows.splice(at, 0, after); else tb.rows.push(after);
   }
+  return null;
 }
 
 const live = (r) => r.matched_by !== "removed";
@@ -271,11 +287,12 @@ async function saveRow(b) {
   const label = t.label(b.after ? after : before);
   return change([name], ({ tables }) => {
     const tb = tables[name];
-    applyOp(tb, before, after, tb.cols);
+    const at = applyOp(tb, before, after, tb.cols);
     return {
       files: [tableFile(tb)],
       message: `${verb} ${label} (from the admin page)`,
-      entry: { label: `${verb === "Edit" ? "Edited" : verb === "Add" ? "Added" : "Removed"} ${label}`, ops: [{ table: name, before, after }] },
+      entry: { label: `${verb === "Edit" ? "Edited" : verb === "Add" ? "Added" : "Removed"} ${label}`,
+               ops: [{ table: name, before, after, ...(after ? {} : { at }) }] },
       result: { ok: true, row: after },
     };
   });
@@ -292,7 +309,7 @@ async function undo(id) {
   const names = [...new Set((e.ops || []).map((o) => o.table))];
   return change(names, ({ tables }) => {
     try {
-      for (const o of [...(e.ops || [])].reverse()) applyOp(tables[o.table], o.after, o.before, tables[o.table].cols);
+      for (const o of [...(e.ops || [])].reverse()) applyOp(tables[o.table], o.after, o.before, tables[o.table].cols, o.at);
     } catch (err) {
       if (err.status === 409) throw new Bad("That line was changed again after this, so it can't be undone here. Edit it directly instead (or undo the later change first).", 409);
       throw err;
@@ -304,6 +321,71 @@ async function undo(id) {
       entry: { label: `Undid: ${e.label}`, undoes: id },
       result: { ok: true },
     };
+  });
+}
+
+// ---------------------------------------------------------------- review queues
+// An item is linked to a game (a manual line in news_stories.csv or game_film.csv), or dismissed (a line
+// marked removed, which the finders skip from then on, so it never comes back), or, for a video the film
+// finder already linked, confirmed as it is. Either way it leaves the review list, in the same commit.
+const ytId = (u) => ((String(u || "").match(YT_RE) || [""])[0].match(/[A-Za-z0-9_-]{11}$/) || [""])[0];
+const QUEUES = {
+  story: {
+    review: "storyReview", target: "news", same: (a, b) => a.url === b.url, what: "news story",
+    row: (item, g) => ({ published: item.published, outlet: item.outlet, kind: item.kind || "article", title: item.title,
+                         url: item.url, access: item.outlet === "La Crosse Tribune" ? "subscriber" : "free",
+                         game_date: g.date || "", opponent: g.opponent || "", player: g.player || "", matched_by: "" }),
+  },
+  film: {
+    review: "filmReview", target: "film", same: (a, b) => ytId(a.youtube_url) && ytId(a.youtube_url) === ytId(b.youtube_url),
+    what: "YouTube video",
+    row: (item, g) => ({ date: g.date || "", opponent: g.opponent || "", youtube_url: item.youtube_url, title: item.title, matched_by: "" }),
+  },
+};
+
+async function queues() {
+  const head = await headSha();
+  const out = {};
+  for (const [kind, q] of Object.entries(QUEUES)) {
+    const [rv, tg] = [await readTable(head, q.review), await readTable(head, q.target)];
+    out[kind] = rv.rows.flatMap((item) => {
+      const have = tg.rows.find((r) => q.same(r, item));
+      if (have && (!live(have) || kind === "story")) return []; // dismissed, or a story the finder will drop next run
+      return [{ item: Object.fromEntries(TABLES[q.review].cols.map((k) => [k, item[k] || ""])),
+                linked: have ? Object.fromEntries(TABLES[q.target].cols.map((k) => [k, have[k] || ""])) : null }];
+    });
+  }
+  return out;
+}
+
+async function review(b) {
+  const q = QUEUES[b.kind];
+  if (!q) throw new Bad("Unknown list.");
+  const verdict = oneOf(String(b.verdict || ""), ["link", "dismiss", "ok"], "link, not this, or looks right");
+  const item = Object.fromEntries(TABLES[q.review].cols.map((k) => [k, String((b.item || {})[k] == null ? "" : b.item[k])]));
+  const t = TABLES[q.target];
+  const g = b.game || {};
+  return change([q.review, q.target], ({ tables }) => {
+    const rv = tables[q.review], tg = tables[q.target];
+    const have = tg.rows.find((r) => q.same(r, item)) || null;
+    const before = have && Object.fromEntries(tg.cols.map((k) => [k, have[k] || ""]));
+    let after, label;
+    if (verdict === "link") {
+      after = t.check(q.row(item, g));
+      label = `Linked ${t.label(after)}`;
+    } else if (verdict === "dismiss") {
+      after = have ? { ...before, matched_by: "removed" } : { ...q.row(item, {}), matched_by: "removed" };
+      label = `Dismissed ${q.what} “${clean(item.title, 200)}”`;
+    } else {
+      if (!have || !live(have)) throw new Bad("That one isn't linked to a game yet. Choose the game instead.");
+      after = null;
+      label = `Confirmed ${t.label(before)}`;
+    }
+    const ops = [{ table: q.review, before: item, after: null }];
+    if (after) ops.push({ table: q.target, before, after });
+    for (const o of ops) { const at = applyOp(tables[o.table], o.before, o.after, tables[o.table].cols); if (!o.after) o.at = at; }
+    const files = [tableFile(rv), ...(after ? [tableFile(tg)] : [])];
+    return { files, message: `${label} (from the admin page's review list)`, entry: { label, ops }, result: { ok: true } };
   });
 }
 
@@ -349,12 +431,13 @@ async function removePhoto(b) {
     if (!found) throw new Bad("That photo is already gone.", 404);
     const local = !/^https?:\/\//.test(image) && !image.includes("/") && !image.includes("..");
     const file = local ? await getFile(head, PHOTO_DIR + image) : null;
-    tables.photos.rows = tables.photos.rows.filter((r) => r !== found);
+    const at = tables.photos.rows.indexOf(found);
+    tables.photos.rows.splice(at, 1);
     const label = TABLES.photos.label(found);
     return {
       files: [...(file ? [{ path: PHOTO_DIR + image, remove: true }] : []), tableFile(tables.photos)],
       message: `Remove ${label} (from the admin page)`,
-      entry: { label: `Removed ${label}`, ops: [{ table: "photos", before: found, after: null }],
+      entry: { label: `Removed ${label}`, ops: [{ table: "photos", before: found, after: null, at }],
                files: file ? [{ path: PHOTO_DIR + image, before: file.sha, after: null }] : [] },
       result: { ok: true },
     };
@@ -408,6 +491,9 @@ module.exports = async (req, res) => {
         undo: !e.undoes && !undone.has(e.id) && !!(e.ops || e.files) })) });
     }
     if (b.action === "undo") return res.json(await undo(clean(b.id, 20)));
+
+    if (b.action === "queue") return res.json(await queues());
+    if (b.action === "review") return res.json(await review(b));
 
     return fail(res, 400, "Unknown action.");
   } catch (e) {

@@ -561,6 +561,13 @@ button.btn-solid:disabled { opacity: .6; cursor: wait; }
 .admin-rows li { grid-template-columns: 1fr auto; }
 .admin-btns { display: flex; gap: 14px; white-space: nowrap; }
 .admin-actions { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
+.admin-review li { display: grid; grid-template-columns: 1fr; gap: 8px; }
+.admin-review li > div { gap: 2px; }
+.admin-review .admin-btns { display: flex; flex-wrap: wrap; white-space: normal; gap: 8px 12px; align-items: center; }
+.admin-review .admin-pick { font: inherit; font-size: .85rem; padding: 4px 8px; border: 1px solid #c9ccd2; border-radius: 6px; background: #fff; max-width: 100%; }
+.admin-review .admin-done { opacity: .75; }
+.admin-review .admin-msg:empty { display: none; }
+.admin-count { display: inline-block; min-width: 1.5em; padding: 0 5px; border-radius: 9px; background: var(--red); color: #fff; font-size: .75rem; line-height: 1.5; text-align: center; }
 .admin-scroll { max-height: 420px; overflow-y: auto; }
 .admin-url { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--muted); }
 .admin-thumb { width: 72px; height: 54px; object-fit: cover; border-radius: 4px; background: var(--bg); display: flex; align-items: center; justify-content: center; text-align: center; }

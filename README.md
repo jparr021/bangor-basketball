@@ -8,7 +8,8 @@ A static website with Bangor High School (WI) boys basketball history: every sea
 | `source-sheets/` | One Excel file per season, downloaded from Google Sheets. **This is the raw data.** |
 | `overrides/` | Things maintained by hand (see below). |
 | `data/` | Generated. The cleaned-up standard dataset (see `data/README.md`). |
-| `scripts/` | The converter, checks, record calculations, site builder and film matcher. |
+| `scripts/` | The converter, checks, record calculations, site builder and film matcher. The site builder is `build_site.py`, which runs the modules in `scripts/sitegen/` (its docstring lists what each one does). |
+| `tests/` | Automated tests (see *Tests*). |
 | `site-src/` | Page templates, styles and the logo. |
 | `site/` | Generated. The finished website (Vercel builds this itself). |
 
@@ -28,7 +29,7 @@ A static website with Bangor High School (WI) boys basketball history: every sea
 | `boxscores.csv` | Full Bangor box scores typed in from a printed stat sheet (date, team, number, name and the box-score columns), for a game the season sheet has no stats for, or only points. A printout replaces the sheet's game tab. They count like any box score on the game page, in game records and in game highs. In a season whose sheet tracks only points (2012–13), they add only points to the season totals, and a player's points and games that season come from the box scores rather than the sheet's season tab, which counted some of these games for some players. |
 | `team_game_stats.csv` | Team totals for games with no box score by player (date, team, then fgm, fga, tpm, tpa, ftm, fta, oreb, dreb, reb, ast, stl, to, pf, chg, pts and source), one row for Bangor and one for the opponent, from a yearbook's game-by-game team stats (1997–98). They show as a Team stats table on the game page, and Bangor's count in the team game records. FGM/FGA include 3-pointers. |
 | `photos.csv` + `photos/` | Team photos and player headshots (see *Photos*). |
-| `grad_years.csv` | Class years (name, grad_year, note) for players the sheets don't give one for, or to fix an estimated year. |
+| `grad_years.csv` | Class years (name, grad_year, note) for players the sheets don't give one for, or to fix an estimated year. Also on the admin page's *Class years* tab. |
 | `career_totals.csv` | Official career totals where the stat sheets are incomplete. |
 | `game_film.csv` | YouTube film for each game (filled by the film matcher, editable by hand). |
 | `site.json` | The corrections form link for the footer (see *Corrections form*). |
@@ -77,6 +78,7 @@ A last name alone (`Schroeder` on a team-photo list) gets no page, since it can'
 - **Game links.** Choose a season and a game to see what's linked on its page (news stories, news videos, photo galleries, YouTube film, Hudl replays and recaps), then edit, remove or add one. Paste a link and the page guesses what it is and who published it. These are lines in `news_stories.csv` (GX3 galleries are its `photos` lines), `game_film.csv` and `hudl_video.csv`. A removed story or film stays in its file marked `matched_by` = `removed`, so the story finder and film matcher don't add it back, and the build skips it. Scores, stats and the livestream link still come from the season's Google Sheet.
 - **Rosters.** Choose a season to see its roster from `rosters.csv`, then edit, remove or add players.
 - **Seasons.** A season's line in `season_history.csv`: wins, losses, ties, coach and highlights. For the current season the record is counted from the sheet's games, so only the coach and highlights matter until it ends.
+- **Class years.** Choose a player to see their class year on the site and where it comes from, and save a correction (`grad_years.csv`). The tab also lists every player whose year is only estimated (from the last season played), with a **Fix** button.
 - **Recent changes.** Every change made on the page, newest first, with an **Undo** button. Undo puts the line (or photo) back the way it was, as a new commit. If the same line was changed again afterward, undo the later change first. The list lives in `overrides/admin_log.jsonl`. Changes made directly in GitHub or on a computer don't appear in it, but every change is a commit, so anything can also be undone from GitHub.
 
 *One-time setup* (the page says "isn't set up yet" until this is done):
@@ -155,3 +157,13 @@ After each build, `scripts/check_links.py` follows every link inside the site an
 ```
 ./build.sh
 ```
+
+## Tests
+After a build, run:
+```
+.venv/bin/python -m unittest discover -s tests
+node --test "tests/*.test.js"
+```
+The Python tests check the small helpers (names, dates, links, Wisconsin time), the hand-kept files in `overrides/` (the columns the admin page writes, valid seasons, dates and links, every listed photo's file is there), and the built site (every game and season has a page, the structured data parses, unlisted pages stay out of the sitemap). The Node tests run the admin page's server side against a fake GitHub seeded with the real `overrides/` files: adding, editing, removing and undoing, bad input, and a change made while another commit lands. GitHub runs both after every push, with the link check (*Check site links* under Actions), and emails you if one fails. A failing test never stops Vercel from publishing.
+
+The build is meant to give the same pages every time from the same data, so a commit's diff shows only what really changed.

@@ -560,6 +560,8 @@ button.btn-solid:disabled { opacity: .6; cursor: wait; }
 @media (max-width: 560px) { .admin-row2, .admin-row3 { grid-template-columns: 1fr; } }
 .admin-rows li { grid-template-columns: 1fr auto; }
 .admin-btns { display: flex; gap: 14px; white-space: nowrap; }
+.admin-actions { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
+.admin-scroll { max-height: 420px; overflow-y: auto; }
 .admin-url { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--muted); }
 .admin-thumb { width: 72px; height: 54px; object-fit: cover; border-radius: 4px; background: var(--bg); display: flex; align-items: center; justify-content: center; text-align: center; }
 

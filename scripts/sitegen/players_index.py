@@ -1,0 +1,68 @@
+"""Which players get a page: everyone in the stat sheets, plus players known only from rosters,
+the record book and newspaper clippings (the archive players)."""
+from sitegen.data import *  # noqa: F401,F403  (everything defined before this part of the build)
+
+
+# ---------------------------------------------------------------- players
+PLAYER_PAGES = {}
+for slug_, rows in pg_by_player.items():
+    PLAYER_PAGES[slug_] = rows[0]["name"]
+for r in pseasons:
+    PLAYER_PAGES.setdefault(r["slug"], r["name"])
+
+# Players from before the stat sheets: known only from rosters (rosters.csv), the record book
+# (historical_records.csv) and newspaper clippings of results-only games (newspaper_stats.csv). Each gets a
+# shorter player page. A name with no first name or initial ("Schroeder") gets none, since it can't be told
+# apart from another player of the same name.
+ARCHIVE = OrderedDict()
+
+
+def _season_span(a, b):
+    return [f"{y}-{str(y + 1)[2:]}" for y in range(int(a[:4]), int(b[:4]) + 1)]
+
+
+def _archive(name):
+    name = canon(name)
+    sl = slug(name)
+    if not sl or sl in PLAYER_PAGES and sl not in ARCHIVE or len(name.split()) < 2:
+        return None
+    return ARCHIVE.setdefault(sl, {"slug": sl, "name": name, "roster": [], "book": [], "clips": [], "seasons": set(),
+                                   "grad": None, "grad_how": ""})
+
+
+for _s, _rs in ROSTERS.items():
+    for _r in _rs:
+        _a = _archive(_r["name"])
+        if _a:
+            _a["roster"].append(_r)
+            _a["seasons"].add(_s)
+            if _r["class_year"] and not _a["grad"]:
+                _a["grad"], _a["grad_how"] = _r["class_year"], "grade"
+for _h in hist_records:
+    _a = _archive(_h["name"]) if _h["name"] else None
+    if not _a:
+        continue
+    _a["book"].append(_h)
+    _txt = f"{_h['season']} {_h['note']}"
+    _cls = re.search(r"Class of (\d{4})", _txt)
+    _rng = re.search(r"(\d{4}-\d{2}) to (\d{4}-\d{2})", _h["season"])
+    if _cls and _a["grad_how"] != "book":
+        _a["grad"], _a["grad_how"] = int(_cls.group(1)), "book"  # the record book's class year wins over a grade
+    if _rng:
+        _a["seasons"].update(_season_span(*_rng.groups()))
+        if not _a["grad"]:
+            _a["grad"], _a["grad_how"] = season_end_year(_rng.group(2)), "book"
+    elif re.fullmatch(r"\d{4}-\d{2}", _h["season"]):
+        _a["seasons"].add(_h["season"])
+_ro_by_date = {g["date"]: g for gs in RESULTS_ONLY.values() for g in gs if g.get("date")}
+if os.path.exists(os.path.join(OV, "newspaper_stats.csv")):
+    for _r in load(os.path.join(OV, "newspaper_stats.csv")):
+        _g = _ro_by_date.get(_r["date"])
+        _a = _archive(_r["name"]) if _g and _r["team"].strip().lower() == "bangor" else None
+        if _a:
+            _a["clips"].append({"g": _g, **{k: num(_r.get(k)) for k in ("pts", "fgm", "fga", "tpm", "tpa", "ftm", "fta",
+                                                                          "reb", "ast", "blk")},
+                                "number": _r.get("number", ""), "source": _r.get("source", "")})
+            _a["seasons"].add(_g["season"])
+for _sl, _a in ARCHIVE.items():
+    PLAYER_PAGES[_sl] = _a["name"]

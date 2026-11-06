@@ -174,7 +174,7 @@ def run(current, today, aliases=None):
                     else:
                         txt = f"\"{a}\" is new in {s}; \"{b}\" played the season before."
                     add(s, "check", txt + " If it's one player, spell the name the same way everywhere "
-                                          "(or add it to PLAYER_ALIASES in scripts/build_site.py).")
+                                          "(or add it to PLAYER_ALIASES in scripts/sitegen/common.py).")
         for num, nms in numbers[s].items():
             if len(nms) > 1:
                 add(s, "check", f"#{num} is worn by {' and '.join(sorted(nms))} in {s}. "

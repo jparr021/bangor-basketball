@@ -102,8 +102,17 @@ const TABLES = {
       coach: clean(r.coach, 80), notes: clean(r.notes, 500),
     }),
   },
+  grad: {
+    path: "overrides/grad_years.csv", cols: ["name", "grad_year", "note"], key: "name",
+    label: (r) => `class year for ${r.name}`,
+    check: (r) => ({
+      name: need(clean(r.name, 80), "the player's name"),
+      grad_year: match(clean(r.grad_year, 4), /^(19|20)\d\d$/, "The class year has to be a year, like 2027."),
+      note: clean(r.note, 200),
+    }),
+  },
 };
-const EDITABLE = ["news", "film", "hudl", "roster", "season"];
+const EDITABLE = ["news", "film", "hudl", "roster", "season", "grad"];
 
 // ---------------------------------------------------------------- CSV (quoted fields, as Python's csv module writes)
 function parseCsv(text, defaultCols = []) {
@@ -414,3 +423,4 @@ module.exports = async (req, res) => {
 module.exports.parseCsv = parseCsv;
 module.exports.toCsv = toCsv;
 module.exports.blobSha = blobSha;
+module.exports.slug = slug;

@@ -25,6 +25,7 @@
       <button type="button" role="tab" data-tab="links" aria-selected="false">Game links</button>
       <button type="button" role="tab" data-tab="roster" aria-selected="false">Rosters</button>
       <button type="button" role="tab" data-tab="season" aria-selected="false">Seasons</button>
+      <button type="button" role="tab" data-tab="grad" aria-selected="false">Class years</button>
       <button type="button" role="tab" data-tab="log" aria-selected="false">Recent changes</button>
       <button type="button" class="link-btn admin-signout" id="sign-out">Sign out</button>
     </div>
@@ -158,6 +159,31 @@
       </section>
     </div>
 
+    <!-- ================================================================ class years -->
+    <div data-panel="grad" hidden>
+      <section class="card">
+        <div class="card-head"><h2>Class year</h2><a id="c-link" href="#" target="_blank" rel="noopener" hidden>View player page →</a></div>
+        <form id="c-form" class="admin-form">
+          <label>Player <input id="c-name" list="player-list" required autocomplete="off" placeholder="Start typing a name…"></label>
+          <p class="muted small" id="c-now"></p>
+          <div class="admin-row2">
+            <label>Class of <input id="c-year" inputmode="numeric" maxlength="4" required placeholder="2027"></label>
+            <label>How you know <input id="c-note" maxlength="200" placeholder="Optional, e.g. 1997–98 yearbook: senior"></label>
+          </div>
+          <div class="admin-actions">
+            <button class="btn btn-solid" type="submit" id="c-save">Save</button>
+            <button type="button" class="link-btn danger" id="c-remove" hidden>Remove this correction</button>
+          </div>
+          <p class="admin-msg" id="c-msg" role="status"></p>
+        </form>
+        <p class="muted small">A player's class year shows on their page and puts them in a graduating class. When the stat sheets don't give a class (SR, JR…), the site guesses from the last season played and marks it <em>est.</em> A year saved here replaces the guess.</p>
+      </section>
+      <section class="card">
+        <div class="card-head"><h2>Estimated class years <small class="muted" id="c-est-n"></small></h2></div>
+        <ul class="admin-list admin-rows admin-scroll" id="c-est"></ul>
+      </section>
+    </div>
+
     <!-- ================================================================ recent changes -->
     <div data-panel="log" hidden>
       <section class="card">
@@ -233,14 +259,14 @@
     each("[role=tab]", function (t) { t.setAttribute("aria-selected", t.dataset.tab === name ? "true" : "false"); });
     each("[data-panel]", function (p) { p.hidden = p.dataset.panel !== name; });
     history.replaceState(null, "", "#" + name);
-    if (!loaded[name]) { loaded[name] = true; ({ photos: loadList, links: loadGame, roster: loadRoster, season: loadSeason, log: loadLog })[name](); }
+    if (!loaded[name]) { loaded[name] = true; ({ photos: loadList, links: loadGame, roster: loadRoster, season: loadSeason, grad: loadGrad, log: loadLog })[name](); }
     else if (name === "log") loadLog();
   }
   each("[role=tab]", function (t) { t.addEventListener("click", function () { showTab(t.dataset.tab); }); });
   function showPanel() {
     $("login").hidden = true; $("panel").hidden = false;
     var h = location.hash.slice(1);
-    showTab(["photos", "links", "roster", "season", "log"].indexOf(h) >= 0 ? h : "photos");
+    showTab(["photos", "links", "roster", "season", "grad", "log"].indexOf(h) >= 0 ? h : "photos");
   }
 
   $("login-form").addEventListener("submit", function (e) {
@@ -540,6 +566,62 @@
       .then(function (j) { sRow = j.row; $("s-save").textContent = "Save"; saved($("s-msg")); })
       .catch(function (err) { msg($("s-msg"), err.message, false); })
       .then(function () { $("s-save").disabled = false; });
+  });
+
+  // ---------------------------------------------------------------- class years
+  var HOW = { class: "from the class column (SR, JR…) in the stat sheets", estimated: "estimated from the last season played",
+              set: "from the record book", book: "from the record book", grade: "worked out from the grade on a roster",
+              override: "a correction saved here" };
+  var gradRows = {}, cRow = null;
+  function player(name) { return PLAYERS.filter(function (p) { return p.name === name; })[0]; }
+  function loadGrad() {
+    call({ action: "rows", table: "grad", where: {} }).then(function (j) {
+      gradRows = {};
+      j.rows.forEach(function (r) { gradRows[r.name] = r; });
+      showGrad();
+    }).catch(function (err) { msg($("c-msg"), err.message, false); });
+    var est = PLAYERS.filter(function (p) { return p.how === "estimated"; })
+      .sort(function (a, b) { return a.years < b.years ? 1 : a.years > b.years ? -1 : a.name < b.name ? -1 : 1; });
+    $("c-est-n").textContent = "(" + est.length + ")";
+    var ul = $("c-est"); ul.innerHTML = "";
+    if (!est.length) ul.appendChild(el("li", "muted", "None: every player's class year is known."));
+    est.forEach(function (p) {
+      ul.appendChild(rowItem(p.name, p.years + " · Class of " + p.grad + " (est.)", [{ label: "Fix", fn: function () {
+        $("c-name").value = p.name; showGrad(); $("c-year").focus();
+        $("c-form").scrollIntoView({ behavior: "smooth", block: "start" });
+      } }]));
+    });
+  }
+  function showGrad() {
+    var name = $("c-name").value.trim(), p = player(name);
+    cRow = gradRows[name] || null;
+    $("c-remove").hidden = !cRow;
+    $("c-link").hidden = !p;
+    if (p) $("c-link").href = pageUrl("players/" + p.slug);
+    if (cRow) { $("c-year").value = cRow.grad_year; $("c-note").value = cRow.note; }
+    else if (p) { $("c-year").value = p.how === "estimated" ? "" : (p.grad || ""); $("c-note").value = ""; }
+    $("c-now").textContent = !p ? "" : (p.grad ? "On the site now: Class of " + p.grad + ", " + (HOW[p.how] || "source unknown") + "." : "On the site now: no class year.")
+      + (cRow ? " Saved correction: Class of " + cRow.grad_year + "." : "");
+    $("c-save").textContent = cRow ? "Save changes" : "Save";
+  }
+  $("c-name").addEventListener("input", showGrad);
+  $("c-form").addEventListener("submit", function (e) {
+    e.preventDefault();
+    var name = $("c-name").value.trim();
+    if (!player(name)) { msg($("c-msg"), "Pick the player from the list, so the year lands on the right page.", false); return; }
+    var row = { name: name, grad_year: $("c-year").value.trim(), note: $("c-note").value.trim() };
+    $("c-save").disabled = true; msg($("c-msg"), "Saving…");
+    call({ action: "save", table: "grad", before: cRow, after: row })
+      .then(function (j) { gradRows[name] = j.row; showGrad(); saved($("c-msg")); })
+      .catch(function (err) { msg($("c-msg"), err.message, false); })
+      .then(function () { $("c-save").disabled = false; });
+  });
+  $("c-remove").addEventListener("click", function () {
+    var name = $("c-name").value.trim();
+    if (!cRow || !confirm("Remove the saved class year for " + name + "? The site goes back to its own guess.")) return;
+    call({ action: "save", table: "grad", before: cRow, after: null })
+      .then(function () { delete gradRows[name]; showGrad(); saved($("c-msg")); })
+      .catch(function (err) { msg($("c-msg"), err.message, false); });
   });
 
   // ---------------------------------------------------------------- recent changes

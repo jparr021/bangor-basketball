@@ -1,4 +1,4 @@
-# Builds the site the way Vercel does and checks every link inside it. A broken link (a missing page,
+# Builds the site the way Vercel does, checks every link inside it and runs the tests (tests/). A broken link (a missing page,
 # file or #anchor) fails this check, so GitHub marks the commit with a red X and emails you.
 # It never blocks Vercel: the live site keeps updating either way.
 name: Check site links
@@ -26,3 +26,9 @@ jobs:
           sh build.sh
       - name: Check links
         run: .venv/bin/python scripts/check_links.py --strict
+      - name: Python tests
+        if: always()
+        run: .venv/bin/python -m unittest discover -s tests -v
+      - name: Admin page tests
+        if: always()
+        run: node --test "tests/*.test.js"

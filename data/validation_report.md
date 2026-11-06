@@ -12,8 +12,8 @@
 | 1924-25 | 16 | 11-5 | 0 / 0 / 16 | 0 |
 | 1925-26 | 14 | 11-3 | 0 / 0 / 14 | 0 |
 | 1927-28 | 15 | 7-8 | 0 / 0 / 15 | 0 |
-| 1997-98 | 21 | 13-8 | 0 / 5 / 16 | 5 |
-| 2001-02 | 24 | 17-7 | 5 / 19 / 0 | 19 |
+| 1997-98 | 21 | 13-8 | 0 / 20 / 1 | 20 |
+| 2001-02 | 24 | 17-7 | 4 / 20 / 0 | 19 |
 | 2002-03 | 24 | 22-2 | 1 / 19 / 4 | 15 |
 | 2003-04 | 20 | 2-18 | 0 / 0 / 20 | 0 |
 | 2004-05 | 20 | 5-15 | 0 / 0 / 20 | 0 |
@@ -237,7 +237,22 @@ A check compares one player's season total for one stat. A match means the sum o
 - 1997-12-09 vs Necedah: box score adds to 11, final 47
 - 1997-12-12 vs Royall: box score adds to 12, final 39
 - 1997-12-18 vs Hillsboro: box score adds to 38, final 60
-- 1997-12-26 vs Mabel-Canton: box score adds to 39, final 62
+- 1997-12-26 vs Mabel-Canton: box score adds to 47, final 62
+- 1997-12-27 vs Blair-Taylor: box score adds to 61, final 67
+- 1998-01-09 vs Brookwood: box score adds to 36, final 65
+- 1998-01-12 vs Melrose-Mindoro: box score adds to 20, final 49
+- 1998-01-15 vs Cashton: box score adds to 20, final 49
+- 1998-01-20 vs New Lisbon: box score adds to 26, final 67
+- 1998-01-23 vs Necedah: box score adds to 26, final 49
+- 1998-01-27 vs Gale-Ettrick-Trempealeau: box score adds to 18, final 42
+- 1998-01-29 vs Royall: box score adds to 32, final 42
+- 1998-02-03 vs Hillsboro: box score adds to 25, final 52
+- 1998-02-06 vs Wonewoc-Center: box score adds to 50, final 71
+- 1998-02-12 vs Brookwood: box score adds to 46, final 74
+- 1998-02-14 vs Seneca: box score adds to 31, final 59
+- 1998-02-19 vs Cashton: box score adds to 22, final 49
+- 1998-02-23 vs Wonewoc-Center: box score adds to 13, final 54
+- 1998-03-03 vs Greenwood: box score adds to 10, final 39
 - 2001-11-27 vs Luther: box score adds to 42, final 47
 - 2001-12-04 vs Wonewoc-Center: box score adds to 59, final 67
 - 2001-12-07 vs Hillsboro: box score adds to 55, final 63

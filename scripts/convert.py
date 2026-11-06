@@ -699,7 +699,9 @@ def main():
                 g["ot"] = str(sum(1 for l in p["labels"] if "OT" in l.upper()) or "")
             if players:
                 pts_known = sum((p["pts"] or 0) for p in players)
-                full = any(p["fga"] is not None for p in players)
+                # a newspaper clipping is a full box score only when it gives every player's shooting, not
+                # just a few leading scorers with one player's field goals
+                full = (all if g["box_source"] == "newspaper" else any)(p["fga"] is not None for p in players)
                 g["box_score"] = "full" if full else "points"
                 g["box_points"] = pts_known
                 g["box_complete"] = "Y" if pts_known == g["bangor_score"] else "N"

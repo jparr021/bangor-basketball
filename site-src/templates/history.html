@@ -33,7 +33,7 @@
       {% for s in seasons | reverse %}
       <tr id="s{{ s.season }}" class="{{ 'highlight' if 'State Champion' in s.notes }}">
         <td class="nowrap">{% if s.has_data %}<a href="../seasons/{{ s.season }}.html">{{ s.season | replace('-', '–') }}</a>{% else %}{{ s.season | replace('-', '–') }}{% endif %}</td>
-        <td class="num">{{ s.w if s.w != '' else '—' }}</td><td class="num">{{ s.l if s.l != '' else '—' }}{% if s.t %}<small>–{{ s.t }}</small>{% endif %}</td>
+        <td class="num">{{ s.w if s.w != '' and s.started else '—' }}</td><td class="num">{{ s.l if s.l != '' and s.started else '—' }}{% if s.t %}<small>–{{ s.t }}</small>{% endif %}</td>
         <td class="nowrap">{% set cs = coach_slugs.get(s.coach | trim) %}{% if cs %}<a href="../coaches/{{ cs }}.html">{{ s.coach }}</a>{% else %}{{ s.coach }}{% endif %}</td><td class="muted small">{{ s.notes }}</td>
       </tr>
       {% endfor %}

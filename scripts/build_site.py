@@ -1228,7 +1228,91 @@ def game_share(g):
     return share("games", g["game_id"], share_images.game_card, alt, g, when, label)
 
 
+# ---- structured data (JSON-LD) for search engines
+SCHOOL = {"@type": "HighSchool", "name": "Bangor High School",
+          "address": {"@type": "PostalAddress", "addressLocality": "Bangor", "addressRegion": "WI", "addressCountry": "US"}}
+
+
+def ld_url(path):
+    return SITE_URL + clean_path(path)
+
+
+def ld_team():
+    return {"@type": "SportsTeam", "@id": SITE_URL + "/#team", "name": "Bangor Cardinals boys basketball",
+            "alternateName": "Bangor Cardinals", "sport": "Basketball", "url": SITE_URL + "/",
+            "logo": SITE_URL + "/static/img/cardinal.png", "memberOf": SCHOOL,
+            "location": {"@type": "Place", "name": "Bangor High School", "address": SCHOOL["address"]}}
+
+
+def ld_team_ref():
+    return {"@type": "SportsTeam", "@id": SITE_URL + "/#team", "name": "Bangor Cardinals boys basketball", "url": SITE_URL + "/"}
+
+
+def ld_start(date, time=""):
+    """An ISO start time in Wisconsin time, or just the date when the tipoff time isn't known."""
+    m = re.match(r"(\d{1,2}):(\d{2})\s*([AP])M", time or "", re.I)
+    if not m:
+        return date
+    from zoneinfo import ZoneInfo
+    h = int(m.group(1)) % 12 + (12 if m.group(3).upper() == "P" else 0)
+    y, mo, d = map(int, date.split("-"))
+    return dt.datetime(y, mo, d, h, int(m.group(2)), tzinfo=ZoneInfo("America/Chicago")).isoformat()
+
+
+def ld_game(g):
+    bangor = ld_team_ref()
+    opp = {"@type": "SportsTeam", "name": g["opponent"]}
+    if g["opp_slug"] in OPP_PAGES:
+        opp["url"] = ld_url(f"opponents/{g['opp_slug']}.html")
+    home, away = (opp, bangor) if g["site"] == "away" else (bangor, opp)
+    name = f"Bangor {'at' if g['site'] == 'away' else 'vs'} {g['opponent']}"
+    ev = {"@type": "SportsEvent", "name": f"{name} (boys basketball)", "sport": "Basketball",
+          "url": ld_url(f"games/{g['game_id']}.html"), "startDate": ld_start(g["date"], g.get("time")),
+          "competitor": [bangor, opp], "organizer": SCHOOL}
+    if g["site"] != "neutral":
+        ev["homeTeam"], ev["awayTeam"] = home, away
+    if g.get("location"):
+        ev["location"] = {"@type": "Place", "name": g["location"]}
+        if g["site"] == "home":
+            ev["location"]["address"] = SCHOOL["address"]
+    if g["status"] in ("upcoming", "pending"):
+        ev["eventStatus"] = "https://schema.org/EventScheduled"
+        ev["eventAttendanceMode"] = "https://schema.org/OfflineEventAttendanceMode"
+    elif g["result"] in ("W", "L"):
+        ev["description"] = (f"Final: Bangor {g['bangor_score']}, {g['opponent']} {g['opp_score']}"
+                             f" ({'win' if g['result'] == 'W' else 'loss'}).")
+    return ev
+
+
+def ld_person(name, path, role="Player", image=None, years=""):
+    p = {"@type": "Person", "name": name, "url": ld_url(path),
+         "memberOf": ld_team_ref() if role == "Player" else None,
+         "worksFor": ld_team_ref() if role != "Player" else None,
+         "jobTitle": role if role != "Player" else None,
+         "description": f"Bangor Cardinals boys basketball {role.lower()}" + (f", {years}" if years else "") + "."}
+    if image:
+        p["image"] = image if re.match(r"https?://", image) else SITE_URL + "/" + image
+    return {k: v for k, v in p.items() if v is not None}
+
+
+def ld_crumbs(*crumbs):
+    """Home > ... > this page. Each crumb is (name, path)."""
+    items = [("Home", "index.html")] + list(crumbs)
+    return {"@type": "BreadcrumbList", "itemListElement": [
+        {"@type": "ListItem", "position": i + 1, "name": n, "item": ld_url(p)} for i, (n, p) in enumerate(items)]}
+
+
+def ld_json(items):
+    items = [i for i in items if i]
+    if not items:
+        return ""
+    data = {"@context": "https://schema.org", "@graph": items} if len(items) > 1 else {"@context": "https://schema.org", **items[0]}
+    # "</" can't appear inside a script tag
+    return Markup(json.dumps(data, ensure_ascii=False, separators=(",", ":")).replace("</", "<\\/"))
+
+
 def render(tpl, path, **ctx):
+    ctx["jsonld"] = ld_json(ctx.pop("ld", []))
     depth = path.count("/")
     ctx.setdefault("root", "../" * depth)
     ctx["built"] = BUILT
@@ -1259,7 +1343,11 @@ def season_summary(season):
     gs = [g for g in games_by_season.get(season, []) if g["result"] in ("W", "L")] or RESULTS_ONLY.get(season, [])
     h = hist_by_season.get(season, {})
     sc = [g for g in gs if g.get("scored", True)]  # results-only games can be missing a score
+    # the current season before its first result: show when it starts, not 0-0
+    started = season != CURRENT or bool(gs)
+    sched = sorted(g["date"] for g in games_by_season.get(season, []) if g.get("date"))
     return {
+        "started": started, "starts": "" if started or not sched else sched[0],
         "season": season, "w": h.get("w", ""), "l": h.get("l", ""), "t": h.get("t", ""),
         "coach": h.get("coach", ""), "notes": h.get("notes", ""),
         "has_data": season in games_by_season or season in RESULTS_ONLY,
@@ -1790,7 +1878,10 @@ def build():
     render("home.html", "index.html", latest=season_summary(latest), latest_leaders=leaders(latest),
            latest_games=latest_games, preseason=None if latest_games else preseason(latest),
            upcoming=[{**g, "preview": PREVIEWS.get(g["game_id"])} for g in UPCOMING[:UPCOMING_ON_HOME]],
-           top_career=top_career, top_game=top_game, champs=champs, recent=recent)
+           top_career=top_career, top_game=top_game, champs=champs, recent=recent,
+           ld=[{"@type": "WebSite", "@id": SITE_URL + "/#site", "name": "Bangor Cardinals Boys Basketball",
+                "url": SITE_URL + "/", "about": ld_team_ref()},
+               {**ld_team(), "coach": {"@type": "Person", "name": season_summary(latest)["coach"]}}])
 
     # ---- seasons index
     all_seasons = [season_summary(h["season"]) for h in reversed(history)]
@@ -1853,7 +1944,7 @@ def build():
             render("story.html", f"seasons/{st['slug']}.html", st=st, s=ss, **share(
                 "seasons", st["slug"], share_images.simple_card, st["title"], st["kicker"], s.replace("-", "–"),
                 ss["notes"], [(f"{w}–{l}", "Record in known games")], "Season"))
-        render("season_results.html", f"seasons/{s}.html", s=ss, games=gs, w=w, l=l, sources=sources,
+        render("season_results.html", f"seasons/{s}.html", ld=[ld_crumbs(("Seasons", "seasons/index.html"), (s.replace("-", "–"), f"seasons/{s}.html"))], s=ss, games=gs, w=w, l=l, sources=sources,
                dated=all(g.get("date") for g in gs), any_dates=any(g.get("date") for g in gs),
                in_h2h=complete_schedule(s, gs),
                any_sites=any(g.get("site") for g in gs), story=STORIES.get(s), **results_players(s, gs),
@@ -1872,7 +1963,8 @@ def build():
         partial = [g for g in gs if g["box_score"] == "none" and g["result"]]
         margin_svg, scoring_lines = season_charts(s, gs)
         ss = season_summary(s)
-        tiles = [(f"{ss['w']}–{ss['l']}", "Record")] if ss["w"] != "" else []
+        tiles = ([(f"{ss['w']}–{ss['l']}", "Record")] if ss["w"] != "" and ss["started"]
+                 else [(fmt_date(ss["starts"]), "First game")] if ss["starts"] else [])
         if ss["ppg"]:
             tiles.append((f"{ss['ppg']}–{ss['oppg']}", "Average score"))
         lead = next((l for l in leaders(s) if l["label"] == "Points"), None)
@@ -1880,7 +1972,7 @@ def build():
             tiles.append((lead["name"], f"Leading scorer · {lead['value']} pts"))
         sh = share("seasons", s, share_images.simple_card, f"Bangor Cardinals {s.replace('-', '–')} season: {ss['w']}–{ss['l']}",
                    f"Season{' · Coach ' + ss['coach'] if ss['coach'] else ''}", s.replace("-", "–"), ss["notes"], tiles, "Season")
-        render("season.html", f"seasons/{s}.html", s=ss, games=gs, players=prow, cols=cols, **sh,
+        render("season.html", f"seasons/{s}.html", ld=[ld_crumbs(("Seasons", "seasons/index.html"), (s.replace("-", "–"), f"seasons/{s}.html"))], s=ss, games=gs, players=prow, cols=cols, **sh,
                margin_svg=margin_svg, scoring_lines=scoring_lines,
                team_game_stats=any(g["date"] in TEAM_GAME for g in gs), roster=ROSTERS.get(s, []),
                team_photos=TEAM_PHOTOS.get(s, []),
@@ -1912,7 +2004,9 @@ def build():
                                                          final_season=g["season"] != CURRENT)
         otd_game(g, f"games/{gid}.html", recaps.write(g, bangor, opp, [], ind, False, link=False, short=True),
                  [b for b in ind if b["period"] == "game"])
-        render("game.html", f"games/{gid}.html", g=g, **game_share(g), auto_recap=auto_recap,
+        render("game.html", f"games/{gid}.html", g=g,
+               ld=[ld_game(g), ld_crumbs(("Seasons", "seasons/index.html"), (g["season"].replace("-", "–"), f"seasons/{g['season']}.html"),
+                                         (f"{'at' if g['site'] == 'away' else 'vs'} {g['opponent']}, {fmt_date(g['date'])}", f"games/{gid}.html"))], **game_share(g), auto_recap=auto_recap,
                record_badges=sorted(B["game_team"].get(gid, []) + ind, key=lambda b: (b["rank"], b["title"])),
                bangor=[{"name": r["name"], "slug": r["slug"], "number": r["number"], "cls": r.get("class", ""),
                         "badges": B["game_ind"].get((gid, r["slug"]), []), **box_row(r)} for r in bangor],
@@ -2014,7 +2108,8 @@ def build():
                    name, sub, tiles[:4])
         news_log = {s for s, rs in by_season.items()
                     if rs and all(r["g"].get("box_source") == "newspaper" for r in rs)}
-        render("player.html", f"players/{sl}.html", name=name, seasons=srows, career=crow, cols=cols, log=by_season,
+        render("player.html", f"players/{sl}.html", ld=[ld_person(name, f"players/{sl}.html", image=(PLAYER_PHOTOS.get(sl) or {}).get("url"), years=plist[-1]["years"]), ld_crumbs(("Players", "players/index.html"), (name, f"players/{sl}.html"))],
+               name=name, seasons=srows, career=crow, cols=cols, log=by_season,
                news_log=news_log,
                lcols=lcols, highs=highs, numbers=numbers, cls=cls, years=plist[-1]["years"],
                grad=plist[-1]["grad"], grad_est=plist[-1]["grad_how"] == "estimated",
@@ -2075,7 +2170,8 @@ def build():
                                      f"Class of {grad}" if grad else ""] if x)
         sh = share("players", sl, share_images.player_card, f"{a['name']}, Bangor Cardinals boys basketball"
                    + (f", {years}" if years else ""), a["name"], sub, [(t["value"], t["label"]) for t in tiles[:4]])
-        render("player_archive.html", f"players/{sl}.html", name=a["name"], years=years, numbers=numbers,
+        render("player_archive.html", f"players/{sl}.html", ld=[ld_person(a["name"], f"players/{sl}.html", image=(PLAYER_PHOTOS.get(sl) or {}).get("url"), years=years), ld_crumbs(("Players", "players/index.html"), (a["name"], f"players/{sl}.html"))],
+               name=a["name"], years=years, numbers=numbers,
                positions=positions, grad=grad, seasons=seasons, book_career=book_career, tiles=tiles, clips=clips,
                clip_cols=clip_cols, record_badges=B["player"].get(sl, []), player_news=player_news, sources=sources,
                headshot=PLAYER_PHOTOS.get(sl), **sh)
@@ -2104,7 +2200,9 @@ def build():
                    f"Head coach · {span}", c["name"],
                    f"{len(c['seasons'])} season{'s' if len(c['seasons']) > 1 else ''}" + (f" · {c['pct']} winning percentage" if c["pct"] else ""),
                    tiles[:4], "Coach")
-        render("coach.html", f"coaches/{c['slug']}.html", c=c, d=coach_page_data(c), **sh,
+        render("coach.html", f"coaches/{c['slug']}.html", c=c,
+               ld=[ld_person(c["name"], f"coaches/{c['slug']}.html", role="Head coach", years=span),
+                   ld_crumbs(("History", "history/index.html"), (c["name"], f"coaches/{c['slug']}.html"))], d=coach_page_data(c), **sh,
                prev=chrono[i - 1] if i else None, next=chrono[i + 1] if i + 1 < len(chrono) else None)
 
     # ---- opponents
@@ -2121,7 +2219,8 @@ def build():
             sh = share("opponents", o["slug"], share_images.simple_card, f"Bangor vs {o['name']}: {o['w']}–{o['l']}",
                        "Head to head", f"vs {o['name']}",
                        f"{o['w'] + o['l']} meeting{'s' if o['w'] + o['l'] != 1 else ''} since {o['games'][0]['season'].replace('-', '–')}", tiles, "Opponent")
-        render("opponent.html", f"opponents/{o['slug']}.html", o=o, **sh)
+        render("opponent.html", f"opponents/{o['slug']}.html", o=o,
+               ld=[ld_crumbs(("Opponents", "opponents/index.html"), (o["name"], f"opponents/{o['slug']}.html"))], **sh)
     olist = sorted((o for o in opps.values() if o["games"]), key=lambda o: (-(o["w"] + o["l"]), o["name"]))
     render("opponents.html", "opponents/index.html", opps=olist,
            first=min([DATA_SEASONS[0]] + [g["season"] for g in DATED_RESULTS]))

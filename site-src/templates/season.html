@@ -5,7 +5,7 @@
 {% import "_calendar.html" as calm with context %}
 {% set section = 'seasons' %}
 {% block title %}{{ s.season | replace('-', '–') }} season · Bangor Cardinals Boys Basketball{% endblock %}
-{% block description %}The {{ s.season | replace('-', '–') }} Bangor Cardinals{% if s.w != '' %} went {{ s.w }}–{{ s.l }}{% endif %}{% if s.coach %} under coach {{ s.coach }}{% endif %}. Schedule, results, box scores and player stats.{% endblock %}
+{% block description %}The {{ s.season | replace('-', '–') }} Bangor Cardinals{% if s.w != '' and s.started %} went {{ s.w }}–{{ s.l }}{% endif %}{% if s.coach %} under coach {{ s.coach }}{% endif %}. Schedule, results, box scores and player stats.{% endblock %}
 {% block content %}
 <div class="wrap page-head">
   <div class="pager">
@@ -15,7 +15,8 @@
   <p class="eyebrow">Season</p>
   <h1>{{ s.season | replace('-', '–') }}</h1>
   <div class="season-meta">
-    <span class="big-rec">{{ s.w }}–{{ s.l }}{% if s.t and s.t != "0" %}–{{ s.t }}{% endif %}</span>
+    {% if s.started %}<span class="big-rec">{{ s.w }}–{{ s.l }}{% if s.t and s.t != "0" %}–{{ s.t }}{% endif %}</span>
+    {% elif s.starts %}<span class="big-rec">Starts {{ s.starts | d }}</span>{% endif %}
     <span>Coach <strong>{% set cs = coach_slugs.get(s.coach | trim) %}{% if cs %}<a href="../coaches/{{ cs }}.html">{{ s.coach }}</a>{% else %}{{ s.coach }}{% endif %}</strong></span>
     {% if s.ppg %}<span>{{ s.ppg }} PPG · {{ s.oppg }} allowed</span>{% endif %}
   </div>

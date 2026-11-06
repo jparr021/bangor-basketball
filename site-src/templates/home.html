@@ -124,7 +124,7 @@
     <table class="tbl">
       <thead><tr><th>Season</th><th>Record</th><th>Coach</th><th class="hide-sm">Highlights</th></tr></thead>
       {% for s in recent %}
-      <tr><td><a href="seasons/{{ s.season }}.html">{{ s.season | replace('-', '–') }}</a></td><td>{{ s.w }}–{{ s.l }}</td><td>{% set cs = coach_slugs.get(s.coach | trim) %}{% if cs %}<a href="coaches/{{ cs }}.html">{{ s.coach }}</a>{% else %}{{ s.coach }}{% endif %}</td><td class="hide-sm muted">{{ s.notes }}</td></tr>
+      <tr><td><a href="seasons/{{ s.season }}.html">{{ s.season | replace('-', '–') }}</a></td><td class="nowrap">{% if s.started %}{{ s.w }}–{{ s.l }}{% elif s.starts %}<span class="muted">Starts {{ s.starts | d }}</span>{% else %}—{% endif %}</td><td>{% set cs = coach_slugs.get(s.coach | trim) %}{% if cs %}<a href="coaches/{{ cs }}.html">{{ s.coach }}</a>{% else %}{{ s.coach }}{% endif %}</td><td class="hide-sm muted">{{ s.notes }}</td></tr>
       {% endfor %}
     </table>
   </section>

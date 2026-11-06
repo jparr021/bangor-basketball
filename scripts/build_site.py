@@ -1282,6 +1282,29 @@ def leaders(season, n=1):
     return out
 
 
+UPCOMING_ON_HOME = 4  # one full row of cards on a computer, two rows of two on a tablet
+
+
+def preseason(season):
+    """The home page's season card before the first game is played: the first game and a countdown to it,
+    last season's record and leaders, and the players coming back."""
+    first = next((g for g in games_by_season.get(season, []) if g["status"] == "upcoming"), None)
+    prev = next((s for s in reversed(DATA_SEASONS) if s < season and ps_by_season.get(s)), None)
+    out = {"first": first, "days": (dt.date.fromisoformat(first["date"]) - TODAY).days if first else None,
+           "prev": season_summary(prev) if prev else None, "prev_leaders": leaders(prev)[:3] if prev else [],
+           "returning": []}
+    if prev:
+        end = season_end_year(prev)
+        for r in sorted(ps_by_season[prev], key=lambda r: -((r.get("pts") or 0) / (r.get("gp") or 1))):
+            year, _ = grad_year(r["slug"])
+            if year and year > end and r.get("gp"):
+                out["returning"].append({"name": r["name"], "slug": r["slug"], "grad": year,
+                                         "ppg": fmt_avg(r.get("pts"), r["gp"]), "rpg": fmt_avg(r.get("reb"), r["gp"])})
+        out["returning_n"] = len(out["returning"])
+        out["returning"] = out["returning"][:5]
+    return out
+
+
 def wl(gs):
     w = sum(g["result"] == "W" for g in gs)
     return {"w": w, "l": sum(g["result"] == "L" for g in gs), "n": len(gs)}
@@ -1763,10 +1786,11 @@ def build():
     champs = [h for h in history if "state champion" in h["notes"].lower() or "state runner" in h["notes"].lower()
               or "state semifinal" in h["notes"].lower() or "state tournament" in h["notes"].lower()]
     recent = [season_summary(s) for s in reversed(DATA_SEASONS[-6:])]
+    latest_games = [g for g in games_by_season[latest] if g["status"] == "final"][-5:][::-1]
     render("home.html", "index.html", latest=season_summary(latest), latest_leaders=leaders(latest),
-           latest_games=[g for g in games_by_season[latest] if g["status"] == "final"][-5:][::-1],
-           upcoming=[{**g, "preview": PREVIEWS.get(g["game_id"])} for g in UPCOMING[:6]], top_career=top_career, top_game=top_game,
-           champs=champs, recent=recent)
+           latest_games=latest_games, preseason=None if latest_games else preseason(latest),
+           upcoming=[{**g, "preview": PREVIEWS.get(g["game_id"])} for g in UPCOMING[:UPCOMING_ON_HOME]],
+           top_career=top_career, top_game=top_game, champs=champs, recent=recent)
 
     # ---- seasons index
     all_seasons = [season_summary(h["season"]) for h in reversed(history)]

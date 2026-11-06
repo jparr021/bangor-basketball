@@ -48,7 +48,31 @@
 
 <div class="wrap grid-2">
   <section class="card">
-    <div class="card-head"><h2>{{ latest.season | replace('-', '–') }} season</h2><a href="seasons/{{ latest.season }}.html">Full season →</a></div>
+    <div class="card-head"><h2>{{ latest.season | replace('-', '–') }} season</h2><a href="seasons/{{ latest.season }}.html">{{ 'Full schedule' if preseason else 'Full season' }} →</a></div>
+    {% if preseason %}
+    {% set f = preseason.first %}
+    {% if f %}
+    <p class="record-line"><span class="big-rec" data-tipoff="{{ f.date }}" data-tipoff-time="{{ f.time }}">{% if preseason.days == 0 %}Tipoff today{% elif preseason.days == 1 %}Tipoff tomorrow{% else %}Tipoff in {{ preseason.days }} days{% endif %}</span></p>
+    <p class="pre-first"><a href="games/{{ f.game_id }}.html">{{ f.date | d('long') }}{% if f.time %} · {{ f.time }}{% endif %}<br><strong>{{ 'at' if f.site == 'away' else 'vs' }} {{ f.opponent }}</strong></a>{% if latest.coach %} <span class="muted">· Coach {% set cs = coach_slugs.get(latest.coach | trim) %}{% if cs %}<a href="coaches/{{ cs }}.html">{{ latest.coach }}</a>{% else %}{{ latest.coach }}{% endif %}</span>{% endif %}</p>
+    {% endif %}
+    {% set p = preseason.prev %}
+    {% if p %}
+    <h3 class="sub">Last season: <a href="seasons/{{ p.season }}.html">{{ p.season | replace('-', '–') }}</a>{% if p.w != '' %} · {{ p.w }}–{{ p.l }}{% endif %}</h3>
+    {% if p.notes %}<p class="muted small pre-notes">{{ p.notes }}</p>{% endif %}
+    <ul class="leaders">
+      {% for l in preseason.prev_leaders %}<li><span class="lbl">{{ l.label }}</span><a href="players/{{ l.slug }}.html">{{ l.name }}</a><span class="val">{{ l.value }} <small>({{ l.avg }}/g)</small></span></li>{% endfor %}
+    </ul>
+    {% endif %}
+    {% if preseason.returning %}
+    <h3 class="sub">Returning players <small class="muted">({{ preseason.returning_n }})</small></h3>
+    <table class="tbl compact">
+      {% for r in preseason.returning %}
+      <tr><td><a href="players/{{ r.slug }}.html">{{ r.name }}</a></td><td class="muted small nowrap">Class of {{ r.grad }}</td><td class="num nowrap">{{ r.ppg }} <small class="muted">PPG</small></td>{% if r.rpg %}<td class="num nowrap">{{ r.rpg }} <small class="muted">RPG</small></td>{% endif %}</tr>
+      {% endfor %}
+    </table>
+    <p class="muted small">Last season's per-game stats. Leading scorers first.</p>
+    {% endif %}
+    {% else %}
     <p class="record-line"><span class="big-rec">{{ latest.w }}–{{ latest.l }}</span> <span class="muted">Coach {% set cs = coach_slugs.get(latest.coach | trim) %}{% if cs %}<a href="coaches/{{ cs }}.html">{{ latest.coach }}</a>{% else %}{{ latest.coach }}{% endif %}</span></p>
     <ul class="leaders">
       {% for l in latest_leaders %}<li><span class="lbl">{{ l.label }}</span><a href="players/{{ l.slug }}.html">{{ l.name }}</a><span class="val">{{ l.value }} <small>({{ l.avg }}/g)</small></span></li>{% endfor %}
@@ -61,6 +85,7 @@
         <td class="nowrap">{% if g.box_score != 'none' %}<a href="games/{{ g.game_id }}.html">Box</a>{% endif %}{% if g.has_video %} · <a href="games/{{ g.game_id }}.html#film">▶ Film</a>{% endif %}{% if g.stories %} · <a href="games/{{ g.game_id }}.html#news">News</a>{% endif %}</td></tr>
       {% endfor %}
     </table>
+    {% endif %}
   </section>
 
   <section class="card">

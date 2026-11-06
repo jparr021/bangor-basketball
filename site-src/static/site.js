@@ -528,3 +528,19 @@ document.querySelectorAll("[data-print]").forEach(function (b) {
   s.onload = render;
   document.head.appendChild(s);
 })();
+
+// Pre-season countdown on the home page ("Tipoff in 25 days"), counted from today in Wisconsin time so it
+// stays right between rebuilds.
+(function () {
+  var el = document.querySelector("[data-tipoff]");
+  if (!el) return;
+  var o = {};
+  try {
+    new Intl.DateTimeFormat("en-US", { timeZone: "America/Chicago", year: "numeric", month: "numeric", day: "numeric" })
+      .formatToParts(new Date()).forEach(function (p) { o[p.type] = +p.value; });
+  } catch (e) { return; }
+  var t = el.dataset.tipoff.split("-");
+  var days = Math.round((Date.UTC(+t[0], +t[1] - 1, +t[2]) - Date.UTC(o.year, o.month - 1, o.day)) / 864e5);
+  el.textContent = days > 1 ? "Tipoff in " + days + " days" : days === 1 ? "Tipoff tomorrow"
+    : days === 0 ? (el.dataset.tipoffTime ? "Tipoff tonight" : "Tipoff today") : "Season under way";
+})();

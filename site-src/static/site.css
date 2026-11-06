@@ -170,7 +170,9 @@ details[open] summary { color: var(--red); }
 .links a + a { margin-left: 8px; }
 .upcoming { color: var(--ink); font-weight: 600; }
 .upcoming-card { border-top: 4px solid var(--red); }
-.upcoming-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 12px; margin-top: 6px; }
+.upcoming-list { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; margin-top: 6px; }
+@media (max-width: 900px) { .upcoming-list { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 520px) { .upcoming-list { grid-template-columns: 1fr; } }
 .up { display: flex; flex-direction: column; gap: 4px; border: 1px solid var(--line); border-radius: 8px; padding: 12px 14px; }
 .up.today { border-color: var(--red); background: var(--red-tint); }
 .up-date { font-size: .78rem; text-transform: uppercase; letter-spacing: .08em; color: var(--red); font-weight: 700; }
@@ -549,3 +551,8 @@ button.btn-solid:disabled { opacity: .6; cursor: wait; }
 .admin-list li:first-child { border-top: 0; }
 .admin-list li > div { display: grid; min-width: 0; }
 .admin-thumb { width: 72px; height: 54px; object-fit: cover; border-radius: 4px; background: var(--bg); display: flex; align-items: center; justify-content: center; text-align: center; }
+
+/* ---- home: the season card before the first game */
+.pre-first { margin: 0 0 14px; line-height: 1.4; }
+.pre-first a strong { font-family: var(--head); font-weight: 600; font-size: 1.15rem; text-transform: uppercase; color: var(--ink); }
+.pre-notes { margin: -4px 0 6px; }

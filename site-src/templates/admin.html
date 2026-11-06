@@ -316,7 +316,7 @@
         var li = el("li"), local = !/^https?:\/\//.test(p.image);
         var thumb = el("img", "admin-thumb");
         thumb.alt = ""; thumb.loading = "lazy";
-        thumb.src = local ? ROOT + "static/photos/" + p.image.replace(/\.[^.]+$/, "").toLowerCase().replace(/['.]/g, "").replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "") + ".jpg" : p.image;
+        thumb.src = local ? ROOT + "static/photos/" + p.image.replace(/\.[^.]+$/, "").toLowerCase().replace(/['.]/g, "").replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "") + ".jpg?t=" + Date.now() : p.image;
         thumb.onerror = function () { thumb.replaceWith(el("span", "admin-thumb muted small", "Publishing…")); };
         var info = el("div");
         info.appendChild(el("strong", "", p.kind === "team" ? dash(p.season) + " team photo" : p.player));

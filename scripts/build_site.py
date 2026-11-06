@@ -324,7 +324,13 @@ def publish_photos():
                     im = im.resize((max_w, round(im.height * max_w / im.width)), Image.LANCZOS)
                 im.save(os.path.join(out_dir, name), "JPEG", quality=82, optimize=True, progressive=True)
                 p["w"], p["h"] = im.width, im.height
-            p["url"] = f"static/photos/{name}"
+            # a version in the address: a browser that asked for the photo before it was published (the admin
+            # page's list does, right after an upload) may have kept the "not found" for a day (static files
+            # are cached for a day); a new address skips that
+            import hashlib
+            with open(os.path.join(out_dir, name), "rb") as f:
+                v = hashlib.md5(f.read()).hexdigest()[:8]
+            p["url"] = f"static/photos/{name}?v={v}"
     for s in list(TEAM_PHOTOS):
         TEAM_PHOTOS[s] = [p for p in TEAM_PHOTOS[s] if not p.get("missing")]
     for k in [k for k, p in PLAYER_PHOTOS.items() if p.get("missing")]:

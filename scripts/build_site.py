@@ -2173,6 +2173,13 @@ def build():
            built_at=NOW.strftime("%B %-d, %Y at %-I:%M %p"))
     PAGES.remove("sheet-check.html")  # kept out of the sitemap
 
+    # ---- admin page (/admin): add and remove photos. Its server side is api/admin.js, on Vercel only.
+    admin_players = sorted(({"name": p["name"], "slug": p["slug"], "years": p["years"]} for p in plist),
+                           key=lambda p: p["name"])
+    render("admin.html", "admin/index.html", seasons=sorted(PAGE_SEASONS, reverse=True), players=admin_players,
+           players_json=Markup(json.dumps(admin_players, ensure_ascii=False).replace("</", "<\\/")))
+    PAGES.remove("admin/index.html")
+
     # ---- 404 page. Vercel serves it for any missing address, at any depth, so its links start at the site root
     # (clean URLs make every link root-relative anyway; locally, root="/" does it).
     render("404.html", "404.html", root="" if CLEAN_URLS else "/", season=DATA_SEASONS[-1],
@@ -2195,7 +2202,7 @@ def build():
             f.write(f"  <url><loc>{SITE_URL}{clean_path(p)}</loc></url>\n")
         f.write("</urlset>\n")
     with open(os.path.join(OUT, "robots.txt"), "w") as f:
-        f.write(f"User-agent: *\nAllow: /\n\nSitemap: {SITE_URL}/sitemap.xml\n")
+        f.write(f"User-agent: *\nAllow: /\nDisallow: /admin\n\nSitemap: {SITE_URL}/sitemap.xml\n")
 
     n = sum(len(fs) for _, _, fs in os.walk(OUT))
     print(f"site built: {n} files in {OUT}")

@@ -71,6 +71,17 @@ A last name alone (`Schroeder` on a team-photo list) gets no page, since it can'
 
 ## Photos
 Season pages have a spot for the team photo and player pages for a headshot. Until one is added, the page shows a placeholder (a dashed "No team photo yet" box, or the player's jersey number or initials) with a link asking visitors to share one.
+
+**The easy way: the admin page.** Go to `/admin` on the live site (it isn't linked anywhere or shown to search engines), sign in, choose *Team photo* and the season or *Player headshot* and the player, pick the photo, add a caption and credit if you like, and tap **Publish**. It works from a phone. The photo is shrunk in the browser, saved to GitHub (the file in `overrides/photos/` and its line in `overrides/photos.csv`, in one commit), and on the page after the next rebuild, usually 2–3 minutes. The same page lists every photo with a **Remove** button. Every change is a commit, so anything can be undone from GitHub.
+
+*One-time setup* (the page says "isn't set up yet" until this is done):
+1. **GitHub token.** On GitHub: your picture → **Settings** → **Developer settings** → **Personal access tokens** → **Fine-grained tokens** → **Generate new token**. Name it `bangor-admin`, set an expiration (a year is fine; you'll get an email before it runs out), under **Repository access** choose **Only select repositories** → `bangor-basketball`, and under **Permissions** → **Repository permissions** set **Contents** to **Read and write**. Generate it and copy the token.
+2. **Vercel settings.** In Vercel: the project → **Settings** → **Environment Variables**. Add `GITHUB_TOKEN` (paste the token) and `ADMIN_PASSWORD` (a long password you don't use anywhere else). Tick **Production**, then save.
+3. **Redeploy** (Vercel → **Deployments** → the latest one → ⋯ → **Redeploy**) so the settings take effect. Then open `/admin` and sign in.
+
+To change the password, edit `ADMIN_PASSWORD` in Vercel and redeploy. If the token expires, make a new one the same way and replace `GITHUB_TOKEN`. The admin page's server side is `api/admin.js`, a Vercel function; it only runs on Vercel, so `/admin` on a local build shows the page but can't save.
+
+**By hand:**
 1. Put the image file (JPEG, PNG or WebP, any size) in `overrides/photos/`.
 2. Add a line to `overrides/photos.csv`: `kind` (`team` or `player`), `season` (for a team photo, e.g. `1925-26`), `player` (for a headshot, the name as the site spells it), `image` (the file name, or a full `https://` link to a photo hosted elsewhere), and an optional `caption` and `credit`.
 3. Rebuild. The build shrinks each photo to a web size (team photos 1,600 px wide, headshots 600 px) so pages stay fast. A season can have more than one team photo. A file listed but missing is skipped and named in the build log.

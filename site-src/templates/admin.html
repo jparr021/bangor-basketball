@@ -1,0 +1,181 @@
+{% extends "base.html" %}
+{% block title %}Admin · Bangor Cardinals Boys Basketball{% endblock %}
+{% block description %}Site admin.{% endblock %}
+{% block head_extra %}<meta name="robots" content="noindex, nofollow">{% endblock %}
+{% block content %}
+<div class="wrap page-head">
+  <p class="eyebrow">Admin</p>
+  <h1>Photos</h1>
+  <p class="muted">Add a team photo to a season page or a headshot to a player page. Changes are saved to the site's GitHub repository and go live after the next rebuild, usually 2–3 minutes.</p>
+</div>
+
+<div class="wrap admin">
+  <section class="card" id="login">
+    <h2>Sign in</h2>
+    <form id="login-form" class="admin-form">
+      <label>Admin password <input type="password" id="pw" autocomplete="current-password" required></label>
+      <button class="btn btn-solid" type="submit">Sign in</button>
+      <p class="admin-msg" id="login-msg" role="status"></p>
+    </form>
+  </section>
+
+  <div id="panel" hidden>
+    <section class="card">
+      <div class="card-head"><h2>Add a photo</h2><button type="button" class="link-btn" id="sign-out">Sign out</button></div>
+      <form id="add-form" class="admin-form">
+        <fieldset class="admin-kind">
+          <legend>What is it?</legend>
+          <label><input type="radio" name="kind" value="team" checked> Team photo</label>
+          <label><input type="radio" name="kind" value="player"> Player headshot</label>
+        </fieldset>
+        <label data-for="team">Season
+          <select id="season">{% for s in seasons %}<option value="{{ s }}">{{ s | replace('-', '–') }}</option>{% endfor %}</select>
+        </label>
+        <label data-for="player" hidden>Player
+          <input id="player" list="player-list" autocomplete="off" placeholder="Start typing a name…">
+          <datalist id="player-list">{% for p in players %}<option value="{{ p.name }}">{{ p.years }}</option>{% endfor %}</datalist>
+        </label>
+        <label>Photo <input type="file" id="file" accept="image/*" required></label>
+        <div class="admin-preview" id="preview" hidden><img id="preview-img" alt="Preview of the photo"><span class="muted small" id="preview-size"></span></div>
+        <label>Caption <span class="muted small">(optional, e.g. names left to right)</span>
+          <textarea id="caption" rows="2" maxlength="300"></textarea></label>
+        <label>Photo credit <span class="muted small">(optional, e.g. 1926 Echo yearbook)</span>
+          <input id="credit" maxlength="120"></label>
+        <p class="muted small">Only add photos you have permission to share: your own, the school's, or with the photographer's OK.</p>
+        <button class="btn btn-solid" type="submit" id="publish">Publish</button>
+        <p class="admin-msg" id="add-msg" role="status"></p>
+      </form>
+    </section>
+
+    <section class="card">
+      <div class="card-head"><h2>Photos on the site</h2><button type="button" class="link-btn" id="refresh">Refresh</button></div>
+      <p class="muted small">A photo added in the last few minutes shows “Publishing…” until the rebuild finishes.</p>
+      <ul class="admin-list" id="list"><li class="muted">Loading…</li></ul>
+    </section>
+  </div>
+</div>
+
+<script>
+(function () {
+  var ROOT = document.body.dataset.root, CLEAN = document.body.dataset.clean === "1";
+  var PLAYERS = {{ players_json }};
+  var API = "/api/admin";
+  var $ = function (id) { return document.getElementById(id); };
+  var pw = sessionStorage.getItem("bbAdmin") || "";
+  var photo = null; // base64 JPEG, shrunk in the browser
+
+  function pageUrl(path) { return ROOT + (CLEAN ? path : path + ".html"); }
+  function msg(el, text, ok) { el.textContent = text; el.className = "admin-msg" + (ok === true ? " ok" : ok === false ? " bad" : ""); }
+
+  function call(body) {
+    return fetch(API, { method: "POST", headers: { "Content-Type": "application/json", "X-Admin-Password": pw }, body: JSON.stringify(body) })
+      .then(function (r) {
+        return r.json().catch(function () { return {}; }).then(function (j) {
+          if (!r.ok) throw new Error(j.error || (r.status === 404 ? "The admin service isn't available here. It only runs on the live site (Vercel)." : "Something went wrong (" + r.status + ")."));
+          return j;
+        });
+      });
+  }
+
+  function showPanel() { $("login").hidden = true; $("panel").hidden = false; loadList(); }
+
+  $("login-form").addEventListener("submit", function (e) {
+    e.preventDefault();
+    pw = $("pw").value;
+    msg($("login-msg"), "Checking…");
+    call({ action: "check" }).then(function () { sessionStorage.setItem("bbAdmin", pw); showPanel(); })
+      .catch(function (err) { msg($("login-msg"), err.message, false); });
+  });
+  $("sign-out").addEventListener("click", function () { sessionStorage.removeItem("bbAdmin"); location.reload(); });
+  if (pw) call({ action: "check" }).then(showPanel).catch(function () { sessionStorage.removeItem("bbAdmin"); pw = ""; });
+
+  // team photo or headshot: show the matching field
+  function kind() { return document.querySelector("input[name=kind]:checked").value; }
+  Array.prototype.forEach.call(document.querySelectorAll("input[name=kind]"), function (r) {
+    r.addEventListener("change", function () {
+      Array.prototype.forEach.call(document.querySelectorAll("[data-for]"), function (el) { el.hidden = el.dataset.for !== kind(); });
+      if ($("file").files[0]) shrink($("file").files[0]);
+    });
+  });
+
+  // shrink the photo in the browser (team photos 1600 px wide, headshots 800 px) so it uploads fast
+  function shrink(file) {
+    photo = null;
+    $("preview").hidden = true;
+    msg($("add-msg"), "Reading the photo…");
+    var img = new Image(), url = URL.createObjectURL(file);
+    img.onload = function () {
+      // team photos: at most 1600 px wide; headshots: at most 800 px on the longer side
+      var s = kind() === "team" ? Math.min(1, 1600 / img.naturalWidth) : Math.min(1, 800 / Math.max(img.naturalWidth, img.naturalHeight));
+      var c = document.createElement("canvas");
+      c.width = Math.round(img.naturalWidth * s); c.height = Math.round(img.naturalHeight * s);
+      c.getContext("2d").drawImage(img, 0, 0, c.width, c.height);
+      var data = c.toDataURL("image/jpeg", 0.86);
+      photo = data.split(",")[1];
+      $("preview-img").src = data;
+      $("preview-size").textContent = c.width + " × " + c.height + " px · " + Math.round(photo.length * 0.75 / 1024) + " KB";
+      $("preview").hidden = false;
+      msg($("add-msg"), "");
+      URL.revokeObjectURL(url);
+    };
+    img.onerror = function () { msg($("add-msg"), "This browser can't open that file. Save it as a JPEG or PNG and try again.", false); };
+    img.src = url;
+  }
+  $("file").addEventListener("change", function () { if (this.files[0]) shrink(this.files[0]); });
+
+  $("add-form").addEventListener("submit", function (e) {
+    e.preventDefault();
+    var k = kind(), player = $("player").value.trim();
+    if (k === "player" && !PLAYERS.some(function (p) { return p.name === player; })) { msg($("add-msg"), "Pick the player from the list, so the photo lands on the right page.", false); return; }
+    if (!photo) { msg($("add-msg"), "Choose a photo first.", false); return; }
+    $("publish").disabled = true;
+    msg($("add-msg"), "Publishing…");
+    call({ action: "add", kind: k, season: $("season").value, player: player, caption: $("caption").value, credit: $("credit").value, image: photo })
+      .then(function (j) {
+        var p = PLAYERS.filter(function (x) { return x.name === player; })[0];
+        var link = k === "team" ? pageUrl("seasons/" + j.photo.season) : pageUrl("players/" + p.slug);
+        $("add-msg").innerHTML = "";
+        msg($("add-msg"), "Saved. It will be on the page in about 2–3 minutes: ", true);
+        var a = document.createElement("a"); a.href = link; a.textContent = "view the page"; $("add-msg").appendChild(a);
+        $("add-form").reset(); photo = null; $("preview").hidden = true;
+        document.querySelector("[data-for=team]").hidden = false; document.querySelector("[data-for=player]").hidden = true;
+        loadList();
+      })
+      .catch(function (err) { msg($("add-msg"), err.message, false); })
+      .then(function () { $("publish").disabled = false; });
+  });
+
+  function loadList() {
+    var ul = $("list");
+    call({ action: "list" }).then(function (j) {
+      ul.innerHTML = "";
+      if (!j.photos.length) { ul.innerHTML = '<li class="muted">No photos yet.</li>'; return; }
+      j.photos.slice().reverse().forEach(function (p) {
+        var li = document.createElement("li"), local = !/^https?:\/\//.test(p.image);
+        var thumb = document.createElement("img");
+        thumb.alt = ""; thumb.loading = "lazy";
+        thumb.src = local ? ROOT + "static/photos/" + p.image.replace(/\.[^.]+$/, "").toLowerCase().replace(/['.]/g, "").replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "") + ".jpg" : p.image;
+        var info = document.createElement("div");
+        var t = document.createElement("strong");
+        t.textContent = p.kind === "team" ? p.season.replace("-", "–") + " team photo" : p.player;
+        info.appendChild(t);
+        var sub = document.createElement("span"); sub.className = "muted small";
+        sub.textContent = [p.kind === "player" ? "Headshot" : "", p.caption, p.credit ? "Photo: " + p.credit : ""].filter(Boolean).join(" · ");
+        info.appendChild(sub);
+        thumb.onerror = function () { var s = document.createElement("span"); s.className = "admin-thumb muted small"; s.textContent = "Publishing…"; thumb.replaceWith(s); };
+        thumb.className = "admin-thumb";
+        var rm = document.createElement("button"); rm.type = "button"; rm.className = "link-btn danger"; rm.textContent = "Remove";
+        rm.addEventListener("click", function () {
+          if (!confirm("Remove this photo from the site?")) return;
+          rm.disabled = true; rm.textContent = "Removing…";
+          call({ action: "remove", image: p.image }).then(loadList).catch(function (err) { alert(err.message); rm.disabled = false; rm.textContent = "Remove"; });
+        });
+        li.appendChild(thumb); li.appendChild(info); li.appendChild(rm);
+        ul.appendChild(li);
+      });
+    }).catch(function (err) { ul.innerHTML = ""; var li = document.createElement("li"); li.className = "admin-msg bad"; li.textContent = err.message; ul.appendChild(li); });
+  }
+  $("refresh").addEventListener("click", loadList);
+})();
+</script>
+{% endblock %}

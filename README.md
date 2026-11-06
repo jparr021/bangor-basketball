@@ -33,6 +33,7 @@ A static website with Bangor High School (WI) boys basketball history: every sea
 | `game_film.csv` | YouTube film for each game (filled by the film matcher, editable by hand). |
 | `site.json` | The corrections form link for the footer (see *Corrections form*). |
 | `news_stories.csv` | Local news stories linked to games and players (filled by the story finder, editable by hand). |
+| `admin_log.jsonl` | The admin page's change list, one line per change, used for its *Recent changes* and Undo (see *Admin page*). Don't edit it by hand. |
 
 ## During the season (automatic)
 1. The current season's Google Sheet is shared as **Anyone with the link → Viewer**, and its link is in `overrides/current_season.json`.
@@ -55,7 +56,7 @@ New games flow into season stats, player pages, career totals and the record boo
 
 ## End of season
 1. Download the final sheet (File → Download → Microsoft Excel) into `source-sheets/` as `YYYY-YY Stats.xlsx`. The build already keeps a copy there.
-2. Add the season's line (record, coach, notes) to `overrides/season_history.csv`.
+2. Add the season's line (record, coach, notes) to `overrides/season_history.csv`, or on the admin page's *Seasons* tab.
 3. In `overrides/current_season.json`, change `season` and `sheet_url` to next year's sheet.
 
 ## Game summaries
@@ -69,10 +70,14 @@ Every player named in `rosters.csv`, `historical_records.csv` or a newspaper cli
 
 A last name alone (`Schroeder` on a team-photo list) gets no page, since it can't be told apart from another player with the same name. Write the full name in `rosters.csv` when it's known. A player spelled two ways gets two pages: fix the spelling in the override file so both match.
 
-## Photos
-Season pages have a spot for the team photo and player pages for a headshot. Until one is added, the page shows a placeholder (a dashed "No team photo yet" box, or the player's jersey number or initials) with a link asking visitors to share one.
+## Admin page
+`/admin` on the live site (it isn't linked anywhere or shown to search engines) is for keeping the site up to date from a browser or phone, without editing files. Sign in with the admin password. Each change is saved to GitHub as one commit and is on the site after the next rebuild, usually 2–3 minutes. The tabs:
 
-**The easy way: the admin page.** Go to `/admin` on the live site (it isn't linked anywhere or shown to search engines), sign in, choose *Team photo* and the season or *Player headshot* and the player, pick the photo, add a caption and credit if you like, and tap **Publish**. It works from a phone. The photo is shrunk in the browser, saved to GitHub (the file in `overrides/photos/` and its line in `overrides/photos.csv`, in one commit), and on the page after the next rebuild, usually 2–3 minutes. The same page lists every photo with a **Remove** button. Every change is a commit, so anything can be undone from GitHub.
+- **Photos.** Add a team photo to a season or a headshot to a player (see *Photos*), or remove one.
+- **Game links.** Choose a season and a game to see what's linked on its page (news stories, news videos, photo galleries, YouTube film, Hudl replays and recaps), then edit, remove or add one. Paste a link and the page guesses what it is and who published it. These are lines in `news_stories.csv` (GX3 galleries are its `photos` lines), `game_film.csv` and `hudl_video.csv`. A removed story or film stays in its file marked `matched_by` = `removed`, so the story finder and film matcher don't add it back, and the build skips it. Scores, stats and the livestream link still come from the season's Google Sheet.
+- **Rosters.** Choose a season to see its roster from `rosters.csv`, then edit, remove or add players.
+- **Seasons.** A season's line in `season_history.csv`: wins, losses, ties, coach and highlights. For the current season the record is counted from the sheet's games, so only the coach and highlights matter until it ends.
+- **Recent changes.** Every change made on the page, newest first, with an **Undo** button. Undo puts the line (or photo) back the way it was, as a new commit. If the same line was changed again afterward, undo the later change first. The list lives in `overrides/admin_log.jsonl`. Changes made directly in GitHub or on a computer don't appear in it, but every change is a commit, so anything can also be undone from GitHub.
 
 *One-time setup* (the page says "isn't set up yet" until this is done):
 1. **GitHub token.** On GitHub: your picture → **Settings** → **Developer settings** → **Personal access tokens** → **Fine-grained tokens** → **Generate new token**. Name it `bangor-admin`, set an expiration (a year is fine; you'll get an email before it runs out), under **Repository access** choose **Only select repositories** → `bangor-basketball`, and under **Permissions** → **Repository permissions** set **Contents** to **Read and write**. Generate it and copy the token.
@@ -80,6 +85,11 @@ Season pages have a spot for the team photo and player pages for a headshot. Unt
 3. **Redeploy** (Vercel → **Deployments** → the latest one → ⋯ → **Redeploy**) so the settings take effect. Then open `/admin` and sign in.
 
 To change the password, edit `ADMIN_PASSWORD` in Vercel and redeploy. If the token expires, make a new one the same way and replace `GITHUB_TOKEN`. The admin page's server side is `api/admin.js`, a Vercel function; it only runs on Vercel, so `/admin` on a local build shows the page but can't save.
+
+## Photos
+Season pages have a spot for the team photo and player pages for a headshot. Until one is added, the page shows a placeholder (a dashed "No team photo yet" box, or the player's jersey number or initials) with a link asking visitors to share one.
+
+**The easy way: the admin page** (see *Admin page*). On the *Photos* tab, choose *Team photo* and the season or *Player headshot* and the player, pick the photo, add a caption and credit if you like, and tap **Publish**. It works from a phone. The photo is shrunk in the browser and saved to GitHub (the file in `overrides/photos/` and its line in `overrides/photos.csv`, in one commit). The same tab lists every photo with a **Remove** button.
 
 **By hand:**
 1. Put the image file (JPEG, PNG or WebP, any size) in `overrides/photos/`.

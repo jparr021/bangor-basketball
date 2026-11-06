@@ -366,7 +366,7 @@ def youtube_id(url):
 
 film_by_date = defaultdict(list)
 for r in load(os.path.join(OV, "game_film.csv")):
-    if r.get("date") and youtube_id(r.get("youtube_url")):
+    if r.get("date") and youtube_id(r.get("youtube_url")) and r.get("matched_by") != "removed":
         film_by_date[r["date"].strip()].append(r)
 for g in games_by_id.values():
     d = dt.date.fromisoformat(g["date"])
@@ -408,7 +408,7 @@ FEATURES_BY_PLAYER = defaultdict(list)
 spath = os.path.join(OV, "news_stories.csv")
 if os.path.exists(spath):
     for r in sorted(load(spath), key=lambda r: (r["published"], r["kind"] != "article")):
-        if not r.get("url"):
+        if not r.get("url") or r.get("matched_by") == "removed":  # removed on the admin page
             continue
         if r.get("player") and not r.get("game_date"):
             FEATURES_BY_PLAYER[slug(canon(r["player"]))].append(r)
@@ -2299,8 +2299,15 @@ def build():
     # ---- admin page (/admin): add and remove photos. Its server side is api/admin.js, on Vercel only.
     admin_players = sorted(({"name": p["name"], "slug": p["slug"], "years": p["years"]} for p in plist),
                            key=lambda p: p["name"])
+    admin_games = [{"id": g["game_id"], "date": g["date"], "season": g["season"], "opponent": g["opponent"],
+                    "site": g["site"], "label": f"{fmt_date(g['date'])} {'at' if g['site'] == 'away' else 'vs'} {g['opponent']}"}
+                   for g in games_by_id.values()]
+    admin_outlets = sorted({r["outlet"] for r in load(spath) if r.get("outlet")}) if os.path.exists(spath) else []
+    admin_data = {"players": admin_players, "games": admin_games, "outlets": admin_outlets, "current": CURRENT,
+                  "game_seasons": sorted({g["season"] for g in games_by_id.values()}, reverse=True),
+                  "all_seasons": sorted({h["season"] for h in history}, reverse=True)}
     render("admin.html", "admin/index.html", seasons=sorted(PAGE_SEASONS, reverse=True), players=admin_players,
-           players_json=Markup(json.dumps(admin_players, ensure_ascii=False).replace("</", "<\\/")))
+           admin_json=Markup(json.dumps(admin_data, ensure_ascii=False).replace("</", "<\\/")))
     PAGES.remove("admin/index.html")
 
     # ---- 404 page. Vercel serves it for any missing address, at any depth, so its links start at the site root

@@ -1,8 +1,10 @@
 // The admin page's server side (a Vercel function at /api/admin).
 //
-// It checks the admin password, then saves changes straight into the GitHub repository: the photo file
-// in overrides/photos/ and its line in overrides/photos.csv, together in one commit. Vercel rebuilds the
-// site on every commit, so a change is live a few minutes later.
+// It checks the admin password, then saves changes straight into the GitHub repository, one commit per
+// change: photos (overrides/photos/ and photos.csv), links on game pages (news_stories.csv, game_film.csv,
+// hudl_video.csv), rosters (rosters.csv) and season lines (season_history.csv). Each change is also written
+// to overrides/admin_log.jsonl, which is what the page's "Recent changes" list and its Undo buttons use.
+// Vercel rebuilds the site on every commit, so a change is live a few minutes later.
 //
 // Settings (Vercel → Project → Settings → Environment Variables):
 //   ADMIN_PASSWORD  the password for /admin
@@ -13,13 +15,98 @@ const crypto = require("crypto");
 
 const REPO = process.env.GITHUB_REPO || "jparr021/bangor-basketball";
 const BRANCH = process.env.GITHUB_BRANCH || "main";
-const CSV_PATH = "overrides/photos.csv";
 const PHOTO_DIR = "overrides/photos/";
-const COLS = ["kind", "season", "player", "image", "caption", "credit"];
+const LOG_PATH = "overrides/admin_log.jsonl";
+const LOG_KEEP = 300;
 const MAX_BYTES = 3.5 * 1024 * 1024;
 
+// ---------------------------------------------------------------- input checks
+class Bad extends Error { constructor(msg, status = 400) { super(msg); this.status = status; this.user = true; } }
+const clean = (s, n) => String(s == null ? "" : s).replace(/[\r\n]+/g, " ").trim().slice(0, n);
+const DATE = /^\d{4}-\d{2}-\d{2}$/, SEASON = /^\d{4}-\d{2}$/, URL_RE = /^https?:\/\/\S+$/i;
+const YT_RE = /(?:youtu\.be\/|youtube\.com\/(?:watch\?(?:.*&)?v=|embed\/|live\/|shorts\/))[A-Za-z0-9_-]{11}/;
+const need = (v, what) => { if (!v) throw new Bad(`Fill in ${what}.`); return v; };
+const match = (v, re, what) => { if (!re.test(v)) throw new Bad(`${what}`); return v; };
+const oneOf = (v, list, what) => { if (!list.includes(v)) throw new Bad(`Choose ${what}.`); return v; };
+const count = (v, what) => { v = clean(v, 3); if (v && !/^\d{1,3}$/.test(v)) throw new Bad(`${what} has to be a number.`); return v; };
+const fmtDate = (d) => new Date(d + "T12:00:00Z").toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric", timeZone: "UTC" });
+const game = (r, dateKey) => `${fmtDate(r[dateKey])} ${r.opponent}`;
+
+// ---------------------------------------------------------------- the files the admin page can change
+const TABLES = {
+  photos: {
+    path: "overrides/photos.csv", cols: ["kind", "season", "player", "image", "caption", "credit"],
+    label: (r) => (r.kind === "team" ? `${r.season} team photo` : `headshot of ${r.player}`),
+  },
+  news: {
+    path: "overrides/news_stories.csv",
+    cols: ["published", "outlet", "kind", "title", "url", "access", "game_date", "opponent", "player", "matched_by"],
+    soft: true, // a removed row stays (marked removed) so the news-finder doesn't add it back
+    label: (r) => `${r.kind === "photos" ? "photo gallery" : r.kind === "video" ? "news video" : "news story"} “${r.title}” (${game(r, "game_date")})`,
+    check: (r) => ({
+      published: match(clean(r.published, 10), DATE, "Fill in the date it was published."),
+      outlet: need(clean(r.outlet, 60), "who published it"),
+      kind: oneOf(clean(r.kind, 10), ["article", "video", "photos"], "story, video or photos"),
+      title: need(clean(r.title, 200), "the headline"),
+      url: match(clean(r.url, 600), URL_RE, "The link has to start with https://"),
+      access: oneOf(clean(r.access, 12), ["free", "subscriber"], "free or subscriber-only"),
+      game_date: match(clean(r.game_date, 10), DATE, "Choose the game."),
+      opponent: need(clean(r.opponent, 60), "the opponent"),
+      player: clean(r.player, 80),
+      matched_by: "manual",
+    }),
+  },
+  film: {
+    path: "overrides/game_film.csv", cols: ["date", "opponent", "youtube_url", "title", "matched_by"], soft: true,
+    label: (r) => `YouTube film (${game(r, "date")})`,
+    check: (r) => ({
+      date: match(clean(r.date, 10), DATE, "Choose the game."),
+      opponent: need(clean(r.opponent, 60), "the opponent"),
+      youtube_url: match(clean(r.youtube_url, 300), YT_RE, "That doesn't look like a YouTube video link."),
+      title: clean(r.title, 200),
+      matched_by: "manual",
+    }),
+  },
+  hudl: {
+    path: "overrides/hudl_video.csv", cols: ["date", "opponent", "kind", "access", "url", "title"],
+    label: (r) => `Hudl ${r.kind === "recap" ? "recap" : "full game"} (${game(r, "date")})`,
+    check: (r) => ({
+      date: match(clean(r.date, 10), DATE, "Choose the game."),
+      opponent: need(clean(r.opponent, 60), "the opponent"),
+      kind: oneOf(clean(r.kind, 10), ["full", "recap"], "full game or recap"),
+      access: oneOf(clean(r.access, 10), ["free", "login", "paid"], "who can watch it"),
+      url: match(clean(r.url, 600), /^https:\/\/([a-z0-9-]+\.)*hudl\.com\/\S+$/i, "That doesn't look like a Hudl link."),
+      title: clean(r.title, 200),
+    }),
+  },
+  roster: {
+    path: "overrides/rosters.csv", cols: ["season", "number", "name", "position", "height", "grade", "source"],
+    label: (r) => `${r.name} on the ${r.season} roster`,
+    check: (r) => {
+      const grade = clean(r.grade, 2);
+      if (grade && !/^(7|8|9|10|11|12)$/.test(grade)) throw new Bad("Grade has to be 9 to 12 (or blank).");
+      return {
+        season: match(clean(r.season, 7), SEASON, "Choose a season."),
+        number: clean(r.number, 6),
+        name: need(clean(r.name, 80), "the player's name"),
+        position: clean(r.position, 12), height: clean(r.height, 10), grade, source: clean(r.source, 200),
+      };
+    },
+  },
+  season: {
+    path: "overrides/season_history.csv", cols: ["season", "w", "l", "t", "coach", "notes"], key: "season",
+    label: (r) => `${r.season} season line`,
+    check: (r) => ({
+      season: match(clean(r.season, 7), SEASON, "Choose a season."),
+      w: count(r.w, "Wins"), l: count(r.l, "Losses"), t: count(r.t, "Ties"),
+      coach: clean(r.coach, 80), notes: clean(r.notes, 500),
+    }),
+  },
+};
+const EDITABLE = ["news", "film", "hudl", "roster", "season"];
+
 // ---------------------------------------------------------------- CSV (quoted fields, as Python's csv module writes)
-function parseCsv(text) {
+function parseCsv(text, defaultCols = []) {
   const rows = [];
   let row = [], field = "", q = false;
   for (let i = 0; i < text.length; i++) {
@@ -36,7 +123,7 @@ function parseCsv(text) {
     } else field += c;
   }
   if (field !== "" || row.length) { row.push(field); rows.push(row); }
-  const head = (rows.shift() || COLS).map((h) => h.trim());
+  const head = (rows.shift() || defaultCols).map((h) => h.trim());
   return rows.filter((r) => r.some((v) => v.trim() !== ""))
     .map((r) => Object.fromEntries(head.map((h, i) => [h, r[i] || ""])));
 }
@@ -46,8 +133,8 @@ function csvField(v) {
   return /[",\n\r]/.test(v) ? `"${v.replace(/"/g, '""')}"` : v;
 }
 
-function toCsv(rows) {
-  return [COLS.join(","), ...rows.map((r) => COLS.map((k) => csvField(r[k])).join(","))].join("\n") + "\n";
+function toCsv(rows, cols = TABLES.photos.cols, eol = "\n") {
+  return [cols.join(","), ...rows.map((r) => cols.map((k) => csvField(r[k])).join(","))].join(eol) + eol;
 }
 
 // ---------------------------------------------------------------- GitHub
@@ -71,66 +158,208 @@ async function gh(path, opts = {}) {
   return body;
 }
 
-async function readPhotos() {
-  const ref = await gh(`/git/ref/heads/${BRANCH}`);
-  const head = ref.object.sha;
-  let rows = [];
-  try {
-    const f = await gh(`/contents/${CSV_PATH}?ref=${head}`);
-    rows = parseCsv(Buffer.from(f.content, "base64").toString("utf8"));
-  } catch (e) {
-    if (e.status !== 404) throw e;
-  }
-  return { head, rows };
+async function headSha() {
+  return (await gh(`/git/ref/heads/${BRANCH}`)).object.sha;
 }
 
-// One commit with every change: files is a list of {path, base64} to write, or {path, remove: true}.
+// A file at a commit: its text and blob sha, or null if it isn't there.
+async function getFile(head, path) {
+  try {
+    const f = await gh(`/contents/${path}?ref=${head}`);
+    let content = f.content;
+    if (!content && f.sha) content = (await gh(`/git/blobs/${f.sha}`)).content; // files over 1 MB
+    return { text: Buffer.from(content || "", "base64").toString("utf8"), sha: f.sha };
+  } catch (e) {
+    if (e.status === 404) return null;
+    throw e;
+  }
+}
+
+async function readTable(head, name) {
+  const t = TABLES[name], f = await getFile(head, t.path);
+  const text = f ? f.text : "";
+  const firstLine = text.split("\n")[0] || "";
+  return {
+    name, rows: parseCsv(text, t.cols),
+    cols: firstLine ? firstLine.replace(/\r$/, "").split(",").map((h) => h.trim()) : t.cols,
+    eol: firstLine.endsWith("\r") ? "\r\n" : "\n",
+  };
+}
+
+const tableFile = (tb) => ({ path: TABLES[tb.name].path, text: toCsv(tb.rows, tb.cols, tb.eol) });
+
+// One commit with every change. files: {path, text} or {path, base64} to write, {path, sha} to point at a
+// blob that's already in the repository, or {path, remove: true}. Returns the blob sha of each written file.
 async function commit(head, files, message) {
   const base = await gh(`/git/commits/${head}`);
-  const tree = [];
+  const tree = [], shas = {};
   for (const f of files) {
-    if (f.remove) {
-      tree.push({ path: f.path, mode: "100644", type: "blob", sha: null });
-    } else {
-      const blob = await gh("/git/blobs", { method: "POST", body: JSON.stringify({ content: f.base64, encoding: "base64" }) });
-      tree.push({ path: f.path, mode: "100644", type: "blob", sha: blob.sha });
+    let sha = f.remove ? null : f.sha;
+    if (!f.remove && !sha) {
+      const content = f.base64 || Buffer.from(f.text, "utf8").toString("base64");
+      sha = (await gh("/git/blobs", { method: "POST", body: JSON.stringify({ content, encoding: "base64" }) })).sha;
     }
+    shas[f.path] = sha;
+    tree.push({ path: f.path, mode: "100644", type: "blob", sha });
   }
   const t = await gh("/git/trees", { method: "POST", body: JSON.stringify({ base_tree: base.tree.sha, tree }) });
   const c = await gh("/git/commits", { method: "POST", body: JSON.stringify({ message, tree: t.sha, parents: [head] }) });
   await gh(`/git/refs/heads/${BRANCH}`, { method: "PATCH", body: JSON.stringify({ sha: c.sha }) });
-  return c.sha;
+  return shas;
 }
 
-// Read, change and commit; if someone else committed in between (the ref moved), start over once.
-async function change(fn) {
+// Read, change and commit, with a line added to the change log in the same commit. fn(ctx) gets
+// {head, tables} and returns {files, message, entry, result}.
+// If someone else committed in between (the ref moved), start over once.
+async function change(tableNames, fn) {
   for (let attempt = 0; ; attempt++) {
-    const { head, rows } = await readPhotos();
-    const { files, message, result } = fn(rows);
+    const head = await headSha();
+    const tables = {};
+    for (const n of tableNames) tables[n] = await readTable(head, n);
+    const out = await fn({ head, tables });
+    const logFile = await getFile(head, LOG_PATH);
+    const log = logFile ? logFile.text.split("\n").filter(Boolean).map((l) => JSON.parse(l)) : [];
+    const entry = { id: crypto.randomBytes(6).toString("hex"), at: new Date().toISOString(), ...out.entry };
     try {
-      await commit(head, files, message);
-      return result;
+      await commit(head, [...out.files, { path: LOG_PATH, text: logText([...log, entry]) }], out.message);
+      return { ...out.result, entry };
     } catch (e) {
       if (attempt === 0 && (e.status === 422 || e.status === 409)) continue;
       throw e;
     }
   }
 }
+const logText = (log) => log.slice(-LOG_KEEP).map((e) => JSON.stringify(e)).join("\n") + "\n";
 
-// ---------------------------------------------------------------- helpers
+// ---------------------------------------------------------------- row changes, and undoing them
+const sameRow = (a, b, cols) => cols.every((k) => (a[k] || "") === (b[k] || ""));
+
+// Apply one change to a table: before → after (before null = add, after null = remove).
+function applyOp(tb, before, after, cols) {
+  const t = TABLES[tb.name];
+  if (before) {
+    const i = tb.rows.findIndex((r) => sameRow(r, before, cols));
+    if (i < 0) throw new Bad("That line has changed since this page loaded (or was already removed). Refresh and try again.", 409);
+    if (after) tb.rows[i] = after; else tb.rows.splice(i, 1);
+  } else if (after) {
+    if (t.key && tb.rows.some((r) => r[t.key] === after[t.key])) throw new Bad(`There's already a line for ${after[t.key]}. Edit that one instead.`, 409);
+    tb.rows.push(after);
+  }
+}
+
+const live = (r) => r.matched_by !== "removed";
+
+async function saveRow(b) {
+  const name = String(b.table || "");
+  if (!EDITABLE.includes(name)) throw new Bad("Unknown list.");
+  const t = TABLES[name];
+  const before = b.before ? Object.fromEntries(t.cols.map((k) => [k, String(b.before[k] == null ? "" : b.before[k])])) : null;
+  let after = b.after ? t.check(b.after) : null;
+  if (!before && !after) throw new Bad("Nothing to save.");
+  let verb = before ? (after ? "Edit" : "Remove") : "Add";
+  if (!after && t.soft) after = { ...before, matched_by: "removed" };
+  if (before && after && sameRow(before, after, t.cols)) throw new Bad("Nothing changed.");
+  const label = t.label(b.after ? after : before);
+  return change([name], ({ tables }) => {
+    const tb = tables[name];
+    applyOp(tb, before, after, tb.cols);
+    return {
+      files: [tableFile(tb)],
+      message: `${verb} ${label} (from the admin page)`,
+      entry: { label: `${verb === "Edit" ? "Edited" : verb === "Add" ? "Added" : "Removed"} ${label}`, ops: [{ table: name, before, after }] },
+      result: { ok: true, row: after },
+    };
+  });
+}
+
+async function undo(id) {
+  const head = await headSha();
+  const logFile = await getFile(head, LOG_PATH);
+  const log = logFile ? logFile.text.split("\n").filter(Boolean).map((l) => JSON.parse(l)) : [];
+  const e = log.find((x) => x.id === id);
+  if (!e) throw new Bad("That change isn't in the list any more.", 404);
+  if (e.undoes) throw new Bad("An undo can't be undone. Make the change again instead.");
+  if (log.some((x) => x.undoes === id)) throw new Bad("That change was already undone.", 409);
+  const names = [...new Set((e.ops || []).map((o) => o.table))];
+  return change(names, ({ tables }) => {
+    try {
+      for (const o of [...(e.ops || [])].reverse()) applyOp(tables[o.table], o.after, o.before, tables[o.table].cols);
+    } catch (err) {
+      if (err.status === 409) throw new Bad("That line was changed again after this, so it can't be undone here. Edit it directly instead (or undo the later change first).", 409);
+      throw err;
+    }
+    const files = names.map((n) => tableFile(tables[n]));
+    for (const f of e.files || []) files.push(f.before ? { path: f.path, sha: f.before } : { path: f.path, remove: true });
+    return {
+      files, message: `Undo: ${e.label} (from the admin page)`,
+      entry: { label: `Undid: ${e.label}`, undoes: id },
+      result: { ok: true },
+    };
+  });
+}
+
+// ---------------------------------------------------------------- photos
+function slug(s) {
+  return String(s).toLowerCase().replace(/['.]/g, "").replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
+}
+
+// git's blob sha for some bytes, so the log can point at a photo file before it's committed
+const blobSha = (buf) => crypto.createHash("sha1").update(`blob ${buf.length}\0`).update(buf).digest("hex");
+
+async function addPhoto(b) {
+  const kind = b.kind === "team" ? "team" : b.kind === "player" ? "player" : "";
+  const season = clean(b.season, 7);
+  const player = clean(b.player, 80);
+  if (!kind) throw new Bad("Choose team photo or player headshot.");
+  if (kind === "team" && !SEASON.test(season)) throw new Bad("Choose a season.");
+  if (kind === "player" && !player) throw new Bad("Choose a player.");
+  const img = Buffer.from(String(b.image || ""), "base64");
+  if (img.length < 100 || img[0] !== 0xff || img[1] !== 0xd8) throw new Bad("That photo didn't come through as a JPEG. Try again.");
+  if (img.length > MAX_BYTES) throw new Bad("That photo is too big. Try a smaller one.");
+  const stamp = new Date().toISOString().replace(/\D/g, "").slice(0, 14);
+  const image = `${kind}-${kind === "team" ? season : slug(player)}-${stamp}.jpg`;
+  const row = { kind, season: kind === "team" ? season : "", player: kind === "player" ? player : "", image,
+                caption: clean(b.caption, 300), credit: clean(b.credit, 120) };
+  const label = TABLES.photos.label(row);
+  return change(["photos"], ({ tables }) => {
+    tables.photos.rows.push(row);
+    return {
+      files: [{ path: PHOTO_DIR + image, base64: img.toString("base64") }, tableFile(tables.photos)],
+      message: `Add ${label} (from the admin page)`,
+      entry: { label: `Added ${label}`, ops: [{ table: "photos", before: null, after: row }],
+               files: [{ path: PHOTO_DIR + image, before: null, after: blobSha(img) }] },
+      result: { ok: true, photo: row },
+    };
+  });
+}
+
+async function removePhoto(b) {
+  const image = clean(b.image, 200);
+  return change(["photos"], async ({ head, tables }) => {
+    const found = tables.photos.rows.find((r) => r.image === image);
+    if (!found) throw new Bad("That photo is already gone.", 404);
+    const local = !/^https?:\/\//.test(image) && !image.includes("/") && !image.includes("..");
+    const file = local ? await getFile(head, PHOTO_DIR + image) : null;
+    tables.photos.rows = tables.photos.rows.filter((r) => r !== found);
+    const label = TABLES.photos.label(found);
+    return {
+      files: [...(file ? [{ path: PHOTO_DIR + image, remove: true }] : []), tableFile(tables.photos)],
+      message: `Remove ${label} (from the admin page)`,
+      entry: { label: `Removed ${label}`, ops: [{ table: "photos", before: found, after: null }],
+               files: file ? [{ path: PHOTO_DIR + image, before: file.sha, after: null }] : [] },
+      result: { ok: true },
+    };
+  });
+}
+
+// ---------------------------------------------------------------- the handler
 function sameSecret(a, b) {
   const h = (s) => crypto.createHash("sha256").update(String(s)).digest();
   return crypto.timingSafeEqual(h(a), h(b));
 }
 
-function slug(s) {
-  return String(s).toLowerCase().replace(/['.]/g, "").replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
-}
-
-const clean = (s, n) => String(s || "").replace(/[\r\n]+/g, " ").trim().slice(0, n);
 const fail = (res, code, error) => res.status(code).json({ error });
 
-// ---------------------------------------------------------------- the handler
 module.exports = async (req, res) => {
   res.setHeader("Cache-Control", "no-store");
   if (req.method !== "POST") return fail(res, 405, "Use POST.");
@@ -145,53 +374,35 @@ module.exports = async (req, res) => {
   try {
     if (b.action === "check") return res.json({ ok: true });
 
-    if (b.action === "list") {
-      const { rows } = await readPhotos();
-      return res.json({ photos: rows });
+    if (b.action === "list") { // photos
+      const tb = await readTable(await headSha(), "photos");
+      return res.json({ photos: tb.rows });
     }
+    if (b.action === "add") return res.json(await addPhoto(b));
+    if (b.action === "remove") return res.json(await removePhoto(b));
 
-    if (b.action === "add") {
-      const kind = b.kind === "team" ? "team" : b.kind === "player" ? "player" : "";
-      const season = clean(b.season, 7);
-      const player = clean(b.player, 80);
-      if (!kind) return fail(res, 400, "Choose team photo or player headshot.");
-      if (kind === "team" && !/^\d{4}-\d{2}$/.test(season)) return fail(res, 400, "Choose a season.");
-      if (kind === "player" && !player) return fail(res, 400, "Choose a player.");
-      const img = Buffer.from(String(b.image || ""), "base64");
-      if (img.length < 100 || img[0] !== 0xff || img[1] !== 0xd8) return fail(res, 400, "That photo didn't come through as a JPEG. Try again.");
-      if (img.length > MAX_BYTES) return fail(res, 400, "That photo is too big. Try a smaller one.");
-      const stamp = new Date().toISOString().replace(/\D/g, "").slice(0, 14);
-      const image = `${kind}-${kind === "team" ? season : slug(player)}-${stamp}.jpg`;
-      const row = { kind, season: kind === "team" ? season : "", player: kind === "player" ? player : "", image,
-                    caption: clean(b.caption, 300), credit: clean(b.credit, 120) };
-      const what = kind === "team" ? `${season} team photo` : `headshot of ${player}`;
-      await change((rows) => ({
-        files: [{ path: PHOTO_DIR + image, base64: img.toString("base64") },
-                { path: CSV_PATH, base64: Buffer.from(toCsv([...rows, row])).toString("base64") }],
-        message: `Add ${what} (from the admin page)`,
-      }));
-      return res.json({ ok: true, photo: row });
+    if (b.action === "rows") { // the lines of one list that match every field in `where`
+      const name = String(b.table || "");
+      if (!EDITABLE.includes(name)) throw new Bad("Unknown list.");
+      const where = b.where && typeof b.where === "object" ? b.where : {};
+      const tb = await readTable(await headSha(), name);
+      const rows = tb.rows.filter(live).filter((r) => Object.entries(where).every(([k, v]) => (r[k] || "") === String(v)));
+      return res.json({ rows: rows.map((r) => Object.fromEntries(TABLES[name].cols.map((k) => [k, r[k] || ""]))) });
     }
+    if (b.action === "save") return res.json(await saveRow(b));
 
-    if (b.action === "remove") {
-      const image = clean(b.image, 200);
-      let found = null;
-      await change((rows) => {
-        found = rows.find((r) => r.image === image);
-        if (!found) { const e = new Error("That photo is already gone."); e.status = 404; throw e; }
-        const local = !/^https?:\/\//.test(image) && !image.includes("/") && !image.includes("..");
-        return {
-          files: [...(local ? [{ path: PHOTO_DIR + image, remove: true }] : []),
-                  { path: CSV_PATH, base64: Buffer.from(toCsv(rows.filter((r) => r !== found))).toString("base64") }],
-          message: `Remove ${found.kind === "team" ? found.season + " team photo" : "headshot of " + found.player} (from the admin page)`,
-        };
-      });
-      return res.json({ ok: true });
+    if (b.action === "log") {
+      const f = await getFile(await headSha(), LOG_PATH);
+      const log = f ? f.text.split("\n").filter(Boolean).map((l) => JSON.parse(l)) : [];
+      const undone = new Set(log.filter((e) => e.undoes).map((e) => e.undoes));
+      return res.json({ entries: log.slice(-60).reverse().map((e) => ({ id: e.id, at: e.at, label: e.label,
+        undo: !e.undoes && !undone.has(e.id) && !!(e.ops || e.files) })) });
     }
+    if (b.action === "undo") return res.json(await undo(clean(b.id, 20)));
 
     return fail(res, 400, "Unknown action.");
   } catch (e) {
-    if (e.status === 404 && e.message === "That photo is already gone.") return fail(res, 404, e.message);
+    if (e.user) return fail(res, e.status, e.message);
     if (e.status === 401 || e.status === 403) {
       return fail(res, 502, "GitHub refused the change. Check that GITHUB_TOKEN is current and has Contents: Read and write on this repository.");
     }
@@ -202,3 +413,4 @@ module.exports = async (req, res) => {
 
 module.exports.parseCsv = parseCsv;
 module.exports.toCsv = toCsv;
+module.exports.blobSha = blobSha;

@@ -5,8 +5,8 @@
 {% block content %}
 <div class="wrap page-head">
   <p class="eyebrow">Admin</p>
-  <h1>Photos</h1>
-  <p class="muted">Add a team photo to a season page or a headshot to a player page. Changes are saved to the site's GitHub repository and go live after the next rebuild, usually 2–3 minutes.</p>
+  <h1>Site admin</h1>
+  <p class="muted">Changes are saved to the site's GitHub repository and go live after the next rebuild, usually 2–3 minutes. Anything done here can be undone under <em>Recent changes</em>.</p>
 </div>
 
 <div class="wrap admin">
@@ -20,52 +20,177 @@
   </section>
 
   <div id="panel" hidden>
-    <section class="card">
-      <div class="card-head"><h2>Add a photo</h2><button type="button" class="link-btn" id="sign-out">Sign out</button></div>
-      <form id="add-form" class="admin-form">
-        <fieldset class="admin-kind">
-          <legend>What is it?</legend>
-          <label><input type="radio" name="kind" value="team" checked> Team photo</label>
-          <label><input type="radio" name="kind" value="player"> Player headshot</label>
-        </fieldset>
-        <label data-for="team">Season
-          <select id="season">{% for s in seasons %}<option value="{{ s }}">{{ s | replace('-', '–') }}</option>{% endfor %}</select>
-        </label>
-        <label data-for="player" hidden>Player
-          <input id="player" list="player-list" autocomplete="off" placeholder="Start typing a name…">
-          <datalist id="player-list">{% for p in players %}<option value="{{ p.name }}">{{ p.years }}</option>{% endfor %}</datalist>
-        </label>
-        <label>Photo <input type="file" id="file" accept="image/*" required></label>
-        <div class="admin-preview" id="preview" hidden><img id="preview-img" alt="Preview of the photo"><span class="muted small" id="preview-size"></span></div>
-        <label>Caption <span class="muted small">(optional, e.g. names left to right)</span>
-          <textarea id="caption" rows="2" maxlength="300"></textarea></label>
-        <label>Photo credit <span class="muted small">(optional, e.g. 1926 Echo yearbook)</span>
-          <input id="credit" maxlength="120"></label>
-        <p class="muted small">Only add photos you have permission to share: your own, the school's, or with the photographer's OK.</p>
-        <button class="btn btn-solid" type="submit" id="publish">Publish</button>
-        <p class="admin-msg" id="add-msg" role="status"></p>
-      </form>
-    </section>
+    <div class="admin-tabs" role="tablist" aria-label="Admin tools">
+      <button type="button" role="tab" data-tab="photos" aria-selected="true">Photos</button>
+      <button type="button" role="tab" data-tab="links" aria-selected="false">Game links</button>
+      <button type="button" role="tab" data-tab="roster" aria-selected="false">Rosters</button>
+      <button type="button" role="tab" data-tab="season" aria-selected="false">Seasons</button>
+      <button type="button" role="tab" data-tab="log" aria-selected="false">Recent changes</button>
+      <button type="button" class="link-btn admin-signout" id="sign-out">Sign out</button>
+    </div>
 
-    <section class="card">
-      <div class="card-head"><h2>Photos on the site</h2><button type="button" class="link-btn" id="refresh">Refresh</button></div>
-      <p class="muted small">A photo added in the last few minutes shows “Publishing…” until the rebuild finishes.</p>
-      <ul class="admin-list" id="list"><li class="muted">Loading…</li></ul>
-    </section>
+    <!-- ================================================================ photos -->
+    <div data-panel="photos">
+      <section class="card">
+        <div class="card-head"><h2>Add a photo</h2></div>
+        <form id="add-form" class="admin-form">
+          <fieldset class="admin-kind">
+            <legend>What is it?</legend>
+            <label><input type="radio" name="kind" value="team" checked> Team photo</label>
+            <label><input type="radio" name="kind" value="player"> Player headshot</label>
+          </fieldset>
+          <label data-for="team">Season
+            <select id="season">{% for s in seasons %}<option value="{{ s }}">{{ s | replace('-', '–') }}</option>{% endfor %}</select>
+          </label>
+          <label data-for="player" hidden>Player
+            <input id="player" list="player-list" autocomplete="off" placeholder="Start typing a name…">
+          </label>
+          <label>Photo <input type="file" id="file" accept="image/*" required></label>
+          <div class="admin-preview" id="preview" hidden><img id="preview-img" alt="Preview of the photo"><span class="muted small" id="preview-size"></span></div>
+          <label>Caption <span class="muted small">(optional, e.g. names left to right)</span>
+            <textarea id="caption" rows="2" maxlength="300"></textarea></label>
+          <label>Photo credit <span class="muted small">(optional, e.g. 1926 Echo yearbook)</span>
+            <input id="credit" maxlength="120"></label>
+          <p class="muted small">Only add photos you have permission to share: your own, the school's, or with the photographer's OK.</p>
+          <button class="btn btn-solid" type="submit" id="publish">Publish</button>
+          <p class="admin-msg" id="add-msg" role="status"></p>
+        </form>
+      </section>
+
+      <section class="card">
+        <div class="card-head"><h2>Photos on the site</h2><button type="button" class="link-btn" id="refresh">Refresh</button></div>
+        <p class="muted small">A photo added in the last few minutes shows “Publishing…” until the rebuild finishes.</p>
+        <ul class="admin-list" id="list"><li class="muted">Loading…</li></ul>
+      </section>
+    </div>
+
+    <!-- ================================================================ game links -->
+    <div data-panel="links" hidden>
+      <section class="card">
+        <div class="card-head"><h2>Choose a game</h2><a id="game-link" href="#" target="_blank" rel="noopener">View game page →</a></div>
+        <div class="admin-form admin-row2">
+          <label>Season <select id="g-season"></select></label>
+          <label>Game <select id="g-game"></select></label>
+        </div>
+      </section>
+
+      <section class="card">
+        <div class="card-head"><h2>On this game's page</h2></div>
+        <ul class="admin-list admin-rows" id="g-list"><li class="muted">Loading…</li></ul>
+        <p class="muted small">Scores, stats and the livestream link come from the season's Google Sheet, so they aren't edited here.</p>
+      </section>
+
+      <section class="card">
+        <div class="card-head"><h2 id="l-title">Add a link</h2><button type="button" class="link-btn" id="l-cancel" hidden>Cancel editing</button></div>
+        <form id="l-form" class="admin-form">
+          <label>Link <input id="l-url" type="url" required placeholder="https://…" autocomplete="off"></label>
+          <label>What is it?
+            <select id="l-type">
+              <option value="article">News story</option>
+              <option value="video">News video</option>
+              <option value="photos">Photo gallery (GX3 Media or other)</option>
+              <option value="film">YouTube game film</option>
+              <option value="hudl_full">Hudl full-game replay</option>
+              <option value="hudl_recap">Hudl highlights / recap</option>
+            </select>
+          </label>
+          <label><span id="l-title-label">Headline</span> <input id="l-head" maxlength="200"></label>
+          <div class="admin-row2" data-news>
+            <label>Published by <input id="l-outlet" list="outlet-list" maxlength="60" autocomplete="off"></label>
+            <label>Date published <input id="l-published" type="date"></label>
+          </div>
+          <datalist id="outlet-list"></datalist>
+          <label>Who can see it <select id="l-access"></select></label>
+          <label data-news>Player <span class="muted small">(optional, if the story is about one player)</span>
+            <input id="l-player" list="player-list" autocomplete="off"></label>
+          <p class="muted small" id="l-hint"></p>
+          <button class="btn btn-solid" type="submit" id="l-save">Add to the game page</button>
+          <p class="admin-msg" id="l-msg" role="status"></p>
+        </form>
+      </section>
+    </div>
+
+    <!-- ================================================================ rosters -->
+    <div data-panel="roster" hidden>
+      <section class="card">
+        <div class="card-head"><h2>Roster</h2><a id="r-link" href="#" target="_blank" rel="noopener">View season page →</a></div>
+        <div class="admin-form"><label>Season <select id="r-season"></select></label></div>
+        <ul class="admin-list admin-rows" id="r-list"></ul>
+        <p class="muted small">These are rosters from game programs and yearbooks, shown on seasons without stat sheets and on each player's page. Seasons with stat sheets get their players from the sheets.</p>
+      </section>
+      <section class="card">
+        <div class="card-head"><h2 id="r-title">Add a player</h2><button type="button" class="link-btn" id="r-cancel" hidden>Cancel editing</button></div>
+        <form id="r-form" class="admin-form">
+          <div class="admin-row2">
+            <label>Name <input id="r-name" list="player-list" required maxlength="80" autocomplete="off"></label>
+            <label>Number <input id="r-number" maxlength="6" inputmode="numeric"></label>
+          </div>
+          <div class="admin-row3">
+            <label>Position <input id="r-position" maxlength="12" placeholder="G, F, C…"></label>
+            <label>Height <input id="r-height" maxlength="10" placeholder="6'1"></label>
+            <label>Grade <select id="r-grade"><option value="">—</option><option>9</option><option>10</option><option>11</option><option>12</option></select></label>
+          </div>
+          <label>Source <input id="r-source" maxlength="200" placeholder="e.g. Bangor game program, Feb. 12, 2000"></label>
+          <button class="btn btn-solid" type="submit" id="r-save">Add to the roster</button>
+          <p class="admin-msg" id="r-msg" role="status"></p>
+        </form>
+      </section>
+    </div>
+
+    <!-- ================================================================ season lines -->
+    <div data-panel="season" hidden>
+      <section class="card">
+        <div class="card-head"><h2>Season line</h2><a id="s-link" href="#" target="_blank" rel="noopener">View season page →</a></div>
+        <form id="s-form" class="admin-form">
+          <label>Season <select id="s-season"></select></label>
+          <div class="admin-row3">
+            <label>Wins <input id="s-w" inputmode="numeric" maxlength="3"></label>
+            <label>Losses <input id="s-l" inputmode="numeric" maxlength="3"></label>
+            <label>Ties <input id="s-t" inputmode="numeric" maxlength="3"></label>
+          </div>
+          <p class="muted small" id="s-current" hidden>This is the current season: its record is counted from the games on the season's Google Sheet, so wins and losses entered here are replaced by that count.</p>
+          <label>Coach <input id="s-coach" maxlength="80"></label>
+          <label>Highlights <span class="muted small">(e.g. Scenic Bluffs Conference champions; WIAA regional champions)</span>
+            <textarea id="s-notes" rows="3" maxlength="500"></textarea></label>
+          <button class="btn btn-solid" type="submit" id="s-save">Save</button>
+          <p class="admin-msg" id="s-msg" role="status"></p>
+        </form>
+      </section>
+    </div>
+
+    <!-- ================================================================ recent changes -->
+    <div data-panel="log" hidden>
+      <section class="card">
+        <div class="card-head"><h2>Recent changes</h2><button type="button" class="link-btn" id="log-refresh">Refresh</button></div>
+        <p class="muted small">Changes made on this page, newest first. Undo puts things back the way they were; it's saved and goes live like any other change.</p>
+        <ul class="admin-list admin-rows" id="log-list"><li class="muted">Loading…</li></ul>
+      </section>
+    </div>
+    <datalist id="player-list">{% for p in players %}<option value="{{ p.name }}">{{ p.years }}</option>{% endfor %}</datalist>
   </div>
 </div>
 
 <script>
 (function () {
   var ROOT = document.body.dataset.root, CLEAN = document.body.dataset.clean === "1";
-  var PLAYERS = {{ players_json }};
+  var DATA = {{ admin_json }};
+  var PLAYERS = DATA.players;
   var API = "/api/admin";
   var $ = function (id) { return document.getElementById(id); };
+  var each = function (sel, fn) { Array.prototype.forEach.call(document.querySelectorAll(sel), fn); };
   var pw = sessionStorage.getItem("bbAdmin") || "";
   var photo = null; // base64 JPEG, shrunk in the browser
 
   function pageUrl(path) { return ROOT + (CLEAN ? path : path + ".html"); }
   function msg(el, text, ok) { el.textContent = text; el.className = "admin-msg" + (ok === true ? " ok" : ok === false ? " bad" : ""); }
+  function el(tag, cls, text) { var e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; }
+  function dash(s) { return String(s).replace("-", "–"); }
+  function fmtDate(d) { return d ? new Date(d + "T12:00:00").toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" }) : ""; }
+  function options(select, items, value) {
+    select.innerHTML = "";
+    items.forEach(function (it) { var o = el("option", "", it[1]); o.value = it[0]; select.appendChild(o); });
+    if (value != null) select.value = value;
+  }
 
   function call(body) {
     return fetch(API, { method: "POST", headers: { "Content-Type": "application/json", "X-Admin-Password": pw }, body: JSON.stringify(body) })
@@ -76,8 +201,47 @@
         });
       });
   }
+  function saved(m) { msg(m, "Saved. It will be on the site in about 2–3 minutes.", true); }
 
-  function showPanel() { $("login").hidden = true; $("panel").hidden = false; loadList(); }
+  // a list line: title, a muted second line, and buttons
+  function rowItem(title, sub, buttons) {
+    var li = el("li"), info = el("div");
+    info.appendChild(el("strong", "", title));
+    if (sub) info.appendChild(el("span", "muted small", sub));
+    li.appendChild(info);
+    var bx = el("span", "admin-btns");
+    buttons.forEach(function (b) {
+      var x = el("button", "link-btn" + (b.danger ? " danger" : ""), b.label); x.type = "button";
+      x.addEventListener("click", function () { b.fn(x); });
+      bx.appendChild(x);
+    });
+    li.appendChild(bx);
+    return li;
+  }
+  function removeBtn(table, row, what, after) {
+    return { label: "Remove", danger: true, fn: function (x) {
+      if (!confirm("Remove " + what + "?")) return;
+      x.disabled = true; x.textContent = "Removing…";
+      call({ action: "save", table: table, before: row, after: null }).then(after)
+        .catch(function (err) { alert(err.message); x.disabled = false; x.textContent = "Remove"; });
+    } };
+  }
+
+  // ---------------------------------------------------------------- sign in, tabs
+  var loaded = {};
+  function showTab(name) {
+    each("[role=tab]", function (t) { t.setAttribute("aria-selected", t.dataset.tab === name ? "true" : "false"); });
+    each("[data-panel]", function (p) { p.hidden = p.dataset.panel !== name; });
+    history.replaceState(null, "", "#" + name);
+    if (!loaded[name]) { loaded[name] = true; ({ photos: loadList, links: loadGame, roster: loadRoster, season: loadSeason, log: loadLog })[name](); }
+    else if (name === "log") loadLog();
+  }
+  each("[role=tab]", function (t) { t.addEventListener("click", function () { showTab(t.dataset.tab); }); });
+  function showPanel() {
+    $("login").hidden = true; $("panel").hidden = false;
+    var h = location.hash.slice(1);
+    showTab(["photos", "links", "roster", "season", "log"].indexOf(h) >= 0 ? h : "photos");
+  }
 
   $("login-form").addEventListener("submit", function (e) {
     e.preventDefault();
@@ -86,14 +250,14 @@
     call({ action: "check" }).then(function () { sessionStorage.setItem("bbAdmin", pw); showPanel(); })
       .catch(function (err) { msg($("login-msg"), err.message, false); });
   });
-  $("sign-out").addEventListener("click", function () { sessionStorage.removeItem("bbAdmin"); location.reload(); });
+  $("sign-out").addEventListener("click", function () { sessionStorage.removeItem("bbAdmin"); location.hash = ""; location.reload(); });
   if (pw) call({ action: "check" }).then(showPanel).catch(function () { sessionStorage.removeItem("bbAdmin"); pw = ""; });
 
-  // team photo or headshot: show the matching field
+  // ---------------------------------------------------------------- photos
   function kind() { return document.querySelector("input[name=kind]:checked").value; }
-  Array.prototype.forEach.call(document.querySelectorAll("input[name=kind]"), function (r) {
+  each("input[name=kind]", function (r) {
     r.addEventListener("change", function () {
-      Array.prototype.forEach.call(document.querySelectorAll("[data-for]"), function (el) { el.hidden = el.dataset.for !== kind(); });
+      each("[data-for]", function (x) { x.hidden = x.dataset.for !== kind(); });
       if ($("file").files[0]) shrink($("file").files[0]);
     });
   });
@@ -105,7 +269,6 @@
     msg($("add-msg"), "Reading the photo…");
     var img = new Image(), url = URL.createObjectURL(file);
     img.onload = function () {
-      // team photos: at most 1600 px wide; headshots: at most 800 px on the longer side
       var s = kind() === "team" ? Math.min(1, 1600 / img.naturalWidth) : Math.min(1, 800 / Math.max(img.naturalWidth, img.naturalHeight));
       var c = document.createElement("canvas");
       c.width = Math.round(img.naturalWidth * s); c.height = Math.round(img.naturalHeight * s);
@@ -134,9 +297,8 @@
       .then(function (j) {
         var p = PLAYERS.filter(function (x) { return x.name === player; })[0];
         var link = k === "team" ? pageUrl("seasons/" + j.photo.season) : pageUrl("players/" + p.slug);
-        $("add-msg").innerHTML = "";
         msg($("add-msg"), "Saved. It will be on the page in about 2–3 minutes: ", true);
-        var a = document.createElement("a"); a.href = link; a.textContent = "view the page"; $("add-msg").appendChild(a);
+        var a = el("a", "", "view the page"); a.href = link; $("add-msg").appendChild(a);
         $("add-form").reset(); photo = null; $("preview").hidden = true;
         document.querySelector("[data-for=team]").hidden = false; document.querySelector("[data-for=player]").hidden = true;
         loadList();
@@ -151,20 +313,15 @@
       ul.innerHTML = "";
       if (!j.photos.length) { ul.innerHTML = '<li class="muted">No photos yet.</li>'; return; }
       j.photos.slice().reverse().forEach(function (p) {
-        var li = document.createElement("li"), local = !/^https?:\/\//.test(p.image);
-        var thumb = document.createElement("img");
+        var li = el("li"), local = !/^https?:\/\//.test(p.image);
+        var thumb = el("img", "admin-thumb");
         thumb.alt = ""; thumb.loading = "lazy";
         thumb.src = local ? ROOT + "static/photos/" + p.image.replace(/\.[^.]+$/, "").toLowerCase().replace(/['.]/g, "").replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "") + ".jpg" : p.image;
-        var info = document.createElement("div");
-        var t = document.createElement("strong");
-        t.textContent = p.kind === "team" ? p.season.replace("-", "–") + " team photo" : p.player;
-        info.appendChild(t);
-        var sub = document.createElement("span"); sub.className = "muted small";
-        sub.textContent = [p.kind === "player" ? "Headshot" : "", p.caption, p.credit ? "Photo: " + p.credit : ""].filter(Boolean).join(" · ");
-        info.appendChild(sub);
-        thumb.onerror = function () { var s = document.createElement("span"); s.className = "admin-thumb muted small"; s.textContent = "Publishing…"; thumb.replaceWith(s); };
-        thumb.className = "admin-thumb";
-        var rm = document.createElement("button"); rm.type = "button"; rm.className = "link-btn danger"; rm.textContent = "Remove";
+        thumb.onerror = function () { thumb.replaceWith(el("span", "admin-thumb muted small", "Publishing…")); };
+        var info = el("div");
+        info.appendChild(el("strong", "", p.kind === "team" ? dash(p.season) + " team photo" : p.player));
+        info.appendChild(el("span", "muted small", [p.kind === "player" ? "Headshot" : "", p.caption, p.credit ? "Photo: " + p.credit : ""].filter(Boolean).join(" · ")));
+        var rm = el("button", "link-btn danger", "Remove"); rm.type = "button";
         rm.addEventListener("click", function () {
           if (!confirm("Remove this photo from the site?")) return;
           rm.disabled = true; rm.textContent = "Removing…";
@@ -173,9 +330,243 @@
         li.appendChild(thumb); li.appendChild(info); li.appendChild(rm);
         ul.appendChild(li);
       });
-    }).catch(function (err) { ul.innerHTML = ""; var li = document.createElement("li"); li.className = "admin-msg bad"; li.textContent = err.message; ul.appendChild(li); });
+    }).catch(function (err) { ul.innerHTML = ""; ul.appendChild(el("li", "admin-msg bad", err.message)); });
   }
   $("refresh").addEventListener("click", loadList);
+
+  // ---------------------------------------------------------------- game links
+  var TYPES = {
+    article: { table: "news", kind: "article", title: "Headline", access: [["free", "Free to read"], ["subscriber", "Subscribers only"]] },
+    video: { table: "news", kind: "video", title: "Headline", access: [["free", "Free to watch"], ["subscriber", "Subscribers only"]] },
+    photos: { table: "news", kind: "photos", title: "Gallery title", access: [["free", "Anyone"]] },
+    film: { table: "film", title: "Video title", access: [["free", "Anyone (YouTube)"]], hint: "A game shows one YouTube film. If it already has one, remove the old one first." },
+    hudl_full: { table: "hudl", kind: "full", title: "Video title", access: [["free", "Free"], ["login", "Free with a Hudl login"], ["paid", "Hudl subscribers"]], hint: "A game shows one Hudl replay; a new one replaces the one listed above." },
+    hudl_recap: { table: "hudl", kind: "recap", title: "Video title", access: [["free", "Free"], ["login", "Free with a Hudl login"], ["paid", "Hudl subscribers"]] },
+  };
+  var GAMES = DATA.games, editing = null, gameRows = [];
+  options($("g-season"), DATA.game_seasons.map(function (s) { return [s, dash(s)]; }), DATA.current);
+  options($("outlet-list"), DATA.outlets.map(function (o) { return [o, ""]; }));
+  function curGame() { return GAMES.filter(function (g) { return g.id === $("g-game").value; })[0]; }
+  function fillGames(pick) {
+    var gs = GAMES.filter(function (g) { return g.season === $("g-season").value; });
+    var today = new Date().toISOString().slice(0, 10);
+    var def = pick || (gs.filter(function (g) { return g.date <= today; }).pop() || gs[0] || {}).id;
+    options($("g-game"), gs.map(function (g) { return [g.id, g.label]; }), def);
+  }
+  fillGames();
+  $("g-season").addEventListener("change", function () { fillGames(); loadGame(); });
+  $("g-game").addEventListener("change", loadGame);
+
+  function typeOf(table, r) {
+    if (table === "film") return "film";
+    if (table === "hudl") return r.kind === "recap" ? "hudl_recap" : "hudl_full";
+    return r.kind === "photos" ? "photos" : r.kind === "video" ? "video" : "article";
+  }
+  var TYPE_NAME = { article: "News story", video: "News video", photos: "Photo gallery", film: "YouTube film", hudl_full: "Hudl replay", hudl_recap: "Hudl recap" };
+
+  function loadGame() {
+    var g = curGame(), ul = $("g-list");
+    stopEditLink();
+    if (!g) { ul.innerHTML = '<li class="muted">No games in this season.</li>'; return; }
+    $("game-link").href = pageUrl("games/" + g.id);
+    ul.innerHTML = '<li class="muted">Loading…</li>';
+    Promise.all([call({ action: "rows", table: "news", where: { game_date: g.date } }),
+                 call({ action: "rows", table: "film", where: { date: g.date } }),
+                 call({ action: "rows", table: "hudl", where: { date: g.date } })])
+      .then(function (rs) {
+        gameRows = [];
+        ["news", "film", "hudl"].forEach(function (t, i) { rs[i].rows.forEach(function (r) { gameRows.push({ table: t, row: r }); }); });
+        ul.innerHTML = "";
+        if (!gameRows.length) { ul.appendChild(el("li", "muted", "No news, film or photo links on this game yet.")); return; }
+        gameRows.forEach(function (x) {
+          var r = x.row, t = typeOf(x.table, r);
+          var url = r.url || r.youtube_url;
+          var sub = [TYPE_NAME[t], r.outlet, r.published ? fmtDate(r.published) : "", r.access && r.access !== "free" ? r.access : ""].filter(Boolean).join(" · ");
+          var li = rowItem(r.title || url, sub, [
+            { label: "Edit", fn: function () { startEditLink(x); } },
+            removeBtn(x.table, r, "this link from the game page", loadGame)]);
+          var a = el("a", "small admin-url", url); a.href = url; a.target = "_blank"; a.rel = "noopener";
+          li.firstChild.appendChild(a);
+          ul.appendChild(li);
+        });
+      }).catch(function (err) { ul.innerHTML = ""; ul.appendChild(el("li", "admin-msg bad", err.message)); });
+  }
+
+  function setType(t) {
+    $("l-type").value = t;
+    var T = TYPES[t];
+    $("l-title-label").textContent = T.title;
+    each("[data-news]", function (x) { x.hidden = T.table !== "news"; });
+    var keep = $("l-access").value;
+    options($("l-access"), T.access);
+    if (T.access.some(function (a) { return a[0] === keep; })) $("l-access").value = keep;
+    $("l-hint").textContent = T.hint || "";
+    if (t === "photos" && !$("l-outlet").value) $("l-outlet").value = "GX3 Media";
+  }
+  $("l-type").addEventListener("change", function () { setType(this.value); });
+  setType("article");
+
+  // guess the type and outlet from a pasted link
+  $("l-url").addEventListener("input", function () {
+    if (editing) return;
+    var u = this.value.toLowerCase();
+    var t = /youtu\.?be/.test(u) ? "film" : /hudl\.com/.test(u) ? "hudl_full" : /smugmug|gx3media/.test(u) ? "photos" : /\/video\//.test(u) ? "video" : null;
+    if (t) setType(t);
+    var outlet = /news8000/.test(u) ? "WKBT News 8" : /wxow/.test(u) ? "WXOW 19" : /lacrossetribune/.test(u) ? "La Crosse Tribune" : /smugmug|gx3media/.test(u) ? "GX3 Media" : "";
+    if (outlet && DATA.outlets.indexOf(outlet) >= 0) $("l-outlet").value = outlet;
+  });
+
+  function startEditLink(x) {
+    editing = x;
+    var r = x.row;
+    setType(typeOf(x.table, r));
+    $("l-url").value = r.url || r.youtube_url || "";
+    $("l-head").value = r.title || "";
+    $("l-outlet").value = r.outlet || "";
+    $("l-published").value = r.published || "";
+    $("l-access").value = r.access || "free";
+    $("l-player").value = r.player || "";
+    $("l-title").textContent = "Edit link"; $("l-save").textContent = "Save changes"; $("l-cancel").hidden = false;
+    msg($("l-msg"), "");
+    $("l-form").scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+  function stopEditLink() {
+    editing = null; $("l-form").reset(); setType("article");
+    $("l-title").textContent = "Add a link"; $("l-save").textContent = "Add to the game page"; $("l-cancel").hidden = true;
+  }
+  $("l-cancel").addEventListener("click", function () { stopEditLink(); msg($("l-msg"), ""); });
+
+  $("l-form").addEventListener("submit", function (e) {
+    e.preventDefault();
+    var g = curGame(), t = $("l-type").value, T = TYPES[t], url = $("l-url").value.trim(), row;
+    if (!g) return;
+    if (editing && editing.table !== T.table) { msg($("l-msg"), "To change a link to a different kind, remove it and add it again.", false); return; }
+    if (T.table === "news") {
+      row = { published: $("l-published").value || g.date, outlet: $("l-outlet").value, kind: T.kind, title: $("l-head").value, url: url,
+              access: $("l-access").value, game_date: g.date, opponent: g.opponent, player: $("l-player").value, matched_by: "manual" };
+    } else if (T.table === "film") {
+      row = { date: g.date, opponent: g.opponent, youtube_url: url, title: $("l-head").value, matched_by: "manual" };
+    } else {
+      row = { date: g.date, opponent: g.opponent, kind: T.kind, access: $("l-access").value, url: url, title: $("l-head").value };
+    }
+    if (editing) { ["game_date", "opponent", "date"].forEach(function (k) { if (k in editing.row) row[k] = editing.row[k]; }); }
+    $("l-save").disabled = true; msg($("l-msg"), "Saving…");
+    call({ action: "save", table: T.table, before: editing ? editing.row : null, after: row })
+      .then(function () { saved($("l-msg")); stopEditLink(); loadGame(); })
+      .catch(function (err) { msg($("l-msg"), err.message, false); })
+      .then(function () { $("l-save").disabled = false; });
+  });
+
+  // ---------------------------------------------------------------- rosters
+  var rEditing = null, rRows = [];
+  options($("r-season"), DATA.all_seasons.map(function (s) { return [s, dash(s)]; }));
+  $("r-season").addEventListener("change", loadRoster);
+  function loadRoster() {
+    var s = $("r-season").value, ul = $("r-list");
+    stopEditRoster();
+    $("r-link").href = pageUrl("seasons/" + s);
+    ul.innerHTML = '<li class="muted">Loading…</li>';
+    call({ action: "rows", table: "roster", where: { season: s } }).then(function (j) {
+      rRows = j.rows.sort(function (a, b) { return (parseInt(a.number, 10) || 0) - (parseInt(b.number, 10) || 0); });
+      ul.innerHTML = "";
+      if (!rRows.length) { ul.appendChild(el("li", "muted", "No roster on file for " + dash(s) + ".")); return; }
+      rRows.forEach(function (r) {
+        var sub = [r.position, r.height, r.grade ? "Grade " + r.grade : "", r.source].filter(Boolean).join(" · ");
+        ul.appendChild(rowItem((r.number ? "#" + r.number + " " : "") + r.name, sub, [
+          { label: "Edit", fn: function () { startEditRoster(r); } },
+          removeBtn("roster", r, r.name + " from the " + dash(s) + " roster", loadRoster)]));
+      });
+      if (!$("r-source").value) $("r-source").value = rRows[rRows.length - 1].source || "";
+    }).catch(function (err) { ul.innerHTML = ""; ul.appendChild(el("li", "admin-msg bad", err.message)); });
+  }
+  var RF = ["name", "number", "position", "height", "grade", "source"];
+  function startEditRoster(r) {
+    rEditing = r;
+    RF.forEach(function (k) { $("r-" + k).value = r[k] || ""; });
+    $("r-title").textContent = "Edit " + r.name; $("r-save").textContent = "Save changes"; $("r-cancel").hidden = false;
+    msg($("r-msg"), "");
+    $("r-form").scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+  function stopEditRoster() {
+    var src = $("r-source").value;
+    rEditing = null; $("r-form").reset(); $("r-source").value = src;
+    $("r-title").textContent = "Add a player"; $("r-save").textContent = "Add to the roster"; $("r-cancel").hidden = true;
+  }
+  $("r-cancel").addEventListener("click", function () { stopEditRoster(); msg($("r-msg"), ""); });
+  $("r-form").addEventListener("submit", function (e) {
+    e.preventDefault();
+    var row = { season: $("r-season").value };
+    RF.forEach(function (k) { row[k] = $("r-" + k).value.trim(); });
+    $("r-save").disabled = true; msg($("r-msg"), "Saving…");
+    call({ action: "save", table: "roster", before: rEditing, after: row })
+      .then(function () { saved($("r-msg")); $("r-name").value = ""; loadRoster(); })
+      .catch(function (err) { msg($("r-msg"), err.message, false); })
+      .then(function () { $("r-save").disabled = false; });
+  });
+
+  // ---------------------------------------------------------------- season lines
+  var sRow = null;
+  (function () {
+    var last = DATA.all_seasons[0], y = parseInt(last.slice(0, 4), 10) + 1;
+    var next = y + "-" + String(y + 1).slice(2);
+    options($("s-season"), [[next, dash(next) + " (new)"]].concat(DATA.all_seasons.map(function (s) { return [s, dash(s)]; })), DATA.current);
+  })();
+  $("s-season").addEventListener("change", loadSeason);
+  var SF = ["w", "l", "t", "coach", "notes"];
+  function loadSeason() {
+    var s = $("s-season").value;
+    $("s-link").href = pageUrl("seasons/" + s);
+    $("s-current").hidden = s !== DATA.current;
+    SF.forEach(function (k) { $("s-" + k).value = ""; });
+    $("s-save").disabled = true; msg($("s-msg"), "Loading…");
+    call({ action: "rows", table: "season", where: {} }).then(function (j) {
+      sRow = j.rows.filter(function (r) { return r.season === s; })[0] || null;
+      if (sRow) SF.forEach(function (k) { $("s-" + k).value = sRow[k] || ""; });
+      else { // a new line: start from the coach of the season before
+        var prev = j.rows.filter(function (r) { return r.season < s && r.coach; }).sort(function (a, b) { return a.season < b.season ? 1 : -1; })[0];
+        if (prev) $("s-coach").value = prev.coach;
+      }
+      msg($("s-msg"), sRow ? "" : "No line for " + dash(s) + " yet. Saving adds one.");
+      $("s-save").textContent = sRow ? "Save" : "Add season";
+    }).catch(function (err) { msg($("s-msg"), err.message, false); })
+      .then(function () { $("s-save").disabled = false; });
+  }
+  $("s-form").addEventListener("submit", function (e) {
+    e.preventDefault();
+    var row = { season: $("s-season").value };
+    SF.forEach(function (k) { row[k] = $("s-" + k).value.trim(); });
+    $("s-save").disabled = true; msg($("s-msg"), "Saving…");
+    call({ action: "save", table: "season", before: sRow, after: row })
+      .then(function (j) { sRow = j.row; $("s-save").textContent = "Save"; saved($("s-msg")); })
+      .catch(function (err) { msg($("s-msg"), err.message, false); })
+      .then(function () { $("s-save").disabled = false; });
+  });
+
+  // ---------------------------------------------------------------- recent changes
+  function ago(iso) {
+    var m = Math.round((Date.now() - new Date(iso)) / 60000);
+    if (m < 1) return "just now";
+    if (m < 60) return m + " min ago";
+    if (m < 60 * 24) return Math.round(m / 60) + " hr ago";
+    return new Date(iso).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
+  }
+  function loadLog() {
+    var ul = $("log-list");
+    ul.innerHTML = '<li class="muted">Loading…</li>';
+    call({ action: "log" }).then(function (j) {
+      ul.innerHTML = "";
+      if (!j.entries.length) { ul.appendChild(el("li", "muted", "Nothing changed here yet.")); return; }
+      j.entries.forEach(function (e) {
+        ul.appendChild(rowItem(e.label, ago(e.at), e.undo ? [{ label: "Undo", fn: function (x) {
+          if (!confirm("Undo this change?\n\n" + e.label)) return;
+          x.disabled = true; x.textContent = "Undoing…";
+          call({ action: "undo", id: e.id }).then(function () { loaded = { log: true }; loadLog(); })
+            .catch(function (err) { alert(err.message); x.disabled = false; x.textContent = "Undo"; });
+        } }] : []));
+      });
+    }).catch(function (err) { ul.innerHTML = ""; ul.appendChild(el("li", "admin-msg bad", err.message)); });
+  }
+  $("log-refresh").addEventListener("click", loadLog);
 })();
 </script>
 {% endblock %}

@@ -550,6 +550,17 @@ button.btn-solid:disabled { opacity: .6; cursor: wait; }
 .admin-list li { display: grid; grid-template-columns: 72px 1fr auto; gap: 12px; align-items: center; padding: 10px 0; border-top: 1px solid var(--line); }
 .admin-list li:first-child { border-top: 0; }
 .admin-list li > div { display: grid; min-width: 0; }
+.admin-tabs { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; margin: 0 0 16px; border-bottom: 2px solid var(--line); }
+.admin-tabs [role=tab] { background: none; border: 0; border-bottom: 3px solid transparent; margin-bottom: -2px; padding: 8px 12px; font: inherit; font-weight: 600; font-size: .95rem; color: var(--muted); cursor: pointer; }
+.admin-tabs [role=tab]:hover { color: var(--ink); }
+.admin-tabs [role=tab][aria-selected=true] { color: var(--red); border-bottom-color: var(--red); }
+.admin-signout { margin-left: auto; }
+.admin-row2, .admin-row3 { display: grid; gap: 14px; grid-template-columns: 1fr 1fr; }
+.admin-row3 { grid-template-columns: 1fr 1fr 1fr; }
+@media (max-width: 560px) { .admin-row2, .admin-row3 { grid-template-columns: 1fr; } }
+.admin-rows li { grid-template-columns: 1fr auto; }
+.admin-btns { display: flex; gap: 14px; white-space: nowrap; }
+.admin-url { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--muted); }
 .admin-thumb { width: 72px; height: 54px; object-fit: cover; border-radius: 4px; background: var(--bg); display: flex; align-items: center; justify-content: center; text-align: center; }
 
 /* ---- home: the season card before the first game */

@@ -6,7 +6,8 @@
 {% block title %}{% if g.result %}Bangor {{ g.bangor_score }}, {{ g.opponent }} {{ g.opp_score }}{% else %}Bangor {{ 'at' if g.site == 'away' else 'vs' }} {{ g.opponent }}{% endif %} ({{ g.date | d }}) · Bangor Cardinals{% endblock %}
 {% block description %}{% if g.result %}{% if g.result == 'W' %}Bangor beat {{ g.opponent }} {{ g.bangor_score }}–{{ g.opp_score }}{% else %}Bangor lost to {{ g.opponent }} {{ g.opp_score }}–{{ g.bangor_score }}{% endif %}{% if g.ot %} in overtime{% endif %} on {{ g.date | d('long') }}.{% if g.box_source == 'newspaper' %} Quarter scores and leading scorers.{% if g.has_video %} Game film.{% endif %}{% elif g.box_score != 'none' %} Full box score{% if g.has_video %} and game film{% endif %}.{% elif g.has_video %} Game film.{% endif %}{% if g.stories %} Local news coverage.{% endif %}{% else %}Bangor Cardinals {{ 'at' if g.site == 'away' else 'vs' }} {{ g.opponent }}, {{ g.date | d('long') }}{% if g.time %} at {{ g.time }}{% endif %}{% if g.location %}, {{ g.location }}{% endif %}.{% endif %}{% endblock %}
 {% block content %}
-<div class="wrap page-head">
+<div class="wrap page-head game-head">
+  <p class="print-only print-brand">Bangor High School Cardinals · Boys Basketball · {{ page_url | replace('https://', '') }}</p>
   <p class="eyebrow"><a href="../seasons/{{ g.season }}.html">{{ g.season | replace('-', '–') }} season</a> · {{ g.date | d('long') }}</p>
   <div class="scoreboard">
     <div class="team us {{ 'win' if g.result == 'W' }}"><span class="tname">Bangor</span><span class="tscore">{{ g.bangor_score }}</span></div>
@@ -18,6 +19,9 @@
     {% if g.game_type == 'playoff' %} · <span class="tag red">Playoff</span>{% elif g.game_type == 'tournament' %} · <span class="tag">Tournament</span>{% endif %}
     {% if g.conference == 'Y' %} · <span class="tag">Conference</span>{% endif %}
   </p>
+  {% if g.result and (bangor or opp or team_stats or periods) %}
+  <p class="center"><button type="button" class="btn print-btn" data-print hidden>Print box score</button></p>
+  {% endif %}
 </div>
 
 <div class="wrap">

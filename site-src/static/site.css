@@ -525,6 +525,23 @@ button.btn[hidden] { display: none; }
 }
 @media print { .photo-ph, .headshot-ph { display: none; } }
 
+/* game pages print as a box score: score, line score, summary and both teams' stats */
+@media print {
+  .game-head ~ .wrap .preview, .game-head ~ .wrap .film, .game-head ~ .wrap .news-card,
+  .game-head ~ .wrap .rb-card, .game-head ~ .wrap .rb-tag, .gameday { display: none !important; }
+  .game-head .scoreboard { background: none; color: #000; border: 2px solid #000; border-radius: 4px; padding: 6px 14px; margin: 4px 0 6px; }
+  .game-head .scoreboard .tname, .game-head .scoreboard .tname a { color: #000; font-size: 14pt; }
+  .game-head .scoreboard .tscore { color: #000; font-size: 26pt; }
+  .game-head .scoreboard .win .tscore { font-weight: 700; }
+  .game-head .scoreboard .vs { color: #000; }
+  .game-head .tag { background: none; border: 1px solid #000; color: #000; }
+  .game-head ~ .wrap .scroll { overflow: visible; }
+  .game-head ~ .wrap .game-recap { margin: 0 0 8px; text-align: left; font-size: 9.5pt; }
+  .game-head ~ .wrap .card h2 { font-size: 12pt; margin: 0 0 4px; }
+  .game-head ~ .wrap .tbl.stats { font-size: 8pt; width: 100%; }
+  .game-head ~ .wrap .tbl tfoot td { border-top: 1px solid #000; font-weight: 700; }
+}
+
 /* ---- admin page */
 .admin { max-width: 760px; }
 .admin-form { display: grid; gap: 14px; }

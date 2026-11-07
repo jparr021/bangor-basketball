@@ -13070,6 +13070,20 @@
     },
     {
      "value": 10,
+     "date": "1931-12-04",
+     "opponent": "Mindoro",
+     "season": "1931-32",
+     "game_id": "1931-32-04"
+    },
+    {
+     "value": 10,
+     "date": "1932-03-05",
+     "opponent": "Hillsboro",
+     "season": "1931-32",
+     "game_id": "1931-32-14"
+    },
+    {
+     "value": 10,
      "date": "1932-11-18",
      "opponent": "Viola",
      "season": "1932-33",
@@ -13097,6 +13111,41 @@
      "game_id": "1930-31-03"
     },
     {
+     "value": 11,
+     "date": "1931-12-17",
+     "opponent": "Onalaska",
+     "season": "1931-32",
+     "game_id": "1931-32-06"
+    },
+    {
+     "value": 11,
+     "date": "1932-01-15",
+     "opponent": "Galesville",
+     "season": "1931-32",
+     "game_id": "1931-32-08"
+    },
+    {
+     "value": 12,
+     "date": "1932-02-15",
+     "opponent": "West Salem",
+     "season": "1931-32",
+     "game_id": "1931-32-12"
+    },
+    {
+     "value": 12,
+     "date": "1932-03-10",
+     "opponent": "Mauston",
+     "season": "1931-32",
+     "game_id": "1931-32-16"
+    },
+    {
+     "value": 12,
+     "date": "1932-03-11",
+     "opponent": "Holmen",
+     "season": "1931-32",
+     "game_id": "1931-32-17"
+    },
+    {
      "value": 12,
      "date": "1933-11-17",
      "opponent": "Westby",
@@ -13116,6 +13165,20 @@
      "opponent": "Galesville",
      "season": "1934-35",
      "game_id": "1934-35-11"
+    },
+    {
+     "value": 13,
+     "date": "1931-11-27",
+     "opponent": "Westby",
+     "season": "1931-32",
+     "game_id": "1931-32-03"
+    },
+    {
+     "value": 13,
+     "date": "1932-02-19",
+     "opponent": "Galesville",
+     "season": "1931-32",
+     "game_id": "1931-32-13"
     },
     {
      "value": 13,
@@ -13144,83 +13207,6 @@
      "opponent": "Wilton",
      "season": "1934-35",
      "game_id": "1934-35-01"
-    },
-    {
-     "value": 14,
-     "date": "1933-02-17",
-     "opponent": "West Salem",
-     "season": "1932-33",
-     "game_id": "1932-33-13"
-    },
-    {
-     "value": 14,
-     "date": "1933-12-16",
-     "opponent": "Holmen",
-     "season": "1933-34",
-     "game_id": "1933-34-06"
-    },
-    {
-     "value": 14,
-     "date": "1934-11-30",
-     "opponent": "Wilton",
-     "season": "1934-35",
-     "game_id": "1934-35-05"
-    },
-    {
-     "value": 14,
-     "date": "1935-02-15",
-     "opponent": "West Salem",
-     "season": "1934-35",
-     "game_id": "1934-35-15"
-    },
-    {
-     "value": 15,
-     "date": "1931-01-16",
-     "opponent": "Galesville",
-     "season": "1930-31",
-     "game_id": "1930-31-07"
-    },
-    {
-     "value": 15,
-     "date": "1931-02-27",
-     "opponent": "Aquinas",
-     "season": "1930-31",
-     "game_id": "1930-31-13"
-    },
-    {
-     "value": 16,
-     "date": "1930-12-12",
-     "opponent": "Holmen",
-     "season": "1930-31",
-     "game_id": "1930-31-04"
-    },
-    {
-     "value": 16,
-     "date": "1931-03-05",
-     "opponent": "Aquinas",
-     "season": "1930-31",
-     "game_id": "1930-31-14"
-    },
-    {
-     "value": 16,
-     "date": "1933-12-08",
-     "opponent": "Mindoro",
-     "season": "1933-34",
-     "game_id": "1933-34-05"
-    },
-    {
-     "value": 16,
-     "date": "1934-01-12",
-     "opponent": "West Salem",
-     "season": "1933-34",
-     "game_id": "1933-34-08"
-    },
-    {
-     "value": 16,
-     "date": "1935-01-11",
-     "opponent": "West Salem",
-     "season": "1934-35",
-     "game_id": "1934-35-10"
     }
    ],
    "fg_pct": [
@@ -13561,6 +13547,11 @@
      "detail": "9-7"
     },
     {
+     "value": 15.4444,
+     "season": "1931-32",
+     "detail": "13-5"
+    },
+    {
      "value": 17.5,
      "season": "1930-31",
      "detail": "11-5"
@@ -13674,11 +13665,6 @@
      "value": 55.037,
      "season": "2016-17",
      "detail": "25-2"
-    },
-    {
-     "value": 55.92,
-     "season": "2011-12",
-     "detail": "18-7"
     }
    ],
    "tpm": [

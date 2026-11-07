@@ -755,6 +755,24 @@ game_id,season,date,opponent,site,location,event,conference,bangor_score,opp_sco
 1930-31-14,1930-31,1931-03-05,Aquinas,away,,,,21,16,W,,,,,,,,none,,,,"Bangor beat La Crosse Aquinas 21–16 at Aquinas, a week after beating them 16–15 at Bangor. The book counts beating Aquinas twice among the season's highlights, along with winning the Coulee cup.",results,regular
 1930-31-15,1930-31,1931-03-12,Sparta,neutral,,Sparta District Tournament,,15,21,L,,,,,,,,none,,,,,results,tournament
 1930-31-16,1930-31,1931-03-13,Camp Douglas,neutral,,Sparta District Tournament,,20,23,L,,,,,,,,none,,,,"Camp Douglas beat Bangor 23–20 at the Sparta District Tournament, a day after Sparta beat Bangor 21–15, ending the season 11–5. The book calls it a good showing at Sparta, in Coach Harold Welch's first year at Bangor. Welch died in the summer of 1931, after his first year of teaching.",results,tournament
+1931-32-01,1931-32,1931-11-13,Cashton,home,,,,20,14,W,,,,,,,,none,,,,,results,regular
+1931-32-02,1931-32,1931-11-20,Viola,away,,,,25,26,L,,,,,,,,none,,,,,results,regular
+1931-32-03,1931-32,1931-11-27,Westby,home,,,,15,13,W,,,,,,,,none,,,,,results,regular
+1931-32-04,1931-32,1931-12-04,Mindoro,home,,,,12,10,W,,,,,,,,none,,,,,results,regular
+1931-32-05,1931-32,1931-12-11,Holmen,away,,,,17,21,L,,,,,,,,none,,,,,results,regular
+1931-32-06,1931-32,1931-12-17,Onalaska,home,,,,15,11,W,,,,,,,,none,,,,,results,regular
+1931-32-07,1931-32,1932-01-08,West Salem,away,,,,13,16,L,,,,,,,,none,,,,,results,regular
+1931-32-08,1931-32,1932-01-15,Galesville,home,,,,21,11,W,,,,,,,,none,,,,,results,regular
+1931-32-09,1931-32,1932-01-22,Mindoro,away,,,,18,17,W,,,,,,,,none,,,,,results,regular
+1931-32-10,1931-32,1932-01-29,Holmen,home,,,,17,20,L,,,,,,,,none,,,,,results,regular
+1931-32-11,1931-32,1932-02-05,Onalaska,away,,,,16,14,W,,,,,,,,none,,,,,results,regular
+1931-32-12,1931-32,1932-02-15,West Salem,home,,,,32,12,W,,,,,,,,none,,,,,results,regular
+1931-32-13,1931-32,1932-02-19,Galesville,away,,,,17,13,W,,,,,,,,none,,,,,results,regular
+1931-32-14,1931-32,1932-03-05,Hillsboro,neutral,,Sparta Elimination Tournament,,25,10,W,,,,,,,,none,,,,,results,tournament
+1931-32-15,1931-32,1932-03-05,Kendall,neutral,,Sparta Elimination Tournament,,19,15,W,,,,,,,,none,,,,,results,tournament
+1931-32-16,1931-32,1932-03-10,Mauston,neutral,,Sparta District Tournament,,15,12,W,,,,,,,,none,,,,,results,tournament
+1931-32-17,1931-32,1932-03-11,Holmen,neutral,,Sparta District Tournament,,14,12,W,,,,,,,,none,,,,,results,tournament
+1931-32-18,1931-32,1932-03-12,Tomah,neutral,,Sparta District Tournament,,11,31,L,,,,,,,,none,,,,"Tomah beat Bangor 31–11 in the final of the Sparta District Tournament, ending the season 13–5. Bangor had reached the final by winning the Sparta Elimination Tournament (Hillsboro and Kendall on March 5), then beating Mauston and Holmen. The book calls it probably one of the greatest teams in Bangor history, in Coach Rodney Martin's first year: second in the Coulee Conference and second at the district tournament.",results,tournament
 1932-33-01,1932-33,1932-11-10,Westby,home,,,,11,22,L,,,,,,,,none,,,,,results,regular
 1932-33-02,1932-33,1932-11-18,Viola,home,,,,13,10,W,,,,,,,,none,,,,,results,regular
 1932-33-03,1932-33,1932-11-25,Alumni,home,,,,26,13,W,,,,,,,,none,,,,,results,regular

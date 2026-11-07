@@ -512,11 +512,12 @@ def dated_results(sheet_seasons):
         if season in RECORD_GAMES and len(rows) != RECORD_GAMES[season]:
             continue  # only some of the season's games are known: it stays a results page
         sched = {}
-        for r in rows:
+        for i, r in enumerate(rows):
             d = dt.date.fromisoformat(r["date"])
             b, o = num(r["bangor_score"]), num(r["opp_score"])
             res = (r.get("result") or "").strip().upper() or (("W" if b > o else "L") if b is not None and o is not None else "")
-            sched[d] = {"date": d, "opponent": canon_opp(r["opponent"]), "site": r["site"], "location": "",
+            # keyed by (date, row) so two games on one day (a tournament doubleheader) both stay
+            sched[(d, i)] = {"date": d, "opponent": canon_opp(r["opponent"]), "site": r["site"], "location": "",
                         "note": r.get("note", ""), "conference": "", "bangor_score": b if b is not None else "",
                         "opp_score": o if o is not None else "", "result": res, "time": "", "stream_url": "",
                         "film_url": "", "ot": r.get("ot", ""), "source": r.get("source", "")}
@@ -627,8 +628,9 @@ def main():
 
         # ---- merge schedule + tabs into one game list
         all_dates = sorted(set(sched_by_date) | set(tab_games))
-        for n, date in enumerate(all_dates, 1):
-            s, t = sched_by_date.get(date), tab_games.get(date)
+        for n, key in enumerate(all_dates, 1):
+            s, t = sched_by_date.get(key), tab_games.get(key)
+            date = key[0] if isinstance(key, tuple) else key  # printed results are keyed (date, row)
             gid = f"{season}-{n:02d}"
             base = t or s
             g = {"game_id": gid, "season": season, "date": date.isoformat(),

@@ -10563,6 +10563,13 @@
      "opponent": "Brookwood",
      "season": "2023-24",
      "game_id": "2023-24-04"
+    },
+    {
+     "value": 46,
+     "date": "1937-01-15",
+     "opponent": "Trempealeau",
+     "season": "1936-37",
+     "game_id": "1936-37-08"
     }
    ],
    "quarter_pts": [
@@ -13034,6 +13041,41 @@
      "game_id": "1934-35-02"
     },
     {
+     "value": 4,
+     "date": "1936-11-17",
+     "opponent": "Cashton",
+     "season": "1936-37",
+     "game_id": "1936-37-01"
+    },
+    {
+     "value": 4,
+     "date": "1937-01-15",
+     "opponent": "Trempealeau",
+     "season": "1936-37",
+     "game_id": "1936-37-08"
+    },
+    {
+     "value": 5,
+     "date": "1936-11-20",
+     "opponent": "Wilton",
+     "season": "1936-37",
+     "game_id": "1936-37-02"
+    },
+    {
+     "value": 5,
+     "date": "1936-12-01",
+     "opponent": "Mindoro",
+     "season": "1936-37",
+     "game_id": "1936-37-03"
+    },
+    {
+     "value": 5,
+     "date": "1939-11-24",
+     "opponent": "Trempealeau",
+     "season": "1939-40",
+     "game_id": "1939-40-04"
+    },
+    {
      "value": 6,
      "date": "1931-01-23",
      "opponent": "Mindoro",
@@ -13046,6 +13088,20 @@
      "opponent": "West Salem",
      "season": "1932-33",
      "game_id": "1932-33-08"
+    },
+    {
+     "value": 6,
+     "date": "1937-12-10",
+     "opponent": "Trempealeau",
+     "season": "1937-38",
+     "game_id": "1937-38-05"
+    },
+    {
+     "value": 7,
+     "date": "1937-01-05",
+     "opponent": "Alumni",
+     "season": "1936-37",
+     "game_id": "1936-37-06"
     },
     {
      "value": 9,
@@ -13067,6 +13123,13 @@
      "opponent": "Onalaska",
      "season": "1934-35",
      "game_id": "1934-35-14"
+    },
+    {
+     "value": 9,
+     "date": "1938-01-28",
+     "opponent": "Mindoro",
+     "season": "1937-38",
+     "game_id": "1937-38-12"
     },
     {
      "value": 10,
@@ -13111,6 +13174,20 @@
      "game_id": "1935-36-13"
     },
     {
+     "value": 10,
+     "date": "1938-11-04",
+     "opponent": "Ontario",
+     "season": "1938-39",
+     "game_id": "1938-39-01"
+    },
+    {
+     "value": 10,
+     "date": "1941-01-10",
+     "opponent": "West Salem",
+     "season": "1940-41",
+     "game_id": "1940-41-08"
+    },
+    {
      "value": 11,
      "date": "1930-12-05",
      "opponent": "Mindoro",
@@ -13153,46 +13230,25 @@
      "game_id": "1935-36-08"
     },
     {
-     "value": 12,
-     "date": "1932-02-15",
-     "opponent": "West Salem",
-     "season": "1931-32",
-     "game_id": "1931-32-12"
+     "value": 11,
+     "date": "1937-11-12",
+     "opponent": "Norwalk",
+     "season": "1937-38",
+     "game_id": "1937-38-01"
     },
     {
-     "value": 12,
-     "date": "1932-03-10",
-     "opponent": "Mauston",
-     "season": "1931-32",
-     "game_id": "1931-32-16"
+     "value": 11,
+     "date": "1937-11-17",
+     "opponent": "Norwalk",
+     "season": "1937-38",
+     "game_id": "1937-38-02"
     },
     {
-     "value": 12,
-     "date": "1932-03-11",
-     "opponent": "Holmen",
-     "season": "1931-32",
-     "game_id": "1931-32-17"
-    },
-    {
-     "value": 12,
-     "date": "1933-11-17",
-     "opponent": "Westby",
-     "season": "1933-34",
-     "game_id": "1933-34-01"
-    },
-    {
-     "value": 12,
-     "date": "1934-11-28",
-     "opponent": "Westby",
-     "season": "1934-35",
-     "game_id": "1934-35-04"
-    },
-    {
-     "value": 12,
-     "date": "1935-01-18",
-     "opponent": "Galesville",
-     "season": "1934-35",
-     "game_id": "1934-35-11"
+     "value": 11,
+     "date": "1940-11-05",
+     "opponent": "Melrose",
+     "season": "1940-41",
+     "game_id": "1940-41-01"
     }
    ],
    "fg_pct": [
@@ -13528,6 +13584,11 @@
    ],
    "opp_ppg": [
     {
+     "value": 13.9474,
+     "season": "1936-37",
+     "detail": "17-2"
+    },
+    {
      "value": 15,
      "season": "1934-35",
      "detail": "9-7"
@@ -13536,6 +13597,11 @@
      "value": 15.4444,
      "season": "1931-32",
      "detail": "13-5"
+    },
+    {
+     "value": 16.7647,
+     "season": "1937-38",
+     "detail": "8-9"
     },
     {
      "value": 17.5,
@@ -13556,6 +13622,21 @@
      "value": 18.8333,
      "season": "1932-33",
      "detail": "10-8"
+    },
+    {
+     "value": 20.2143,
+     "season": "1939-40",
+     "detail": "7-7"
+    },
+    {
+     "value": 21.3125,
+     "season": "1940-41",
+     "detail": "14-2"
+    },
+    {
+     "value": 25.7778,
+     "season": "1938-39",
+     "detail": "6-12"
     },
     {
      "value": 46.45,
@@ -13626,31 +13707,6 @@
      "value": 52.2,
      "season": "2013-14",
      "detail": "19-6"
-    },
-    {
-     "value": 53.9524,
-     "season": "1997-98",
-     "detail": "13-8"
-    },
-    {
-     "value": 54.1667,
-     "season": "2012-13",
-     "detail": "17-7"
-    },
-    {
-     "value": 54.3571,
-     "season": "2017-18",
-     "detail": "27-1"
-    },
-    {
-     "value": 54.625,
-     "season": "2023-24",
-     "detail": "13-11"
-    },
-    {
-     "value": 54.9524,
-     "season": "2008-09",
-     "detail": "3-18"
     }
    ],
    "tpm": [

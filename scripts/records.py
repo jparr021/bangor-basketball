@@ -112,7 +112,9 @@ for r in src:
     used = False
     for k, col in SRC_COL.items():
         v = num(r.get(col))
-        if v is None or (v == 0 and s.get(k) in (None, 0) and col not in ("PTS",)):
+        # a sheet's zero usually means a blank cell, but a zero made with shots attempted (0 of 7) is real
+        tried = (num(r.get({"FGM": "FGA", "3PM": "3PA", "FTM": "FTA"}.get(col, ""))) or 0) > 0
+        if v is None or (v == 0 and s.get(k) in (None, 0) and col not in ("PTS",) and not tried):
             continue
         if k == "pts" and key in printout_seasons:
             # The 2012-13 season tab is the sum of the game tabs, plus the Jan 8 game for only some players.

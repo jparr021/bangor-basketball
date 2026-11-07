@@ -12,6 +12,20 @@ def player_pages(B):
         seasons = sorted(r["season"] for r in ps_by_player.get(sl, []))
         if not seasons:
             continue
+        # seasons on a roster (team photo, program) with no stats: an old player with one stat sheet
+        roster_seasons = []
+        for s_, rs_ in sorted(ROSTERS.items()):
+            r_ = next((r for r in rs_ if r["slug"] == sl), None)
+            if r_ and s_ not in seasons:
+                h = hist_by_season.get(s_, {})
+                roster_seasons.append({
+                    "season": s_, "number": r_.get("number", ""), "source": r_.get("source", ""),
+                    "position": "" if "photo" in (r_.get("position") or "").lower() else (r_.get("position") or ""),
+                    "record": (f"{h['w']}–{h['l']}" + (f"–{h['t']}" if (h.get("t") or "0") != "0" else "")) if h.get("w") else "",
+                    "notes": h.get("notes", ""),
+                    "href": f"../seasons/{s_}.html" if s_ in games_by_season or s_ in RESULTS_ONLY
+                    else f"../history/index.html#s{s_}"})
+        seasons = sorted(seasons + [r["season"] for r in roster_seasons])
         plist.append({"slug": sl, "name": name, "first": seasons[0], "last": seasons[-1],
                       "years": seasons[0][:4] + "–" + str(season_end_year(seasons[-1])),
                       "gp": fmt_int(c["gp"]) if c else "", "pts": fmt_int(c["pts"]) if c else "",
@@ -106,7 +120,7 @@ def player_pages(B):
                grad=plist[-1]["grad"], grad_est=plist[-1]["grad_how"] == "estimated",
                partial=bool(partial_stats), part_career=part, span=span, book_career=book_career,
                override=(c or {}).get("override_note", ""), record_badges=B["player"].get(sl, []),
-               player_news=player_news, headshot=PLAYER_PHOTOS.get(sl), **sh)
+               player_news=player_news, headshot=PLAYER_PHOTOS.get(sl), roster_seasons=roster_seasons, **sh)
     # ---- players from before the stat sheets (rosters, record book, newspaper clippings)
     for sl, a in ARCHIVE.items():
         roster_by = {r["season"]: r for r in a["roster"]}

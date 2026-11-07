@@ -928,6 +928,23 @@ game_id,season,date,opponent,site,location,event,conference,bangor_score,opp_sco
 1940-41-14,1940-41,1941-02-11,Trempealeau,away,,,,47,29,W,,,,,,,,none,,,,,results,regular
 1940-41-15,1940-41,1941-02-14,West Salem,home,,,,20,17,W,,,,,,,,none,,,,,results,regular
 1940-41-16,1940-41,1941-02-21,Onalaska,away,,,,19,42,L,,,,,,,,none,,,,"Onalaska beat Bangor at Onalaska in the last game of the season, which Bangor finished as Coulee Conference champions. The book lists it as “Lost 42-19”, which is shown here as a 42–19 loss to match the book’s 14–2 record; the book’s point totals (Bangor 465, opponents 318) would instead fit a 42–19 Bangor win.",results,regular
+1941-42-01,1941-42,1941-11-04,Melrose,home,,,N,20,22,L,,,,,,,,none,,,,,results,regular
+1941-42-02,1941-42,1941-11-14,Camp Douglas,home,,,N,27,13,W,,,,,,,,none,,,,,results,regular
+1941-42-03,1941-42,1941-11-18,Melrose,home,,,N,19,14,W,,,,,,,,none,,,,,results,regular
+1941-42-04,1941-42,1941-11-29,West Salem,home,,,Y,23,13,W,,,,,,,,none,,,,,results,regular
+1941-42-05,1941-42,1941-12-05,Trempealeau,away,,,Y,28,17,W,,,,,,,,none,,,,,results,regular
+1941-42-06,1941-42,1941-12-08,Mindoro,away,,,Y,24,22,W,,,,,,,,none,,,,,results,regular
+1941-42-07,1941-42,1941-12-12,Onalaska,home,,,Y,23,27,L,,,,,,,,none,,,,,results,regular
+1941-42-08,1941-42,1941-12-19,Galesville,away,,,Y,18,36,L,,,,,,,,none,,,,,results,regular
+1941-42-09,1941-42,1942-01-09,Holmen,home,,,Y,15,13,W,,,,,,,,none,,,,,results,regular
+1941-42-10,1941-42,1942-01-16,West Salem,away,,,Y,21,23,L,,,,,,,,none,,,,,results,regular
+1941-42-11,1941-42,1942-01-20,Merrillan,away,,,N,24,27,L,,,,,,,,none,,,,,results,regular
+1941-42-12,1941-42,1942-01-23,Trempealeau,home,,,Y,32,19,W,,,,,,,,none,,,,,results,regular
+1941-42-13,1941-42,1942-01-30,Mindoro,home,,,Y,30,36,L,,,,,,,,none,,,,,results,regular
+1941-42-14,1941-42,1942-02-06,Onalaska,away,,,Y,23,21,W,,,,,,,,none,,,,,results,regular
+1941-42-15,1941-42,1942-02-10,Galesville,home,,,Y,11,19,L,,,,,,,,none,,,,,results,regular
+1941-42-16,1941-42,1942-02-13,Holmen,away,,,Y,14,28,L,,,,,,,,none,,,,,results,regular
+1941-42-17,1941-42,1942-02-17,Melrose,away,,,N,24,20,W,,,,,,,,none,,,,,results,regular
 1997-98-01,1997-98,1997-11-29,West Salem,home,,,,43,37,W,,1|2|3|4,11|6|16|10,11|4|17|5,,,,points,28,N,newspaper,"Bangor opened its new gym with its third straight win over West Salem, which went on to reach the Division 3 sectional finals. A match-up zone held 6-8 Michael Southall to 10 points; Ryan Schroeder scored 16 and Justin Peterson 12, all on 3-pointers, and Bangor out-rebounded the Panthers 29-27. Peterson's 12 points were all on 3-pointers, and David Sackmaster led West Salem with 19. ""I don't know that we have a home court advantage yet, but it was nice to get off on the right foot,"" coach Don Addington told the Tribune.",results,regular
 1997-98-02,1997-98,1997-12-09,Necedah,home,,,,47,46,W,,1|2|3|4,11|12|16|8,8|8|6|24,,,,points,11,N,newspaper,"In the conference opener Bangor led 23-16 at halftime and by 17 late in the third quarter, but Necedah answered with a 22-4 run to take a one-point lead with 2:00 left. Shane Amundson tied it from the line, and after Necedah missed a final shot, Scott Greeno was fouled with five seconds left and made the second free throw for the win.",results,regular
 1997-98-03,1997-98,1997-12-12,Royall,home,,,,39,82,L,,1|2|3|4,7|13|4|15,23|29|15|15,,,,points,12,N,newspaper,"Royall, the conference favorite, controlled the game from the opening tip. The Panthers shot 56% to Bangor's 23%, made 64% of their free throws to Bangor's 33% and out-rebounded the Cardinals 37-28, and Bangor turned the ball over 23 times. Josh Board scored 27 for Royall, 14 of them in the first quarter.",results,regular

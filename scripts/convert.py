@@ -512,13 +512,18 @@ def dated_results(sheet_seasons):
         if season in RECORD_GAMES and len(rows) != RECORD_GAMES[season]:
             continue  # only some of the season's games are known: it stays a results page
         sched = {}
+        # a season whose list marks its non-conference games ("Non-conference" as the note) has the rest
+        # flagged as conference games
+        marked = any(r.get("note", "").strip().lower() == "non-conference" for r in rows)
         for i, r in enumerate(rows):
             d = dt.date.fromisoformat(r["date"])
+            nonconf = r.get("note", "").strip().lower() == "non-conference"
             b, o = num(r["bangor_score"]), num(r["opp_score"])
             res = (r.get("result") or "").strip().upper() or (("W" if b > o else "L") if b is not None and o is not None else "")
             # keyed by (date, row) so two games on one day (a tournament doubleheader) both stay
             sched[(d, i)] = {"date": d, "opponent": canon_opp(r["opponent"]), "site": r["site"], "location": "",
-                        "note": r.get("note", ""), "conference": "", "bangor_score": b if b is not None else "",
+                        "note": "" if nonconf else r.get("note", ""),
+                        "conference": ("N" if nonconf else "Y") if marked else "", "bangor_score": b if b is not None else "",
                         "opp_score": o if o is not None else "", "result": res, "time": "", "stream_url": "",
                         "film_url": "", "ot": r.get("ot", ""), "source": r.get("source", "")}
         RESULT_SCHEDULES[season] = sched

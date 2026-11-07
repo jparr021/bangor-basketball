@@ -20,7 +20,7 @@ SEASON_COLS = [  # (key, header, needs)
     ("gp", "G", "gp"), ("pts", "PTS", "pts"), ("ppg", "PPG", "pts"),
     ("reb", "REB", "reb"), ("rpg", "RPG", "reb"), ("ast", "AST", "ast"), ("apg", "APG", "ast"),
     ("stl", "STL", "stl"), ("blk", "BLK", "blk"), ("to", "TO", "to"),
-    ("fgm", "FGM", "fga"), ("fga", "FGA", "fga"), ("fg_pct", "FG%", "fga"),
+    ("fgm", "FGM", "fgm"), ("fga", "FGA", "fga"),  # FGM alone: an old sheet with no attempts ("fg_pct", "FG%", "fga"),
     ("tpm", "3PM", "tpa"), ("tpa", "3PA", "tpa"), ("tp_pct", "3P%", "tpa"),
     ("ftm", "FTM", "fta"), ("fta", "FTA", "fta"), ("ft_pct", "FT%", "fta"),
 ]

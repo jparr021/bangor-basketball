@@ -70,7 +70,10 @@ def player_pages(B):
                     player_news.append(dict(s, g=g, published=g["date"]))
         player_news.sort(key=lambda s: s["published"], reverse=True)
         numbers = sorted({r.get("number") for r in rows if r.get("number")}, key=lambda x: int(x) if x.isdigit() else 999)
-        cls = next((r.get("class") for r in reversed(log) if r.get("class")), "")
+        # class (SR/JR/...) from the player's last game that records one, labeled with that game's season
+        # (not the newest season, which a player who graduated or hasn't played yet isn't part of)
+        cls_row = next((r for r in reversed(log) if r.get("class")), None)
+        cls, cls_season = (cls_row["class"], cls_row["season"]) if cls_row else ("", "")
         p_ = plist[-1]
         sub = " · ".join(x for x in [p_["years"], ("#" + ", #".join(numbers)) if numbers else "",
                                      f"Class of {p_['grad']}" if p_["grad"] and p_["grad_how"] != "estimated" else ""] if x)
@@ -99,7 +102,7 @@ def player_pages(B):
         render("player.html", f"players/{sl}.html", ld=[ld_person(name, f"players/{sl}.html", image=(PLAYER_PHOTOS.get(sl) or {}).get("url"), years=plist[-1]["years"]), ld_crumbs(("Players", "players/index.html"), (name, f"players/{sl}.html"))],
                name=name, seasons=srows, career=crow, cols=cols, log=by_season,
                news_log=news_log,
-               lcols=lcols, highs=highs, numbers=numbers, cls=cls, years=plist[-1]["years"],
+               lcols=lcols, highs=highs, numbers=numbers, cls=cls, cls_season=cls_season, years=plist[-1]["years"],
                grad=plist[-1]["grad"], grad_est=plist[-1]["grad_how"] == "estimated",
                partial=bool(partial_stats), part_career=part, span=span, book_career=book_career,
                override=(c or {}).get("override_note", ""), record_badges=B["player"].get(sl, []),

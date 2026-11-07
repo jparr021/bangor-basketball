@@ -66,6 +66,13 @@ class Lines(unittest.TestCase):
                 self.assertTrue(r["name"].strip())
                 self.assertIn(r["grade"], ("", "7", "8", "9", "10", "11", "12"))
 
+    def test_same_names(self):
+        on_rosters = {(r["season"], r["name"].strip()) for r in rows("rosters.csv")[1]}
+        for i, r in enumerate(rows("same_names.csv")[1], 2):
+            with self.subTest(line=i, name=r["name"]):
+                self.assertIn((r["season"], r["name"].strip()), on_rosters, "no roster line with this season and name")
+                self.assertRegex(r["page"], r"^[a-z0-9]+(-[a-z0-9]+)*$", "page should look like john-bosshard-1939")
+
     def test_grad_years(self):
         seen = set()
         for i, r in enumerate(rows("grad_years.csv")[1], 2):

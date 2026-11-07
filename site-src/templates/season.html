@@ -112,7 +112,7 @@
       <thead><tr><th>#</th><th>Player</th><th>Pos.</th>{% if roster | selectattr('height') | list %}<th class="num">Ht.</th>{% endif %}{% if roster | selectattr('class_year') | list %}<th class="num">Class</th>{% endif %}</tr></thead>
       <tbody>
       {% for p in roster %}
-      <tr><td class="muted">{{ p.number }}</td><td class="nowrap">{{ p.name }}</td><td>{{ p.position }}</td>{% if roster | selectattr('height') | list %}<td class="num nowrap">{{ p.height }}</td>{% endif %}{% if roster | selectattr('class_year') | list %}<td class="num">{{ p.class_year }}</td>{% endif %}</tr>
+      <tr><td class="muted">{{ p.number }}</td><td class="nowrap">{% if p.slug in player_pages %}<a href="../players/{{ p.slug }}.html">{{ p.name }}</a>{% else %}{{ p.name }}{% endif %}</td><td>{{ p.position }}</td>{% if roster | selectattr('height') | list %}<td class="num nowrap">{{ p.height }}</td>{% endif %}{% if roster | selectattr('class_year') | list %}<td class="num">{{ p.class_year }}</td>{% endif %}</tr>
       {% endfor %}
       </tbody>
     </table>

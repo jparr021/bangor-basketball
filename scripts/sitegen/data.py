@@ -80,12 +80,18 @@ def clipping_details():
 
 # Rosters from game programs (overrides/rosters.csv), for seasons with no player stats: number, name,
 # position, height and grade, with the class year worked out from the grade.
+# Two different players with the same name (overrides/same_names.csv: season, name, page): the roster
+# lines for that season go to their own player page instead of sharing one.
+SAME_NAMES = {}
+if os.path.exists(os.path.join(OV, "same_names.csv")):
+    for r in load(os.path.join(OV, "same_names.csv")):
+        SAME_NAMES[(r["season"].strip(), r["name"].strip())] = slug(r["page"])
 ROSTERS = defaultdict(list)
 if os.path.exists(os.path.join(OV, "rosters.csv")):
     for r in load(os.path.join(OV, "rosters.csv")):
         gr = num(r.get("grade"))
         r["class_year"] = int(r["season"][:4]) + 1 + (12 - int(gr)) if gr else ""
-        r["slug"] = slug(r["name"])
+        r["slug"] = SAME_NAMES.get((r["season"], r["name"].strip())) or slug(r["name"])
         ROSTERS[r["season"]].append(r)
     for rs in ROSTERS.values():
         rs.sort(key=lambda r: int(num(r["number"]) or 0))

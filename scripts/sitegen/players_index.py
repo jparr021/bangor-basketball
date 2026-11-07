@@ -21,9 +21,9 @@ def _season_span(a, b):
     return [f"{y}-{str(y + 1)[2:]}" for y in range(int(a[:4]), int(b[:4]) + 1)]
 
 
-def _archive(name):
+def _archive(name, sl=None):
     name = canon(name)
-    sl = slug(name)
+    sl = sl or slug(name)  # a roster line can carry its own page (overrides/same_names.csv)
     if not sl or sl in PLAYER_PAGES and sl not in ARCHIVE or len(name.split()) < 2:
         return None
     return ARCHIVE.setdefault(sl, {"slug": sl, "name": name, "roster": [], "book": [], "clips": [], "seasons": set(),
@@ -32,7 +32,7 @@ def _archive(name):
 
 for _s, _rs in ROSTERS.items():
     for _r in _rs:
-        _a = _archive(_r["name"])
+        _a = _archive(_r["name"], _r["slug"])
         if _a:
             _a["roster"].append(_r)
             _a["seasons"].add(_s)

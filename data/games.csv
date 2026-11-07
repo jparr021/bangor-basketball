@@ -739,6 +739,71 @@ game_id,season,date,opponent,site,location,event,conference,bangor_score,opp_sco
 1929-30-13,1929-30,1930-02-21,Galesville,home,,,,27,22,W,,,,,,,,none,,,,"Bangor beat Galesville 27–22 at home in its last conference game to keep the conference lead, its second win over Galesville that season. Bangor won the Coulee Conference title when Onalaska beat Holmen. (The season story dates it Feb. 20; the results list says Feb. 21.)",results,regular
 1929-30-14,1929-30,1930-02-28,Aquinas,away,,,,23,15,W,,,,,,,,none,,,,Bangor beat Aquinas 23–15 in a post-season game at La Crosse.,results,regular
 1929-30-15,1929-30,1930-03-07,La Crosse Vocational,home,,,,10,14,L,,,,,,,,none,,,,"La Crosse Vocational beat Bangor 14–10 at Bangor in the last game before the tournament at Sparta (March 13–15), leaving Bangor 11–4. (The results page totals Bangor's points as 276, but its 15 scores add up to 298.)",results,regular
+1930-31-01,1930-31,1930-11-21,Cashton,home,,,,27,18,W,,,,,,,,none,,,,,results,regular
+1930-31-02,1930-31,1930-11-28,Alumni,home,,,,18,27,L,,,,,,,,none,,,,,results,regular
+1930-31-03,1930-31,1930-12-05,Mindoro,away,,,,29,11,W,,,,,,,,none,,,,,results,regular
+1930-31-04,1930-31,1930-12-12,Holmen,home,,,,19,16,W,,,,,,,,none,,,,,results,regular
+1930-31-05,1930-31,1930-12-18,Onalaska,away,,,,19,17,W,,,,,,,,none,,,,,results,regular
+1930-31-06,1930-31,1931-01-09,West Salem,home,,,,22,20,W,,,,,,,,none,,,,,results,regular
+1930-31-07,1930-31,1931-01-16,Galesville,away,,,,27,15,W,,,,,,,,none,,,,,results,regular
+1930-31-08,1930-31,1931-01-23,Mindoro,home,,,,22,6,W,,,,,,,,none,,,,,results,regular
+1930-31-09,1930-31,1931-01-30,Holmen,away,,,,15,9,W,,,,,,,,none,,,,,results,regular
+1930-31-10,1930-31,1931-02-06,Onalaska,home,,,,23,21,W,,,,,,,,none,,,,,results,regular
+1930-31-11,1930-31,1931-02-13,West Salem,away,,,,17,24,L,,,,,,,,none,,,,,results,regular
+1930-31-12,1930-31,1931-02-20,Galesville,home,,,,20,21,L,,,,,,,,none,,,,,results,regular
+1930-31-13,1930-31,1931-02-27,Aquinas,home,,,,16,15,W,,,,,,,,none,,,,,results,regular
+1930-31-14,1930-31,1931-03-05,Aquinas,away,,,,21,16,W,,,,,,,,none,,,,"Bangor beat La Crosse Aquinas 21–16 at Aquinas, a week after beating them 16–15 at Bangor. The book counts beating Aquinas twice among the season's highlights, along with winning the Coulee cup.",results,regular
+1930-31-15,1930-31,1931-03-12,Sparta,neutral,,Sparta District Tournament,,15,21,L,,,,,,,,none,,,,,results,tournament
+1930-31-16,1930-31,1931-03-13,Camp Douglas,neutral,,Sparta District Tournament,,20,23,L,,,,,,,,none,,,,"Camp Douglas beat Bangor 23–20 at the Sparta District Tournament, a day after Sparta beat Bangor 21–15, ending the season 11–5. The book calls it a good showing at Sparta, in Coach Harold Welch's first year at Bangor. Welch died in the summer of 1931, after his first year of teaching.",results,tournament
+1932-33-01,1932-33,1932-11-10,Westby,home,,,,11,22,L,,,,,,,,none,,,,,results,regular
+1932-33-02,1932-33,1932-11-18,Viola,home,,,,13,10,W,,,,,,,,none,,,,,results,regular
+1932-33-03,1932-33,1932-11-25,Alumni,home,,,,26,13,W,,,,,,,,none,,,,,results,regular
+1932-33-04,1932-33,1932-11-29,Tomah,away,,,,15,29,L,,,,,,,,none,,,,,results,regular
+1932-33-05,1932-33,1932-12-03,Mindoro,away,,,,30,18,W,,,,,,,,none,,,,,results,regular
+1932-33-06,1932-33,1932-12-09,Holmen,home,,,,12,22,L,,,,,,,,none,,,,,results,regular
+1932-33-07,1932-33,1932-12-16,Onalaska,away,,,,8,30,L,,,,,,,,none,,,,,results,regular
+1932-33-08,1932-33,1933-01-13,West Salem,home,,,,11,6,W,,,,,,,,none,,,,"Bangor beat West Salem 11–6 at Bangor, the first of two wins over West Salem that season, which the book names as one of the year's achievements.",results,regular
+1932-33-09,1932-33,1933-01-20,Galesville,away,,,,18,17,W,,,,,,,,none,,,,,results,regular
+1932-33-10,1932-33,1933-01-26,Mindoro,home,,,,33,20,W,,,,,,,,none,,,,,results,regular
+1932-33-11,1932-33,1933-02-03,Holmen,away,,,,14,23,L,,,,,,,,none,,,,,results,regular
+1932-33-12,1932-33,1933-02-10,Onalaska,away,,,,15,22,L,,,,,,,,none,,,,,results,regular
+1932-33-13,1932-33,1933-02-17,West Salem,away,,,,16,14,W,,,,,,,,none,,,,"Bangor beat West Salem 16–14 at West Salem, its second win over West Salem that season.",results,regular
+1932-33-14,1932-33,1933-02-23,Galesville,home,,,,23,13,W,,,,,,,,none,,,,,results,regular
+1932-33-15,1932-33,1933-03-02,Camp Douglas,home,,,,23,21,W,,,,,,,,none,,,,"Bangor beat Camp Douglas, the Juneau County champions, 23–21 at Bangor.",results,regular
+1932-33-16,1932-33,1933-03-09,Holmen,home,,,,12,27,L,,,,,,,,none,,,,,results,regular
+1932-33-17,1932-33,1933-03-23,Gays Mills,neutral,,Viroqua Supplementary Tournament,,22,10,W,,,,,,,,none,,,,,results,tournament
+1932-33-18,1932-33,1933-03-24,Viola,neutral,,Viroqua Supplementary Tournament,,18,22,L,,,,,,,,none,,,,"Viola beat Bangor 22–18 in the Viroqua Supplementary Tournament, a day after Bangor beat Gays Mills 22–10, ending the season 10–8.",results,tournament
+1933-34-01,1933-34,1933-11-17,Westby,home,,,,29,12,W,,,,,,,,none,,,,,results,regular
+1933-34-02,1933-34,1933-11-21,Sparta,away,,,,9,28,L,,,,,,,,none,,,,,results,regular
+1933-34-03,1933-34,1933-11-24,Alumni,home,,,,8,24,L,,,,,,,,none,,,,,results,regular
+1933-34-04,1933-34,1933-11-29,Sparta,home,,,,12,18,L,,,,,,,,none,,,,,results,regular
+1933-34-05,1933-34,1933-12-08,Mindoro,home,,,,28,16,W,,,,,,,,none,,,,,results,regular
+1933-34-06,1933-34,1933-12-16,Holmen,away,,,,12,14,L,,,,,,,,none,,,,,results,regular
+1933-34-07,1933-34,1933-12-18,Onalaska,home,,,,12,13,L,,,,,,,,none,,,,,results,regular
+1933-34-08,1933-34,1934-01-12,West Salem,away,,,,15,16,L,,,,,,,,none,,,,,results,regular
+1933-34-09,1933-34,1934-01-19,Galesville,home,,,,20,17,W,,,,,,,,none,,,,Bangor upset Galesville 20–17 at Bangor; the book says the loss practically ended Galesville's championship chances.,results,regular
+1933-34-10,1933-34,1934-01-25,Mindoro,away,,,,28,9,W,,,,,,,,none,,,,,results,regular
+1933-34-11,1933-34,1934-02-02,Holmen,home,,,,22,23,L,,,,,,,,none,,,,,results,regular
+1933-34-12,1933-34,1934-02-09,Onalaska,away,,,,11,19,L,,,,,,,,none,,,,,results,regular
+1933-34-13,1933-34,1934-02-16,West Salem,home,,,,21,26,L,,,,,,,,none,,,,,results,regular
+1933-34-14,1933-34,1934-02-23,Galesville,away,,,,19,28,L,,,,,,,,none,,,,,results,regular
+1933-34-15,1933-34,1934-03-02,YMCA,home,,,,16,17,L,,,,,,,,none,,,,"The YMCA beat Bangor 17–16 at Bangor, ending a 4–11 season. The book says the record was not as bad as it seems, with five of the 11 losses by one point (the scores listed show four one-point losses and a two-point loss at Holmen).",results,regular
+1934-35-01,1934-35,1934-11-15,Wilton,home,,,,23,13,W,,,,,,,,none,,,,,results,regular
+1934-35-02,1934-35,1934-11-20,Cashton,away,,,,32,4,W,,,,,,,,none,,,,,results,regular
+1934-35-03,1934-35,1934-11-23,Cashton,home,,,,28,3,W,,,,,,,,none,,,,,results,regular
+1934-35-04,1934-35,1934-11-28,Westby,home,,,,25,12,W,,,,,,,,none,,,,,results,regular
+1934-35-05,1934-35,1934-11-30,Wilton,away,,,,18,14,W,,,,,,,,none,,,,"Bangor won 18–14 at Wilton for its fifth straight win to open the season, all against non-conference teams.",results,regular
+1934-35-06,1934-35,1934-12-07,Mindoro,away,,,,15,20,L,,,,,,,,none,,,,,results,regular
+1934-35-07,1934-35,1934-12-14,Holmen,home,,,,14,18,L,,,,,,,,none,,,,,results,regular
+1934-35-08,1934-35,1934-12-21,Onalaska,away,,,,17,19,L,,,,,,,,none,,,,,results,regular
+1934-35-09,1934-35,1935-01-04,Tomah,away,,,,10,35,L,,,,,,,,none,,,,,results,regular
+1934-35-10,1934-35,1935-01-11,West Salem,home,,,,19,16,W,,,,,,,,none,,,,"Bangor beat West Salem 19–16 at Bangor, ending a four-game losing streak (Mindoro, Holmen, Onalaska and Tomah).",results,regular
+1934-35-11,1934-35,1935-01-18,Galesville,away,,,,15,12,W,,,,,,,,none,,,,,results,regular
+1934-35-12,1934-35,1935-01-25,Mindoro,home,,,,15,18,L,,,,,,,,none,,,,,results,regular
+1934-35-13,1934-35,1935-02-01,Holmen,away,,,,8,23,L,,,,,,,,none,,,,,results,regular
+1934-35-14,1934-35,1935-02-08,Onalaska,home,,,,25,9,W,,,,,,,,none,,,,,results,regular
+1934-35-15,1934-35,1935-02-15,West Salem,away,,,,8,14,L,,,,,,,,none,,,,,results,regular
+1934-35-16,1934-35,1935-02-22,Galesville,home,,,,11,10,W,,,,,,,,none,,,,,results,regular
 1997-98-01,1997-98,1997-11-29,West Salem,home,,,,43,37,W,,1|2|3|4,11|6|16|10,11|4|17|5,,,,points,28,N,newspaper,"Bangor opened its new gym with its third straight win over West Salem, which went on to reach the Division 3 sectional finals. A match-up zone held 6-8 Michael Southall to 10 points; Ryan Schroeder scored 16 and Justin Peterson 12, all on 3-pointers, and Bangor out-rebounded the Panthers 29-27. Peterson's 12 points were all on 3-pointers, and David Sackmaster led West Salem with 19. ""I don't know that we have a home court advantage yet, but it was nice to get off on the right foot,"" coach Don Addington told the Tribune.",results,regular
 1997-98-02,1997-98,1997-12-09,Necedah,home,,,,47,46,W,,1|2|3|4,11|12|16|8,8|8|6|24,,,,points,11,N,newspaper,"In the conference opener Bangor led 23-16 at halftime and by 17 late in the third quarter, but Necedah answered with a 22-4 run to take a one-point lead with 2:00 left. Shane Amundson tied it from the line, and after Necedah missed a final shot, Scott Greeno was fouled with five seconds left and made the second free throw for the win.",results,regular
 1997-98-03,1997-98,1997-12-12,Royall,home,,,,39,82,L,,1|2|3|4,7|13|4|15,23|29|15|15,,,,points,12,N,newspaper,"Royall, the conference favorite, controlled the game from the opening tip. The Panthers shot 56% to Bangor's 23%, made 64% of their free throws to Bangor's 33% and out-rebounded the Cardinals 37-28, and Bangor turned the ball over 23 times. Josh Board scored 27 for Royall, 14 of them in the first quarter.",results,regular

@@ -13020,207 +13020,207 @@
    ],
    "fewest_opp_pts": [
     {
-     "value": 17,
-     "date": "2023-01-10",
-     "opponent": "Wonewoc-Center",
-     "season": "2022-23",
-     "game_id": "2022-23-09"
-    },
-    {
-     "value": 18,
-     "date": "2005-01-11",
+     "value": 3,
+     "date": "1934-11-23",
      "opponent": "Cashton",
-     "season": "2004-05",
-     "game_id": "2004-05-09"
+     "season": "1934-35",
+     "game_id": "1934-35-03"
     },
     {
-     "value": 18,
-     "date": "2015-01-16",
-     "opponent": "New Lisbon",
-     "season": "2014-15",
-     "game_id": "2014-15-12"
-    },
-    {
-     "value": 19,
-     "date": "2023-02-10",
-     "opponent": "Wonewoc-Center",
-     "season": "2022-23",
-     "game_id": "2022-23-19"
-    },
-    {
-     "value": 21,
-     "date": "2024-01-16",
-     "opponent": "Wonewoc-Center",
-     "season": "2023-24",
-     "game_id": "2023-24-10"
-    },
-    {
-     "value": 22,
-     "date": "2015-02-13",
-     "opponent": "Brookwood",
-     "season": "2014-15",
-     "game_id": "2014-15-18"
-    },
-    {
-     "value": 22,
-     "date": "2018-02-27",
-     "opponent": "La Farge",
-     "season": "2017-18",
-     "game_id": "2017-18-23"
-    },
-    {
-     "value": 23,
-     "date": "2011-01-11",
+     "value": 4,
+     "date": "1934-11-20",
      "opponent": "Cashton",
-     "season": "2010-11",
-     "game_id": "2010-11-10"
+     "season": "1934-35",
+     "game_id": "1934-35-02"
     },
     {
-     "value": 25,
-     "date": "2020-03-03",
-     "opponent": "Granton",
-     "season": "2019-20",
-     "game_id": "2019-20-24"
+     "value": 6,
+     "date": "1931-01-23",
+     "opponent": "Mindoro",
+     "season": "1930-31",
+     "game_id": "1930-31-08"
     },
     {
-     "value": 25,
-     "date": "2021-02-09",
-     "opponent": "Wonewoc-Center",
-     "season": "2020-21",
-     "game_id": "2020-21-20"
+     "value": 6,
+     "date": "1933-01-13",
+     "opponent": "West Salem",
+     "season": "1932-33",
+     "game_id": "1932-33-08"
     },
     {
-     "value": 26,
-     "date": "2009-02-03",
-     "opponent": "Wonewoc-Center",
-     "season": "2008-09",
-     "game_id": "2008-09-14"
+     "value": 9,
+     "date": "1931-01-30",
+     "opponent": "Holmen",
+     "season": "1930-31",
+     "game_id": "1930-31-09"
     },
     {
-     "value": 26,
-     "date": "2015-12-30",
-     "opponent": "Kickapoo",
-     "season": "2015-16",
-     "game_id": "2015-16-08"
+     "value": 9,
+     "date": "1934-01-25",
+     "opponent": "Mindoro",
+     "season": "1933-34",
+     "game_id": "1933-34-10"
     },
     {
-     "value": 26,
-     "date": "2016-03-01",
-     "opponent": "New Lisbon",
-     "season": "2015-16",
-     "game_id": "2015-16-23"
+     "value": 9,
+     "date": "1935-02-08",
+     "opponent": "Onalaska",
+     "season": "1934-35",
+     "game_id": "1934-35-14"
     },
     {
-     "value": 26,
-     "date": "2021-01-29",
-     "opponent": "Hillsboro",
-     "season": "2020-21",
-     "game_id": "2020-21-16"
+     "value": 10,
+     "date": "1932-11-18",
+     "opponent": "Viola",
+     "season": "1932-33",
+     "game_id": "1932-33-02"
     },
     {
-     "value": 27,
-     "date": "2013-12-19",
-     "opponent": "Brookwood",
-     "season": "2013-14",
-     "game_id": "2013-14-08"
+     "value": 10,
+     "date": "1933-03-23",
+     "opponent": "Gays Mills",
+     "season": "1932-33",
+     "game_id": "1932-33-17"
     },
     {
-     "value": 27,
-     "date": "2016-01-07",
-     "opponent": "Cashton",
-     "season": "2015-16",
-     "game_id": "2015-16-09"
+     "value": 10,
+     "date": "1935-02-22",
+     "opponent": "Galesville",
+     "season": "1934-35",
+     "game_id": "1934-35-16"
     },
     {
-     "value": 28,
-     "date": "2015-01-13",
-     "opponent": "Cashton",
-     "season": "2014-15",
-     "game_id": "2014-15-11"
+     "value": 11,
+     "date": "1930-12-05",
+     "opponent": "Mindoro",
+     "season": "1930-31",
+     "game_id": "1930-31-03"
     },
     {
-     "value": 28,
-     "date": "2022-01-06",
-     "opponent": "New Lisbon",
-     "season": "2021-22",
-     "game_id": "2021-22-08"
+     "value": 12,
+     "date": "1933-11-17",
+     "opponent": "Westby",
+     "season": "1933-34",
+     "game_id": "1933-34-01"
     },
     {
-     "value": 28,
-     "date": "2024-01-04",
-     "opponent": "New Lisbon",
-     "season": "2023-24",
-     "game_id": "2023-24-09"
+     "value": 12,
+     "date": "1934-11-28",
+     "opponent": "Westby",
+     "season": "1934-35",
+     "game_id": "1934-35-04"
     },
     {
-     "value": 29,
-     "date": "2016-02-04",
-     "opponent": "New Lisbon",
-     "season": "2015-16",
-     "game_id": "2015-16-17"
+     "value": 12,
+     "date": "1935-01-18",
+     "opponent": "Galesville",
+     "season": "1934-35",
+     "game_id": "1934-35-11"
     },
     {
-     "value": 29,
-     "date": "2020-12-15",
-     "opponent": "Wonewoc-Center",
-     "season": "2020-21",
-     "game_id": "2020-21-01"
+     "value": 13,
+     "date": "1932-11-25",
+     "opponent": "Alumni",
+     "season": "1932-33",
+     "game_id": "1932-33-03"
     },
     {
-     "value": 29,
-     "date": "2021-01-23",
-     "opponent": "Brookwood",
-     "season": "2020-21",
-     "game_id": "2020-21-14"
+     "value": 13,
+     "date": "1933-02-23",
+     "opponent": "Galesville",
+     "season": "1932-33",
+     "game_id": "1932-33-14"
     },
     {
-     "value": 29,
-     "date": "2001-12-18",
-     "opponent": "Cashton",
-     "season": "2001-02",
-     "game_id": "2001-02-06"
+     "value": 13,
+     "date": "1933-12-18",
+     "opponent": "Onalaska",
+     "season": "1933-34",
+     "game_id": "1933-34-07"
     },
     {
-     "value": 30,
-     "date": "2003-01-07",
-     "opponent": "Luther",
-     "season": "2002-03",
-     "game_id": "2002-03-06"
+     "value": 13,
+     "date": "1934-11-15",
+     "opponent": "Wilton",
+     "season": "1934-35",
+     "game_id": "1934-35-01"
     },
     {
-     "value": 30,
-     "date": "2005-01-28",
-     "opponent": "Wonewoc-Center",
-     "season": "2004-05",
-     "game_id": "2004-05-13"
+     "value": 14,
+     "date": "1933-02-17",
+     "opponent": "West Salem",
+     "season": "1932-33",
+     "game_id": "1932-33-13"
     },
     {
-     "value": 30,
-     "date": "2006-02-24",
-     "opponent": "Cashton",
-     "season": "2005-06",
-     "game_id": "2005-06-20"
+     "value": 14,
+     "date": "1933-12-16",
+     "opponent": "Holmen",
+     "season": "1933-34",
+     "game_id": "1933-34-06"
     },
     {
-     "value": 30,
-     "date": "2009-12-10",
-     "opponent": "Cashton",
-     "season": "2009-10",
-     "game_id": "2009-10-04"
+     "value": 14,
+     "date": "1934-11-30",
+     "opponent": "Wilton",
+     "season": "1934-35",
+     "game_id": "1934-35-05"
     },
     {
-     "value": 30,
-     "date": "2019-02-26",
-     "opponent": "La Farge",
-     "season": "2018-19",
-     "game_id": "2018-19-22"
+     "value": 14,
+     "date": "1935-02-15",
+     "opponent": "West Salem",
+     "season": "1934-35",
+     "game_id": "1934-35-15"
     },
     {
-     "value": 30,
-     "date": "2023-12-08",
-     "opponent": "Necedah",
-     "season": "2023-24",
-     "game_id": "2023-24-03"
+     "value": 15,
+     "date": "1931-01-16",
+     "opponent": "Galesville",
+     "season": "1930-31",
+     "game_id": "1930-31-07"
+    },
+    {
+     "value": 15,
+     "date": "1931-02-27",
+     "opponent": "Aquinas",
+     "season": "1930-31",
+     "game_id": "1930-31-13"
+    },
+    {
+     "value": 16,
+     "date": "1930-12-12",
+     "opponent": "Holmen",
+     "season": "1930-31",
+     "game_id": "1930-31-04"
+    },
+    {
+     "value": 16,
+     "date": "1931-03-05",
+     "opponent": "Aquinas",
+     "season": "1930-31",
+     "game_id": "1930-31-14"
+    },
+    {
+     "value": 16,
+     "date": "1933-12-08",
+     "opponent": "Mindoro",
+     "season": "1933-34",
+     "game_id": "1933-34-05"
+    },
+    {
+     "value": 16,
+     "date": "1934-01-12",
+     "opponent": "West Salem",
+     "season": "1933-34",
+     "game_id": "1933-34-08"
+    },
+    {
+     "value": 16,
+     "date": "1935-01-11",
+     "opponent": "West Salem",
+     "season": "1934-35",
+     "game_id": "1934-35-10"
     }
    ],
    "fg_pct": [
@@ -13556,6 +13556,26 @@
    ],
    "opp_ppg": [
     {
+     "value": 15,
+     "season": "1934-35",
+     "detail": "9-7"
+    },
+    {
+     "value": 17.5,
+     "season": "1930-31",
+     "detail": "11-5"
+    },
+    {
+     "value": 18.6667,
+     "season": "1933-34",
+     "detail": "4-11"
+    },
+    {
+     "value": 18.8333,
+     "season": "1932-33",
+     "detail": "10-8"
+    },
+    {
      "value": 46.45,
      "season": "2004-05",
      "detail": "5-15"
@@ -13659,26 +13679,6 @@
      "value": 55.92,
      "season": "2011-12",
      "detail": "18-7"
-    },
-    {
-     "value": 56.35,
-     "season": "2003-04",
-     "detail": "2-18"
-    },
-    {
-     "value": 57.619,
-     "season": "2007-08",
-     "detail": "3-18"
-    },
-    {
-     "value": 59.5185,
-     "season": "2018-19",
-     "detail": "25-2"
-    },
-    {
-     "value": 61.2692,
-     "season": "2025-26",
-     "detail": "16-10"
     }
    ],
    "tpm": [

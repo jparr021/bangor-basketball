@@ -13104,6 +13104,13 @@
      "game_id": "1934-35-16"
     },
     {
+     "value": 10,
+     "date": "1936-02-21",
+     "opponent": "West Salem",
+     "season": "1935-36",
+     "game_id": "1935-36-13"
+    },
+    {
      "value": 11,
      "date": "1930-12-05",
      "opponent": "Mindoro",
@@ -13123,6 +13130,27 @@
      "opponent": "Galesville",
      "season": "1931-32",
      "game_id": "1931-32-08"
+    },
+    {
+     "value": 11,
+     "date": "1935-12-03",
+     "opponent": "Sparta",
+     "season": "1935-36",
+     "game_id": "1935-36-03"
+    },
+    {
+     "value": 11,
+     "date": "1935-12-19",
+     "opponent": "Onalaska",
+     "season": "1935-36",
+     "game_id": "1935-36-05"
+    },
+    {
+     "value": 11,
+     "date": "1936-01-24",
+     "opponent": "Galesville",
+     "season": "1935-36",
+     "game_id": "1935-36-08"
     },
     {
      "value": 12,
@@ -13165,48 +13193,6 @@
      "opponent": "Galesville",
      "season": "1934-35",
      "game_id": "1934-35-11"
-    },
-    {
-     "value": 13,
-     "date": "1931-11-27",
-     "opponent": "Westby",
-     "season": "1931-32",
-     "game_id": "1931-32-03"
-    },
-    {
-     "value": 13,
-     "date": "1932-02-19",
-     "opponent": "Galesville",
-     "season": "1931-32",
-     "game_id": "1931-32-13"
-    },
-    {
-     "value": 13,
-     "date": "1932-11-25",
-     "opponent": "Alumni",
-     "season": "1932-33",
-     "game_id": "1932-33-03"
-    },
-    {
-     "value": 13,
-     "date": "1933-02-23",
-     "opponent": "Galesville",
-     "season": "1932-33",
-     "game_id": "1932-33-14"
-    },
-    {
-     "value": 13,
-     "date": "1933-12-18",
-     "opponent": "Onalaska",
-     "season": "1933-34",
-     "game_id": "1933-34-07"
-    },
-    {
-     "value": 13,
-     "date": "1934-11-15",
-     "opponent": "Wilton",
-     "season": "1934-35",
-     "game_id": "1934-35-01"
     }
    ],
    "fg_pct": [
@@ -13557,6 +13543,11 @@
      "detail": "11-5"
     },
     {
+     "value": 17.8636,
+     "season": "1935-36",
+     "detail": "17-5"
+    },
+    {
      "value": 18.6667,
      "season": "1933-34",
      "detail": "4-11"
@@ -13660,11 +13651,6 @@
      "value": 54.9524,
      "season": "2008-09",
      "detail": "3-18"
-    },
-    {
-     "value": 55.037,
-     "season": "2016-17",
-     "detail": "25-2"
     }
    ],
    "tpm": [
@@ -14606,6 +14592,11 @@
      "detail": "19-3"
     },
     {
+     "value": 22,
+     "season": "1935-36",
+     "detail": "17-5"
+    },
+    {
      "value": 21,
      "season": "2005-06",
      "detail": "14-7"
@@ -14629,16 +14620,6 @@
      "value": 21,
      "season": "1997-98",
      "detail": "13-8"
-    },
-    {
-     "value": 20,
-     "season": "2003-04",
-     "detail": "2-18"
-    },
-    {
-     "value": 20,
-     "season": "2004-05",
-     "detail": "5-15"
     }
    ]
   },

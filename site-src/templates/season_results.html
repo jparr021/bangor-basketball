@@ -13,7 +13,7 @@
   <p class="eyebrow">Season</p>
   <h1>{{ s.season | replace('-', '–') }}</h1>
   <div class="season-meta">
-    {% if s.w != '' %}<span class="big-rec">{{ s.w }}–{{ s.l }}{% if s.t and s.t != "0" %}–{{ s.t }}{% endif %}</span>{% else %}<span class="big-rec">{{ w }}–{{ l }}</span><span class="muted">in the {{ games | length }} known games</span>{% endif %}
+    {% if s.w != '' %}<span class="big-rec">{{ s.w }}–{{ s.l }}{% if s.t and s.t != "0" %}–{{ s.t }}{% endif %}</span>{% elif games %}<span class="big-rec">{{ w }}–{{ l }}</span><span class="muted">in the {{ games | length }} known games</span>{% else %}<span class="muted">Record not known</span>{% endif %}
     {% if s.coach %}<span>Coach <strong>{% set cs = coach_slugs.get(s.coach | trim) %}{% if cs %}<a href="../coaches/{{ cs }}.html">{{ s.coach }}</a>{% else %}{{ s.coach }}{% endif %}</strong></span>{% endif %}
     {% if s.ppg and (s.w == '' or games | length * 2 >= s.w | int + s.l | int) %}<span>{{ s.ppg }} PPG · {{ s.oppg }} allowed</span>{% endif %}
   </div>

@@ -77,8 +77,12 @@ def season_pages(B):
         known = ss["w"] == ""  # no full-season record: show the record in the games that are known
         rec = f"{w}–{l}" if known else f"{ss['w']}–{ss['l']}"
         tiles = [(rec, "Record in known games" if known else "Record")]
-        tiles.append((f"{ss['ppg']}–{ss['oppg']}", "Average score"))
-        sh = share("seasons", s, share_images.simple_card, f"Bangor Cardinals {s.replace('-', '–')} season: {rec}{' in known games' if known else ''}",
+        if gs:
+            tiles.append((f"{ss['ppg']}–{ss['oppg']}", "Average score"))
+        elif known:  # a season known only from its team photos: no record to show
+            tiles = []
+        title = f"Bangor Cardinals {s.replace('-', '–')} season" + (f": {rec}{' in known games' if known else ''}" if tiles else "")
+        sh = share("seasons", s, share_images.simple_card, title,
                    f"Season{' · Coach ' + ss['coach'] if ss['coach'] else ''}", s.replace("-", "–"), ss["notes"], tiles, "Season")
         if STORIES.get(s):
             st = STORIES[s]

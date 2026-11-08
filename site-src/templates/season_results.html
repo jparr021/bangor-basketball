@@ -46,7 +46,7 @@
   {% if margin_svg %}
   <section class="card">
     <h2>Game by game</h2>
-    <p class="muted small chart-key"><span class="nowrap"><span class="key win"></span> Win</span> <span class="nowrap"><span class="key loss"></span> Loss</span> · Bars show the final margin, in the order the games were played. Tap a bar for the game.</p>
+    <p class="muted small chart-key"><span class="nowrap"><span class="key win"></span> Win</span> <span class="nowrap"><span class="key loss"></span> Loss</span> · Bars show the final margin, in the order the games were {{ 'played' if dated or any_dates else 'listed in the source' }}. Tap a bar for the game.</p>
     <div class="scroll chart-wrap">{{ margin_svg }}</div>
   </section>
   {% endif %}

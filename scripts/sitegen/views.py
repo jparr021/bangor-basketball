@@ -161,14 +161,37 @@ def head_to_head(o):
 def opponent_index():
     """Every opponent, with its finished games (date order) and upcoming games."""
     opps = OrderedDict()
-    for g in sorted(list(games_by_id.values()) + DATED_RESULTS, key=lambda g: g["date"]):
+
+    def opp(g):
         o = opps.setdefault(g["opp_slug"], {"name": g["opponent"], "slug": g["opp_slug"], "w": 0, "l": 0, "games": [],
-                                            "upcoming": []})
+                                            "upcoming": [], "other": [], "aka": []})
+        if g.get("aliased"):  # an older name for the school: shown as "earlier known as"
+            if g["opponent"] not in o["aka"]:
+                o["aka"].append(g["opponent"])
+        else:
+            o["name"] = g["opponent"]  # the latest name wins
+        return o
+
+    for g in sorted(list(games_by_id.values()) + DATED_RESULTS, key=lambda g: g["date"]):
+        o = opp(g)
         if g["result"] in ("W", "L"):
             o["w" if g["result"] == "W" else "l"] += 1
             o["games"].append(g)
         elif g.get("status") == "upcoming":
             o["upcoming"].append(g)
+    # book results without a full date and site: listed on the opponent page, but not in the head-to-head record
+    dated = {id(g) for g in DATED_RESULTS}
+    for s, gs in sorted(RESULTS_ONLY.items()):
+        if s in games_by_season:
+            continue
+        for g in gs:
+            if id(g) in dated or g["opp_slug"] not in OPP_PAGES:
+                continue
+            o = opp(g)
+            o["other"].append({**g, "href": f"../seasons/{s}.html#g{g['anchor']}"})
+    for o in opps.values():
+        o["other_w"] = sum(g["result"] == "W" for g in o["other"])
+        o["other_l"] = sum(g["result"] == "L" for g in o["other"])
     return opps
 
 

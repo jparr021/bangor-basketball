@@ -8,8 +8,11 @@
 <div class="wrap page-head">
   <p class="eyebrow"><a href="index.html">Opponents</a></p>
   <h1>vs {{ o.name }}</h1>
+  {% if o.aka %}<p class="muted">Earlier known as {{ o.aka | join(' and ') }}</p>{% endif %}
   {% if o.games %}
   <div class="season-meta"><span class="big-rec">{{ o.w }}–{{ o.l }}</span><span>{{ o.w + o.l }} meeting{{ 's' if o.w + o.l != 1 }} since {{ o.games[0].season | replace('-', '–') }}</span></div>
+  {% elif o.other %}
+  <div class="season-meta"><span class="big-rec">{{ o.other_w }}–{{ o.other_l }}</span><span>{{ o.other | length }} meeting{{ 's' if o.other | length != 1 }} in the book's results</span></div>
   {% endif %}
 </div>
 <div class="wrap">
@@ -112,8 +115,28 @@
     </table>
     </div>
   </section>
-  {% else %}
-  <p class="note">Bangor hasn't played {{ o.name }} in the game-by-game records (1914–15 to 1916–17, 1922–23 to 1925–26, 1927–28, 1997–98, and {{ "2001–02" }} on).</p>
+  {% elif not o.other %}
+  <p class="note">Bangor hasn't played {{ o.name }} in the game-by-game records.</p>
+  {% endif %}
+
+  {% if o.other %}
+  <section class="card">
+    <h2>{{ 'More meetings, from the book' if o.games else 'Meetings, from the book' }}</h2>
+    <div class="scroll">
+    <table class="tbl">
+      <thead><tr><th>Season</th><th>Game</th><th>Result</th><th class="hide-sm">Notes</th></tr></thead>
+      <tbody>
+      {% for g in o.other | reverse %}
+      <tr><td class="nowrap"><a href="../seasons/{{ g.season }}.html">{{ g.season | replace('-', '–') }}</a></td>
+        <td class="nowrap"><a href="{{ g.href }}">{% if g.date %}{{ g.date | d }}{% else %}Game {{ g.game }}{% endif %}</a>{% if o.aka and g.aliased %} <span class="muted small">as {{ g.opponent }}</span>{% endif %}</td>
+        <td class="res {{ g.result }} nowrap">{{ g.result }}{% if g.bangor_score != '' %} {{ g.bangor_score }}–{{ g.opp_score if g.opp_score != '' else '?' }}{% endif %}{% if g.ot %} <small>(OT)</small>{% endif %}{% if g.game_type == 'playoff' %} <span class="tag red">Playoff</span>{% endif %}</td>
+        <td class="hide-sm muted small">{{ g.note }}</td></tr>
+      {% endfor %}
+      </tbody>
+    </table>
+    </div>
+    <p class="note">These games come from <em>Cardinals on the Court</em> for seasons where the book doesn't give every game's date and site. They aren't counted in {{ 'the head-to-head record above' if o.games else 'a head-to-head record' }}.</p>
+  </section>
   {% endif %}
 </div>
 {% endblock %}

@@ -44,9 +44,10 @@ def opponent_pages(opps):
         render("opponent.html", f"opponents/{o['slug']}.html", o=o,
                ld=[ld_crumbs(("Opponents", "opponents/index.html"), (o["name"], f"opponents/{o['slug']}.html"))], **sh)
     olist = sorted((o for o in opps.values() if o["games"]), key=lambda o: (-(o["w"] + o["l"]), o["name"]))
-    render("opponents.html", "opponents/index.html", opps=olist,
+    others = sorted((o for o in opps.values() if not o["games"] and o["other"]), key=lambda o: o["name"])
+    render("opponents.html", "opponents/index.html", opps=olist, others=others,
            first=min([DATA_SEASONS[0]] + [g["season"] for g in DATED_RESULTS]))
-    return olist
+    return olist + others
 
 
 def film_index():
@@ -85,7 +86,8 @@ def search_index(plist, olist, classes):
         rec = f"{c['w']}–{c['l']}" + (f"–{c['t']}" if c["t"] else "")
         idx.append({"t": c["name"], "s": f"Coach · {c['years']} · {rec}", "u": f"coaches/{c['slug']}.html", "k": "coach"})
     for o in olist:
-        idx.append({"t": o["name"], "s": f"Opponent · Bangor is {o['w']}–{o['l']}", "u": f"opponents/{o['slug']}.html",
+        rec = f"Bangor is {o['w']}–{o['l']}" if o["games"] else f"{len(o['other'])} game{'s' if len(o['other']) != 1 else ''} in the book's results"
+        idx.append({"t": o["name"], "s": f"Opponent · {rec}", "u": f"opponents/{o['slug']}.html",
                     "k": "opponent"})
     for h in reversed(history):
         s = h["season"]

@@ -24,5 +24,20 @@
     </table>
     </div>
   </div>
+  {% if others %}
+  <section class="card">
+    <h2>Also played</h2>
+    <p class="muted small">Opponents known only from the book's season results, which don't give every game's date and site, so they aren't in the records above.</p>
+    <table class="tbl compact">
+      <thead><tr><th>Opponent</th><th class="num">W–L</th><th>Seasons</th></tr></thead>
+      <tbody>
+      {% for o in others %}{% set ss = o.other | map(attribute='season') | unique | list %}
+      <tr><td><a href="{{ o.slug }}.html">{{ o.name }}</a></td><td class="num">{{ o.other_w }}–{{ o.other_l }}</td>
+        <td class="muted nowrap">{{ ss[0] | replace('-', '–') }}{% if ss | length > 1 %} to {{ ss[-1] | replace('-', '–') }}{% endif %}</td></tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </section>
+  {% endif %}
 </div>
 {% endblock %}

@@ -30,6 +30,8 @@ for r in pseasons + pcareers:
 # Seasons before the stat sheets known only from a printed list of results (a yearbook page): no dates,
 # home/away or box scores, so they stay out of games.csv and get a results-only season page.
 RESULTS_ONLY = defaultdict(list)
+# a school the book names by an older name shares the page of the school it became
+OPP_ALIAS = {"cochrane": "cochrane-fountain-city", "fountain-city": "cochrane-fountain-city", "wonewoc": "wonewoc-center"}
 if os.path.exists(os.path.join(OV, "season_results.csv")):
     for r in load(os.path.join(OV, "season_results.csv")):
         r["bs"], r["os"] = num(r["bangor_score"]), num(r["opp_score"])
@@ -37,7 +39,8 @@ if os.path.exists(os.path.join(OV, "season_results.csv")):
         # a game whose score is partly lost gives its result in the result column
         r["result"] = (r.get("result") or "").strip().upper() or (
             ("W" if r["bs"] > r["os"] else ("L" if r["bs"] < r["os"] else "T")) if r["scored"] else "")
-        r["opp_slug"] = slug(r["opponent"])
+        r["opp_slug"] = OPP_ALIAS.get(slug(r["opponent"]), slug(r["opponent"]))
+        r["aliased"] = r["opp_slug"] != slug(r["opponent"])
         nt = (r.get("note") or "").lower()
         r["game_type"] = "playoff" if re.search(r"regional|sectional|district|state|wiaa", nt) else (
             "tournament" if "tournament" in nt else "regular")
@@ -169,7 +172,8 @@ for s, gs in RESULTS_ONLY.items():
                  game_type="playoff" if re.search(r"regional|sectional|state", g.get("note", ""), re.I) else "regular")
         DATED_RESULTS.append(g)
 # every opponent in games.csv (or a dated results-only game) gets a page
-OPP_PAGES = {g["opp_slug"] for g in games_by_id.values()} | {g["opp_slug"] for g in DATED_RESULTS}
+OPP_PAGES = {g["opp_slug"] for g in games_by_id.values()} | {g["opp_slug"] for g in DATED_RESULTS} | \
+    {g["opp_slug"] for gs in RESULTS_ONLY.values() for g in gs if "not named" not in g["opponent"]}
 pg_by_game = defaultdict(list)
 pg_by_player = defaultdict(list)
 for r in pg:

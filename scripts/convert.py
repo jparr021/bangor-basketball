@@ -518,12 +518,14 @@ def dated_results(sheet_seasons):
         for i, r in enumerate(rows):
             d = dt.date.fromisoformat(r["date"])
             nonconf = r.get("note", "").strip().lower() == "non-conference"
+            # tournament and play-off games aren't conference games either
+            post = re.search(r"tournament|district|regional|sectional|play-?off|state", r.get("note", ""), re.I)
             b, o = num(r["bangor_score"]), num(r["opp_score"])
             res = (r.get("result") or "").strip().upper() or (("W" if b > o else "L") if b is not None and o is not None else "")
             # keyed by (date, row) so two games on one day (a tournament doubleheader) both stay
             sched[(d, i)] = {"date": d, "opponent": canon_opp(r["opponent"]), "site": r["site"], "location": "",
                         "note": "" if nonconf else r.get("note", ""),
-                        "conference": ("N" if nonconf else "Y") if marked else "", "bangor_score": b if b is not None else "",
+                        "conference": ("N" if nonconf or post else "Y") if marked else "", "bangor_score": b if b is not None else "",
                         "opp_score": o if o is not None else "", "result": res, "time": "", "stream_url": "",
                         "film_url": "", "ot": r.get("ot", ""), "source": r.get("source", "")}
         RESULT_SCHEDULES[season] = sched

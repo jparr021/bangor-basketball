@@ -94,7 +94,9 @@ if os.path.exists(os.path.join(OV, "rosters.csv")):
         r["slug"] = SAME_NAMES.get((r["season"], r["name"].strip())) or slug(r["name"])
         ROSTERS[r["season"]].append(r)
     for rs in ROSTERS.values():
-        rs.sort(key=lambda r: int(num(r["number"]) or 0))
+        # varsity before the second team, numbered players by number, then the rest in photo order
+        rs.sort(key=lambda r: ("second team" in (r.get("position") or "").lower(), not num(r["number"]),
+                               int(num(r["number"]) or 0)))
 
 # Team totals for a game with no player box score (overrides/team_game_stats.csv): one row for Bangor and
 # one for the opponent, from a yearbook's game-by-game team stats.

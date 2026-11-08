@@ -28,7 +28,7 @@ def seasons_index():
 
 def season_pages(B):
     """A page for each season: full seasons from the stat sheets, and results-only seasons."""
-    PAGE_SEASONS = sorted(set(DATA_SEASONS) | set(RESULTS_ONLY))
+    PAGE_SEASONS = sorted(set(DATA_SEASONS) | set(RESULTS_ONLY) | set(ROSTERS))
 
     def pager(s):
         i = PAGE_SEASONS.index(s)
@@ -50,8 +50,9 @@ def season_pages(B):
                 "team_line": bool(line)}
 
     clipping_details()
-    for s in [s for s in RESULTS_ONLY if s not in games_by_season]:
-        gs = RESULTS_ONLY[s]
+    # results-only seasons, and seasons known only from a roster (team photo) with no results yet
+    for s in sorted({s for s in set(RESULTS_ONLY) | set(ROSTERS) if s not in games_by_season}):
+        gs = RESULTS_ONLY.get(s, [])
         ss = season_summary(s)
         w, l = sum(g["result"] == "W" for g in gs), sum(g["result"] == "L" for g in gs)
         items, rw, rl = [], 0, 0

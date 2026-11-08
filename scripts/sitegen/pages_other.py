@@ -91,7 +91,7 @@ def search_index(plist, olist, classes):
         s = h["season"]
         rec = f"{h['w']}–{h['l']}" + (f"–{h['t']}" if h["t"] and h["t"] != "0" else "") if h["w"] != "" else ""
         sub = " · ".join(x for x in ["Season", rec, f"Coach {h['coach']}" if h["coach"] else "", h["notes"]] if x)
-        url = f"seasons/{s}.html" if s in games_by_season or s in RESULTS_ONLY else f"history/index.html#s{s}"
+        url = f"seasons/{s}.html" if s in games_by_season or s in RESULTS_ONLY or s in ROSTERS else f"history/index.html#s{s}"
         idx.append({"t": f"{season_label(s)} season", "s": sub, "u": url, "k": "season",
                     "x": f"{s} {s[:4]} {season_end_year(s)} {h['coach']} {h['notes']}"})
     for cl in classes:

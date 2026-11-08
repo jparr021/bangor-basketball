@@ -331,7 +331,7 @@ def gaps_data():
         totals = bool(ps_by_season.get(s))
         roster = len(ROSTERS.get(s, [])) or len(ps_by_season.get(s, []))
         r = {"season": s, "w": h["w"], "l": h["l"], "t": h["t"], "notes": h["notes"],
-             "href": f"../seasons/{s}.html" if s in games_by_season or s in RESULTS_ONLY else f"index.html#s{s}",
+             "href": f"../seasons/{s}.html" if s in games_by_season or s in RESULTS_ONLY or s in ROSTERS else f"index.html#s{s}",
              "results": cell(known, of) if exp else ({"level": "part", "text": f"{known} games"} if known else cell(0, 0)),
              "box": cell(box, of),
              "stats": cell(2 if per_game else (1 if totals else 0), 2, "Game by game" if per_game else "Season totals"),

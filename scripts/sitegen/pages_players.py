@@ -23,7 +23,7 @@ def player_pages(B):
                     "position": "" if "photo" in (r_.get("position") or "").lower() else (r_.get("position") or ""),
                     "record": (f"{h['w']}–{h['l']}" + (f"–{h['t']}" if (h.get("t") or "0") != "0" else "")) if h.get("w") else "",
                     "notes": h.get("notes", ""),
-                    "href": f"../seasons/{s_}.html" if s_ in games_by_season or s_ in RESULTS_ONLY
+                    "href": f"../seasons/{s_}.html" if s_ in games_by_season or s_ in RESULTS_ONLY or s_ in ROSTERS
                     else f"../history/index.html#s{s_}"})
         seasons = sorted(seasons + [r["season"] for r in roster_seasons])
         plist.append({"slug": sl, "name": name, "first": seasons[0], "last": seasons[-1],
@@ -135,7 +135,7 @@ def player_pages(B):
             src = r.get("source") or ("Newspaper clippings" if any(c["g"]["season"] == s for c in clips) else "Record book")
             seasons.append({"season": s, "number": num_, "position": pos, "height": r.get("height", ""),
                             "grade": r.get("grade", ""), "record": rec, "notes": h.get("notes", ""), "source": src,
-                            "href": f"../seasons/{s}.html" if s in games_by_season or s in RESULTS_ONLY
+                            "href": f"../seasons/{s}.html" if s in games_by_season or s in RESULTS_ONLY or s in ROSTERS
                             else f"../history/index.html#s{s}"})
             for x, lst in ((num_, numbers), (pos, positions)):
                 if x and x not in lst:

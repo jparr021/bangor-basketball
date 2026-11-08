@@ -14,8 +14,8 @@ def season_summary(season):
         "started": started, "starts": "" if started or not sched else sched[0],
         "season": season, "w": h.get("w", ""), "l": h.get("l", ""), "t": h.get("t", ""),
         "coach": h.get("coach", ""), "notes": h.get("notes", ""),
-        "has_data": season in games_by_season or season in RESULTS_ONLY,
-        "results_only": season in RESULTS_ONLY and season not in games_by_season,
+        "has_data": season in games_by_season or season in RESULTS_ONLY or season in ROSTERS,
+        "results_only": (season in RESULTS_ONLY or season in ROSTERS) and season not in games_by_season,
         "ppg": fmt_avg(sum(g["bs"] for g in sc), len(sc)) if sc else "",
         "oppg": fmt_avg(sum(g["os"] for g in sc), len(sc)) if sc else "",
     }

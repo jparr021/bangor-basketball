@@ -42,16 +42,16 @@
       {% set lg = p.last.g %}
       <div class="leader-card"><span class="lbl">{{ 'Earlier this season' if lg.season == g.season else 'Last meeting' }}</span>
         <span class="val res {{ lg.result }}">{{ lg.result }} {{ lg.bangor_score }}–{{ lg.opp_score }}</span>
-        <a class="small" href="{{ lg.href or '../games/' ~ lg.game_id ~ '.html' }}">{{ lg.date | d }}{% if lg.site == 'away' %}, away{% elif lg.site == 'neutral' %}, neutral site{% endif %}</a>
+        <a class="small" href="{{ lg.href or '../games/' ~ lg.game_id ~ '.html' }}">{{ lg.date | d if lg.date else lg.season | replace('-', '–') }}{% if lg.site == 'away' %}, away{% elif lg.site == 'neutral' %}, neutral site{% endif %}</a>
         {% if p.last.top %}<span class="muted small"><a href="../players/{{ p.last.top.slug }}.html">{{ p.last.top.name }}</a> led with {{ p.last.top.pts }}</span>{% endif %}</div>
       <div class="leader-card"><span class="lbl">Average score</span><span class="val">{{ p.ppg }}–{{ p.oppg }}</span>
         <span class="muted small">{{ p.n }} meeting{{ 's' if p.n != 1 }}</span></div>
       {% if p.biggest_win %}{% set w = p.biggest_win %}
       <div class="leader-card"><span class="lbl">Biggest win</span><span class="val">+{{ (w.bs - w.os) | int }}</span>
-        <a class="small" href="{{ w.href or '../games/' ~ w.game_id ~ '.html' }}">{{ w.bangor_score }}–{{ w.opp_score }}, {{ w.date | d }}</a></div>{% endif %}
+        <a class="small" href="{{ w.href or '../games/' ~ w.game_id ~ '.html' }}">{{ w.bangor_score }}–{{ w.opp_score }}, {{ w.date | d if w.date else w.season | replace('-', '–') }}</a></div>{% endif %}
       {% if p.worst_loss %}{% set l = p.worst_loss %}
       <div class="leader-card"><span class="lbl">Worst loss</span><span class="val">−{{ (l.os - l.bs) | int }}</span>
-        <a class="small" href="{{ l.href or '../games/' ~ l.game_id ~ '.html' }}">{{ l.bangor_score }}–{{ l.opp_score }}, {{ l.date | d }}</a></div>{% endif %}
+        <a class="small" href="{{ l.href or '../games/' ~ l.game_id ~ '.html' }}">{{ l.bangor_score }}–{{ l.opp_score }}, {{ l.date | d if l.date else l.season | replace('-', '–') }}</a></div>{% endif %}
     </div>
     {% if p.players %}
     <h3 class="sub">Current Cardinals vs {{ g.opponent }}</h3>

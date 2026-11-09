@@ -18,26 +18,11 @@
       <tr><td><a href="{{ o.slug }}.html">{{ o.name }}</a></td><td class="num">{{ o.w + o.l }}</td><td class="num">{{ o.w }}</td><td class="num">{{ o.l }}</td>
         <td class="num">{{ '%.3f' | format(o.w / (o.w + o.l)) | replace('0.', '.') }}</td>
         <td class="num hide-sm">{{ o.h2h.margin }}</td><td class="hide-sm nowrap">{{ o.h2h.streak }}</td>
-        <td class="nowrap"><span class="res {{ o.last.result }}">{{ o.last.result }} {{ o.last.bangor_score }}–{{ o.last.opp_score }}</span> <span class="muted small">{{ o.last.date | d }}</span></td></tr>
+        <td class="nowrap"><span class="res {{ o.last.result }}">{{ o.last.result }}{% if o.last.bangor_score != '' %} {{ o.last.bangor_score }}–{{ o.last.opp_score if o.last.opp_score != '' else '?' }}{% endif %}</span> <span class="muted small">{{ o.last.date | d if o.last.date else o.last.season | replace('-', '–') }}</span></td></tr>
       {% endfor %}
       </tbody>
     </table>
     </div>
   </div>
-  {% if others %}
-  <section class="card">
-    <h2>Also played</h2>
-    <p class="muted small">Opponents known only from the book's season results, which don't give every game's date and site, so they aren't in the records above.</p>
-    <table class="tbl compact">
-      <thead><tr><th>Opponent</th><th class="num">W–L</th><th>Seasons</th></tr></thead>
-      <tbody>
-      {% for o in others %}{% set ss = o.other | map(attribute='season') | unique | list %}
-      <tr><td><a href="{{ o.slug }}.html">{{ o.name }}</a></td><td class="num">{{ o.other_w }}–{{ o.other_l }}</td>
-        <td class="muted nowrap">{{ ss[0] | replace('-', '–') }}{% if ss | length > 1 %} to {{ ss[-1] | replace('-', '–') }}{% endif %}</td></tr>
-      {% endfor %}
-      </tbody>
-    </table>
-  </section>
-  {% endif %}
 </div>
 {% endblock %}

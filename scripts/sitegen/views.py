@@ -82,7 +82,7 @@ def margin_items(gs, xlabel, label_extremes=True):
         l += g["result"] == "L"
         m = int(g["bs"] - g["os"])
         tip = (f"{'+' if m > 0 else ('−' if m < 0 else '')}{abs(m)} · {g['result']} {g['bangor_score']}–{g['opp_score']}{' (OT)' if g['ot'] else ''}\n"
-               f"{'at' if g['site'] == 'away' else 'vs'} {g['opponent']}, {fmt_date(g['date'])}")
+               f"{'at' if g['site'] == 'away' else 'vs'} {g['opponent']}, {fmt_date(g['date']) or g['season'].replace('-', '–')}")
         items.append({"margin": m, "tip": tip, "record": f"{w}–{l}", "href": g.get("href") or f"../games/{g['game_id']}.html",
                       "xlabel": xlabel(g, items[-1] if items else None), "g": g})
     if label_extremes and items:
@@ -112,15 +112,17 @@ def head_to_head(o):
         ("Home", lambda g: g["site"] == "home"), ("Away", lambda g: g["site"] == "away"),
         ("Neutral", lambda g: g["site"] == "neutral"), ("Playoffs", lambda g: g["game_type"] == "playoff")]]
     out["splits"] = [s for s in out["splits"] if s[1]["n"]]
+    out["unsited"] = sum(not g.get("site") for g in gs)
+    sc = [g for g in gs if g.get("bs") is not None and g.get("os") is not None]  # a book game can lack a score
     if gs:
-        out["ppg"] = fmt_avg(sum(g["bs"] for g in gs), len(gs))
-        out["oppg"] = fmt_avg(sum(g["os"] for g in gs), len(gs))
-        margin = sum(g["bs"] - g["os"] for g in gs) / len(gs)
-        out["margin"] = f"{'+' if margin > 0 else ''}{margin:.1f}"
-        wins = [g for g in gs if g["result"] == "W"]
-        losses = [g for g in gs if g["result"] == "L"]
-        out["biggest_win"] = max(wins, key=lambda g: (g["bs"] - g["os"], g["date"])) if wins else None
-        out["worst_loss"] = max(losses, key=lambda g: (g["os"] - g["bs"], g["date"])) if losses else None
+        out["ppg"] = fmt_avg(sum(g["bs"] for g in sc), len(sc)) if sc else ""
+        out["oppg"] = fmt_avg(sum(g["os"] for g in sc), len(sc)) if sc else ""
+        margin = sum(g["bs"] - g["os"] for g in sc) / len(sc) if sc else 0
+        out["margin"] = f"{'+' if margin > 0 else ''}{margin:.1f}" if sc else ""
+        wins = [g for g in sc if g["result"] == "W"]
+        losses = [g for g in sc if g["result"] == "L"]
+        out["biggest_win"] = max(wins, key=lambda g: (g["bs"] - g["os"], g["season"], g["date"])) if wins else None
+        out["worst_loss"] = max(losses, key=lambda g: (g["os"] - g["bs"], g["season"], g["date"])) if losses else None
         # by coach, for the coaches who've faced them most
         by_coach = OrderedDict()
         for g in gs:
@@ -128,7 +130,7 @@ def head_to_head(o):
             if c:
                 by_coach.setdefault(c, []).append(g)
         out["coaches"] = [{"name": c, "slug": slug(c), **wl(v)} for c, v in by_coach.items()]
-        out["chart"] = charts.margin_chart(margin_items(gs, season_label_x),
+        out["chart"] = charts.margin_chart(margin_items(sc, season_label_x),
                                            f"Bangor's scoring margin in each game against {o['name']}")
     # Bangor players against them
     ids = {g["game_id"] for g in gs}
@@ -164,7 +166,7 @@ def opponent_index():
 
     def opp(g):
         o = opps.setdefault(g["opp_slug"], {"name": g["opponent"], "slug": g["opp_slug"], "w": 0, "l": 0, "games": [],
-                                            "upcoming": [], "other": [], "aka": []})
+                                            "upcoming": [], "aka": []})
         if g.get("aliased"):  # an older name for the school: shown as "earlier known as"
             if g["opponent"] not in o["aka"]:
                 o["aka"].append(g["opponent"])
@@ -172,26 +174,25 @@ def opponent_index():
             o["name"] = g["opponent"]  # the latest name wins
         return o
 
-    for g in sorted(list(games_by_id.values()) + DATED_RESULTS, key=lambda g: g["date"]):
+    # book results without a full date and site count too: they sort by season and the order the book prints them
+    dated = {id(g) for g in DATED_RESULTS}
+    book = []
+    for s, gs in RESULTS_ONLY.items():
+        if s in games_by_season:
+            continue
+        for i, g in enumerate(gs):
+            if id(g) in dated or g["opp_slug"] not in OPP_PAGES:
+                continue
+            book.append({**g, "game_id": "", "box_score": "none", "has_video": False,
+                         "href": f"../seasons/{s}.html#g{g['anchor']}", "order": f"{i:04d}"})
+    for g in sorted(list(games_by_id.values()) + DATED_RESULTS + book,
+                    key=lambda g: (g["season"], g.get("order") or g["date"])):
         o = opp(g)
         if g["result"] in ("W", "L"):
             o["w" if g["result"] == "W" else "l"] += 1
             o["games"].append(g)
         elif g.get("status") == "upcoming":
             o["upcoming"].append(g)
-    # book results without a full date and site: listed on the opponent page, but not in the head-to-head record
-    dated = {id(g) for g in DATED_RESULTS}
-    for s, gs in sorted(RESULTS_ONLY.items()):
-        if s in games_by_season:
-            continue
-        for g in gs:
-            if id(g) in dated or g["opp_slug"] not in OPP_PAGES:
-                continue
-            o = opp(g)
-            o["other"].append({**g, "href": f"../seasons/{s}.html#g{g['anchor']}"})
-    for o in opps.values():
-        o["other_w"] = sum(g["result"] == "W" for g in o["other"])
-        o["other_l"] = sum(g["result"] == "L" for g in o["other"])
     return opps
 
 
@@ -215,7 +216,7 @@ def game_preview(g, o):
     prior = [x for x in (o["games"] if o else []) if x["date"] < g["date"]]
     season_done = [x for x in games_by_season.get(g["season"], []) if x["date"] < g["date"] and x["result"] in ("W", "L")]
     out = {"n": len(prior), "season_rec": wl(season_done) if season_done else None,
-           "since": min([DATA_SEASONS[0]] + [x["season"] for x in DATED_RESULTS])}
+           "since": min([DATA_SEASONS[0]] + [s for s, gs in RESULTS_ONLY.items() if gs])}
     if not prior:
         return out
     rec = wl(prior)
@@ -231,15 +232,16 @@ def game_preview(g, o):
     last = prior[-1]
     top = max((r for r in pg_by_game.get(last.get("game_id"), []) if r.get("pts")), key=lambda r: r["pts"], default=None)
     out["last"] = {"g": last, "top": top and {"name": top["name"], "slug": top["slug"], "pts": fmt_int(top["pts"])}}
-    wins = [x for x in prior if x["result"] == "W"]
-    losses = [x for x in prior if x["result"] == "L"]
-    out["biggest_win"] = max(wins, key=lambda x: (x["bs"] - x["os"], x["date"])) if wins else None
-    out["worst_loss"] = max(losses, key=lambda x: (x["os"] - x["bs"], x["date"])) if losses else None
+    sc = [x for x in prior if x.get("bs") is not None and x.get("os") is not None]  # a book game can lack a score
+    wins = [x for x in sc if x["result"] == "W"]
+    losses = [x for x in sc if x["result"] == "L"]
+    out["biggest_win"] = max(wins, key=lambda x: (x["bs"] - x["os"], x["season"], x["date"])) if wins else None
+    out["worst_loss"] = max(losses, key=lambda x: (x["os"] - x["bs"], x["season"], x["date"])) if losses else None
     for k in ("biggest_win", "worst_loss"):  # already shown as the last meeting
         if out[k] is last:
             out[k] = None
-    out["ppg"] = fmt_avg(sum(x["bs"] for x in prior), len(prior))
-    out["oppg"] = fmt_avg(sum(x["os"] for x in prior), len(prior))
+    out["ppg"] = fmt_avg(sum(x["bs"] for x in sc), len(sc)) if sc else ""
+    out["oppg"] = fmt_avg(sum(x["os"] for x in sc), len(sc)) if sc else ""
     # current Cardinals' history against this opponent
     roster = current_roster(g)
     ids = {x.get("game_id") for x in prior}

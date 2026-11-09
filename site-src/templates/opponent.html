@@ -11,8 +11,6 @@
   {% if o.aka %}<p class="muted">Earlier known as {{ o.aka | join(' and ') }}</p>{% endif %}
   {% if o.games %}
   <div class="season-meta"><span class="big-rec">{{ o.w }}–{{ o.l }}</span><span>{{ o.w + o.l }} meeting{{ 's' if o.w + o.l != 1 }} since {{ o.games[0].season | replace('-', '–') }}</span></div>
-  {% elif o.other %}
-  <div class="season-meta"><span class="big-rec">{{ o.other_w }}–{{ o.other_l }}</span><span>{{ o.other | length }} meeting{{ 's' if o.other | length != 1 }} in the book's results</span></div>
   {% endif %}
 </div>
 <div class="wrap">
@@ -30,13 +28,13 @@
   <div class="leader-cards h2h-cards">
     <div class="leader-card"><span class="lbl">Current streak</span><span class="val">{{ h.streak[0] == 'W' and 'Won ' ~ h.streak[1:] or 'Lost ' ~ h.streak[1:] }}</span>
       <span class="muted">Longest win streak: {{ h.best_streak }}</span></div>
-    <div class="leader-card"><span class="lbl">Average score</span><span class="val">{{ h.ppg }}–{{ h.oppg }}</span><span class="muted">Margin {{ h.margin }} per game</span></div>
+    <div class="leader-card"><span class="lbl">Average score</span><span class="val">{{ h.ppg or '–' }}–{{ h.oppg or '–' }}</span><span class="muted">Margin {{ h.margin }} per game</span></div>
     {% if h.biggest_win %}{% set g = h.biggest_win %}
     <div class="leader-card"><span class="lbl">Biggest win</span><span class="val">+{{ (g.bs - g.os) | int }}</span>
-      <a class="small" href="{{ g.href or '../games/' ~ g.game_id ~ '.html' }}">{{ g.bangor_score }}–{{ g.opp_score }}, {{ g.date | d }}</a></div>{% endif %}
+      <a class="small" href="{{ g.href or '../games/' ~ g.game_id ~ '.html' }}">{{ g.bangor_score }}–{{ g.opp_score }}, {{ g.date | d if g.date else g.season | replace('-', '–') }}</a></div>{% endif %}
     {% if h.worst_loss %}{% set g = h.worst_loss %}
     <div class="leader-card"><span class="lbl">Worst loss</span><span class="val">−{{ (g.os - g.bs) | int }}</span>
-      <a class="small" href="{{ g.href or '../games/' ~ g.game_id ~ '.html' }}">{{ g.bangor_score }}–{{ g.opp_score }}, {{ g.date | d }}</a></div>{% endif %}
+      <a class="small" href="{{ g.href or '../games/' ~ g.game_id ~ '.html' }}">{{ g.bangor_score }}–{{ g.opp_score }}, {{ g.date | d if g.date else g.season | replace('-', '–') }}</a></div>{% endif %}
   </div>
 
   <div class="grid-2">
@@ -45,6 +43,7 @@
       <table class="tbl compact">
         {% for label, r in h.splits %}<tr><td>{{ label }}</td><td class="num strong">{{ r.w }}–{{ r.l }}</td></tr>{% endfor %}
       </table>
+      {% if h.unsited %}<p class="muted small">{{ 'The site isn’t known for any of these games.' if h.unsited == o.games | length else 'The site isn’t known for ' ~ h.unsited ~ ' of the ' ~ o.games | length ~ ' games, from seasons where the book gives only the scores.' }}</p>{% endif %}
     </section>
     <section class="card">
       <h2>Record by coach</h2>
@@ -106,37 +105,17 @@
       <thead><tr><th>Date</th><th>Season</th><th>Site</th><th>Result</th><th></th></tr></thead>
       <tbody>
       {% for g in o.games | reverse %}
-      <tr><td class="nowrap">{{ g.date | d }}</td><td><a href="../seasons/{{ g.season }}.html">{{ g.season | replace('-', '–') }}</a></td>
-        <td>{{ 'Away' if g.site == 'away' else ('Neutral' if g.site == 'neutral' else 'Home') }}{% if g.game_type == 'playoff' %} <span class="tag red">Playoff</span>{% endif %}</td>
-        <td class="res {{ g.result }} nowrap">{{ g.result }} {{ g.bangor_score }}–{{ g.opp_score }}{% if g.ot %} <small>(OT)</small>{% endif %}</td>
+      <tr>{% if g.date %}<td class="nowrap">{{ g.date | d }}</td><td><a href="../seasons/{{ g.season }}.html">{{ g.season | replace('-', '–') }}</a></td>{% else %}<td class="nowrap" colspan="2"><a href="../seasons/{{ g.season }}.html">{{ g.season | replace('-', '–') }}</a></td>{% endif %}
+        <td>{% if g.site %}{{ 'Away' if g.site == 'away' else ('Neutral' if g.site == 'neutral' else 'Home') }}{% endif %}{% if g.game_type == 'playoff' %} <span class="tag red">Playoff</span>{% endif %}</td>
+        <td class="res {{ g.result }} nowrap">{{ g.result }}{% if g.bangor_score != '' %} {{ g.bangor_score }}–{{ g.opp_score if g.opp_score != '' else '?' }}{% endif %}{% if g.ot %} <small>(OT)</small>{% endif %}</td>
         <td class="nowrap">{% if g.href %}<a class="muted small" href="{{ g.href }}">No box score</a>{% elif g.box_score != 'none' %}<a href="../games/{{ g.game_id }}.html">Box score</a>{% endif %}{% if g.has_video %} · <a class="film-link" href="../games/{{ g.game_id }}.html#film">▶ Film</a>{% endif %}</td></tr>
       {% endfor %}
       </tbody>
     </table>
     </div>
   </section>
-  {% elif not o.other %}
-  <p class="note">Bangor hasn't played {{ o.name }} in the game-by-game records.</p>
-  {% endif %}
-
-  {% if o.other %}
-  <section class="card">
-    <h2>{{ 'More meetings, from the book' if o.games else 'Meetings, from the book' }}</h2>
-    <div class="scroll">
-    <table class="tbl">
-      <thead><tr><th>Season</th><th>Game</th><th>Result</th><th class="hide-sm">Notes</th></tr></thead>
-      <tbody>
-      {% for g in o.other | reverse %}
-      <tr><td class="nowrap"><a href="../seasons/{{ g.season }}.html">{{ g.season | replace('-', '–') }}</a></td>
-        <td class="nowrap"><a href="{{ g.href }}">{% if g.date %}{{ g.date | d }}{% else %}Game {{ g.game }}{% endif %}</a>{% if o.aka and g.aliased %} <span class="muted small">as {{ g.opponent }}</span>{% endif %}</td>
-        <td class="res {{ g.result }} nowrap">{{ g.result }}{% if g.bangor_score != '' %} {{ g.bangor_score }}–{{ g.opp_score if g.opp_score != '' else '?' }}{% endif %}{% if g.ot %} <small>(OT)</small>{% endif %}{% if g.game_type == 'playoff' %} <span class="tag red">Playoff</span>{% endif %}</td>
-        <td class="hide-sm muted small">{{ g.note }}</td></tr>
-      {% endfor %}
-      </tbody>
-    </table>
-    </div>
-    <p class="note">These games come from <em>Cardinals on the Court</em> for seasons where the book doesn't give every game's date and site. They aren't counted in {{ 'the head-to-head record above' if o.games else 'a head-to-head record' }}.</p>
-  </section>
+  {% else %}
+  <p class="note">Bangor hasn't played {{ o.name }} in the records on this site.</p>
   {% endif %}
 </div>
 {% endblock %}

@@ -91,7 +91,7 @@ def season_pages(B):
                 ss["notes"], [(f"{w}–{l}", "Record in known games")], "Season"))
         render("season_results.html", f"seasons/{s}.html", ld=[ld_crumbs(("Seasons", "seasons/index.html"), (s.replace("-", "–"), f"seasons/{s}.html"))], s=ss, games=gs, w=w, l=l, sources=sources,
                dated=all(g.get("date") for g in gs), any_dates=any(g.get("date") for g in gs),
-               in_h2h=complete_schedule(s, gs),
+               in_h2h=True,
                any_sites=any(g.get("site") for g in gs), story=STORIES.get(s), **results_players(s, gs),
                roster=ROSTERS.get(s, []), team_photos=TEAM_PHOTOS.get(s, []),
                margin_svg=margin_svg, opp_pages=OPP_PAGES, player_pages=PLAYER_PAGES, **pager(s), **sh)

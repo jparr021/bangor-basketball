@@ -8,7 +8,11 @@ def history_pages():
     render("history.html", "history/index.html", seasons=[season_summary(h["season"]) for h in history],
            coaches=coach_list)
     gap_rows, wanted, gap_sum = gaps_data()
-    render("gaps.html", "history/gaps.html", rows=list(reversed(gap_rows)), wanted=wanted, sm=gap_sum, form_url=FORM_URL)
+    # names we can't pin down from the sources (overrides/identify.csv), for alumni to help with
+    ipath = os.path.join(OV, "identify.csv")
+    identify = [{**r, "href": f"../seasons/{r['season']}.html"} for r in load(ipath)] if os.path.exists(ipath) else []
+    render("gaps.html", "history/gaps.html", rows=list(reversed(gap_rows)), wanted=wanted, sm=gap_sum, form_url=FORM_URL,
+           identify=identify)
     chrono = sorted(coach_list, key=lambda c: c["seasons"][0])
     for i, c in enumerate(chrono):
         rec = f"{c['w']}–{c['l']}" + (f"–{c['t']}" if c["t"] else "")

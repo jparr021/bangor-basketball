@@ -66,6 +66,12 @@ class Lines(unittest.TestCase):
                 self.assertTrue(r["name"].strip())
                 self.assertIn(r["grade"], ("", "7", "8", "9", "10", "11", "12"))
 
+    def test_identify(self):
+        for i, r in enumerate(rows("identify.csv")[1], 2):
+            with self.subTest(line=i, name=r["name"]):
+                self.assertRegex(r["season"], SEASON)
+                self.assertTrue(r["name"].strip() and r["question"].strip())
+
     def test_same_names(self):
         roster = rows("rosters.csv")[1]
         on_rosters = ({(r["season"], r["name"].strip()) for r in roster}  # "D. Hussa #21" names one numbered line

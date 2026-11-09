@@ -8,7 +8,7 @@
   <h1>Help fill in the gaps</h1>
   <p class="lede">Bangor has played basketball since {{ sm.first[:4] }}, but most of those seasons survive only as a won-lost record. Every season page from before 2002 was built from an old game program, a yearbook page or a newspaper clipping. If you have something like that in a closet or a scrapbook, it can add a season to this site.</p>
   {% if form_url %}<p><a class="btn live big" href="{{ form_url }}" target="_blank" rel="noopener">Share something →</a></p>{% endif %}
-  <nav class="tabs"><a href="#wanted">Most wanted</a><a href="#share">What helps</a><a href="#seasons">Season by season</a></nav>
+  <nav class="tabs"><a href="#wanted">Most wanted</a>{% if identify %}<a href="#identify">Who's who</a>{% endif %}<a href="#share">What helps</a><a href="#seasons">Season by season</a></nav>
 </div>
 
 <div class="wrap">
@@ -37,6 +37,25 @@
       </tbody>
     </table>
     </div>
+  </section>
+  {% endif %}
+
+  {% if identify %}
+  <section class="card" id="identify">
+    <h2>Who's who</h2>
+    <p class="muted">Old team photos often list players by first initial, and sometimes two players share one. If you know who's who, it helps put each player's seasons on the right page.</p>
+    <div class="scroll">
+    <table class="tbl">
+      <thead><tr><th>Season</th><th>Name</th><th>The question</th></tr></thead>
+      <tbody>
+      {% for r in identify %}
+      <tr><td class="nowrap"><a href="{{ r.href }}">{{ r.season | replace('-', '–') }}</a></td><td class="nowrap strong">{{ r.name }}</td><td>{{ r.question }}</td></tr>
+      {% endfor %}
+      </tbody>
+    </table>
+    </div>
+    <p class="muted small">Many more players from before 2000 are listed only by an initial. If you know a first name, that helps too.</p>
+    {% if form_url %}<p><a class="btn" href="{{ form_url }}" target="_blank" rel="noopener">Tell us who's who →</a></p>{% endif %}
   </section>
   {% endif %}
 

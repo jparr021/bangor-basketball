@@ -84,7 +84,8 @@ def clipping_details():
 # Rosters from game programs (overrides/rosters.csv), for seasons with no player stats: number, name,
 # position, height and grade, with the class year worked out from the grade.
 # Two different players with the same name (overrides/same_names.csv: season, name, page): the roster
-# lines for that season go to their own player page instead of sharing one.
+# lines for that season go to their own player page instead of sharing one. A name like "D. Hussa #21"
+# matches only the roster line with that number, for two players with the same name in one season.
 SAME_NAMES = {}
 if os.path.exists(os.path.join(OV, "same_names.csv")):
     for r in load(os.path.join(OV, "same_names.csv")):
@@ -94,7 +95,9 @@ if os.path.exists(os.path.join(OV, "rosters.csv")):
     for r in load(os.path.join(OV, "rosters.csv")):
         gr = num(r.get("grade"))
         r["class_year"] = int(r["season"][:4]) + 1 + (12 - int(gr)) if gr else ""
-        r["slug"] = SAME_NAMES.get((r["season"], r["name"].strip())) or slug(r["name"])
+        # "D. Hussa #21" in same_names tells apart two players with the same name in one season
+        r["slug"] = (SAME_NAMES.get((r["season"], f"{r['name'].strip()} #{r['number'].strip()}"))
+                     or SAME_NAMES.get((r["season"], r["name"].strip())) or slug(r["name"]))
         ROSTERS[r["season"]].append(r)
     for rs in ROSTERS.values():
         # varsity before the second team, numbered players by number, then the rest in photo order

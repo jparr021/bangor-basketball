@@ -4850,6 +4850,13 @@
     },
     {
      "value": 152,
+     "name": "Chris Tiona",
+     "player": "chris-tiona",
+     "season": "1984-85",
+     "gp": 19
+    },
+    {
+     "value": 152,
      "name": "Caleb Miedema",
      "player": "caleb-miedema",
      "season": "2016-17",
@@ -5168,6 +5175,13 @@
      "gp": 25
     },
     {
+     "value": 58,
+     "name": "Todd Oliver",
+     "player": "todd-oliver",
+     "season": "1984-85",
+     "gp": 19
+    },
+    {
      "value": 57,
      "name": "Caleb Miedema",
      "player": "caleb-miedema",
@@ -5264,13 +5278,6 @@
      "player": "drew-johnson",
      "season": "2015-16",
      "gp": 27
-    },
-    {
-     "value": 41,
-     "name": "Gunner Ellenburg",
-     "player": "gunner-ellenburg",
-     "season": "2021-22",
-     "gp": 30
     }
    ],
    "blk": [
@@ -5755,6 +5762,13 @@
      "gp": 25
     },
     {
+     "value": 308,
+     "name": "Todd Oliver",
+     "player": "todd-oliver",
+     "season": "1984-85",
+     "gp": 19
+    },
+    {
      "value": 306,
      "name": "Zane Langrehr",
      "player": "zane-langrehr",
@@ -5795,13 +5809,6 @@
      "player": "hank-reader",
      "season": "2020-21",
      "gp": 21
-    },
-    {
-     "value": 271,
-     "name": "Drew Johnson",
-     "player": "drew-johnson",
-     "season": "2017-18",
-     "gp": 28
     }
    ],
    "tpm": [
@@ -6578,6 +6585,13 @@
     },
     {
      "value": 66,
+     "name": "Dave Schaller",
+     "player": "dave-schaller",
+     "season": "1984-85",
+     "gp": 19
+    },
+    {
+     "value": 66,
      "name": "Dayne Langrehr",
      "player": "dayne-langrehr",
      "season": "2024-25",
@@ -6596,6 +6610,13 @@
      "player": "chase-horstman",
      "season": "2023-24",
      "gp": 24
+    },
+    {
+     "value": 63,
+     "name": "Chris Tiona",
+     "player": "chris-tiona",
+     "season": "1984-85",
+     "gp": 19
     },
     {
      "value": 62,
@@ -6659,6 +6680,13 @@
      "player": "brody-edwards",
      "season": "2024-25",
      "gp": 26
+    },
+    {
+     "value": 55,
+     "name": "Steve Koch",
+     "player": "steve-koch",
+     "season": "1984-85",
+     "gp": 19
     },
     {
      "value": 55,
@@ -6904,12 +6932,12 @@
      "detail": "294 pts / 21 G"
     },
     {
-     "value": 13.7727,
-     "name": "Jack Reader",
-     "player": "jack-reader",
-     "season": "2014-15",
-     "gp": 22,
-     "detail": "303 pts / 22 G"
+     "value": 13.9474,
+     "name": "Todd Oliver",
+     "player": "todd-oliver",
+     "season": "1984-85",
+     "gp": 19,
+     "detail": "265 pts / 19 G"
     }
    ],
    "fg_pct": [
@@ -13940,6 +13968,11 @@
      "detail": "19-3"
     },
     {
+     "value": 163,
+     "season": "1984-85",
+     "detail": "0-0"
+    },
+    {
      "value": 80,
      "season": "1941-42",
      "detail": "9-8"
@@ -14015,6 +14048,11 @@
      "value": 352,
      "season": "2024-25",
      "detail": "11-15"
+    },
+    {
+     "value": 344,
+     "season": "1984-85",
+     "detail": "0-0"
     },
     {
      "value": 307,
@@ -14099,6 +14137,11 @@
      "detail": "17-7"
     },
     {
+     "value": 569,
+     "season": "1984-85",
+     "detail": "0-0"
+    },
+    {
      "value": 561,
      "season": "2002-03",
      "detail": "22-2"
@@ -14176,6 +14219,11 @@
      "detail": "17-7"
     },
     {
+     "value": 153,
+     "season": "1984-85",
+     "detail": "0-0"
+    },
+    {
      "value": 119,
      "season": "1997-98",
      "detail": "13-8"
@@ -14251,6 +14299,11 @@
      "value": 175,
      "season": "1997-98",
      "detail": "13-8"
+    },
+    {
+     "value": 174,
+     "season": "1984-85",
+     "detail": "0-0"
     },
     {
      "value": 167,
@@ -14405,6 +14458,11 @@
      "value": 0.3831,
      "season": "2024-25",
      "detail": "570-1488"
+    },
+    {
+     "value": 0.3638,
+     "season": "1984-85",
+     "detail": "366-1006"
     }
    ],
    "tp_pct": [
@@ -14559,6 +14617,11 @@
      "value": 0.5737,
      "season": "1997-98",
      "detail": "249-434"
+    },
+    {
+     "value": 0.4738,
+     "season": "1984-85",
+     "detail": "163-344"
     },
     {
      "value": 0.381,

@@ -207,7 +207,8 @@ def top(rows, value, label, n=25, reverse=True):
     for v, r in vals:
         if len(out) >= n and v != out[-1]["value"]:
             break
-        out.append({"value": round(v, 4) if isinstance(v, float) and not v.is_integer() else i(v), **label(r)})
+        # 6 places, so a percentage shown to one decimal isn't rounded twice (57-130 is 43.8%, not 43.9%)
+        out.append({"value": round(v, 6) if isinstance(v, float) and not v.is_integer() else i(v), **label(r)})
     return out
 
 

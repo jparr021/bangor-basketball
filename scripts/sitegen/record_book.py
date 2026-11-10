@@ -174,7 +174,8 @@ def merged(scope, period, stat, kind):
     for h in hist_records:
         if (h["scope"], h["period"], h["stat"]) != key or h["value"] == "":
             continue
-        dup = any(e.get("name") == h["name"] and (e.get("date") == h["date"] if h["date"] else e.get("season") == h["season"])
+        # the same mark already worked out from the stats (a team mark has no name, so it matches on the season or date)
+        dup = any((e.get("name") or "") == (h["name"] or "") and (e.get("date") == h["date"] if h["date"] else e.get("season") == h["season"])
                   for e in entries)
         if dup:
             continue

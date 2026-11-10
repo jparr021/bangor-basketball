@@ -6733,7 +6733,7 @@
    ],
    "ppg": [
     {
-     "value": 25.2917,
+     "value": 25.291667,
      "name": "Canon O'Heron",
      "player": "canon-oheron",
      "season": "2014-15",
@@ -6741,7 +6741,7 @@
      "detail": "607 pts / 24 G"
     },
     {
-     "value": 23.4815,
+     "value": 23.481481,
      "name": "Grant Manke",
      "player": "grant-manke",
      "season": "2018-19",
@@ -6749,7 +6749,7 @@
      "detail": "634 pts / 27 G"
     },
     {
-     "value": 22.6538,
+     "value": 22.653846,
      "name": "Grant Manke",
      "player": "grant-manke",
      "season": "2019-20",
@@ -6757,7 +6757,7 @@
      "detail": "589 pts / 26 G"
     },
     {
-     "value": 21.5833,
+     "value": 21.583333,
      "name": "Brad Skaer",
      "player": "brad-skaer",
      "season": "2001-02",
@@ -6765,7 +6765,7 @@
      "detail": "518 pts / 24 G"
     },
     {
-     "value": 21.4615,
+     "value": 21.461538,
      "name": "Hayden Massman",
      "player": "hayden-massman",
      "season": "2025-26",
@@ -6773,7 +6773,7 @@
      "detail": "558 pts / 26 G"
     },
     {
-     "value": 20.9565,
+     "value": 20.956522,
      "name": "Connor Kaiser",
      "player": "connor-kaiser",
      "season": "2011-12",
@@ -6797,7 +6797,7 @@
      "detail": "489 pts / 24 G"
     },
     {
-     "value": 19.4783,
+     "value": 19.478261,
      "name": "Andy Kick",
      "player": "andy-kick",
      "season": "1987-88",
@@ -6805,7 +6805,7 @@
      "detail": "448 pts / 23 G"
     },
     {
-     "value": 18.6818,
+     "value": 18.681818,
      "name": "Canon O'Heron",
      "player": "canon-oheron",
      "season": "2013-14",
@@ -6813,7 +6813,7 @@
      "detail": "411 pts / 22 G"
     },
     {
-     "value": 18.3333,
+     "value": 18.333333,
      "name": "Hank Reader",
      "player": "hank-reader",
      "season": "2020-21",
@@ -6821,7 +6821,7 @@
      "detail": "385 pts / 21 G"
     },
     {
-     "value": 18.1905,
+     "value": 18.190476,
      "name": "Connor Kaiser",
      "player": "connor-kaiser",
      "season": "2010-11",
@@ -6837,7 +6837,7 @@
      "detail": "452 pts / 25 G"
     },
     {
-     "value": 17.8889,
+     "value": 17.888889,
      "name": "Chris Tiona",
      "player": "chris-tiona",
      "season": "1985-86",
@@ -6845,7 +6845,7 @@
      "detail": "322 pts / 18 G"
     },
     {
-     "value": 17.6667,
+     "value": 17.666667,
      "name": "Dustin McDonald",
      "player": "dustin-mcdonald",
      "season": "2021-22",
@@ -6853,7 +6853,7 @@
      "detail": "530 pts / 30 G"
     },
     {
-     "value": 17.5185,
+     "value": 17.518519,
      "name": "Luke Reader",
      "player": "luke-reader",
      "season": "2015-16",
@@ -6869,7 +6869,7 @@
      "detail": "432 pts / 25 G"
     },
     {
-     "value": 16.4091,
+     "value": 16.409091,
      "name": "Zane Langrehr",
      "player": "zane-langrehr",
      "season": "2020-21",
@@ -6877,7 +6877,7 @@
      "detail": "361 pts / 22 G"
     },
     {
-     "value": 15.9286,
+     "value": 15.928571,
      "name": "Luke Reader",
      "player": "luke-reader",
      "season": "2017-18",
@@ -6893,7 +6893,7 @@
      "detail": "398 pts / 25 G"
     },
     {
-     "value": 15.8261,
+     "value": 15.826087,
      "name": "Canon O'Heron",
      "player": "canon-oheron",
      "season": "2012-13",
@@ -6909,7 +6909,7 @@
      "detail": "371 pts / 25 G"
     },
     {
-     "value": 14.6667,
+     "value": 14.666667,
      "name": "Jack Reader",
      "player": "jack-reader",
      "season": "2015-16",
@@ -6917,7 +6917,7 @@
      "detail": "396 pts / 27 G"
     },
     {
-     "value": 14.5385,
+     "value": 14.538462,
      "name": "Zane Langrehr",
      "player": "zane-langrehr",
      "season": "2019-20",
@@ -6935,7 +6935,7 @@
    ],
    "fg_pct": [
     {
-     "value": 0.7389,
+     "value": 0.738872,
      "name": "Grant Manke",
      "player": "grant-manke",
      "season": "2019-20",
@@ -6943,7 +6943,7 @@
      "detail": "249-337"
     },
     {
-     "value": 0.6757,
+     "value": 0.675676,
      "name": "Ben Williams",
      "player": "ben-williams",
      "season": "2001-02",
@@ -6951,7 +6951,7 @@
      "detail": "25-37"
     },
     {
-     "value": 0.6757,
+     "value": 0.675676,
      "name": "Willis Pollock",
      "player": "willis-pollock",
      "season": "2022-23",
@@ -6959,7 +6959,7 @@
      "detail": "25-37"
     },
     {
-     "value": 0.6719,
+     "value": 0.671875,
      "name": "Grant Manke",
      "player": "grant-manke",
      "season": "2016-17",
@@ -6967,7 +6967,7 @@
      "detail": "43-64"
     },
     {
-     "value": 0.6676,
+     "value": 0.667553,
      "name": "Grant Manke",
      "player": "grant-manke",
      "season": "2018-19",
@@ -6975,7 +6975,7 @@
      "detail": "251-376"
     },
     {
-     "value": 0.661,
+     "value": 0.661017,
      "name": "Will Reader",
      "player": "will-reader",
      "season": "2020-21",
@@ -6983,7 +6983,7 @@
      "detail": "78-118"
     },
     {
-     "value": 0.6414,
+     "value": 0.64135,
      "name": "Grant Manke",
      "player": "grant-manke",
      "season": "2017-18",
@@ -6999,7 +6999,7 @@
      "detail": "20-32"
     },
     {
-     "value": 0.6159,
+     "value": 0.615917,
      "name": "Jack Reader",
      "player": "jack-reader",
      "season": "2015-16",
@@ -7007,7 +7007,7 @@
      "detail": "178-289"
     },
     {
-     "value": 0.6066,
+     "value": 0.606557,
      "name": "Will Reader",
      "player": "will-reader",
      "season": "2021-22",
@@ -7015,7 +7015,7 @@
      "detail": "148-244"
     },
     {
-     "value": 0.5991,
+     "value": 0.599119,
      "name": "Chris Tiona",
      "player": "chris-tiona",
      "season": "1985-86",
@@ -7023,7 +7023,7 @@
      "detail": "136-227"
     },
     {
-     "value": 0.5877,
+     "value": 0.587719,
      "name": "Ashton Michek",
      "player": "ashton-michek",
      "season": "2021-22",
@@ -7031,7 +7031,7 @@
      "detail": "67-114"
     },
     {
-     "value": 0.5857,
+     "value": 0.585714,
      "name": "Garrett Krueger",
      "player": "garrett-krueger",
      "season": "2017-18",
@@ -7039,7 +7039,7 @@
      "detail": "41-70"
     },
     {
-     "value": 0.5833,
+     "value": 0.583333,
      "name": "Theo Muellenberg",
      "player": "theo-muellenberg",
      "season": "2016-17",
@@ -7047,7 +7047,7 @@
      "detail": "28-48"
     },
     {
-     "value": 0.5731,
+     "value": 0.573141,
      "name": "Canon O'Heron",
      "player": "canon-oheron",
      "season": "2014-15",
@@ -7055,7 +7055,7 @@
      "detail": "239-417"
     },
     {
-     "value": 0.5603,
+     "value": 0.560284,
      "name": "Will Reader",
      "player": "will-reader",
      "season": "2019-20",
@@ -7063,7 +7063,7 @@
      "detail": "79-141"
     },
     {
-     "value": 0.5556,
+     "value": 0.555556,
      "name": "Andy Kick",
      "player": "andy-kick",
      "season": "1986-87",
@@ -7071,7 +7071,7 @@
      "detail": "65-117"
     },
     {
-     "value": 0.5538,
+     "value": 0.553797,
      "name": "Luke Reader",
      "player": "luke-reader",
      "season": "2015-16",
@@ -7087,7 +7087,7 @@
      "detail": "33-60"
     },
     {
-     "value": 0.5473,
+     "value": 0.547278,
      "name": "Luke Reader",
      "player": "luke-reader",
      "season": "2016-17",
@@ -7095,7 +7095,7 @@
      "detail": "191-349"
     },
     {
-     "value": 0.5464,
+     "value": 0.546429,
      "name": "Hank Reader",
      "player": "hank-reader",
      "season": "2020-21",
@@ -7103,7 +7103,7 @@
      "detail": "153-280"
     },
     {
-     "value": 0.5441,
+     "value": 0.544118,
      "name": "Chris Tiona",
      "player": "chris-tiona",
      "season": "1986-87",
@@ -7111,7 +7111,7 @@
      "detail": "111-204"
     },
     {
-     "value": 0.5417,
+     "value": 0.541667,
      "name": "Garrett Krueger",
      "player": "garrett-krueger",
      "season": "2016-17",
@@ -7119,7 +7119,7 @@
      "detail": "26-48"
     },
     {
-     "value": 0.5385,
+     "value": 0.538462,
      "name": "Cade Amborn",
      "player": "cade-amborn",
      "season": "2016-17",
@@ -7127,7 +7127,7 @@
      "detail": "70-130"
     },
     {
-     "value": 0.5333,
+     "value": 0.533333,
      "name": "Brian Clements",
      "player": "brian-clements",
      "season": "1986-87",
@@ -7137,7 +7137,7 @@
    ],
    "tp_pct": [
     {
-     "value": 0.5053,
+     "value": 0.505263,
      "name": "Andy Kick",
      "player": "andy-kick",
      "season": "1987-88",
@@ -7145,7 +7145,7 @@
      "detail": "48-95"
     },
     {
-     "value": 0.4656,
+     "value": 0.465649,
      "name": "Luke Reader",
      "player": "luke-reader",
      "season": "2015-16",
@@ -7153,7 +7153,7 @@
      "detail": "61-131"
     },
     {
-     "value": 0.4605,
+     "value": 0.460526,
      "name": "Hank Reader",
      "player": "hank-reader",
      "season": "2020-21",
@@ -7169,7 +7169,7 @@
      "detail": "56-125"
     },
     {
-     "value": 0.4437,
+     "value": 0.443662,
      "name": "Luke Reader",
      "player": "luke-reader",
      "season": "2016-17",
@@ -7177,7 +7177,7 @@
      "detail": "63-142"
     },
     {
-     "value": 0.4167,
+     "value": 0.416667,
      "name": "Tanner Jones",
      "player": "tanner-jones",
      "season": "2022-23",
@@ -7185,7 +7185,7 @@
      "detail": "70-168"
     },
     {
-     "value": 0.4156,
+     "value": 0.415584,
      "name": "Kyle Schroeder",
      "player": "kyle-schroeder",
      "season": "2001-02",
@@ -7193,7 +7193,7 @@
      "detail": "32-77"
     },
     {
-     "value": 0.4124,
+     "value": 0.412371,
      "name": "Zane Langrehr",
      "player": "zane-langrehr",
      "season": "2020-21",
@@ -7201,7 +7201,7 @@
      "detail": "40-97"
     },
     {
-     "value": 0.4067,
+     "value": 0.406667,
      "name": "Dustin McDonald",
      "player": "dustin-mcdonald",
      "season": "2021-22",
@@ -7209,7 +7209,7 @@
      "detail": "61-150"
     },
     {
-     "value": 0.3985,
+     "value": 0.398496,
      "name": "Zane Langrehr",
      "player": "zane-langrehr",
      "season": "2019-20",
@@ -7217,7 +7217,7 @@
      "detail": "53-133"
     },
     {
-     "value": 0.3929,
+     "value": 0.392857,
      "name": "Troy Bolcerek",
      "player": "troy-bolcerek",
      "season": "2002-03",
@@ -7225,7 +7225,7 @@
      "detail": "33-84"
     },
     {
-     "value": 0.3929,
+     "value": 0.392857,
      "name": "Dustin McDonald",
      "player": "dustin-mcdonald",
      "season": "2022-23",
@@ -7233,7 +7233,7 @@
      "detail": "44-112"
     },
     {
-     "value": 0.3895,
+     "value": 0.389474,
      "name": "Canon O'Heron",
      "player": "canon-oheron",
      "season": "2014-15",
@@ -7241,7 +7241,7 @@
      "detail": "37-95"
     },
     {
-     "value": 0.3894,
+     "value": 0.389381,
      "name": "Brody Edwards",
      "player": "brody-edwards",
      "season": "2024-25",
@@ -7249,7 +7249,7 @@
      "detail": "44-113"
     },
     {
-     "value": 0.3791,
+     "value": 0.379085,
      "name": "Zane Langrehr",
      "player": "zane-langrehr",
      "season": "2018-19",
@@ -7257,7 +7257,7 @@
      "detail": "58-153"
     },
     {
-     "value": 0.3493,
+     "value": 0.349315,
      "name": "Brody Edwards",
      "player": "brody-edwards",
      "season": "2025-26",
@@ -7265,7 +7265,7 @@
      "detail": "51-146"
     },
     {
-     "value": 0.3467,
+     "value": 0.346667,
      "name": "Brad Skaer",
      "player": "brad-skaer",
      "season": "2001-02",
@@ -7273,7 +7273,7 @@
      "detail": "52-150"
     },
     {
-     "value": 0.3232,
+     "value": 0.323232,
      "name": "Drew Johnson",
      "player": "drew-johnson",
      "season": "2017-18",
@@ -7281,7 +7281,7 @@
      "detail": "32-99"
     },
     {
-     "value": 0.3226,
+     "value": 0.322581,
      "name": "Caleb Miedema",
      "player": "caleb-miedema",
      "season": "2016-17",
@@ -7289,7 +7289,7 @@
      "detail": "30-93"
     },
     {
-     "value": 0.3214,
+     "value": 0.321429,
      "name": "Jaymeson Freit",
      "player": "jaymeson-freit",
      "season": "2018-19",
@@ -7297,7 +7297,7 @@
      "detail": "27-84"
     },
     {
-     "value": 0.3061,
+     "value": 0.306122,
      "name": "Drew Johnson",
      "player": "drew-johnson",
      "season": "2015-16",
@@ -7305,7 +7305,7 @@
      "detail": "30-98"
     },
     {
-     "value": 0.3049,
+     "value": 0.304878,
      "name": "Ryan Schroeder",
      "player": "ryan-schroeder",
      "season": "1997-98",
@@ -7313,7 +7313,7 @@
      "detail": "25-82"
     },
     {
-     "value": 0.3005,
+     "value": 0.300518,
      "name": "Hayden Massman",
      "player": "hayden-massman",
      "season": "2025-26",
@@ -7321,7 +7321,7 @@
      "detail": "58-193"
     },
     {
-     "value": 0.2984,
+     "value": 0.298387,
      "name": "Eli Tucker",
      "player": "eli-tucker",
      "season": "2024-25",
@@ -7329,7 +7329,7 @@
      "detail": "37-124"
     },
     {
-     "value": 0.2941,
+     "value": 0.294118,
      "name": "Tanner Jones",
      "player": "tanner-jones",
      "season": "2021-22",
@@ -7347,7 +7347,7 @@
      "detail": "23-25"
     },
     {
-     "value": 0.8706,
+     "value": 0.870588,
      "name": "Luke Reader",
      "player": "luke-reader",
      "season": "2016-17",
@@ -7355,7 +7355,7 @@
      "detail": "74-85"
     },
     {
-     "value": 0.8529,
+     "value": 0.852941,
      "name": "Tanner Jones",
      "player": "tanner-jones",
      "season": "2020-21",
@@ -7363,7 +7363,7 @@
      "detail": "29-34"
     },
     {
-     "value": 0.8293,
+     "value": 0.829268,
      "name": "Hank Reader",
      "player": "hank-reader",
      "season": "2019-20",
@@ -7371,7 +7371,7 @@
      "detail": "34-41"
     },
     {
-     "value": 0.8108,
+     "value": 0.810811,
      "name": "Luke Reader",
      "player": "luke-reader",
      "season": "2017-18",
@@ -7379,7 +7379,7 @@
      "detail": "60-74"
     },
     {
-     "value": 0.8052,
+     "value": 0.805195,
      "name": "Luke Reader",
      "player": "luke-reader",
      "season": "2015-16",
@@ -7387,7 +7387,7 @@
      "detail": "62-77"
     },
     {
-     "value": 0.7949,
+     "value": 0.794872,
      "name": "Zane Langrehr",
      "player": "zane-langrehr",
      "season": "2020-21",
@@ -7395,7 +7395,7 @@
      "detail": "31-39"
     },
     {
-     "value": 0.7945,
+     "value": 0.794521,
      "name": "Justin Peterson",
      "player": "justin-peterson",
      "season": "1997-98",
@@ -7403,7 +7403,7 @@
      "detail": "58-73"
     },
     {
-     "value": 0.7656,
+     "value": 0.765625,
      "name": "Hank Reader",
      "player": "hank-reader",
      "season": "2018-19",
@@ -7411,7 +7411,7 @@
      "detail": "49-64"
     },
     {
-     "value": 0.7642,
+     "value": 0.764228,
      "name": "Andy Kick",
      "player": "andy-kick",
      "season": "1987-88",
@@ -7419,7 +7419,7 @@
      "detail": "94-123"
     },
     {
-     "value": 0.7627,
+     "value": 0.762712,
      "name": "Tanner Jones",
      "player": "tanner-jones",
      "season": "2021-22",
@@ -7435,7 +7435,7 @@
      "detail": "19-25"
     },
     {
-     "value": 0.7544,
+     "value": 0.754386,
      "name": "Hank Reader",
      "player": "hank-reader",
      "season": "2020-21",
@@ -7443,7 +7443,7 @@
      "detail": "43-57"
     },
     {
-     "value": 0.7538,
+     "value": 0.753769,
      "name": "Brad Skaer",
      "player": "brad-skaer",
      "season": "2001-02",
@@ -7451,7 +7451,7 @@
      "detail": "150-199"
     },
     {
-     "value": 0.7534,
+     "value": 0.753425,
      "name": "Hayden Massman",
      "player": "hayden-massman",
      "season": "2024-25",
@@ -7459,7 +7459,7 @@
      "detail": "55-73"
     },
     {
-     "value": 0.7525,
+     "value": 0.752475,
      "name": "Caleb Miedema",
      "player": "caleb-miedema",
      "season": "2016-17",
@@ -7467,7 +7467,7 @@
      "detail": "76-101"
     },
     {
-     "value": 0.7333,
+     "value": 0.733333,
      "name": "Andy Kick",
      "player": "andy-kick",
      "season": "1985-86",
@@ -7475,7 +7475,7 @@
      "detail": "22-30"
     },
     {
-     "value": 0.7297,
+     "value": 0.72973,
      "name": "Randy Tenner",
      "player": "randy-tenner",
      "season": "1986-87",
@@ -7483,7 +7483,7 @@
      "detail": "27-37"
     },
     {
-     "value": 0.7222,
+     "value": 0.722222,
      "name": "Drew Johnson",
      "player": "drew-johnson",
      "season": "2017-18",
@@ -7491,7 +7491,7 @@
      "detail": "52-72"
     },
     {
-     "value": 0.7115,
+     "value": 0.711538,
      "name": "Grant Manke",
      "player": "grant-manke",
      "season": "2017-18",
@@ -7499,7 +7499,7 @@
      "detail": "74-104"
     },
     {
-     "value": 0.7111,
+     "value": 0.711111,
      "name": "Grant Manke",
      "player": "grant-manke",
      "season": "2018-19",
@@ -7507,7 +7507,7 @@
      "detail": "128-180"
     },
     {
-     "value": 0.7073,
+     "value": 0.707317,
      "name": "Dustin McDonald",
      "player": "dustin-mcdonald",
      "season": "2020-21",
@@ -7515,7 +7515,7 @@
      "detail": "29-41"
     },
     {
-     "value": 0.7027,
+     "value": 0.702703,
      "name": "Kyle Schroeder",
      "player": "kyle-schroeder",
      "season": "2002-03",
@@ -7523,7 +7523,7 @@
      "detail": "26-37"
     },
     {
-     "value": 0.697,
+     "value": 0.69697,
      "name": "Willis Pollock",
      "player": "willis-pollock",
      "season": "2023-24",
@@ -7531,7 +7531,7 @@
      "detail": "23-33"
     },
     {
-     "value": 0.695,
+     "value": 0.695035,
      "name": "Hayden Massman",
      "player": "hayden-massman",
      "season": "2025-26",
@@ -9716,7 +9716,7 @@
    ],
    "fg_pct": [
     {
-     "value": 0.6854,
+     "value": 0.685404,
      "name": "Grant Manke",
      "player": "grant-manke",
      "season": "2016-17 to 2019-20",
@@ -9724,7 +9724,7 @@
      "detail": "695-1014"
     },
     {
-     "value": 0.6028,
+     "value": 0.602767,
      "name": "Will Reader",
      "player": "will-reader",
      "season": "2018-19 to 2021-22",
@@ -9732,7 +9732,7 @@
      "detail": "305-506"
     },
     {
-     "value": 0.5763,
+     "value": 0.576271,
      "name": "Willis Pollock",
      "player": "willis-pollock",
      "season": "2021-22 to 2023-24",
@@ -9740,7 +9740,7 @@
      "detail": "68-118"
     },
     {
-     "value": 0.5678,
+     "value": 0.567797,
      "name": "Garrett Krueger",
      "player": "garrett-krueger",
      "season": "2016-17 to 2017-18",
@@ -9748,7 +9748,7 @@
      "detail": "67-118"
     },
     {
-     "value": 0.5584,
+     "value": 0.558442,
      "name": "Ashton Michek",
      "player": "ashton-michek",
      "season": "2019-20 to 2021-22",
@@ -9756,7 +9756,7 @@
      "detail": "86-154"
     },
     {
-     "value": 0.5391,
+     "value": 0.539076,
      "name": "Luke Reader",
      "player": "luke-reader",
      "season": "2014-15 to 2017-18",
@@ -9764,7 +9764,7 @@
      "detail": "607-1126"
     },
     {
-     "value": 0.5223,
+     "value": 0.522293,
      "name": "Cade Amborn",
      "player": "cade-amborn",
      "season": "2016-17 to 2017-18",
@@ -9772,7 +9772,7 @@
      "detail": "164-314"
     },
     {
-     "value": 0.5165,
+     "value": 0.516524,
      "name": "Dustin McDonald",
      "player": "dustin-mcdonald",
      "season": "2019-20 to 2022-23",
@@ -9780,7 +9780,7 @@
      "detail": "422-817"
     },
     {
-     "value": 0.5022,
+     "value": 0.502222,
      "name": "Chase Horstman",
      "player": "chase-horstman",
      "season": "2021-22 to 2023-24",
@@ -9788,7 +9788,7 @@
      "detail": "226-450"
     },
     {
-     "value": 0.4708,
+     "value": 0.47076,
      "name": "Alex Felch",
      "player": "alex-felch",
      "season": "2024-25 to 2025-26",
@@ -9796,7 +9796,7 @@
      "detail": "161-342"
     },
     {
-     "value": 0.469,
+     "value": 0.469027,
      "name": "Theo Muellenberg",
      "player": "theo-muellenberg",
      "season": "2016-17 to 2017-18",
@@ -9804,7 +9804,7 @@
      "detail": "53-113"
     },
     {
-     "value": 0.4662,
+     "value": 0.466179,
      "name": "Brody Edwards",
      "player": "brody-edwards",
      "season": "2024-25 to 2025-26",
@@ -9812,7 +9812,7 @@
      "detail": "255-547"
     },
     {
-     "value": 0.4638,
+     "value": 0.463785,
      "name": "Drew Johnson",
      "player": "drew-johnson",
      "season": "2014-15 to 2017-18",
@@ -9820,7 +9820,7 @@
      "detail": "397-856"
     },
     {
-     "value": 0.4617,
+     "value": 0.46172,
      "name": "Hank Reader",
      "player": "hank-reader",
      "season": "2017-18 to 2020-21",
@@ -9828,7 +9828,7 @@
      "detail": "392-849"
     },
     {
-     "value": 0.4593,
+     "value": 0.459268,
      "name": "Caleb Miedema",
      "player": "caleb-miedema",
      "season": "2015-16 to 2017-18",
@@ -9836,7 +9836,7 @@
      "detail": "389-847"
     },
     {
-     "value": 0.4554,
+     "value": 0.455446,
      "name": "Brock Bores",
      "player": "brock-bores",
      "season": "2023-24 to 2024-25",
@@ -9844,7 +9844,7 @@
      "detail": "92-202"
     },
     {
-     "value": 0.4536,
+     "value": 0.453608,
      "name": "Gunner Ellenburg",
      "player": "gunner-ellenburg",
      "season": "2019-20 to 2021-22",
@@ -9852,7 +9852,7 @@
      "detail": "132-291"
     },
     {
-     "value": 0.4498,
+     "value": 0.449835,
      "name": "Tanner Jones",
      "player": "tanner-jones",
      "season": "2019-20 to 2022-23",
@@ -9860,7 +9860,7 @@
      "detail": "408-907"
     },
     {
-     "value": 0.4475,
+     "value": 0.447489,
      "name": "Kyle Wingert",
      "player": "kyle-wingert",
      "season": "2015-16 to 2016-17",
@@ -9868,7 +9868,7 @@
      "detail": "98-219"
     },
     {
-     "value": 0.4458,
+     "value": 0.44582,
      "name": "Zane Langrehr",
      "player": "zane-langrehr",
      "season": "2017-18 to 2020-21",
@@ -9876,7 +9876,7 @@
      "detail": "432-969"
     },
     {
-     "value": 0.4436,
+     "value": 0.443609,
      "name": "Tysen Herken",
      "player": "tysen-herken",
      "season": "2021-22 to 2022-23",
@@ -9884,7 +9884,7 @@
      "detail": "59-133"
     },
     {
-     "value": 0.4396,
+     "value": 0.43956,
      "name": "Mathieu Oesterle",
      "player": "mathieu-oesterle",
      "season": "2018-19 to 2021-22",
@@ -9892,7 +9892,7 @@
      "detail": "160-364"
     },
     {
-     "value": 0.4324,
+     "value": 0.432432,
      "name": "Lucas Horman",
      "player": "lucas-horman",
      "season": "2021-22 to 2023-24",
@@ -9900,7 +9900,7 @@
      "detail": "48-111"
     },
     {
-     "value": 0.4221,
+     "value": 0.422078,
      "name": "Kellen Kravik",
      "player": "kellen-kravik",
      "season": "2014-15 to 2015-16",
@@ -9918,7 +9918,7 @@
    ],
    "tp_pct": [
     {
-     "value": 0.4365,
+     "value": 0.436526,
      "name": "Luke Reader",
      "player": "luke-reader",
      "season": "2014-15 to 2017-18",
@@ -9926,7 +9926,7 @@
      "detail": "196-449"
     },
     {
-     "value": 0.3914,
+     "value": 0.391414,
      "name": "Zane Langrehr",
      "player": "zane-langrehr",
      "season": "2017-18 to 2020-21",
@@ -9934,7 +9934,7 @@
      "detail": "155-396"
     },
     {
-     "value": 0.3856,
+     "value": 0.385593,
      "name": "Hank Reader",
      "player": "hank-reader",
      "season": "2017-18 to 2020-21",
@@ -9942,7 +9942,7 @@
      "detail": "91-236"
     },
     {
-     "value": 0.3844,
+     "value": 0.384354,
      "name": "Dustin McDonald",
      "player": "dustin-mcdonald",
      "season": "2019-20 to 2022-23",
@@ -9950,7 +9950,7 @@
      "detail": "113-294"
     },
     {
-     "value": 0.3668,
+     "value": 0.366795,
      "name": "Brody Edwards",
      "player": "brody-edwards",
      "season": "2024-25 to 2025-26",
@@ -9958,7 +9958,7 @@
      "detail": "95-259"
     },
     {
-     "value": 0.3601,
+     "value": 0.360104,
      "name": "Tanner Jones",
      "player": "tanner-jones",
      "season": "2019-20 to 2022-23",
@@ -9966,7 +9966,7 @@
      "detail": "139-386"
     },
     {
-     "value": 0.3431,
+     "value": 0.343137,
      "name": "Dayne Langrehr",
      "player": "dayne-langrehr",
      "season": "2023-24 to 2025-26",
@@ -9974,7 +9974,7 @@
      "detail": "35-102"
     },
     {
-     "value": 0.3429,
+     "value": 0.342857,
      "name": "Alex Felch",
      "player": "alex-felch",
      "season": "2024-25 to 2025-26",
@@ -9982,7 +9982,7 @@
      "detail": "36-105"
     },
     {
-     "value": 0.337,
+     "value": 0.336957,
      "name": "Jaymeson Freit",
      "player": "jaymeson-freit",
      "season": "2017-18 to 2018-19",
@@ -9998,7 +9998,7 @@
      "detail": "24-75"
     },
     {
-     "value": 0.3193,
+     "value": 0.319328,
      "name": "Mathieu Oesterle",
      "player": "mathieu-oesterle",
      "season": "2018-19 to 2021-22",
@@ -10006,7 +10006,7 @@
      "detail": "38-119"
     },
     {
-     "value": 0.3163,
+     "value": 0.316327,
      "name": "Eli Tucker",
      "player": "eli-tucker",
      "season": "2022-23 to 2024-25",
@@ -10014,7 +10014,7 @@
      "detail": "62-196"
     },
     {
-     "value": 0.3036,
+     "value": 0.30363,
      "name": "Drew Johnson",
      "player": "drew-johnson",
      "season": "2014-15 to 2017-18",
@@ -10022,7 +10022,7 @@
      "detail": "92-303"
     },
     {
-     "value": 0.3019,
+     "value": 0.301887,
      "name": "Samuel Cropp",
      "player": "samuel-cropp",
      "season": "2021-22 to 2023-24",
@@ -10030,7 +10030,7 @@
      "detail": "32-106"
     },
     {
-     "value": 0.2886,
+     "value": 0.288608,
      "name": "Hayden Massman",
      "player": "hayden-massman",
      "season": "2022-23 to 2025-26",
@@ -10038,7 +10038,7 @@
      "detail": "114-395"
     },
     {
-     "value": 0.2811,
+     "value": 0.281139,
      "name": "Caleb Miedema",
      "player": "caleb-miedema",
      "season": "2015-16 to 2017-18",
@@ -10046,7 +10046,7 @@
      "detail": "79-281"
     },
     {
-     "value": 0.2737,
+     "value": 0.273684,
      "name": "Garrett Brezany",
      "player": "garrett-brezany",
      "season": "2021-22 to 2023-24",
@@ -10054,7 +10054,7 @@
      "detail": "26-95"
     },
     {
-     "value": 0.2569,
+     "value": 0.256881,
      "name": "Trevor Jones",
      "player": "trevor-jones",
      "season": "2017-18 to 2018-19",
@@ -10062,7 +10062,7 @@
      "detail": "28-109"
     },
     {
-     "value": 0.2343,
+     "value": 0.234286,
      "name": "Nolan Michek",
      "player": "nolan-michek",
      "season": "2021-22 to 2023-24",
@@ -10070,7 +10070,7 @@
      "detail": "41-175"
     },
     {
-     "value": 0.2222,
+     "value": 0.222222,
      "name": "Gunner Ellenburg",
      "player": "gunner-ellenburg",
      "season": "2019-20 to 2021-22",
@@ -10080,7 +10080,7 @@
    ],
    "ft_pct": [
     {
-     "value": 0.8022,
+     "value": 0.802158,
      "name": "Luke Reader",
      "player": "luke-reader",
      "season": "2014-15 to 2017-18",
@@ -10088,7 +10088,7 @@
      "detail": "223-278"
     },
     {
-     "value": 0.7802,
+     "value": 0.78022,
      "name": "Hank Reader",
      "player": "hank-reader",
      "season": "2017-18 to 2020-21",
@@ -10096,7 +10096,7 @@
      "detail": "142-182"
     },
     {
-     "value": 0.7568,
+     "value": 0.756757,
      "name": "Zane Langrehr",
      "player": "zane-langrehr",
      "season": "2017-18 to 2020-21",
@@ -10104,7 +10104,7 @@
      "detail": "84-111"
     },
     {
-     "value": 0.7427,
+     "value": 0.74269,
      "name": "Tanner Jones",
      "player": "tanner-jones",
      "season": "2019-20 to 2022-23",
@@ -10112,7 +10112,7 @@
      "detail": "127-171"
     },
     {
-     "value": 0.7149,
+     "value": 0.714894,
      "name": "Caleb Miedema",
      "player": "caleb-miedema",
      "season": "2015-16 to 2017-18",
@@ -10120,7 +10120,7 @@
      "detail": "168-235"
     },
     {
-     "value": 0.6996,
+     "value": 0.699588,
      "name": "Hayden Massman",
      "player": "hayden-massman",
      "season": "2022-23 to 2025-26",
@@ -10128,7 +10128,7 @@
      "detail": "170-243"
     },
     {
-     "value": 0.6854,
+     "value": 0.685446,
      "name": "Drew Johnson",
      "player": "drew-johnson",
      "season": "2014-15 to 2017-18",
@@ -10136,7 +10136,7 @@
      "detail": "146-213"
     },
     {
-     "value": 0.6842,
+     "value": 0.684211,
      "name": "Grant Manke",
      "player": "grant-manke",
      "season": "2016-17 to 2019-20",
@@ -10144,7 +10144,7 @@
      "detail": "299-437"
     },
     {
-     "value": 0.6751,
+     "value": 0.675105,
      "name": "Dustin McDonald",
      "player": "dustin-mcdonald",
      "season": "2019-20 to 2022-23",
@@ -10152,7 +10152,7 @@
      "detail": "160-237"
     },
     {
-     "value": 0.6341,
+     "value": 0.634146,
      "name": "Chase Horstman",
      "player": "chase-horstman",
      "season": "2021-22 to 2023-24",
@@ -10160,7 +10160,7 @@
      "detail": "156-246"
     },
     {
-     "value": 0.6033,
+     "value": 0.603306,
      "name": "Dayne Langrehr",
      "player": "dayne-langrehr",
      "season": "2023-24 to 2025-26",
@@ -10184,7 +10184,7 @@
      "detail": "68-125"
     },
     {
-     "value": 0.5248,
+     "value": 0.524752,
      "name": "Trevor Jones",
      "player": "trevor-jones",
      "season": "2017-18 to 2018-19",
@@ -10192,7 +10192,7 @@
      "detail": "53-101"
     },
     {
-     "value": 0.5149,
+     "value": 0.514925,
      "name": "Will Reader",
      "player": "will-reader",
      "season": "2018-19 to 2021-22",
@@ -13274,7 +13274,7 @@
    ],
    "fg_pct": [
     {
-     "value": 0.6786,
+     "value": 0.678571,
      "date": "2015-03-06",
      "opponent": "Alma/Pepin",
      "season": "2014-15",
@@ -13282,7 +13282,7 @@
      "detail": "38-56"
     },
     {
-     "value": 0.6557,
+     "value": 0.655738,
      "date": "2020-02-24",
      "opponent": "Necedah",
      "season": "2019-20",
@@ -13290,7 +13290,7 @@
      "detail": "40-61"
     },
     {
-     "value": 0.6429,
+     "value": 0.642857,
      "date": "2018-02-27",
      "opponent": "La Farge",
      "season": "2017-18",
@@ -13298,7 +13298,7 @@
      "detail": "45-70"
     },
     {
-     "value": 0.6383,
+     "value": 0.638298,
      "date": "2022-03-12",
      "opponent": "Southwestern",
      "season": "2021-22",
@@ -13306,7 +13306,7 @@
      "detail": "30-47"
     },
     {
-     "value": 0.6349,
+     "value": 0.634921,
      "date": "2021-01-23",
      "opponent": "Brookwood",
      "season": "2020-21",
@@ -13314,7 +13314,7 @@
      "detail": "40-63"
     },
     {
-     "value": 0.6296,
+     "value": 0.62963,
      "date": "2015-12-22",
      "opponent": "West Salem",
      "season": "2015-16",
@@ -13322,7 +13322,7 @@
      "detail": "34-54"
     },
     {
-     "value": 0.6275,
+     "value": 0.627451,
      "date": "2015-12-30",
      "opponent": "Kickapoo",
      "season": "2015-16",
@@ -13330,7 +13330,7 @@
      "detail": "32-51"
     },
     {
-     "value": 0.6182,
+     "value": 0.618182,
      "date": "2020-02-27",
      "opponent": "Royall",
      "season": "2019-20",
@@ -13338,7 +13338,7 @@
      "detail": "34-55"
     },
     {
-     "value": 0.6102,
+     "value": 0.610169,
      "date": "2022-01-11",
      "opponent": "Wonewoc-Center",
      "season": "2021-22",
@@ -13346,7 +13346,7 @@
      "detail": "36-59"
     },
     {
-     "value": 0.6053,
+     "value": 0.605263,
      "date": "2021-01-15",
      "opponent": "Necedah",
      "season": "2020-21",
@@ -13354,7 +13354,7 @@
      "detail": "23-38"
     },
     {
-     "value": 0.6038,
+     "value": 0.603774,
      "date": "2014-12-30",
      "opponent": "Kickapoo",
      "season": "2014-15",
@@ -13386,7 +13386,7 @@
      "detail": "30-50"
     },
     {
-     "value": 0.5938,
+     "value": 0.59375,
      "date": "2017-01-05",
      "opponent": "Alma Center Lincoln",
      "season": "2016-17",
@@ -13394,7 +13394,7 @@
      "detail": "38-64"
     },
     {
-     "value": 0.5938,
+     "value": 0.59375,
      "date": "2018-01-18",
      "opponent": "Cashton",
      "season": "2017-18",
@@ -13402,7 +13402,7 @@
      "detail": "38-64"
     },
     {
-     "value": 0.5932,
+     "value": 0.59322,
      "date": "2016-02-09",
      "opponent": "Cashton",
      "season": "2015-16",
@@ -13410,7 +13410,7 @@
      "detail": "35-59"
     },
     {
-     "value": 0.5909,
+     "value": 0.590909,
      "date": "2017-02-07",
      "opponent": "Cashton",
      "season": "2016-17",
@@ -13418,7 +13418,7 @@
      "detail": "39-66"
     },
     {
-     "value": 0.5902,
+     "value": 0.590164,
      "date": "2021-12-16",
      "opponent": "Brookwood",
      "season": "2021-22",
@@ -13426,7 +13426,7 @@
      "detail": "36-61"
     },
     {
-     "value": 0.5897,
+     "value": 0.589744,
      "date": "2023-01-10",
      "opponent": "Wonewoc-Center",
      "season": "2022-23",
@@ -13434,7 +13434,7 @@
      "detail": "46-78"
     },
     {
-     "value": 0.5849,
+     "value": 0.584906,
      "date": "2018-12-14",
      "opponent": "Necedah",
      "season": "2018-19",
@@ -13442,7 +13442,7 @@
      "detail": "31-53"
     },
     {
-     "value": 0.5846,
+     "value": 0.584615,
      "date": "2016-02-01",
      "opponent": "Luther",
      "season": "2015-16",
@@ -13450,7 +13450,7 @@
      "detail": "38-65"
     },
     {
-     "value": 0.5789,
+     "value": 0.578947,
      "date": "2016-03-04",
      "opponent": "Eleva-Strum",
      "season": "2015-16",
@@ -13458,7 +13458,7 @@
      "detail": "33-57"
     },
     {
-     "value": 0.5758,
+     "value": 0.575758,
      "date": "2021-02-11",
      "opponent": "New Lisbon",
      "season": "2020-21",
@@ -13466,7 +13466,7 @@
      "detail": "38-66"
     },
     {
-     "value": 0.5714,
+     "value": 0.571429,
      "date": "2016-01-26",
      "opponent": "Wonewoc-Center",
      "season": "2015-16",
@@ -13478,32 +13478,32 @@
   "season": {
    "ppg": [
     {
-     "value": 80.3214,
+     "value": 80.321429,
      "season": "2017-18",
      "detail": "27-1"
     },
     {
-     "value": 76.7308,
+     "value": 76.730769,
      "season": "2019-20",
      "detail": "24-2"
     },
     {
-     "value": 75.5556,
+     "value": 75.555556,
      "season": "2016-17",
      "detail": "25-2"
     },
     {
-     "value": 75.1481,
+     "value": 75.148148,
      "season": "2015-16",
      "detail": "23-4"
     },
     {
-     "value": 73.1111,
+     "value": 73.111111,
      "season": "2018-19",
      "detail": "25-2"
     },
     {
-     "value": 72.7273,
+     "value": 72.727273,
      "season": "2020-21",
      "detail": "19-3"
     },
@@ -13518,12 +13518,12 @@
      "detail": "19-6"
     },
     {
-     "value": 68.3077,
+     "value": 68.307692,
      "season": "2025-26",
      "detail": "16-10"
     },
     {
-     "value": 67.0417,
+     "value": 67.041667,
      "season": "2014-15",
      "detail": "21-3"
     },
@@ -13543,22 +13543,22 @@
      "detail": "13-11"
     },
     {
-     "value": 60.2083,
+     "value": 60.208333,
      "season": "2012-13",
      "detail": "17-7"
     },
     {
-     "value": 59.2917,
+     "value": 59.291667,
      "season": "2002-03",
      "detail": "22-2"
     },
     {
-     "value": 58.0417,
+     "value": 58.041667,
      "season": "2010-11",
      "detail": "18-6"
     },
     {
-     "value": 57.5385,
+     "value": 57.538462,
      "season": "2024-25",
      "detail": "11-15"
     },
@@ -13568,32 +13568,32 @@
      "detail": "17-7"
     },
     {
-     "value": 55.9565,
+     "value": 55.956522,
      "season": "2009-10",
      "detail": "15-8"
     },
     {
-     "value": 54.8571,
+     "value": 54.857143,
      "season": "2005-06",
      "detail": "14-7"
     },
     {
-     "value": 54.619,
+     "value": 54.619048,
      "season": "1997-98",
      "detail": "13-8"
     },
     {
-     "value": 49.7143,
+     "value": 49.714286,
      "season": "2006-07",
      "detail": "12-9"
     },
     {
-     "value": 42.4762,
+     "value": 42.47619,
      "season": "2008-09",
      "detail": "3-18"
     },
     {
-     "value": 38.9048,
+     "value": 38.904762,
      "season": "2007-08",
      "detail": "3-18"
     },
@@ -13605,7 +13605,7 @@
    ],
    "opp_ppg": [
     {
-     "value": 13.9474,
+     "value": 13.947368,
      "season": "1936-37",
      "detail": "17-2"
     },
@@ -13615,12 +13615,12 @@
      "detail": "9-7"
     },
     {
-     "value": 15.4444,
+     "value": 15.444444,
      "season": "1931-32",
      "detail": "13-5"
     },
     {
-     "value": 16.7647,
+     "value": 16.764706,
      "season": "1937-38",
      "detail": "8-9"
     },
@@ -13630,22 +13630,22 @@
      "detail": "11-5"
     },
     {
-     "value": 17.8636,
+     "value": 17.863636,
      "season": "1935-36",
      "detail": "17-5"
     },
     {
-     "value": 18.6667,
+     "value": 18.666667,
      "season": "1933-34",
      "detail": "4-11"
     },
     {
-     "value": 18.8333,
+     "value": 18.833333,
      "season": "1932-33",
      "detail": "10-8"
     },
     {
-     "value": 20.2143,
+     "value": 20.214286,
      "season": "1939-40",
      "detail": "7-7"
     },
@@ -13655,17 +13655,17 @@
      "detail": "14-2"
     },
     {
-     "value": 21.7647,
+     "value": 21.764706,
      "season": "1941-42",
      "detail": "9-8"
     },
     {
-     "value": 25.7778,
+     "value": 25.777778,
      "season": "1938-39",
      "detail": "6-12"
     },
     {
-     "value": 32.2857,
+     "value": 32.285714,
      "season": "1948-49",
      "detail": "13-8"
     },
@@ -13675,7 +13675,7 @@
      "detail": "5-15"
     },
     {
-     "value": 46.9091,
+     "value": 46.909091,
      "season": "2020-21",
      "detail": "19-3"
     },
@@ -13690,7 +13690,7 @@
      "detail": "15-8"
     },
     {
-     "value": 48.9048,
+     "value": 48.904762,
      "season": "2005-06",
      "detail": "14-7"
     },
@@ -13700,7 +13700,7 @@
      "detail": "17-7"
     },
     {
-     "value": 49.2857,
+     "value": 49.285714,
      "season": "2006-07",
      "detail": "12-9"
     },
@@ -13720,12 +13720,12 @@
      "detail": "24-2"
     },
     {
-     "value": 50.2083,
+     "value": 50.208333,
      "season": "2002-03",
      "detail": "22-2"
     },
     {
-     "value": 51.4583,
+     "value": 51.458333,
      "season": "2010-11",
      "detail": "18-6"
     }
@@ -14463,144 +14463,144 @@
    ],
    "fg_pct": [
     {
-     "value": 0.5095,
+     "value": 0.509482,
      "season": "2019-20",
      "detail": "806-1582"
     },
     {
-     "value": 0.498,
+     "value": 0.498045,
      "season": "2020-21",
      "detail": "637-1279"
     },
     {
-     "value": 0.4867,
+     "value": 0.486732,
      "season": "2014-15",
      "detail": "642-1319"
     },
     {
-     "value": 0.4858,
+     "value": 0.485837,
      "season": "2021-22",
      "detail": "789-1624"
     },
     {
-     "value": 0.4843,
+     "value": 0.484315,
      "season": "2017-18",
      "detail": "880-1817"
     },
     {
-     "value": 0.4802,
+     "value": 0.480168,
      "season": "2015-16",
      "detail": "799-1664"
     },
     {
-     "value": 0.4794,
+     "value": 0.479394,
      "season": "2016-17",
      "detail": "791-1650"
     },
     {
-     "value": 0.479,
+     "value": 0.478956,
      "season": "1986-87",
      "detail": "569-1188"
     },
     {
-     "value": 0.4606,
+     "value": 0.460581,
      "season": "2022-23",
      "detail": "666-1446"
     },
     {
-     "value": 0.4567,
+     "value": 0.456722,
      "season": "2018-19",
      "detail": "744-1629"
     },
     {
-     "value": 0.448,
+     "value": 0.448047,
      "season": "2002-03",
      "detail": "539-1203"
     },
     {
-     "value": 0.4407,
+     "value": 0.440663,
      "season": "1985-86",
      "detail": "505-1146"
     },
     {
-     "value": 0.4363,
+     "value": 0.436266,
      "season": "2001-02",
      "detail": "486-1114"
     },
     {
-     "value": 0.4317,
+     "value": 0.431744,
      "season": "2025-26",
      "detail": "661-1531"
     },
     {
-     "value": 0.4075,
+     "value": 0.407459,
      "season": "1987-88",
      "detail": "590-1448"
     },
     {
-     "value": 0.4003,
+     "value": 0.400299,
      "season": "2023-24",
      "detail": "536-1339"
     },
     {
-     "value": 0.3843,
+     "value": 0.384255,
      "season": "1997-98",
      "detail": "410-1067"
     },
     {
-     "value": 0.3831,
+     "value": 0.383065,
      "season": "2024-25",
      "detail": "570-1488"
     },
     {
-     "value": 0.3638,
+     "value": 0.363817,
      "season": "1984-85",
      "detail": "366-1006"
     }
    ],
    "tp_pct": [
     {
-     "value": 0.4385,
+     "value": 0.438462,
      "season": "1987-88",
      "detail": "57-130"
     },
     {
-     "value": 0.3588,
+     "value": 0.358824,
      "season": "2020-21",
      "detail": "122-340"
     },
     {
-     "value": 0.3584,
+     "value": 0.358442,
      "season": "2019-20",
      "detail": "138-385"
     },
     {
-     "value": 0.3571,
+     "value": 0.357143,
      "season": "2002-03",
      "detail": "115-322"
     },
     {
-     "value": 0.3515,
+     "value": 0.351464,
      "season": "2022-23",
      "detail": "168-478"
     },
     {
-     "value": 0.348,
+     "value": 0.347953,
      "season": "2001-02",
      "detail": "119-342"
     },
     {
-     "value": 0.3305,
+     "value": 0.330472,
      "season": "2018-19",
      "detail": "154-466"
     },
     {
-     "value": 0.3303,
+     "value": 0.330317,
      "season": "2021-22",
      "detail": "146-442"
     },
     {
-     "value": 0.3189,
+     "value": 0.318872,
      "season": "2017-18",
      "detail": "147-461"
     },
@@ -14610,12 +14610,12 @@
      "detail": "210-661"
     },
     {
-     "value": 0.3168,
+     "value": 0.31681,
      "season": "2016-17",
      "detail": "147-464"
     },
     {
-     "value": 0.3052,
+     "value": 0.305221,
      "season": "2015-16",
      "detail": "152-498"
     },
@@ -14625,119 +14625,119 @@
      "detail": "78-260"
     },
     {
-     "value": 0.2942,
+     "value": 0.294243,
      "season": "2024-25",
      "detail": "138-469"
     },
     {
-     "value": 0.2894,
+     "value": 0.289389,
      "season": "2014-15",
      "detail": "90-311"
     },
     {
-     "value": 0.2741,
+     "value": 0.274074,
      "season": "2023-24",
      "detail": "111-405"
     }
    ],
    "ft_pct": [
     {
-     "value": 0.6616,
+     "value": 0.661638,
      "season": "2016-17",
      "detail": "307-464"
     },
     {
-     "value": 0.6612,
+     "value": 0.661238,
      "season": "2020-21",
      "detail": "203-307"
     },
     {
-     "value": 0.6576,
+     "value": 0.657588,
      "season": "2017-18",
      "detail": "338-514"
     },
     {
-     "value": 0.653,
+     "value": 0.652968,
      "season": "2001-02",
      "detail": "286-438"
     },
     {
-     "value": 0.6419,
+     "value": 0.641851,
      "season": "2018-19",
      "detail": "319-497"
     },
     {
-     "value": 0.6328,
+     "value": 0.632812,
      "season": "2022-23",
      "detail": "243-384"
     },
     {
-     "value": 0.6319,
+     "value": 0.631868,
      "season": "2019-20",
      "detail": "230-364"
     },
     {
-     "value": 0.6309,
+     "value": 0.630923,
      "season": "2002-03",
      "detail": "253-401"
     },
     {
-     "value": 0.6145,
+     "value": 0.614537,
      "season": "2015-16",
      "detail": "279-454"
     },
     {
-     "value": 0.608,
+     "value": 0.607955,
      "season": "2024-25",
      "detail": "214-352"
     },
     {
-     "value": 0.607,
+     "value": 0.606965,
      "season": "2025-26",
      "detail": "244-402"
     },
     {
-     "value": 0.5979,
+     "value": 0.597872,
      "season": "2021-22",
      "detail": "281-470"
     },
     {
-     "value": 0.5928,
+     "value": 0.592841,
      "season": "1985-86",
      "detail": "265-447"
     },
     {
-     "value": 0.583,
+     "value": 0.582969,
      "season": "1987-88",
      "detail": "267-458"
     },
     {
-     "value": 0.5773,
+     "value": 0.577253,
      "season": "2023-24",
      "detail": "269-466"
     },
     {
-     "value": 0.576,
+     "value": 0.57598,
      "season": "2014-15",
      "detail": "235-408"
     },
     {
-     "value": 0.5737,
+     "value": 0.573733,
      "season": "1997-98",
      "detail": "249-434"
     },
     {
-     "value": 0.5614,
+     "value": 0.561358,
      "season": "1986-87",
      "detail": "215-383"
     },
     {
-     "value": 0.4738,
+     "value": 0.473837,
      "season": "1984-85",
      "detail": "163-344"
     },
     {
-     "value": 0.381,
+     "value": 0.380952,
      "season": "1941-42",
      "detail": "80-210"
     }

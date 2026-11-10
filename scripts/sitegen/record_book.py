@@ -54,6 +54,47 @@ FACTS = {
     "streak": REC["team"]["streak"],
 }
 
+
+def season_span(seasons, open_end=True):
+    """Seasons as page text: "1941–42, 1984–85 to 1997–98, 2001–02, 2002–03 and every season from 2007–08 on".
+    Three or more seasons in a row are a range; a run that reaches last season (open_end) is "every season from ... on"."""
+    runs = []
+    for s in sorted(seasons):
+        if runs and int(s[:4]) == int(runs[-1][-1][:4]) + 1:
+            runs[-1].append(s)
+        else:
+            runs.append([s])
+    lab = lambda s: s.replace("-", "–")
+    parts = []
+    for i, r in enumerate(runs):
+        if open_end and i == len(runs) - 1 and len(r) > 1 and int(r[-1][:4]) >= int(CURRENT[:4]) - 1:
+            parts.append(f"every season from {lab(r[0])} on")
+        elif len(r) >= 3:
+            parts.append(f"{lab(r[0])} to {lab(r[-1])}")
+        else:
+            parts.extend(lab(s) for s in r)
+    return parts[0] if len(parts) == 1 else ", ".join(parts[:-1]) + " and " + parts[-1] if parts else ""
+
+
+def _all_results_in(h):
+    """True when every game of a past season has a known result (as many results as games in its record)."""
+    exp = sum(int(h[k]) for k in ("w", "l", "t") if (h.get(k) or "").strip().isdigit())
+    gs = [g for g in games_by_season[h["season"]] if g["result"]] if h["season"] in games_by_season \
+        else RESULTS_ONLY.get(h["season"], [])
+    return bool(exp) and len(gs) >= exp
+
+
+# What the stat sheets and results cover, for the coverage notes on the list pages, so they stay right as seasons
+# are added. "Stat sheets" are every season with player stats (season totals or game by game).
+_sheet_seasons = sorted({r["season"] for r in pseasons})
+FACTS.update({
+    "sheets": season_span(_sheet_seasons),
+    "sheets_before": season_span([s for s in _sheet_seasons if s < COVERED_FROM], open_end=False),
+    "sheet_seasons": len(_sheet_seasons),
+    "past_seasons": sum(1 for h in history if h["season"] != CURRENT),
+    "all_results": sum(1 for h in history if h["season"] != CURRENT and _all_results_in(h)),
+})
+
 # ---------------------------------------------------------------- records (merge computed + record book)
 CATS = [
     # (scope, period, stat, title, kind)   kind: int | pct | avg

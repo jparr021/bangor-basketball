@@ -5,7 +5,7 @@
 {% block content %}
 <div class="wrap page-head">
   <h1>Seasons</h1>
-  <p class="muted">Every season from {{ facts.first }} on. 1997–98 and every season from 2001–02 on have full schedules and results, and 1997–98, 2001–02, 2002–03 and every season from 2007–08 on have player stats too. 1999–00 and 2000–01 have results from the yearbook, 1945–46 from the student newspaper, and 1988–89, 1989–90 and 1991–92 a game from a game program. Click a season to open it.</p>
+  <p class="muted">Every season from {{ facts.first }} on. {{ facts.all_results }} of the {{ facts.past_seasons }} past seasons have every game's result, and {{ facts.sheet_seasons }} have player stats too ({{ facts.sheets }}). Results come from the school's stat sheets, yearbooks, <i>Cardinals on the Court</i>, newspapers and game programs; each season's page names its sources. Click a season to open it.</p>
 </div>
 <div class="wrap">
   <div class="card">

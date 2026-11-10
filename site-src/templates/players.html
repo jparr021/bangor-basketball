@@ -5,7 +5,7 @@
 {% block content %}
 <div class="wrap page-head">
   <h1>Players</h1>
-  <p class="muted">Every Bangor varsity player we know of ({{ players | length }} players): everyone in the stat sheets (1997–98, 2001–02, 2002–03, and every season from 2007–08 on), plus earlier players from rosters, team photos, the record book and newspaper clippings (marked <span class="book-tag">Archive</span>). For those, G, PTS, REB and AST are record-book career totals where the book has them.</p>
+  <p class="muted">Every Bangor varsity player we know of ({{ players | length }} players): everyone in the stat sheets ({{ facts.sheets }}), plus earlier players from rosters, team photos, the record book and newspaper clippings (marked <span class="book-tag">Archive</span>). For those, G, PTS, REB and AST are record-book career totals where the book has them.</p>
   <p><a class="btn" href="classes.html">Players by graduating class →</a></p>
   <input class="search" type="search" placeholder="Search players…" data-filter="#player-table" aria-label="Search players">
 </div>

@@ -43,6 +43,17 @@ def share(kind, key, draw, alt, *args):
     return {"share_image": f"{SITE_URL}/{rel}?v={v}", "share_alt": alt}
 
 
+def page_share(key, alt, eyebrow, title, sub, tiles, foot=""):
+    """The link-preview card for a list or hub page (home, records, honors, ...): a headline, one line and up to
+    four stat tiles, so a shared link to it shows what's there instead of the plain logo."""
+    tiles = [(v, lbl) for v, lbl in tiles if v not in (None, "", 0, "0")][:4]
+    return share("pages", key, share_images.simple_card, alt, eyebrow, title, sub, tiles, foot)
+
+
+def last_name(name):
+    return name.split()[-1] if name else ""
+
+
 def game_share(g):
     kind = {"playoff": "Playoff", "tournament": "Tournament"}.get(g["game_type"], "Conference" if g["conference"] == "Y" else "")
     where = {"away": "Away", "neutral": "Neutral site"}.get(g["site"], "Home")

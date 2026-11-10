@@ -84,6 +84,21 @@ class BuiltSite(unittest.TestCase):
                 html = read(f"seasons/{r['season']}.html")
                 self.assertRegex(html, r'src="[^"]*static/photos/[^"?]+\.jpg\?v=[0-9a-f]{8}"')
 
+    def test_every_public_page_has_its_own_share_card(self):
+        """A link to any page people share shows that page's own preview image, not the plain logo card,
+        and the image it names was drawn."""
+        og = re.compile(r'<meta property="og:image" content="[^"]*?/(static/[^"?]+)')
+        unlisted = {"404.html", "sheet-check.html", os.path.join("admin", "index.html")}
+        for path in glob.glob(os.path.join(SITE, "**", "*.html"), recursive=True):
+            rel = os.path.relpath(path, SITE)
+            if rel in unlisted:
+                continue
+            with self.subTest(rel):
+                m = og.search(read(rel))
+                self.assertTrue(m, "no og:image")
+                self.assertNotEqual(m.group(1), "static/img/share.png", "uses the plain logo card")
+                self.assertTrue(os.path.exists(os.path.join(SITE, m.group(1))), f"{m.group(1)} wasn't drawn")
+
     def test_admin_page_has_its_data(self):
         html = read("admin/index.html")
         m = re.search(r"var DATA = (\{.*?\});\n", html)

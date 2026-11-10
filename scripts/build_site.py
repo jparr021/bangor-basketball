@@ -33,7 +33,13 @@ def build():
     # ---- records first: game, season and player pages show their record-book entries
     sections = record_sections()
     B = collect_badges(sections)
-    render("records.html", "records/index.html", sections=list(sections.values()), mins=MINS)
+    career, game = merged("individual", "career", "pts", "int")[:1], merged("individual", "game", "pts", "int")[:1]
+    sh = page_share("records", "The Bangor Cardinals boys basketball record book", "Record book", "Top 10 in every category",
+                    f"Career scoring record: {career[0]['name']}, {career[0]['display']} points" if career else "",
+                    [(career[0]["display"] if career else None, f"Career points · {last_name(career[0]['name'] if career else '')}"),
+                     (game[0]["display"] if game else None, f"Points in a game · {last_name(game[0]['name'] if game else '')}"),
+                     (FACTS["streak"]["wins"], "Straight wins")])
+    render("records.html", "records/index.html", sections=list(sections.values()), mins=MINS, **sh)
     write_downloads(sections)
 
     # ---- head-to-head previews for games not yet played (game pages and the home page's upcoming list)

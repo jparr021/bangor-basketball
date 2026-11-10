@@ -183,12 +183,32 @@ def player_pages(B):
                clip_cols=clip_cols, record_badges=B["player"].get(sl, []), player_news=player_news, sources=sources,
                headshot=PLAYER_PHOTOS.get(sl), honors=HONORS_BY_PLAYER.get(sl, []), **sh)
     plist.sort(key=lambda p: p["name"].split()[-1] + " " + p["name"])
-    render("players.html", "players/index.html", players=plist)
-    render("leaders.html", "records/career-leaders.html", boards=career_boards(), latest_season=DATA_SEASONS[-1],
-           pg_min=PER_GAME_MIN)
     classes = classes_data(plist)
-    render("classes.html", "players/classes.html", classes=classes)
+    boards = career_boards()
+    lead = {b["stat"]: b["entries"][0] for b in boards if b["entries"]}
+    sh = page_share("players", "Every known Bangor Cardinals varsity boys basketball player",
+                    "Players", "Every player", f"Varsity players since {FACTS['first']}, with career stats",
+                    [(f"{len(plist):,}", "Players"), (len(classes), "Graduating classes"),
+                     (lead["pts"]["display"] if "pts" in lead else None, f"Career points · {last_name(lead.get('pts', {}).get('name'))}")])
+    render("players.html", "players/index.html", players=plist, **sh)
+    sh = page_share("career-leaders", "Bangor Cardinals boys basketball career leaders",
+                    "Record book", "Career leaders", "Every player ranked by career totals",
+                    [(lead[k]["display"], f"{lbl} · {last_name(lead[k]['name'])}")
+                     for k, lbl in (("pts", "Points"), ("reb", "Rebounds"), ("ast", "Assists")) if k in lead])
+    render("leaders.html", "records/career-leaders.html", boards=boards, latest_season=DATA_SEASONS[-1],
+           pg_min=PER_GAME_MIN, **sh)
+    years = [c["year"] for c in classes if c["year"]]
+    sh = page_share("classes", "Bangor Cardinals boys basketball players by graduating class",
+                    "Players", "Players by class", f"Every graduating class from {min(years)} to {max(years)}" if years else "",
+                    [(len(classes), "Classes"), (f"{sum(len(c['players']) for c in classes):,}", "Players with a class year")])
+    render("classes.html", "players/classes.html", classes=classes, **sh)
     srows, smost = season_leaders_data()
+    top = next((m["players"][0] for m in smost if m["title"].lower().startswith("point")), None)
+    sh = page_share("season-leaders", "Bangor Cardinals boys basketball team leaders by season",
+                    "Record book", "Team leaders by season",
+                    f"Led the team in scoring most often: {top['name']}, {top['n']} seasons" if top
+                    else "Each season's top scorer, rebounder and more",
+                    [(len(srows), "Seasons"), (srows[-1]["s"]["season"].replace("-", "–") if srows else None, "First season")])
     render("season_leaders.html", "records/season-leaders.html", rows=srows, most=smost,
-           stats=SEASON_LEADER_STATS)
+           stats=SEASON_LEADER_STATS, **sh)
     return plist, classes

@@ -5,14 +5,25 @@ from sitegen.views import *  # noqa: F401,F403
 
 def history_pages():
     """History, the gaps list, and a page for each coach."""
+    sh = page_share("history", f"Bangor Cardinals boys basketball history since {FACTS['first']}",
+                    "History", f"Since {FACTS['first']}",
+                    f"{len(coach_list)} head coaches · {FACTS['w']:,}–{FACTS['l']:,} all time ({FACTS['pct']})",
+                    [(FACTS["conf_titles"], "Conference titles"), (FACTS["regional_titles"], "Regional titles"),
+                     (sum(c["state"] for c in coach_list), "State trips"),
+                     (FACTS["state_titles"], "State title" + ("s" if FACTS["state_titles"] > 1 else ""))])
     render("history.html", "history/index.html", seasons=[season_summary(h["season"]) for h in history],
-           coaches=coach_list)
+           coaches=coach_list, **sh)
     gap_rows, wanted, gap_sum = gaps_data()
     # names we can't pin down from the sources (overrides/identify.csv), for alumni to help with
     ipath = os.path.join(OV, "identify.csv")
     identify = [{**r, "href": f"../seasons/{r['season']}.html"} for r in load(ipath)] if os.path.exists(ipath) else []
+    sh = page_share("gaps", "What's still missing from Bangor Cardinals boys basketball history",
+                    "Help fill the gaps", "What's missing",
+                    f"{len(wanted)} big seasons still missing results · old programs, clippings and photos wanted",
+                    [(f"{gap_sum['results']} of {gap_sum['n']}", "Seasons with every result"),
+                     (gap_sum["stats"], "Seasons with player stats"), (gap_sum["roster"], "Seasons with a roster")])
     render("gaps.html", "history/gaps.html", rows=list(reversed(gap_rows)), wanted=wanted, sm=gap_sum, form_url=FORM_URL,
-           identify=identify)
+           identify=identify, **sh)
     honors_page()
     chrono = sorted(coach_list, key=lambda c: c["seasons"][0])
     for i, c in enumerate(chrono):
@@ -55,8 +66,15 @@ def honors_page():
                   key=lambda m: (-len(m["list"]), -sum("honorable" not in h["honor"] for h in m["list"]), m["name"]))
     sm = {"picks": sum(len(c["picks"]) for c in conf), "hm": sum(len(c["hm"]) for c in conf),
           "players": len({h["slug"] or h["name"] for h in HONORS}), "seasons": len(seasons)}
+    top = most[0] if most else None
+    sh = page_share("honors", "Bangor Cardinals boys basketball honors: All-Conference picks, team awards and captains",
+                    "Honors & awards", "All-Conference & more",
+                    f"Most honored: {top['name']}, All-Conference {len(top['list'])} times" if top
+                    else f"{sm['seasons']} seasons of honors",
+                    [(sm["picks"], "All-Conference picks"), (sm["hm"], "Honorable mentions"),
+                     (sm["players"], "Players honored")])
     render("honors.html", "history/honors.html", conf=conf, awards=awards, award_cols=[c for c, _ in award_cols],
-           captains=captains, area=area, most=most, sm=sm, form_url=FORM_URL,
+           captains=captains, area=area, most=most, sm=sm, form_url=FORM_URL, **sh,
            ld=[ld_crumbs(("History", "history/index.html"), ("Honors", "history/honors.html"))])
 
 
@@ -79,8 +97,16 @@ def opponent_pages(opps):
         render("opponent.html", f"opponents/{o['slug']}.html", o=o,
                ld=[ld_crumbs(("Opponents", "opponents/index.html"), (o["name"], f"opponents/{o['slug']}.html"))], **sh)
     olist = sorted((o for o in opps.values() if o["games"]), key=lambda o: (-(o["w"] + o["l"]), o["name"]))
-    render("opponents.html", "opponents/index.html", opps=olist,
-           first=min([DATA_SEASONS[0]] + [o["games"][0]["season"] for o in olist]))
+    first = min([DATA_SEASONS[0]] + [o["games"][0]["season"] for o in olist])
+    sh = {}
+    if olist:
+        top = olist[0]
+        sh = page_share("opponents", "Bangor Cardinals boys basketball's record against every opponent",
+                        "Head to head", "Every opponent",
+                        f"Most played: {top['name']}, {top['w']}–{top['l']} in {top['w'] + top['l']} games",
+                        [(len(olist), "Opponents"), (f"{sum(o['w'] + o['l'] for o in olist):,}", "Games"),
+                         (first.replace("-", "–"), "Results since")])
+    render("opponents.html", "opponents/index.html", opps=olist, first=first, **sh)
     return olist
 
 
@@ -90,8 +116,12 @@ def film_index():
         by_season = OrderedDict()
         for g in sorted(FILM_GAMES + HUDL_ONLY, key=lambda g: g["date"], reverse=True):
             by_season.setdefault(g["season"], []).append(g)
-        render("film.html", "film/index.html", by_season=by_season, total=len(FILM_GAMES) + len(HUDL_ONLY),
-               youtube=len(FILM_GAMES), hudl_only=len(HUDL_ONLY))
+        total = len(FILM_GAMES) + len(HUDL_ONLY)
+        sh = page_share("film", "Bangor Cardinals boys basketball game film and highlights", "Watch", "Game film",
+                        f"{len(by_season)} season{'s' if len(by_season) != 1 else ''} of games and highlights",
+                        [(total, "Games on film"), (len(FILM_GAMES), "On YouTube"), (len(HUDL_ONLY), "On Hudl only")])
+        render("film.html", "film/index.html", by_season=by_season, total=total,
+               youtube=len(FILM_GAMES), hudl_only=len(HUDL_ONLY), **sh)
 
 
 def search_index(plist, olist, classes):

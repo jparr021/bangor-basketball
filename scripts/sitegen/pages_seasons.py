@@ -11,7 +11,13 @@ def home(PREVIEWS):
               or "state semifinal" in h["notes"].lower() or "state tournament" in h["notes"].lower()]
     recent = [season_summary(s) for s in reversed(DATA_SEASONS[-6:])]
     latest_games = [g for g in games_by_season[latest] if g["status"] == "final"][-5:][::-1]
-    render("home.html", "index.html", latest=season_summary(latest), latest_leaders=leaders(latest),
+    rec = f"{FACTS['w']:,}–{FACTS['l']:,}"
+    sh = page_share("home", f"Bangor Cardinals boys basketball since {FACTS['first']}: {rec} all time",
+                    f"Bangor, Wisconsin · since {FACTS['first']}", "Cardinals basketball",
+                    f"{FACTS['seasons']} seasons: every game, player and record we know of",
+                    [(rec, "All-time record"), (FACTS["state_titles"], "State title" + ("s" if FACTS["state_titles"] > 1 else "")),
+                     (FACTS["conf_titles"], "Conference titles"), (FACTS["regional_titles"], "Regional titles")])
+    render("home.html", "index.html", latest=season_summary(latest), latest_leaders=leaders(latest), **sh,
            latest_games=latest_games, preseason=None if latest_games else preseason(latest),
            upcoming=[{**g, "preview": PREVIEWS.get(g["game_id"])} for g in UPCOMING[:UPCOMING_ON_HOME]],
            top_career=top_career, top_game=top_game, champs=champs, recent=recent,
@@ -23,7 +29,12 @@ def home(PREVIEWS):
 def seasons_index():
     """The list of every season."""
     all_seasons = [season_summary(h["season"]) for h in reversed(history)]
-    render("seasons.html", "seasons/index.html", seasons=all_seasons)
+    winning = sum(1 for h in history if h["w"] != "" and int(h["w"]) > int(h["l"] or 0))
+    sh = page_share("seasons", f"Every Bangor Cardinals boys basketball season since {FACTS['first']}",
+                    "Season by season", "Every season", f"{FACTS['first']} to today · {winning} winning seasons",
+                    [(FACTS["seasons"], "Seasons"), (f"{FACTS['w']:,}–{FACTS['l']:,}", "All-time record"),
+                     (FACTS["pct"], "Winning percentage")])
+    render("seasons.html", "seasons/index.html", seasons=all_seasons, **sh)
 
 
 def season_pages(B):

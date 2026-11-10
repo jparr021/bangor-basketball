@@ -66,3 +66,44 @@ if os.path.exists(os.path.join(OV, "newspaper_stats.csv")):
             _a["seasons"].add(_g["season"])
 for _sl, _a in ARCHIVE.items():
     PLAYER_PAGES[_sl] = _a["name"]
+
+# Honors (overrides/honors.csv: season, name, honor, note): All-Conference picks, area and state honors, team
+# awards and captains, from the coach's season summaries. Each links to the player's page for that season:
+# the roster or stat-sheet player of that name, else a roster line with his initial ("L. Friell" for Lee Friell).
+HONOR_GROUPS = [
+    ("conf", ["All-Conference 1st team", "All-Conference 2nd team", "All-Conference", "All-Conference honorable mention"]),
+    ("area", ["All-State honorable mention", "All-Coulee Region", "All-Coulee Region honorable mention", "All-tournament team"]),
+    ("award", ["Most Valuable Player", "Offensive MVP", "Defensive MVP", "Best rebounder", "Best free-throw shooter",
+               "Most improved", "Spirit award", "Sportsmanship award"]),
+    ("captain", ["Captain"]),
+]
+HONOR_ORDER = {h: i for i, h in enumerate(h for _, hs in HONOR_GROUPS for h in hs)}
+HONOR_GROUP = {h: g for g, hs in HONOR_GROUPS for h in hs}
+
+
+def _honor_slug(season, name):
+    for r in ROSTERS.get(season, []):
+        if r["name"].strip() == name:
+            return r["slug"]
+    for r in pseasons:
+        if r["season"] == season and r["name"] == name:
+            return r["slug"]
+    first, last = name.split()[0], name.split()[-1]
+    initial = {r["slug"] for r in ROSTERS.get(season, []) if r["name"].strip() == f"{first[0]}. {last}"}
+    if len(initial) == 1:  # two "T. Oliver"s that season: can't tell which, so his own page
+        return initial.pop()
+    sl = slug(name)
+    return sl if sl in PLAYER_PAGES else None
+
+
+HONORS = []
+if os.path.exists(os.path.join(OV, "honors.csv")):
+    for _r in load(os.path.join(OV, "honors.csv")):
+        HONORS.append({**_r, "slug": _honor_slug(_r["season"], _r["name"].strip()),
+                       "group": HONOR_GROUP.get(_r["honor"], "award"), "order": HONOR_ORDER.get(_r["honor"], 99)})
+HONORS.sort(key=lambda h: (h["season"], h["order"]))
+HONORS_BY_PLAYER, HONORS_BY_SEASON = defaultdict(list), defaultdict(list)
+for _h in HONORS:
+    HONORS_BY_SEASON[_h["season"]].append(_h)
+    if _h["slug"]:
+        HONORS_BY_PLAYER[_h["slug"]].append(_h)

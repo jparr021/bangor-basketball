@@ -91,7 +91,7 @@ def season_pages(B):
                 ss["notes"], [(f"{w}–{l}", "Record in known games")], "Season"))
         render("season_results.html", f"seasons/{s}.html", ld=[ld_crumbs(("Seasons", "seasons/index.html"), (s.replace("-", "–"), f"seasons/{s}.html"))], s=ss, games=gs, w=w, l=l, sources=sources,
                dated=all(g.get("date") for g in gs), any_dates=any(g.get("date") for g in gs),
-               in_h2h=True,
+               in_h2h=True, honors=HONORS_BY_SEASON.get(s, []),
                any_sites=any(g.get("site") for g in gs), story=STORIES.get(s), **results_players(s, gs),
                roster=ROSTERS.get(s, []), team_photos=TEAM_PHOTOS.get(s, []),
                margin_svg=margin_svg, opp_pages=OPP_PAGES, player_pages=PLAYER_PAGES, **pager(s), **sh)
@@ -118,7 +118,7 @@ def season_pages(B):
         sh = share("seasons", s, share_images.simple_card, f"Bangor Cardinals {s.replace('-', '–')} season: {ss['w']}–{ss['l']}",
                    f"Season{' · Coach ' + ss['coach'] if ss['coach'] else ''}", s.replace("-", "–"), ss["notes"], tiles, "Season")
         render("season.html", f"seasons/{s}.html", ld=[ld_crumbs(("Seasons", "seasons/index.html"), (s.replace("-", "–"), f"seasons/{s}.html"))], s=ss, games=gs, players=prow, cols=cols, **sh,
-               margin_svg=margin_svg, scoring_lines=scoring_lines,
+               margin_svg=margin_svg, scoring_lines=scoring_lines, honors=HONORS_BY_SEASON.get(s, []),
                team_game_stats=any(g["date"] in TEAM_GAME for g in gs), roster=ROSTERS.get(s, []),
                player_pages=PLAYER_PAGES, team_photos=TEAM_PHOTOS.get(s, []),
                team=team_row, leaders=leaders(s), partial=partial,

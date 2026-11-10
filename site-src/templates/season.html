@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% import "_gameday.html" as gd with context %}
 {% import "_badges.html" as rb with context %}
+{% import "_honors.html" as hon with context %}
 {% import "_photo.html" as photo with context %}
 {% import "_calendar.html" as calm with context %}
 {% set section = 'seasons' %}
@@ -33,6 +34,8 @@
     {% endfor %}
   </div>
   {% endif %}
+
+  {{ hon.season_card(honors) }}
 
   {{ rb.card(team_badges + game_badges + player_badges, heading="In the record book") }}
 

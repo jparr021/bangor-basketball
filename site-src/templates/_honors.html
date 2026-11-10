@@ -1,0 +1,31 @@
+{# Honors (overrides/honors.csv): a season's honors, or a player's #}
+{% macro who(h) %}{% if h.slug and h.slug in player_pages %}<a href="{{ root }}players/{{ h.slug }}.html">{{ h.name }}</a>{% else %}{{ h.name }}{% endif %}{% endmacro %}
+{% macro note(h) %}{% if h.note %} <span class="muted small">({{ h.note }})</span>{% endif %}{% endmacro %}
+
+{% macro season_card(hs) %}{% if hs %}
+  <section class="card" id="honors">
+    <h2>Honors</h2>
+    <table class="tbl">
+      <tbody>
+      {% for g in hs | groupby('order') %}
+      <tr><td class="nowrap strong">{{ g.list[0].honor }}</td><td>{% for h in g.list %}{{ who(h) }}{{ note(h) }}{% if not loop.last %}, {% endif %}{% endfor %}</td></tr>
+      {% endfor %}
+      </tbody>
+    </table>
+    <p class="muted small"><a href="{{ root }}history/honors.html">All honors, every season →</a></p>
+  </section>
+{% endif %}{% endmacro %}
+
+{% macro player_card(hs) %}{% if hs %}
+  <section class="card" id="honors">
+    <h2>Honors</h2>
+    <table class="tbl">
+      <tbody>
+      {% for h in hs %}
+      <tr><td class="nowrap"><a href="{{ root }}seasons/{{ h.season }}.html">{{ h.season | replace('-', '–') }}</a></td><td class="strong">{{ h.honor }}</td><td class="muted small">{{ h.note }}</td></tr>
+      {% endfor %}
+      </tbody>
+    </table>
+    <p class="muted small"><a href="{{ root }}history/honors.html">All honors, every season →</a></p>
+  </section>
+{% endif %}{% endmacro %}

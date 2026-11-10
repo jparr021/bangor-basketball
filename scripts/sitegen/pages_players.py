@@ -120,7 +120,8 @@ def player_pages(B):
                grad=plist[-1]["grad"], grad_est=plist[-1]["grad_how"] == "estimated",
                partial=bool(partial_stats), part_career=part, span=span, book_career=book_career,
                override=(c or {}).get("override_note", ""), record_badges=B["player"].get(sl, []),
-               player_news=player_news, headshot=PLAYER_PHOTOS.get(sl), roster_seasons=roster_seasons, **sh)
+               player_news=player_news, headshot=PLAYER_PHOTOS.get(sl), roster_seasons=roster_seasons,
+               honors=HONORS_BY_PLAYER.get(sl, []), **sh)
     # ---- players from before the stat sheets (rosters, record book, newspaper clippings)
     for sl, a in ARCHIVE.items():
         roster_by = {r["season"]: r for r in a["roster"]}
@@ -180,7 +181,7 @@ def player_pages(B):
                name=a["name"], years=years, numbers=numbers,
                positions=positions, grad=grad, seasons=seasons, book_career=book_career, tiles=tiles, clips=clips,
                clip_cols=clip_cols, record_badges=B["player"].get(sl, []), player_news=player_news, sources=sources,
-               headshot=PLAYER_PHOTOS.get(sl), **sh)
+               headshot=PLAYER_PHOTOS.get(sl), honors=HONORS_BY_PLAYER.get(sl, []), **sh)
     plist.sort(key=lambda p: p["name"].split()[-1] + " " + p["name"])
     render("players.html", "players/index.html", players=plist)
     render("leaders.html", "records/career-leaders.html", boards=career_boards(), latest_season=DATA_SEASONS[-1],

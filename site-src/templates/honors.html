@@ -1,0 +1,104 @@
+{% extends "base.html" %}
+{% import "_honors.html" as hon with context %}
+{% set section = 'history' %}
+{% block title %}Honors and awards · Bangor Cardinals Boys Basketball{% endblock %}
+{% block description %}Bangor Cardinals boys basketball honors: All-Conference picks, All-State and area honors, team MVPs and other awards, and captains, season by season.{% endblock %}
+{% block content %}
+<div class="wrap page-head">
+  <p class="eyebrow"><a href="index.html">History</a></p>
+  <h1>Honors and awards</h1>
+  <p class="lede">All-Conference picks, area and state honors, the team's season awards and its captains, from the coaches' season summaries.</p>
+  <nav class="tabs">{% if most %}<a href="#most">Most honored</a>{% endif %}<a href="#all-conference">All-Conference</a>{% if area %}<a href="#area">All-State &amp; area</a>{% endif %}<a href="#awards">Team awards</a><a href="#captains">Captains</a></nav>
+</div>
+
+<div class="wrap">
+  <div class="leader-cards">
+    <div class="leader-card"><span class="lbl">All-Conference picks</span><span class="val">{{ sm.picks }}</span><span class="muted small">plus {{ sm.hm }} honorable mentions</span></div>
+    <div class="leader-card"><span class="lbl">Players honored</span><span class="val">{{ sm.players }}</span></div>
+    <div class="leader-card"><span class="lbl">Seasons</span><span class="val">{{ sm.seasons }}</span><span class="muted small">with honors on record</span></div>
+  </div>
+
+  {% if most %}
+  <section class="card" id="most">
+    <h2>Most honored</h2>
+    <p class="muted">Players named All-Conference, or honorable mention, more than once.</p>
+    <div class="scroll">
+    <table class="tbl">
+      <thead><tr><th>Player</th><th class="num">Times</th><th>Seasons</th></tr></thead>
+      <tbody>
+      {% for m in most %}
+      <tr><td class="nowrap strong">{{ hon.who(m) }}</td><td class="num">{{ m.list | length }}</td>
+        <td>{% for h in m.list %}<a href="../seasons/{{ h.season }}.html">{{ h.season | replace('-', '–') }}</a> <span class="muted small">{{ h.honor | replace('All-Conference ', '') | replace('All-Conference', 'All-Conference') }}</span>{% if not loop.last %} · {% endif %}{% endfor %}</td></tr>
+      {% endfor %}
+      </tbody>
+    </table>
+    </div>
+  </section>
+  {% endif %}
+
+  <section class="card" id="all-conference">
+    <h2>All-Conference</h2>
+    <div class="scroll">
+    <table class="tbl">
+      <thead><tr><th>Season</th><th>All-Conference</th><th>Honorable mention</th></tr></thead>
+      <tbody>
+      {% for c in conf %}
+      <tr><td class="nowrap"><a href="../seasons/{{ c.season }}.html">{{ c.season | replace('-', '–') }}</a></td>
+        <td>{% for h in c.picks %}{{ hon.who(h) }}{% if h.honor != 'All-Conference' %} <span class="muted small">{{ h.honor | replace('All-Conference ', '') }}</span>{% endif %}{{ hon.note(h) }}{% if not loop.last %}, {% endif %}{% endfor %}</td>
+        <td>{% for h in c.hm %}{{ hon.who(h) }}{% if not loop.last %}, {% endif %}{% endfor %}</td></tr>
+      {% endfor %}
+      </tbody>
+    </table>
+    </div>
+  </section>
+
+  {% if area %}
+  <section class="card" id="area">
+    <h2>All-State &amp; area honors</h2>
+    <div class="scroll">
+    <table class="tbl">
+      <thead><tr><th>Season</th><th>Player</th><th>Honor</th></tr></thead>
+      <tbody>
+      {% for h in area %}
+      <tr><td class="nowrap"><a href="../seasons/{{ h.season }}.html">{{ h.season | replace('-', '–') }}</a></td><td class="nowrap strong">{{ hon.who(h) }}</td><td>{{ h.honor }}{{ hon.note(h) }}</td></tr>
+      {% endfor %}
+      </tbody>
+    </table>
+    </div>
+  </section>
+  {% endif %}
+
+  <section class="card" id="awards">
+    <h2>Team awards</h2>
+    <p class="muted">Voted or chosen at the end of each season. Where a season named an offensive MVP, it's listed as the MVP.</p>
+    <div class="scroll">
+    <table class="tbl">
+      <thead><tr><th>Season</th>{% for c in award_cols %}<th>{{ c }}</th>{% endfor %}</tr></thead>
+      <tbody>
+      {% for a in awards %}
+      <tr><td class="nowrap"><a href="../seasons/{{ a.season }}.html">{{ a.season | replace('-', '–') }}</a></td>
+        {% for col in a.cols %}<td>{% for h in col %}{{ hon.who(h) }}{% if h.honor == 'Offensive MVP' %} <span class="muted small">offense</span>{% endif %}{% if not loop.last %}, {% endif %}{% endfor %}</td>{% endfor %}</tr>
+      {% if a.other %}<tr><td></td><td colspan="{{ award_cols | length }}" class="small">{% for h in a.other %}{{ h.honor }}: {{ hon.who(h) }}{{ hon.note(h) }}{% if not loop.last %} · {% endif %}{% endfor %}</td></tr>{% endif %}
+      {% endfor %}
+      </tbody>
+    </table>
+    </div>
+  </section>
+
+  <section class="card" id="captains">
+    <h2>Captains</h2>
+    <div class="scroll">
+    <table class="tbl">
+      <thead><tr><th>Season</th><th>Captains</th></tr></thead>
+      <tbody>
+      {% for c in captains %}
+      <tr><td class="nowrap"><a href="../seasons/{{ c.season }}.html">{{ c.season | replace('-', '–') }}</a></td><td>{% for h in c.list %}{{ hon.who(h) }}{% if not loop.last %}, {% endif %}{% endfor %}</td></tr>
+      {% endfor %}
+      </tbody>
+    </table>
+    </div>
+  </section>
+
+  <p class="muted small">Most seasons before the 1980s aren't covered yet.{% if form_url %} Know of an honor that's missing? <a href="{{ form_url }}" target="_blank" rel="noopener">Let us know →</a>{% endif %}</p>
+</div>
+{% endblock %}

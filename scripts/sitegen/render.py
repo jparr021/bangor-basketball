@@ -69,6 +69,7 @@ def render(tpl, path, **ctx):
     ctx["build_id"] = BUILD_ID
     ctx["page_url"] = SITE_URL + clean_path(path)
     ctx["coach_slugs"] = COACH_SLUGS
+    ctx.setdefault("player_pages", PLAYER_PAGES)
     ctx["current_season"] = CURRENT
     ctx["gameday"] = GAMEDAY
     ctx["cal"] = CAL_LINKS

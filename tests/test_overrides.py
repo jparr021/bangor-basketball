@@ -40,6 +40,7 @@ class Columns(unittest.TestCase):
         "rosters.csv": ["season", "number", "name", "position", "height", "grade", "source"],
         "season_history.csv": ["season", "w", "l", "t", "coach", "notes"],
         "grad_years.csv": ["name", "grad_year", "note"],
+        "honors.csv": ["season", "name", "honor", "note"],
     }
 
     def test_columns(self):
@@ -71,6 +72,21 @@ class Lines(unittest.TestCase):
             with self.subTest(line=i, name=r["name"]):
                 self.assertRegex(r["season"], SEASON)
                 self.assertTrue(r["name"].strip() and r["question"].strip())
+
+    def test_honors(self):
+        # the honors the site groups (HONOR_GROUPS in scripts/sitegen/players_index.py); a new one goes there too
+        known = {"All-Conference 1st team", "All-Conference 2nd team", "All-Conference", "All-Conference honorable mention",
+                 "All-State honorable mention", "All-Coulee Region", "All-Coulee Region honorable mention",
+                 "All-tournament team", "Most Valuable Player", "Offensive MVP", "Defensive MVP", "Best rebounder",
+                 "Best free-throw shooter", "Most improved", "Spirit award", "Sportsmanship award", "Captain"}
+        seen = set()
+        for i, r in enumerate(rows("honors.csv")[1], 2):
+            with self.subTest(line=i, name=r["name"]):
+                self.assertRegex(r["season"], SEASON)
+                self.assertGreaterEqual(len(r["name"].split()), 2, "a first name and a last name")
+                self.assertIn(r["honor"], known)
+                self.assertNotIn((r["season"], r["name"], r["honor"]), seen, "listed twice")
+                seen.add((r["season"], r["name"], r["honor"]))
 
     def test_same_names(self):
         roster = rows("rosters.csv")[1]

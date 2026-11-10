@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% import "_stories.html" as news with context %}
 {% import "_badges.html" as rb with context %}
+{% import "_honors.html" as hon with context %}
 {% import "_photo.html" as photo with context %}
 {% set section = 'players' %}
 {% block title %}{{ name }} · Bangor Cardinals Boys Basketball{% endblock %}
@@ -87,6 +88,8 @@
     </div>
   </section>
   {% endif %}
+
+  {{ hon.player_card(honors) }}
 
   {{ rb.card(record_badges, who=False) }}
 

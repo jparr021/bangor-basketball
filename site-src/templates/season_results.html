@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% import "_badges.html" as rb with context %}
+{% import "_honors.html" as hon with context %}
 {% import "_photo.html" as photo with context %}
 {% set section = 'seasons' %}
 {% block title %}{{ s.season | replace('-', '–') }} season · Bangor Cardinals Boys Basketball{% endblock %}
@@ -40,6 +41,8 @@
     {% endfor %}
   </div>
   {% endif %}
+
+  {{ hon.season_card(honors) }}
 
   {{ rb.card(team_badges + player_badges, heading="In the record book") }}
 

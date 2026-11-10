@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% import "_stories.html" as news with context %}
 {% import "_badges.html" as rb with context %}
+{% import "_honors.html" as hon with context %}
 {% import "_photo.html" as photo with context %}
 {% set section = 'players' %}
 {% set STAT = {'pts': 'Points', 'reb': 'Rebounds', 'ast': 'Assists', 'stl': 'Steals', 'blk': 'Blocks', 'tpm': '3-pointers', 'ftm': 'Free throws', 'fgm': 'Field goals', 'gp': 'Games'} %}
@@ -55,6 +56,8 @@
     </table>
   </section>
   {% endif %}
+
+  {{ hon.player_card(honors) }}
 
   {{ rb.card(record_badges, who=False) }}
 

@@ -13,6 +13,7 @@ def history_pages():
     identify = [{**r, "href": f"../seasons/{r['season']}.html"} for r in load(ipath)] if os.path.exists(ipath) else []
     render("gaps.html", "history/gaps.html", rows=list(reversed(gap_rows)), wanted=wanted, sm=gap_sum, form_url=FORM_URL,
            identify=identify)
+    honors_page()
     chrono = sorted(coach_list, key=lambda c: c["seasons"][0])
     for i, c in enumerate(chrono):
         rec = f"{c['w']}–{c['l']}" + (f"–{c['t']}" if c["t"] else "")
@@ -27,6 +28,36 @@ def history_pages():
                ld=[ld_person(c["name"], f"coaches/{c['slug']}.html", role="Head coach", years=span),
                    ld_crumbs(("History", "history/index.html"), (c["name"], f"coaches/{c['slug']}.html"))], d=coach_page_data(c), **sh,
                prev=chrono[i - 1] if i else None, next=chrono[i + 1] if i + 1 < len(chrono) else None)
+
+
+def honors_page():
+    """All-Conference picks, area and state honors, team awards and captains, season by season (honors.csv)."""
+    if not HONORS:
+        return
+    seasons = sorted({h["season"] for h in HONORS}, reverse=True)
+    by = lambda s, g: [h for h in HONORS_BY_SEASON[s] if h["group"] == g]
+    conf = [{"season": s, "picks": [h for h in by(s, "conf") if "honorable" not in h["honor"]],
+             "hm": [h for h in by(s, "conf") if "honorable" in h["honor"]]} for s in seasons if by(s, "conf")]
+    award_cols = [("MVP", ("Most Valuable Player", "Offensive MVP")), ("Defensive MVP", ("Defensive MVP",)),
+                  ("Best rebounder", ("Best rebounder",)), ("Best free-throw shooter", ("Best free-throw shooter",)),
+                  ("Most improved", ("Most improved",)), ("Spirit award", ("Spirit award",))]
+    shown = {h for _, hs in award_cols for h in hs}
+    awards = [{"season": s, "cols": [[h for h in by(s, "award") if h["honor"] in hs] for _, hs in award_cols],
+               "other": [h for h in by(s, "award") if h["honor"] not in shown]} for s in seasons if by(s, "award")]
+    captains = [{"season": s, "list": by(s, "captain")} for s in seasons if by(s, "captain")]
+    area = [h for h in reversed(HONORS) if h["group"] == "area"]
+    # players picked All-Conference (any team, or honorable mention) more than once
+    count = defaultdict(list)
+    for h in HONORS:
+        if h["group"] == "conf":
+            count[(h["slug"] or h["name"], h["name"])].append(h)
+    most = sorted(({"name": n, "slug": k if k in PLAYER_PAGES else None, "list": hs} for (k, n), hs in count.items() if len(hs) > 1),
+                  key=lambda m: (-len(m["list"]), -sum("honorable" not in h["honor"] for h in m["list"]), m["name"]))
+    sm = {"picks": sum(len(c["picks"]) for c in conf), "hm": sum(len(c["hm"]) for c in conf),
+          "players": len({h["slug"] or h["name"] for h in HONORS}), "seasons": len(seasons)}
+    render("honors.html", "history/honors.html", conf=conf, awards=awards, award_cols=[c for c, _ in award_cols],
+           captains=captains, area=area, most=most, sm=sm, form_url=FORM_URL,
+           ld=[ld_crumbs(("History", "history/index.html"), ("Honors", "history/honors.html"))])
 
 
 def opponent_pages(opps):
@@ -106,6 +137,7 @@ def search_index(plist, olist, classes):
     for t, u, x in [("Team leaders by season", "records/season-leaders.html", "season leaders scoring leader rebounding"),
                     ("Graduating classes", "players/classes.html", "class of seniors graduates roster"),
                     ("Record Book", "records/index.html", "records top 10"), ("Career Leaders", "records/career-leaders.html", "leaderboard all-time career points rebounds assists list"), ("History & Coaches", "history/index.html", "coaches"),
+                    ("Honors and awards", "history/honors.html", "all-conference all conference captains mvp awards honorable mention all-state"),
                     ("Help fill in the gaps", "history/gaps.html", "missing share programs yearbooks clippings photos film contribute"),
                     ("All seasons", "seasons/index.html", ""), ("All players", "players/index.html", "roster"),
                     ("All opponents", "opponents/index.html", "")] + ([("Game film", "film/index.html", "video youtube hudl")]

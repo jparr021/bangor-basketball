@@ -83,7 +83,7 @@ season,game,date,site,opponent,bangor_score,opp_score,result,ot,note,source
 2001-02,23,2002-03-02,home,Wonewoc-Center,66,47,,,Regional final,Bangor yearbook season schedule recap
 2001-02,24,2002-03-08,home,Greenwood,55,60,,,Sectional semifinal,Bangor yearbook season schedule recap
 1991-92,6,1992-01-07,,Necedah,64,83,,,,"Bangor game program, Jan. 11, 1992"
-1989-90,15,1990-02-06,away,Cashton,56,58,,,,"Bangor game program, Feb. 10, 1990"
+1989-90,15,1990-02-06,away,Cashton,56,58,,,Lost on a 3-pointer at the buzzer,"Bangor game program, Feb. 10, 1990"
 1988-89,,1989-01-10,away,Hillsboro,51,67,,,,"Bangor game program, Jan. 14, 1989"
 1997-98,1,1997-11-29,home,West Salem,43,37,,,,1997-98 Bangor yearbook
 1997-98,2,1997-12-09,home,Necedah,47,46,,,,1997-98 Bangor yearbook
@@ -1053,3 +1053,23 @@ season,game,date,site,opponent,bangor_score,opp_score,result,ot,note,source
 1987-88,25,1988-03-11,neutral,Eleva-Strum,70,69,,,Sectional semifinal, at La Crosse Logan; Andy Kick's half-court shot at the buzzer; Kick scored 44 with 7 of 9 three-pointers, a Logan fieldhouse record,"1987-88 coach's summary in Cardinals on the Court: A History of Bangor High School Boys Basketball, compiled and edited by Joe Stekel"
 1987-88,26,1988-03-12,neutral,Southwestern,47,65,,,Sectional final, at La Crosse Logan,"1987-88 coach's summary in Cardinals on the Court: A History of Bangor High School Boys Basketball, compiled and edited by Joe Stekel"
 1988-89,21,,,Cashton,,,L,,Regional tournament; ended the season; no score given,"1988-89 yearbook page in Cardinals on the Court: A History of Bangor High School Boys Basketball, compiled and edited by Joe Stekel"
+1989-90,1,,away,Melrose-Mindoro,,,L,,Non-conference; no score given,"1989-90 coach's summary in Cardinals on the Court: A History of Bangor High School Boys Basketball, compiled and edited by Joe Stekel"
+1989-90,2,,home,Luther,,,L,,Non-conference · Home opener; no score given,"1989-90 coach's summary in Cardinals on the Court: A History of Bangor High School Boys Basketball, compiled and edited by Joe Stekel"
+1989-90,3,,away,Brookwood,49,59,,,Bangor shot 24% from the field,"1989-90 coach's summary in Cardinals on the Court: A History of Bangor High School Boys Basketball, compiled and edited by Joe Stekel"
+1989-90,4,,away,New Lisbon,45,34,,,First win of the season,"1989-90 coach's summary in Cardinals on the Court: A History of Bangor High School Boys Basketball, compiled and edited by Joe Stekel"
+1989-90,5,,home,Cashton,52,55,,1,Led by 7 after three quarters,"1989-90 coach's summary in Cardinals on the Court: A History of Bangor High School Boys Basketball, compiled and edited by Joe Stekel"
+1989-90,6,,neutral,Rochester John Marshall,46,80,,,Non-conference · Rochester Rotary-First Bank Holiday Classic, first round,"1989-90 coach's summary in Cardinals on the Court: A History of Bangor High School Boys Basketball, compiled and edited by Joe Stekel"
+1989-90,7,,neutral,Red Wing,,,L,,Non-conference · Rochester Rotary-First Bank Holiday Classic, second round; no score given,"1989-90 coach's summary in Cardinals on the Court: A History of Bangor High School Boys Basketball, compiled and edited by Joe Stekel"
+1989-90,8,,neutral,Waseca,,,L,,Non-conference · Rochester Rotary-First Bank Holiday Classic, 7th-place game; lost by 11 despite Scott Herman's 32 points; no score given,"1989-90 coach's summary in Cardinals on the Court: A History of Bangor High School Boys Basketball, compiled and edited by Joe Stekel"
+1989-90,9,1990-01-05,away,Necedah,32,78,,,Bangor shot 18% from the field,"1989-90 coach's summary in Cardinals on the Court: A History of Bangor High School Boys Basketball, compiled and edited by Joe Stekel"
+1989-90,10,,home,Hillsboro,46,60,,,Hillsboro was unbeaten,"1989-90 coach's summary in Cardinals on the Court: A History of Bangor High School Boys Basketball, compiled and edited by Joe Stekel"
+1989-90,11,,away,Wonewoc-Center,45,28,,,Outscored Wonewoc 13–10 in the fourth quarter,"1989-90 coach's summary in Cardinals on the Court: A History of Bangor High School Boys Basketball, compiled and edited by Joe Stekel"
+1989-90,12,,home,Brookwood,52,33,,,,"1989-90 coach's summary in Cardinals on the Court: A History of Bangor High School Boys Basketball, compiled and edited by Joe Stekel"
+1989-90,13,,away,Royall,64,50,,,A make-up game; came back from 14–0 down,"1989-90 coach's summary in Cardinals on the Court: A History of Bangor High School Boys Basketball, compiled and edited by Joe Stekel"
+1989-90,14,,home,New Lisbon,50,39,,,Scott Herman 24 points,"1989-90 coach's summary in Cardinals on the Court: A History of Bangor High School Boys Basketball, compiled and edited by Joe Stekel"
+1989-90,16,,home,Necedah,41,77,,,,"1989-90 coach's summary in Cardinals on the Court: A History of Bangor High School Boys Basketball, compiled and edited by Joe Stekel"
+1989-90,17,,home,West Salem,,,W,,Non-conference · Won by 19 on Alumni Weekend; no score given,"1989-90 coach's summary in Cardinals on the Court: A History of Bangor High School Boys Basketball, compiled and edited by Joe Stekel"
+1989-90,18,,away,Hillsboro,47,64,,,Hillsboro was ranked 15th,"1989-90 coach's summary in Cardinals on the Court: A History of Bangor High School Boys Basketball, compiled and edited by Joe Stekel"
+1989-90,19,,home,Wonewoc-Center,50,41,,,Pat Hansen 16 points,"1989-90 coach's summary in Cardinals on the Court: A History of Bangor High School Boys Basketball, compiled and edited by Joe Stekel"
+1989-90,20,,home,Royall,56,60,,,Last regular-season game,"1989-90 coach's summary in Cardinals on the Court: A History of Bangor High School Boys Basketball, compiled and edited by Joe Stekel"
+1989-90,21,,away,Blair-Taylor,63,67,,,Sub-regional; came back from 18 down at the half to tie it in the last minute. Mike Freit 17 points, Merlin Jones and Scott Herman 14,"1989-90 coach's summary in Cardinals on the Court: A History of Bangor High School Boys Basketball, compiled and edited by Joe Stekel"

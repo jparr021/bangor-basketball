@@ -4849,6 +4849,20 @@
      "gp": 26
     },
     {
+     "value": 164,
+     "name": "Scott Herman",
+     "player": "scott-herman",
+     "season": "1989-90",
+     "gp": 21
+    },
+    {
+     "value": 160,
+     "name": "Dave Garves",
+     "player": "dave-garves",
+     "season": "1989-90",
+     "gp": 21
+    },
+    {
      "value": 160,
      "name": "Luke Reader",
      "player": "luke-reader",
@@ -4903,20 +4917,6 @@
      "player": "troy-bolcerek",
      "season": "2002-03",
      "gp": 24
-    },
-    {
-     "value": 150,
-     "name": "Brad Skaer",
-     "player": "brad-skaer",
-     "season": "2001-02",
-     "gp": 24
-    },
-    {
-     "value": 150,
-     "name": "Tanner Jones",
-     "player": "tanner-jones",
-     "season": "2021-22",
-     "gp": 29
     }
    ],
    "ast": [
@@ -5634,11 +5634,11 @@
      "gp": 27
     },
     {
-     "value": 136,
-     "name": "Chris Tiona",
-     "player": "chris-tiona",
-     "season": "1985-86",
-     "gp": 18
+     "value": 138,
+     "name": "Scott Herman",
+     "player": "scott-herman",
+     "season": "1989-90",
+     "gp": 21
     }
    ],
    "fga": [
@@ -6498,6 +6498,13 @@
      "gp": 25
     },
     {
+     "value": 79,
+     "name": "Brett Cavadini",
+     "player": "brett-cavadini",
+     "season": "1989-90",
+     "gp": 21
+    },
+    {
      "value": 77,
      "name": "Joel Torgerud",
      "player": "joel-torgerud",
@@ -6524,20 +6531,6 @@
      "player": "drew-johnson",
      "season": "2016-17",
      "gp": 27
-    },
-    {
-     "value": 74,
-     "name": "Luke Reader",
-     "player": "luke-reader",
-     "season": "2017-18",
-     "gp": 28
-    },
-    {
-     "value": 74,
-     "name": "Dayne Langrehr",
-     "player": "dayne-langrehr",
-     "season": "2025-26",
-     "gp": 26
     }
    ],
    "pf": [
@@ -6887,6 +6880,14 @@
      "detail": "364 pts / 23 G"
     },
     {
+     "value": 15.238095,
+     "name": "Scott Herman",
+     "player": "scott-herman",
+     "season": "1989-90",
+     "gp": 21,
+     "detail": "320 pts / 21 G"
+    },
+    {
      "value": 14.84,
      "name": "Brody Edwards",
      "player": "brody-edwards",
@@ -6909,14 +6910,6 @@
      "season": "1988-89",
      "gp": 20,
      "detail": "291 pts / 20 G"
-    },
-    {
-     "value": 14.538462,
-     "name": "Zane Langrehr",
-     "player": "zane-langrehr",
-     "season": "2019-20",
-     "gp": 26,
-     "detail": "378 pts / 26 G"
     }
    ],
    "fg_pct": [
@@ -7041,6 +7034,14 @@
      "detail": "239-417"
     },
     {
+     "value": 0.570248,
+     "name": "Scott Herman",
+     "player": "scott-herman",
+     "season": "1989-90",
+     "gp": 21,
+     "detail": "138-242"
+    },
+    {
      "value": 0.560284,
      "name": "Will Reader",
      "player": "will-reader",
@@ -7111,14 +7112,6 @@
      "season": "2016-17",
      "gp": 22,
      "detail": "70-130"
-    },
-    {
-     "value": 0.533333,
-     "name": "Brian Clements",
-     "player": "brian-clements",
-     "season": "1986-87",
-     "gp": 12,
-     "detail": "16-30"
     }
    ],
    "tp_pct": [
@@ -13798,6 +13791,11 @@
      "detail": "0-0"
     },
     {
+     "value": 45,
+     "season": "1989-90",
+     "detail": "0-0"
+    },
+    {
      "value": 31,
      "season": "1988-89",
      "detail": "0-0"
@@ -13878,6 +13876,11 @@
      "value": 260,
      "season": "1997-98",
      "detail": "13-8"
+    },
+    {
+     "value": 154,
+     "season": "1989-90",
+     "detail": "0-0"
     },
     {
      "value": 130,
@@ -13982,6 +13985,11 @@
      "detail": "19-3"
     },
     {
+     "value": 194,
+     "season": "1989-90",
+     "detail": "0-0"
+    },
+    {
      "value": 192,
      "season": "1988-89",
      "detail": "0-0"
@@ -14076,6 +14084,11 @@
     {
      "value": 383,
      "season": "1986-87",
+     "detail": "0-0"
+    },
+    {
+     "value": 372,
+     "season": "1989-90",
      "detail": "0-0"
     },
     {
@@ -14178,6 +14191,11 @@
     {
      "value": 698,
      "season": "1988-89",
+     "detail": "0-0"
+    },
+    {
+     "value": 689,
+     "season": "1989-90",
      "detail": "0-0"
     },
     {
@@ -14298,6 +14316,11 @@
      "detail": "17-7"
     },
     {
+     "value": 203,
+     "season": "1989-90",
+     "detail": "0-0"
+    },
+    {
      "value": 153,
      "season": "1984-85",
      "detail": "0-0"
@@ -14408,6 +14431,11 @@
      "value": 167,
      "season": "2002-03",
      "detail": "22-2"
+    },
+    {
+     "value": 159,
+     "season": "1989-90",
+     "detail": "0-0"
     }
    ],
    "blk": [
@@ -14579,6 +14607,11 @@
      "detail": "570-1488"
     },
     {
+     "value": 0.364461,
+     "season": "1989-90",
+     "detail": "402-1103"
+    },
+    {
      "value": 0.363817,
      "season": "1984-85",
      "detail": "366-1006"
@@ -14654,6 +14687,11 @@
      "value": 0.294243,
      "season": "2024-25",
      "detail": "138-469"
+    },
+    {
+     "value": 0.292208,
+     "season": "1989-90",
+     "detail": "45-154"
     },
     {
      "value": 0.289389,
@@ -14761,6 +14799,11 @@
      "value": 0.561358,
      "season": "1986-87",
      "detail": "215-383"
+    },
+    {
+     "value": 0.521505,
+     "season": "1989-90",
+     "detail": "194-372"
     },
     {
      "value": 0.481203,

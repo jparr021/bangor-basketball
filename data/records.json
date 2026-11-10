@@ -6286,6 +6286,13 @@
      "gp": 22
     },
     {
+     "value": 67,
+     "name": "Eric Beron",
+     "player": "eric-beron",
+     "season": "1992-93",
+     "gp": 21
+    },
+    {
      "value": 66,
      "name": "Cory Nicolai",
      "player": "cory-nicolai",
@@ -6354,20 +6361,6 @@
      "player": "todd-oliver",
      "season": "1985-86",
      "gp": 21
-    },
-    {
-     "value": 55,
-     "name": "Chase Horstman",
-     "player": "chase-horstman",
-     "season": "2022-23",
-     "gp": 25
-    },
-    {
-     "value": 55,
-     "name": "Hayden Massman",
-     "player": "hayden-massman",
-     "season": "2024-25",
-     "gp": 26
     }
    ],
    "fta": [
@@ -6541,6 +6534,13 @@
     },
     {
      "value": 82,
+     "name": "Eric Beron",
+     "player": "eric-beron",
+     "season": "1992-93",
+     "gp": 21
+    },
+    {
+     "value": 82,
      "name": "Chase Horstman",
      "player": "chase-horstman",
      "season": "2022-23",
@@ -6589,6 +6589,13 @@
      "player": "merlin-jones",
      "season": "1990-91",
      "gp": 22
+    },
+    {
+     "value": 77,
+     "name": "Eric Beron",
+     "player": "eric-beron",
+     "season": "1992-93",
+     "gp": 21
     },
     {
      "value": 74,
@@ -6722,6 +6729,13 @@
      "player": "mike-freit",
      "season": "1990-91",
      "gp": 22
+    },
+    {
+     "value": 63,
+     "name": "Chad Anderson",
+     "player": "chad-anderson",
+     "season": "1992-93",
+     "gp": 21
     }
    ],
    "ppg": [
@@ -7372,6 +7386,14 @@
      "detail": "34-41"
     },
     {
+     "value": 0.817073,
+     "name": "Eric Beron",
+     "player": "eric-beron",
+     "season": "1992-93",
+     "gp": 21,
+     "detail": "67-82"
+    },
+    {
      "value": 0.810811,
      "name": "Luke Reader",
      "player": "luke-reader",
@@ -7500,6 +7522,14 @@
      "detail": "27-37"
     },
     {
+     "value": 0.726027,
+     "name": "Wade Kendhammer",
+     "player": "wade-kendhammer",
+     "season": "1992-93",
+     "gp": 21,
+     "detail": "53-73"
+    },
+    {
      "value": 0.722222,
      "name": "Drew Johnson",
      "player": "drew-johnson",
@@ -7514,22 +7544,6 @@
      "season": "1990-91",
      "gp": 22,
      "detail": "66-92"
-    },
-    {
-     "value": 0.711538,
-     "name": "Ryan Lockington",
-     "player": "ryan-lockington",
-     "season": "1991-92",
-     "gp": 22,
-     "detail": "37-52"
-    },
-    {
-     "value": 0.711538,
-     "name": "Grant Manke",
-     "player": "grant-manke",
-     "season": "2017-18",
-     "gp": 28,
-     "detail": "74-104"
     }
    ]
   },
@@ -13566,6 +13580,11 @@
      "detail": "15-8"
     },
     {
+     "value": 54.904762,
+     "season": "1992-93",
+     "detail": "9-12"
+    },
+    {
      "value": 54.857143,
      "season": "2005-06",
      "detail": "14-7"
@@ -13589,11 +13608,6 @@
      "value": 38.904762,
      "season": "2007-08",
      "detail": "3-18"
-    },
-    {
-     "value": 38.45,
-     "season": "2003-04",
-     "detail": "2-18"
     }
    ],
    "opp_ppg": [
@@ -13823,6 +13837,11 @@
      "value": 31,
      "season": "1988-89",
      "detail": "0-0"
+    },
+    {
+     "value": 30,
+     "season": "1992-93",
+     "detail": "9-12"
     }
    ],
    "tpa": [
@@ -13912,6 +13931,11 @@
      "detail": "0-0"
     },
     {
+     "value": 145,
+     "season": "1992-93",
+     "detail": "9-12"
+    },
+    {
      "value": 130,
      "season": "1987-88",
      "detail": "0-0"
@@ -13967,6 +13991,11 @@
      "value": 279,
      "season": "2015-16",
      "detail": "23-4"
+    },
+    {
+     "value": 273,
+     "season": "1992-93",
+     "detail": "9-12"
     },
     {
      "value": 269,
@@ -14114,6 +14143,11 @@
      "value": 408,
      "season": "2014-15",
      "detail": "21-3"
+    },
+    {
+     "value": 406,
+     "season": "1992-93",
+     "detail": "9-12"
     },
     {
      "value": 402,
@@ -14273,6 +14307,11 @@
      "detail": "13-8"
     },
     {
+     "value": 579,
+     "season": "1992-93",
+     "detail": "9-12"
+    },
+    {
      "value": 577,
      "season": "2001-02",
      "detail": "17-7"
@@ -14393,6 +14432,11 @@
      "value": 203,
      "season": "1989-90",
      "detail": "0-0"
+    },
+    {
+     "value": 188,
+     "season": "1992-93",
+     "detail": "9-12"
     },
     {
      "value": 153,
@@ -14520,6 +14564,11 @@
      "value": 159,
      "season": "1989-90",
      "detail": "0-0"
+    },
+    {
+     "value": 139,
+     "season": "1992-93",
+     "detail": "9-12"
     }
    ],
    "blk": [
@@ -14686,6 +14735,11 @@
      "detail": "483-1214"
     },
     {
+     "value": 0.385609,
+     "season": "1992-93",
+     "detail": "418-1084"
+    },
+    {
      "value": 0.384851,
      "season": "1990-91",
      "detail": "503-1307"
@@ -14811,9 +14865,19 @@
      "value": 0.269565,
      "season": "1988-89",
      "detail": "31-115"
+    },
+    {
+     "value": 0.206897,
+     "season": "1992-93",
+     "detail": "30-145"
     }
    ],
    "ft_pct": [
+    {
+     "value": 0.672414,
+     "season": "1992-93",
+     "detail": "273-406"
+    },
     {
      "value": 0.661638,
      "season": "2016-17",
@@ -15065,6 +15129,11 @@
      "value": 21,
      "season": "1997-98",
      "detail": "13-8"
+    },
+    {
+     "value": 21,
+     "season": "1992-93",
+     "detail": "9-12"
     }
    ]
   },

@@ -4828,6 +4828,13 @@
      "gp": 28
     },
     {
+     "value": 185,
+     "name": "Greg Sprehn",
+     "player": "greg-sprehn",
+     "season": "1994-95",
+     "gp": 21
+    },
+    {
      "value": 179,
      "name": "Gunner Ellenburg",
      "player": "gunner-ellenburg",
@@ -4910,13 +4917,6 @@
      "player": "paul-wittmershaus",
      "season": "1987-88",
      "gp": 25
-    },
-    {
-     "value": 154,
-     "name": "Nathan Broers",
-     "player": "nathan-broers",
-     "season": "1988-89",
-     "gp": 19
     }
    ],
    "ast": [
@@ -5961,6 +5961,13 @@
     },
     {
      "value": 33,
+     "name": "Travis Bolcerek",
+     "player": "travis-bolcerek",
+     "season": "1994-95",
+     "gp": 20
+    },
+    {
+     "value": 33,
      "name": "Troy Bolcerek",
      "player": "troy-bolcerek",
      "season": "2002-03",
@@ -5985,27 +5992,6 @@
      "name": "Hayden Massman",
      "player": "hayden-massman",
      "season": "2024-25",
-     "gp": 26
-    },
-    {
-     "value": 30,
-     "name": "Drew Johnson",
-     "player": "drew-johnson",
-     "season": "2015-16",
-     "gp": 27
-    },
-    {
-     "value": 30,
-     "name": "Caleb Miedema",
-     "player": "caleb-miedema",
-     "season": "2016-17",
-     "gp": 25
-    },
-    {
-     "value": 30,
-     "name": "Hank Reader",
-     "player": "hank-reader",
-     "season": "2018-19",
      "gp": 26
     }
    ],
@@ -6123,6 +6109,13 @@
      "gp": 25
     },
     {
+     "value": 108,
+     "name": "Travis Bolcerek",
+     "player": "travis-bolcerek",
+     "season": "1994-95",
+     "gp": 20
+    },
+    {
      "value": 99,
      "name": "Drew Johnson",
      "player": "drew-johnson",
@@ -6177,13 +6170,6 @@
      "player": "caleb-miedema",
      "season": "2016-17",
      "gp": 25
-    },
-    {
-     "value": 91,
-     "name": "Nolan Michek",
-     "player": "nolan-michek",
-     "season": "2023-24",
-     "gp": 24
     }
    ],
    "ftm": [
@@ -6326,6 +6312,13 @@
      "player": "mike-freit",
      "season": "1990-91",
      "gp": 22
+    },
+    {
+     "value": 60,
+     "name": "Greg Sprehn",
+     "player": "greg-sprehn",
+     "season": "1994-95",
+     "gp": 21
     },
     {
      "value": 60,
@@ -6513,6 +6506,13 @@
     },
     {
      "value": 86,
+     "name": "Greg Sprehn",
+     "player": "greg-sprehn",
+     "season": "1994-95",
+     "gp": 21
+    },
+    {
+     "value": 86,
      "name": "Dustin McDonald",
      "player": "dustin-mcdonald",
      "season": "2022-23",
@@ -6531,27 +6531,6 @@
      "player": "caleb-miedema",
      "season": "2017-18",
      "gp": 28
-    },
-    {
-     "value": 82,
-     "name": "Ryan Lockington",
-     "player": "ryan-lockington",
-     "season": "1990-91",
-     "gp": 22
-    },
-    {
-     "value": 82,
-     "name": "Eric Beron",
-     "player": "eric-beron",
-     "season": "1992-93",
-     "gp": 21
-    },
-    {
-     "value": 82,
-     "name": "Chase Horstman",
-     "player": "chase-horstman",
-     "season": "2022-23",
-     "gp": 25
     }
    ],
    "pf": [
@@ -7328,20 +7307,20 @@
      "detail": "30-98"
     },
     {
+     "value": 0.305556,
+     "name": "Travis Bolcerek",
+     "player": "travis-bolcerek",
+     "season": "1994-95",
+     "gp": 20,
+     "detail": "33-108"
+    },
+    {
      "value": 0.304878,
      "name": "Ryan Schroeder",
      "player": "ryan-schroeder",
      "season": "1997-98",
      "gp": null,
      "detail": "25-82"
-    },
-    {
-     "value": 0.300518,
-     "name": "Hayden Massman",
-     "player": "hayden-massman",
-     "season": "2025-26",
-     "gp": 26,
-     "detail": "58-193"
     }
    ],
    "ft_pct": [
@@ -7530,20 +7509,20 @@
      "detail": "27-37"
     },
     {
+     "value": 0.727273,
+     "name": "T.J. O'Heron",
+     "player": "tj-oheron",
+     "season": "1994-95",
+     "gp": 21,
+     "detail": "24-33"
+    },
+    {
      "value": 0.726027,
      "name": "Wade Kendhammer",
      "player": "wade-kendhammer",
      "season": "1992-93",
      "gp": 21,
      "detail": "53-73"
-    },
-    {
-     "value": 0.725806,
-     "name": "Chad Anderson",
-     "player": "chad-anderson",
-     "season": "1993-94",
-     "gp": 15,
-     "detail": "45-62"
     }
    ]
   },
@@ -13585,6 +13564,11 @@
      "detail": "15-8"
     },
     {
+     "value": 55.190476,
+     "season": "1994-95",
+     "detail": "7-14"
+    },
+    {
      "value": 54.904762,
      "season": "1992-93",
      "detail": "9-12"
@@ -13603,11 +13587,6 @@
      "value": 49.714286,
      "season": "2006-07",
      "detail": "12-9"
-    },
-    {
-     "value": 42.47619,
-     "season": "2008-09",
-     "detail": "3-18"
     }
    ],
    "opp_ppg": [
@@ -13824,6 +13803,11 @@
      "detail": "0-0"
     },
     {
+     "value": 61,
+     "season": "1994-95",
+     "detail": "7-14"
+    },
+    {
      "value": 57,
      "season": "1987-88",
      "detail": "0-0"
@@ -13926,6 +13910,11 @@
      "detail": "13-8"
     },
     {
+     "value": 230,
+     "season": "1994-95",
+     "detail": "7-14"
+    },
+    {
      "value": 223,
      "season": "1993-94",
      "detail": "15-8"
@@ -14013,6 +14002,11 @@
      "detail": "9-12"
     },
     {
+     "value": 270,
+     "season": "1994-95",
+     "detail": "7-14"
+    },
+    {
      "value": 269,
      "season": "2023-24",
      "detail": "13-11"
@@ -14080,11 +14074,6 @@
     {
      "value": 192,
      "season": "1988-89",
-     "detail": "0-0"
-    },
-    {
-     "value": 163,
-     "season": "1984-85",
      "detail": "0-0"
     }
    ],
@@ -14155,6 +14144,11 @@
      "detail": "13-8"
     },
     {
+     "value": 419,
+     "season": "1994-95",
+     "detail": "7-14"
+    },
+    {
      "value": 408,
      "season": "2014-15",
      "detail": "21-3"
@@ -14208,11 +14202,6 @@
      "value": 344,
      "season": "1984-85",
      "detail": "0-0"
-    },
-    {
-     "value": 307,
-     "season": "2020-21",
-     "detail": "19-3"
     }
    ],
    "reb": [
@@ -14302,6 +14291,11 @@
      "detail": "0-0"
     },
     {
+     "value": 696,
+     "season": "1994-95",
+     "detail": "7-14"
+    },
+    {
      "value": 689,
      "season": "1989-90",
      "detail": "0-0"
@@ -14335,11 +14329,6 @@
      "value": 569,
      "season": "1984-85",
      "detail": "0-0"
-    },
-    {
-     "value": 561,
-     "season": "2002-03",
-     "detail": "22-2"
     }
    ],
    "ast": [
@@ -14902,6 +14891,11 @@
      "detail": "31-115"
     },
     {
+     "value": 0.265217,
+     "season": "1994-95",
+     "detail": "61-230"
+    },
+    {
      "value": 0.206897,
      "season": "1992-93",
      "detail": "30-145"
@@ -14937,6 +14931,11 @@
      "value": 0.64482,
      "season": "1990-91",
      "detail": "305-473"
+    },
+    {
+     "value": 0.644391,
+     "season": "1994-95",
+     "detail": "270-419"
     },
     {
      "value": 0.642369,
@@ -15027,11 +15026,6 @@
      "value": 0.481203,
      "season": "1988-89",
      "detail": "192-399"
-    },
-    {
-     "value": 0.473837,
-     "season": "1984-85",
-     "detail": "163-344"
     }
    ],
    "games": [
@@ -15174,6 +15168,11 @@
      "value": 21,
      "season": "1992-93",
      "detail": "9-12"
+    },
+    {
+     "value": 21,
+     "season": "1994-95",
+     "detail": "7-14"
     }
    ]
   },

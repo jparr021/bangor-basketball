@@ -4877,6 +4877,13 @@
      "gp": 25
     },
     {
+     "value": 154,
+     "name": "Nathan Broers",
+     "player": "nathan-broers",
+     "season": "1988-89",
+     "gp": 19
+    },
+    {
      "value": 152,
      "name": "Chris Tiona",
      "player": "chris-tiona",
@@ -4910,27 +4917,6 @@
      "player": "tanner-jones",
      "season": "2021-22",
      "gp": 29
-    },
-    {
-     "value": 142,
-     "name": "Travis Hansen",
-     "player": "travis-hansen",
-     "season": "1986-87",
-     "gp": 19
-    },
-    {
-     "value": 142,
-     "name": "Luke Reader",
-     "player": "luke-reader",
-     "season": "2017-18",
-     "gp": 28
-    },
-    {
-     "value": 142,
-     "name": "Dustin McDonald",
-     "player": "dustin-mcdonald",
-     "season": "2022-23",
-     "gp": 25
     }
    ],
    "ast": [
@@ -4989,6 +4975,13 @@
      "player": "luke-reader",
      "season": "2016-17",
      "gp": 25
+    },
+    {
+     "value": 99,
+     "name": "Jason Rentz",
+     "player": "jason-rentz",
+     "season": "1988-89",
+     "gp": 20
     },
     {
      "value": 99,
@@ -5101,20 +5094,6 @@
      "player": "dustin-mcdonald",
      "season": "2021-22",
      "gp": 30
-    },
-    {
-     "value": 74,
-     "name": "Chase Horstman",
-     "player": "chase-horstman",
-     "season": "2023-24",
-     "gp": 24
-    },
-    {
-     "value": 74,
-     "name": "Dayne Langrehr",
-     "player": "dayne-langrehr",
-     "season": "2025-26",
-     "gp": 26
     }
    ],
    "stl": [
@@ -5166,6 +5145,13 @@
      "player": "caleb-miedema",
      "season": "2015-16",
      "gp": 27
+    },
+    {
+     "value": 59,
+     "name": "Jason Rentz",
+     "player": "jason-rentz",
+     "season": "1988-89",
+     "gp": 20
     },
     {
      "value": 59,
@@ -5762,6 +5748,13 @@
      "gp": 27
     },
     {
+     "value": 315,
+     "name": "Jason Rentz",
+     "player": "jason-rentz",
+     "season": "1988-89",
+     "gp": 20
+    },
+    {
      "value": 314,
      "name": "Luke Reader",
      "player": "luke-reader",
@@ -5823,13 +5816,6 @@
      "player": "caleb-miedema",
      "season": "2016-17",
      "gp": 25
-    },
-    {
-     "value": 289,
-     "name": "Jack Reader",
-     "player": "jack-reader",
-     "season": "2015-16",
-     "gp": 27
     }
    ],
    "tpm": [
@@ -6585,6 +6571,13 @@
     },
     {
      "value": 72,
+     "name": "Jason Rentz",
+     "player": "jason-rentz",
+     "season": "1988-89",
+     "gp": 20
+    },
+    {
+     "value": 72,
      "name": "Hunter Ellenburg",
      "player": "hunter-ellenburg",
      "season": "2016-17",
@@ -6722,13 +6715,6 @@
      "player": "grant-manke",
      "season": "2017-18",
      "gp": 28
-    },
-    {
-     "value": 58,
-     "name": "Canon O'Heron",
-     "player": "canon-oheron",
-     "season": "2014-15",
-     "gp": 24
     }
    ],
    "ppg": [
@@ -6917,20 +6903,20 @@
      "detail": "396 pts / 27 G"
     },
     {
+     "value": 14.55,
+     "name": "Jason Rentz",
+     "player": "jason-rentz",
+     "season": "1988-89",
+     "gp": 20,
+     "detail": "291 pts / 20 G"
+    },
+    {
      "value": 14.538462,
      "name": "Zane Langrehr",
      "player": "zane-langrehr",
      "season": "2019-20",
      "gp": 26,
      "detail": "378 pts / 26 G"
-    },
-    {
-     "value": 14.28,
-     "name": "Travis Hansen",
-     "player": "travis-hansen",
-     "season": "1987-88",
-     "gp": 25,
-     "detail": "357 pts / 25 G"
     }
    ],
    "fg_pct": [
@@ -13810,6 +13796,11 @@
      "value": 57,
      "season": "1987-88",
      "detail": "0-0"
+    },
+    {
+     "value": 31,
+     "season": "1988-89",
+     "detail": "0-0"
     }
    ],
    "tpa": [
@@ -13891,6 +13882,11 @@
     {
      "value": 130,
      "season": "1987-88",
+     "detail": "0-0"
+    },
+    {
+     "value": 115,
+     "season": "1988-89",
      "detail": "0-0"
     }
    ],
@@ -13986,6 +13982,11 @@
      "detail": "19-3"
     },
     {
+     "value": 192,
+     "season": "1988-89",
+     "detail": "0-0"
+    },
+    {
      "value": 163,
      "season": "1984-85",
      "detail": "0-0"
@@ -14061,6 +14062,11 @@
      "value": 401,
      "season": "2002-03",
      "detail": "22-2"
+    },
+    {
+     "value": 399,
+     "season": "1988-89",
+     "detail": "0-0"
     },
     {
      "value": 384,
@@ -14170,6 +14176,11 @@
      "detail": "19-3"
     },
     {
+     "value": 698,
+     "season": "1988-89",
+     "detail": "0-0"
+    },
+    {
      "value": 653,
      "season": "1985-86",
      "detail": "0-0"
@@ -14260,6 +14271,11 @@
      "value": 324,
      "season": "2024-25",
      "detail": "11-15"
+    },
+    {
+     "value": 324,
+     "season": "1988-89",
+     "detail": "0-0"
     },
     {
      "value": 297,
@@ -14371,6 +14387,11 @@
     {
      "value": 195,
      "season": "1986-87",
+     "detail": "0-0"
+    },
+    {
+     "value": 188,
+     "season": "1988-89",
      "detail": "0-0"
     },
     {
@@ -14543,6 +14564,11 @@
      "detail": "536-1339"
     },
     {
+     "value": 0.397858,
+     "season": "1988-89",
+     "detail": "483-1214"
+    },
+    {
      "value": 0.384255,
      "season": "1997-98",
      "detail": "410-1067"
@@ -14638,6 +14664,11 @@
      "value": 0.274074,
      "season": "2023-24",
      "detail": "111-405"
+    },
+    {
+     "value": 0.269565,
+     "season": "1988-89",
+     "detail": "31-115"
     }
    ],
    "ft_pct": [
@@ -14730,6 +14761,11 @@
      "value": 0.561358,
      "season": "1986-87",
      "detail": "215-383"
+    },
+    {
+     "value": 0.481203,
+     "season": "1988-89",
+     "detail": "192-399"
     },
     {
      "value": 0.473837,

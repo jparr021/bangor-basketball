@@ -4644,6 +4644,13 @@
      "gp": 25
     },
     {
+     "value": 448,
+     "name": "Andy Kick",
+     "player": "andy-kick",
+     "season": "1987-88",
+     "gp": 23
+    },
+    {
      "value": 446,
      "name": "Luke Reader",
      "player": "luke-reader",
@@ -4733,13 +4740,6 @@
      "player": "zane-langrehr",
      "season": "2020-21",
      "gp": 22
-    },
-    {
-     "value": 356,
-     "name": "Drew Johnson",
-     "player": "drew-johnson",
-     "season": "2016-17",
-     "gp": 27
     }
    ],
    "reb": [
@@ -4791,6 +4791,13 @@
      "player": "hayden-massman",
      "season": "2025-26",
      "gp": 26
+    },
+    {
+     "value": 217,
+     "name": "Travis Hansen",
+     "player": "travis-hansen",
+     "season": "1987-88",
+     "gp": 25
     },
     {
      "value": 190,
@@ -4861,6 +4868,13 @@
      "player": "jack-reader",
      "season": "2015-16",
      "gp": 27
+    },
+    {
+     "value": 158,
+     "name": "Paul Wittmershaus",
+     "player": "paul-wittmershaus",
+     "season": "1987-88",
+     "gp": 25
     },
     {
      "value": 152,
@@ -5033,6 +5047,13 @@
      "gp": 21
     },
     {
+     "value": 87,
+     "name": "Andy Kick",
+     "player": "andy-kick",
+     "season": "1987-88",
+     "gp": 23
+    },
+    {
      "value": 86,
      "name": "Tanner Jones",
      "player": "tanner-jones",
@@ -5061,6 +5082,13 @@
      "gp": 24
     },
     {
+     "value": 81,
+     "name": "Paul Wittmershaus",
+     "player": "paul-wittmershaus",
+     "season": "1987-88",
+     "gp": 25
+    },
+    {
      "value": 80,
      "name": "Alex Felch",
      "player": "alex-felch",
@@ -5087,13 +5115,6 @@
      "player": "dayne-langrehr",
      "season": "2025-26",
      "gp": 26
-    },
-    {
-     "value": 72,
-     "name": "Todd Oliver",
-     "player": "todd-oliver",
-     "season": "1985-86",
-     "gp": 21
     }
    ],
    "stl": [
@@ -5201,6 +5222,13 @@
      "player": "troy-bolcerek",
      "season": "2002-03",
      "gp": 24
+    },
+    {
+     "value": 53,
+     "name": "Paul Wittmershaus",
+     "player": "paul-wittmershaus",
+     "season": "1987-88",
+     "gp": 25
     },
     {
      "value": 52,
@@ -5551,6 +5579,13 @@
     },
     {
      "value": 153,
+     "name": "Andy Kick",
+     "player": "andy-kick",
+     "season": "1987-88",
+     "gp": 23
+    },
+    {
+     "value": 153,
      "name": "Hank Reader",
      "player": "hank-reader",
      "season": "2020-21",
@@ -5575,6 +5610,13 @@
      "name": "Brody Edwards",
      "player": "brody-edwards",
      "season": "2025-26",
+     "gp": 25
+    },
+    {
+     "value": 148,
+     "name": "Travis Hansen",
+     "player": "travis-hansen",
+     "season": "1987-88",
      "gp": 25
     },
     {
@@ -5611,20 +5653,6 @@
      "player": "chris-tiona",
      "season": "1985-86",
      "gp": 18
-    },
-    {
-     "value": 134,
-     "name": "Jack Reader",
-     "player": "jack-reader",
-     "season": "2014-15",
-     "gp": 22
-    },
-    {
-     "value": 133,
-     "name": "Hayden Massman",
-     "player": "hayden-massman",
-     "season": "2024-25",
-     "gp": 26
     }
    ],
    "fga": [
@@ -5685,6 +5713,13 @@
      "gp": 25
     },
     {
+     "value": 340,
+     "name": "Andy Kick",
+     "player": "andy-kick",
+     "season": "1987-88",
+     "gp": 23
+    },
+    {
      "value": 337,
      "name": "Grant Manke",
      "player": "grant-manke",
@@ -5732,6 +5767,13 @@
      "player": "luke-reader",
      "season": "2017-18",
      "gp": 28
+    },
+    {
+     "value": 313,
+     "name": "Travis Hansen",
+     "player": "travis-hansen",
+     "season": "1987-88",
+     "gp": 25
     },
     {
      "value": 313,
@@ -5788,20 +5830,6 @@
      "player": "jack-reader",
      "season": "2015-16",
      "gp": 27
-    },
-    {
-     "value": 287,
-     "name": "Nolan Michek",
-     "player": "nolan-michek",
-     "season": "2023-24",
-     "gp": 24
-    },
-    {
-     "value": 280,
-     "name": "Hank Reader",
-     "player": "hank-reader",
-     "season": "2020-21",
-     "gp": 21
     }
    ],
    "tpm": [
@@ -5874,6 +5902,13 @@
      "player": "brody-edwards",
      "season": "2025-26",
      "gp": 25
+    },
+    {
+     "value": 48,
+     "name": "Andy Kick",
+     "player": "andy-kick",
+     "season": "1987-88",
+     "gp": 23
     },
     {
      "value": 44,
@@ -5971,34 +6006,6 @@
      "name": "Hank Reader",
      "player": "hank-reader",
      "season": "2018-19",
-     "gp": 26
-    },
-    {
-     "value": 27,
-     "name": "Kyle Schroeder",
-     "player": "kyle-schroeder",
-     "season": "2002-03",
-     "gp": 24
-    },
-    {
-     "value": 27,
-     "name": "Brandon Meyer",
-     "player": "brandon-meyer",
-     "season": "2002-03",
-     "gp": 23
-    },
-    {
-     "value": 27,
-     "name": "Jaymeson Freit",
-     "player": "jaymeson-freit",
-     "season": "2018-19",
-     "gp": 27
-    },
-    {
-     "value": 27,
-     "name": "Alex Felch",
-     "player": "alex-felch",
-     "season": "2025-26",
      "gp": 26
     }
    ],
@@ -6138,6 +6145,13 @@
     },
     {
      "value": 95,
+     "name": "Andy Kick",
+     "player": "andy-kick",
+     "season": "1987-88",
+     "gp": 23
+    },
+    {
+     "value": 95,
      "name": "Canon O'Heron",
      "player": "canon-oheron",
      "season": "2014-15",
@@ -6170,13 +6184,6 @@
      "player": "caleb-miedema",
      "season": "2015-16",
      "gp": 27
-    },
-    {
-     "value": 87,
-     "name": "Trevor Jones",
-     "player": "trevor-jones",
-     "season": "2018-19",
-     "gp": 27
     }
    ],
    "ftm": [
@@ -6200,6 +6207,13 @@
      "player": "hayden-massman",
      "season": "2025-26",
      "gp": 26
+    },
+    {
+     "value": 94,
+     "name": "Andy Kick",
+     "player": "andy-kick",
+     "season": "1987-88",
+     "gp": 23
     },
     {
      "value": 91,
@@ -6280,6 +6294,13 @@
     },
     {
      "value": 59,
+     "name": "Travis Hansen",
+     "player": "travis-hansen",
+     "season": "1987-88",
+     "gp": 25
+    },
+    {
+     "value": 59,
      "name": "Caleb Miedema",
      "player": "caleb-miedema",
      "season": "2017-18",
@@ -6347,20 +6368,6 @@
      "player": "drew-johnson",
      "season": "2016-17",
      "gp": 27
-    },
-    {
-     "value": 49,
-     "name": "Chris Chandler",
-     "player": "chris-chandler",
-     "season": "2002-03",
-     "gp": 24
-    },
-    {
-     "value": 49,
-     "name": "Hank Reader",
-     "player": "hank-reader",
-     "season": "2018-19",
-     "gp": 26
     }
    ],
    "fta": [
@@ -6408,6 +6415,13 @@
     },
     {
      "value": 123,
+     "name": "Andy Kick",
+     "player": "andy-kick",
+     "season": "1987-88",
+     "gp": 23
+    },
+    {
+     "value": 123,
      "name": "Chase Horstman",
      "player": "chase-horstman",
      "season": "2023-24",
@@ -6419,6 +6433,13 @@
      "player": "dustin-mcdonald",
      "season": "2021-22",
      "gp": 30
+    },
+    {
+     "value": 104,
+     "name": "Travis Hansen",
+     "player": "travis-hansen",
+     "season": "1987-88",
+     "gp": 25
     },
     {
      "value": 104,
@@ -6531,23 +6552,23 @@
      "player": "dayne-langrehr",
      "season": "2025-26",
      "gp": 26
-    },
-    {
-     "value": 73,
-     "name": "Justin Peterson",
-     "player": "justin-peterson",
-     "season": "1997-98",
-     "gp": null
-    },
-    {
-     "value": 73,
-     "name": "Hayden Massman",
-     "player": "hayden-massman",
-     "season": "2024-25",
-     "gp": 26
     }
    ],
    "pf": [
+    {
+     "value": 88,
+     "name": "Paul Wittmershaus",
+     "player": "paul-wittmershaus",
+     "season": "1987-88",
+     "gp": 25
+    },
+    {
+     "value": 82,
+     "name": "Jason Rentz",
+     "player": "jason-rentz",
+     "season": "1987-88",
+     "gp": 24
+    },
     {
      "value": 79,
      "name": "Nathan Langrehr",
@@ -6582,6 +6603,13 @@
      "player": "landon-phillips",
      "season": "2024-25",
      "gp": 26
+    },
+    {
+     "value": 67,
+     "name": "Andy Kick",
+     "player": "andy-kick",
+     "season": "1987-88",
+     "gp": 23
     },
     {
      "value": 67,
@@ -6624,6 +6652,13 @@
      "player": "chase-horstman",
      "season": "2023-24",
      "gp": 24
+    },
+    {
+     "value": 64,
+     "name": "Travis Hansen",
+     "player": "travis-hansen",
+     "season": "1987-88",
+     "gp": 25
     },
     {
      "value": 63,
@@ -6694,41 +6729,6 @@
      "player": "canon-oheron",
      "season": "2014-15",
      "gp": 24
-    },
-    {
-     "value": 56,
-     "name": "Willis Pollock",
-     "player": "willis-pollock",
-     "season": "2023-24",
-     "gp": 23
-    },
-    {
-     "value": 56,
-     "name": "Brody Edwards",
-     "player": "brody-edwards",
-     "season": "2024-25",
-     "gp": 26
-    },
-    {
-     "value": 55,
-     "name": "Steve Koch",
-     "player": "steve-koch",
-     "season": "1984-85",
-     "gp": 19
-    },
-    {
-     "value": 55,
-     "name": "Nolan Michek",
-     "player": "nolan-michek",
-     "season": "2023-24",
-     "gp": 24
-    },
-    {
-     "value": 55,
-     "name": "Hayden Massman",
-     "player": "hayden-massman",
-     "season": "2024-25",
-     "gp": 26
     }
    ],
    "ppg": [
@@ -6795,6 +6795,14 @@
      "season": "2002-03",
      "gp": 24,
      "detail": "489 pts / 24 G"
+    },
+    {
+     "value": 19.4783,
+     "name": "Andy Kick",
+     "player": "andy-kick",
+     "season": "1987-88",
+     "gp": 23,
+     "detail": "448 pts / 23 G"
     },
     {
      "value": 18.6818,
@@ -6917,20 +6925,12 @@
      "detail": "378 pts / 26 G"
     },
     {
-     "value": 14.1786,
-     "name": "Caleb Miedema",
-     "player": "caleb-miedema",
-     "season": "2017-18",
-     "gp": 28,
-     "detail": "397 pts / 28 G"
-    },
-    {
-     "value": 14,
-     "name": "Adam Wuensch",
-     "player": "adam-wuensch",
-     "season": "2010-11",
-     "gp": 21,
-     "detail": "294 pts / 21 G"
+     "value": 14.28,
+     "name": "Travis Hansen",
+     "player": "travis-hansen",
+     "season": "1987-88",
+     "gp": 25,
+     "detail": "357 pts / 25 G"
     }
    ],
    "fg_pct": [
@@ -7137,6 +7137,14 @@
    ],
    "tp_pct": [
     {
+     "value": 0.5053,
+     "name": "Andy Kick",
+     "player": "andy-kick",
+     "season": "1987-88",
+     "gp": 23,
+     "detail": "48-95"
+    },
+    {
      "value": 0.4656,
      "name": "Luke Reader",
      "player": "luke-reader",
@@ -7327,14 +7335,6 @@
      "season": "2021-22",
      "gp": 29,
      "detail": "35-119"
-    },
-    {
-     "value": 0.2653,
-     "name": "Caleb Miedema",
-     "player": "caleb-miedema",
-     "season": "2017-18",
-     "gp": 28,
-     "detail": "26-98"
     }
    ],
    "ft_pct": [
@@ -7409,6 +7409,14 @@
      "season": "2018-19",
      "gp": 26,
      "detail": "49-64"
+    },
+    {
+     "value": 0.7642,
+     "name": "Andy Kick",
+     "player": "andy-kick",
+     "season": "1987-88",
+     "gp": 23,
+     "detail": "94-123"
     },
     {
      "value": 0.7627,
@@ -7529,14 +7537,6 @@
      "season": "2025-26",
      "gp": 26,
      "detail": "98-141"
-    },
-    {
-     "value": 0.6941,
-     "name": "Caleb Miedema",
-     "player": "caleb-miedema",
-     "season": "2017-18",
-     "gp": 28,
-     "detail": "59-85"
     }
    ]
   },
@@ -13805,6 +13805,11 @@
      "value": 78,
      "season": "1997-98",
      "detail": "13-8"
+    },
+    {
+     "value": 57,
+     "season": "1987-88",
+     "detail": "0-0"
     }
    ],
    "tpa": [
@@ -13882,6 +13887,11 @@
      "value": 260,
      "season": "1997-98",
      "detail": "13-8"
+    },
+    {
+     "value": 130,
+     "season": "1987-88",
+     "detail": "0-0"
     }
    ],
    "ftm": [
@@ -13919,6 +13929,11 @@
      "value": 269,
      "season": "2023-24",
      "detail": "13-11"
+    },
+    {
+     "value": 267,
+     "season": "1987-88",
+     "detail": "0-0"
     },
     {
      "value": 265,
@@ -14006,6 +14021,11 @@
      "value": 464,
      "season": "2016-17",
      "detail": "25-2"
+    },
+    {
+     "value": 458,
+     "season": "1987-88",
+     "detail": "0-0"
     },
     {
      "value": 454,
@@ -14135,6 +14155,11 @@
      "detail": "13-11"
     },
     {
+     "value": 802,
+     "season": "1987-88",
+     "detail": "0-0"
+    },
+    {
      "value": 739,
      "season": "1986-87",
      "detail": "0-0"
@@ -14225,6 +14250,11 @@
      "value": 364,
      "season": "2020-21",
      "detail": "19-3"
+    },
+    {
+     "value": 357,
+     "season": "1987-88",
+     "detail": "0-0"
     },
     {
      "value": 324,
@@ -14331,6 +14361,11 @@
     {
      "value": 210,
      "season": "1985-86",
+     "detail": "0-0"
+    },
+    {
+     "value": 207,
+     "season": "1987-88",
      "detail": "0-0"
     },
     {
@@ -14498,6 +14533,11 @@
      "detail": "661-1531"
     },
     {
+     "value": 0.4075,
+     "season": "1987-88",
+     "detail": "590-1448"
+    },
+    {
      "value": 0.4003,
      "season": "2023-24",
      "detail": "536-1339"
@@ -14519,6 +14559,11 @@
     }
    ],
    "tp_pct": [
+    {
+     "value": 0.4385,
+     "season": "1987-88",
+     "detail": "57-130"
+    },
     {
      "value": 0.3588,
      "season": "2020-21",
@@ -14660,6 +14705,11 @@
      "value": 0.5928,
      "season": "1985-86",
      "detail": "265-447"
+    },
+    {
+     "value": 0.583,
+     "season": "1987-88",
+     "detail": "267-458"
     },
     {
      "value": 0.5773,

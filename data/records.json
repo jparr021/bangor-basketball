@@ -4721,6 +4721,13 @@
      "gp": 26
     },
     {
+     "value": 373,
+     "name": "Cory Nicolai",
+     "player": "cory-nicolai",
+     "season": "1991-92",
+     "gp": 22
+    },
+    {
      "value": 371,
      "name": "Brody Edwards",
      "player": "brody-edwards",
@@ -4733,13 +4740,6 @@
      "player": "canon-oheron",
      "season": "2012-13",
      "gp": 23
-    },
-    {
-     "value": 361,
-     "name": "Zane Langrehr",
-     "player": "zane-langrehr",
-     "season": "2020-21",
-     "gp": 22
     }
    ],
    "reb": [
@@ -4847,6 +4847,13 @@
      "player": "dayne-langrehr",
      "season": "2025-26",
      "gp": 26
+    },
+    {
+     "value": 174,
+     "name": "Cory Nicolai",
+     "player": "cory-nicolai",
+     "season": "1991-92",
+     "gp": 22
     },
     {
      "value": 168,
@@ -5627,18 +5634,18 @@
      "gp": 25
     },
     {
+     "value": 143,
+     "name": "Cory Nicolai",
+     "player": "cory-nicolai",
+     "season": "1991-92",
+     "gp": 22
+    },
+    {
      "value": 141,
      "name": "Drew Johnson",
      "player": "drew-johnson",
      "season": "2016-17",
      "gp": 27
-    },
-    {
-     "value": 138,
-     "name": "Scott Herman",
-     "player": "scott-herman",
-     "season": "1989-90",
-     "gp": 21
     }
    ],
    "fga": [
@@ -5911,6 +5918,13 @@
      "gp": 26
     },
     {
+     "value": 43,
+     "name": "Pat Hansen",
+     "player": "pat-hansen",
+     "season": "1991-92",
+     "gp": 21
+    },
+    {
      "value": 40,
      "name": "Zane Langrehr",
      "player": "zane-langrehr",
@@ -6089,6 +6103,13 @@
     },
     {
      "value": 113,
+     "name": "Pat Hansen",
+     "player": "pat-hansen",
+     "season": "1991-92",
+     "gp": 21
+    },
+    {
+     "value": 113,
      "name": "Brody Edwards",
      "player": "brody-edwards",
      "season": "2024-25",
@@ -6163,13 +6184,6 @@
      "player": "nolan-michek",
      "season": "2023-24",
      "gp": 24
-    },
-    {
-     "value": 90,
-     "name": "Caleb Miedema",
-     "player": "caleb-miedema",
-     "season": "2015-16",
-     "gp": 27
     }
    ],
    "ftm": [
@@ -6228,6 +6242,13 @@
      "player": "chase-horstman",
      "season": "2023-24",
      "gp": 24
+    },
+    {
+     "value": 79,
+     "name": "Cory Nicolai",
+     "player": "cory-nicolai",
+     "season": "1991-92",
+     "gp": 22
     },
     {
      "value": 76,
@@ -6422,6 +6443,13 @@
     },
     {
      "value": 104,
+     "name": "Cory Nicolai",
+     "player": "cory-nicolai",
+     "season": "1991-92",
+     "gp": 22
+    },
+    {
+     "value": 104,
      "name": "Grant Manke",
      "player": "grant-manke",
      "season": "2017-18",
@@ -6517,13 +6545,6 @@
      "player": "chase-horstman",
      "season": "2022-23",
      "gp": 25
-    },
-    {
-     "value": 79,
-     "name": "Brett Cavadini",
-     "player": "brett-cavadini",
-     "season": "1989-90",
-     "gp": 21
     }
    ],
    "pf": [
@@ -6612,11 +6633,25 @@
      "gp": 26
     },
     {
+     "value": 68,
+     "name": "Cory Nicolai",
+     "player": "cory-nicolai",
+     "season": "1991-92",
+     "gp": 22
+    },
+    {
      "value": 67,
      "name": "Andy Kick",
      "player": "andy-kick",
      "season": "1987-88",
      "gp": 23
+    },
+    {
+     "value": 67,
+     "name": "Merlin Jones",
+     "player": "merlin-jones",
+     "season": "1991-92",
+     "gp": 22
     },
     {
      "value": 67,
@@ -6668,6 +6703,13 @@
      "gp": 25
     },
     {
+     "value": 64,
+     "name": "Ryan Lockington",
+     "player": "ryan-lockington",
+     "season": "1991-92",
+     "gp": 22
+    },
+    {
      "value": 63,
      "name": "Chris Tiona",
      "player": "chris-tiona",
@@ -6680,34 +6722,6 @@
      "player": "mike-freit",
      "season": "1990-91",
      "gp": 22
-    },
-    {
-     "value": 62,
-     "name": "Chris Chandler",
-     "player": "chris-chandler",
-     "season": "2002-03",
-     "gp": 24
-    },
-    {
-     "value": 61,
-     "name": "Chris Tiona",
-     "player": "chris-tiona",
-     "season": "1986-87",
-     "gp": 20
-    },
-    {
-     "value": 61,
-     "name": "Brock Bores",
-     "player": "brock-bores",
-     "season": "2024-25",
-     "gp": 26
-    },
-    {
-     "value": 61,
-     "name": "Dayne Langrehr",
-     "player": "dayne-langrehr",
-     "season": "2025-26",
-     "gp": 26
     }
    ],
    "ppg": [
@@ -6848,6 +6862,14 @@
      "detail": "432 pts / 25 G"
     },
     {
+     "value": 16.954545,
+     "name": "Cory Nicolai",
+     "player": "cory-nicolai",
+     "season": "1991-92",
+     "gp": 22,
+     "detail": "373 pts / 22 G"
+    },
+    {
      "value": 16.409091,
      "name": "Zane Langrehr",
      "player": "zane-langrehr",
@@ -6902,14 +6924,6 @@
      "season": "2025-26",
      "gp": 25,
      "detail": "371 pts / 25 G"
-    },
-    {
-     "value": 14.666667,
-     "name": "Jack Reader",
-     "player": "jack-reader",
-     "season": "2015-16",
-     "gp": 27,
-     "detail": "396 pts / 27 G"
     }
    ],
    "fg_pct": [
@@ -7228,6 +7242,14 @@
      "detail": "44-113"
     },
     {
+     "value": 0.380531,
+     "name": "Pat Hansen",
+     "player": "pat-hansen",
+     "season": "1991-92",
+     "gp": 21,
+     "detail": "43-113"
+    },
+    {
      "value": 0.379085,
      "name": "Zane Langrehr",
      "player": "zane-langrehr",
@@ -7306,14 +7328,6 @@
      "season": "2024-25",
      "gp": 26,
      "detail": "37-124"
-    },
-    {
-     "value": 0.294118,
-     "name": "Tanner Jones",
-     "player": "tanner-jones",
-     "season": "2021-22",
-     "gp": 29,
-     "detail": "35-119"
     }
    ],
    "ft_pct": [
@@ -7340,6 +7354,14 @@
      "season": "2020-21",
      "gp": 22,
      "detail": "29-34"
+    },
+    {
+     "value": 0.833333,
+     "name": "Merlin Jones",
+     "player": "merlin-jones",
+     "season": "1991-92",
+     "gp": 22,
+     "detail": "50-60"
     },
     {
      "value": 0.829268,
@@ -7412,6 +7434,14 @@
      "season": "1997-98",
      "gp": null,
      "detail": "19-25"
+    },
+    {
+     "value": 0.759615,
+     "name": "Cory Nicolai",
+     "player": "cory-nicolai",
+     "season": "1991-92",
+     "gp": 22,
+     "detail": "79-104"
     },
     {
      "value": 0.754386,
@@ -7487,35 +7517,19 @@
     },
     {
      "value": 0.711538,
+     "name": "Ryan Lockington",
+     "player": "ryan-lockington",
+     "season": "1991-92",
+     "gp": 22,
+     "detail": "37-52"
+    },
+    {
+     "value": 0.711538,
      "name": "Grant Manke",
      "player": "grant-manke",
      "season": "2017-18",
      "gp": 28,
      "detail": "74-104"
-    },
-    {
-     "value": 0.711111,
-     "name": "Grant Manke",
-     "player": "grant-manke",
-     "season": "2018-19",
-     "gp": 27,
-     "detail": "128-180"
-    },
-    {
-     "value": 0.707317,
-     "name": "Dustin McDonald",
-     "player": "dustin-mcdonald",
-     "season": "2020-21",
-     "gp": 22,
-     "detail": "29-41"
-    },
-    {
-     "value": 0.702703,
-     "name": "Kyle Schroeder",
-     "player": "kyle-schroeder",
-     "season": "2002-03",
-     "gp": 24,
-     "detail": "26-37"
     }
    ]
   },
@@ -13786,6 +13800,11 @@
      "detail": "13-8"
     },
     {
+     "value": 70,
+     "season": "1991-92",
+     "detail": "0-0"
+    },
+    {
      "value": 57,
      "season": "1987-88",
      "detail": "0-0"
@@ -13883,6 +13902,11 @@
      "detail": "13-8"
     },
     {
+     "value": 201,
+     "season": "1991-92",
+     "detail": "0-0"
+    },
+    {
      "value": 154,
      "season": "1989-90",
      "detail": "0-0"
@@ -13928,6 +13952,11 @@
      "value": 286,
      "season": "2001-02",
      "detail": "17-7"
+    },
+    {
+     "value": 282,
+     "season": "1991-92",
+     "detail": "0-0"
     },
     {
      "value": 281,
@@ -14064,6 +14093,11 @@
     {
      "value": 447,
      "season": "1985-86",
+     "detail": "0-0"
+    },
+    {
+     "value": 439,
+     "season": "1991-92",
      "detail": "0-0"
     },
     {
@@ -14209,6 +14243,11 @@
      "detail": "0-0"
     },
     {
+     "value": 727,
+     "season": "1991-92",
+     "detail": "0-0"
+    },
+    {
      "value": 719,
      "season": "2020-21",
      "detail": "19-3"
@@ -14313,6 +14352,11 @@
     {
      "value": 345,
      "season": "1990-91",
+     "detail": "0-0"
+    },
+    {
+     "value": 334,
+     "season": "1991-92",
      "detail": "0-0"
     },
     {
@@ -14435,6 +14479,11 @@
     {
      "value": 207,
      "season": "1987-88",
+     "detail": "0-0"
+    },
+    {
+     "value": 202,
+     "season": "1991-92",
      "detail": "0-0"
     },
     {
@@ -14617,6 +14666,11 @@
      "detail": "661-1531"
     },
     {
+     "value": 0.424942,
+     "season": "1991-92",
+     "detail": "552-1299"
+    },
+    {
      "value": 0.407459,
      "season": "1987-88",
      "detail": "590-1448"
@@ -14682,6 +14736,11 @@
      "value": 0.351464,
      "season": "2022-23",
      "detail": "168-478"
+    },
+    {
+     "value": 0.348259,
+     "season": "1991-92",
+     "detail": "70-201"
     },
     {
      "value": 0.347953,
@@ -14779,6 +14838,11 @@
      "value": 0.64482,
      "season": "1990-91",
      "detail": "305-473"
+    },
+    {
+     "value": 0.642369,
+     "season": "1991-92",
+     "detail": "282-439"
     },
     {
      "value": 0.641851,

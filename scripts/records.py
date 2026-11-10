@@ -335,7 +335,8 @@ for season, r in TEAM_TOTALS.items():
         if k != "pts" and num(r.get(col)) is not None:
             t[k] = num(r.get(col))
     rs = RESULTS.get(season, [])
-    if not t["g"] and rs and len(rs) == num(r.get("GP")):  # a results-only season: record and scoring from its results
+    # a results-only season: record and scoring from its results, when every game's score is known
+    if not t["g"] and rs and len(rs) == num(r.get("GP")) and all(g["bangor_score"] and g["opp_score"] for g in rs):
         for g in rs:
             b, o = float(g["bangor_score"]), float(g["opp_score"])
             t["w" if b > o else "l"] += 1

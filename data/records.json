@@ -4773,6 +4773,13 @@
     },
     {
      "value": 220,
+     "name": "Chris Tiona",
+     "player": "chris-tiona",
+     "season": "1986-87",
+     "gp": 20
+    },
+    {
+     "value": 220,
      "name": "Canon O'Heron",
      "player": "canon-oheron",
      "season": "2014-15",
@@ -4892,6 +4899,13 @@
     },
     {
      "value": 142,
+     "name": "Travis Hansen",
+     "player": "travis-hansen",
+     "season": "1986-87",
+     "gp": 19
+    },
+    {
+     "value": 142,
      "name": "Luke Reader",
      "player": "luke-reader",
      "season": "2017-18",
@@ -4903,23 +4917,16 @@
      "player": "dustin-mcdonald",
      "season": "2022-23",
      "gp": 25
-    },
-    {
-     "value": 140,
-     "name": "Tanner Jones",
-     "player": "tanner-jones",
-     "season": "2022-23",
-     "gp": 25
-    },
-    {
-     "value": 139,
-     "name": "Brody Edwards",
-     "player": "brody-edwards",
-     "season": "2024-25",
-     "gp": 26
     }
    ],
    "ast": [
+    {
+     "value": 150,
+     "name": "Joel Torgerud",
+     "player": "joel-torgerud",
+     "season": "1986-87",
+     "gp": 20
+    },
     {
      "value": 139,
      "name": "Zane Langrehr",
@@ -5087,20 +5094,6 @@
      "player": "todd-oliver",
      "season": "1985-86",
      "gp": 21
-    },
-    {
-     "value": 67,
-     "name": "Drew Johnson",
-     "player": "drew-johnson",
-     "season": "2017-18",
-     "gp": 28
-    },
-    {
-     "value": 67,
-     "name": "Tanner Jones",
-     "player": "tanner-jones",
-     "season": "2020-21",
-     "gp": 22
     }
    ],
    "stl": [
@@ -6499,6 +6492,13 @@
     },
     {
      "value": 77,
+     "name": "Joel Torgerud",
+     "player": "joel-torgerud",
+     "season": "1986-87",
+     "gp": 20
+    },
+    {
+     "value": 77,
      "name": "Luke Reader",
      "player": "luke-reader",
      "season": "2015-16",
@@ -6638,6 +6638,13 @@
      "player": "chris-chandler",
      "season": "2002-03",
      "gp": 24
+    },
+    {
+     "value": 61,
+     "name": "Chris Tiona",
+     "player": "chris-tiona",
+     "season": "1986-87",
+     "gp": 20
     },
     {
      "value": 61,
@@ -7056,6 +7063,14 @@
      "detail": "79-141"
     },
     {
+     "value": 0.5556,
+     "name": "Andy Kick",
+     "player": "andy-kick",
+     "season": "1986-87",
+     "gp": 18,
+     "detail": "65-117"
+    },
+    {
      "value": 0.5538,
      "name": "Luke Reader",
      "player": "luke-reader",
@@ -7088,6 +7103,14 @@
      "detail": "153-280"
     },
     {
+     "value": 0.5441,
+     "name": "Chris Tiona",
+     "player": "chris-tiona",
+     "season": "1986-87",
+     "gp": 20,
+     "detail": "111-204"
+    },
+    {
      "value": 0.5417,
      "name": "Garrett Krueger",
      "player": "garrett-krueger",
@@ -7104,28 +7127,12 @@
      "detail": "70-130"
     },
     {
-     "value": 0.5309,
-     "name": "Willis Pollock",
-     "player": "willis-pollock",
-     "season": "2023-24",
-     "gp": 23,
-     "detail": "43-81"
-    },
-    {
-     "value": 0.5282,
-     "name": "Dustin McDonald",
-     "player": "dustin-mcdonald",
-     "season": "2021-22",
-     "gp": 30,
-     "detail": "197-373"
-    },
-    {
-     "value": 0.5273,
-     "name": "Trygve Anderson",
-     "player": "trygve-anderson",
-     "season": "2014-15",
-     "gp": 24,
-     "detail": "58-110"
+     "value": 0.5333,
+     "name": "Brian Clements",
+     "player": "brian-clements",
+     "season": "1986-87",
+     "gp": 12,
+     "detail": "16-30"
     }
    ],
    "tp_pct": [
@@ -7460,6 +7467,14 @@
      "detail": "22-30"
     },
     {
+     "value": 0.7297,
+     "name": "Randy Tenner",
+     "player": "randy-tenner",
+     "season": "1986-87",
+     "gp": 19,
+     "detail": "27-37"
+    },
+    {
      "value": 0.7222,
      "name": "Drew Johnson",
      "player": "drew-johnson",
@@ -7522,14 +7537,6 @@
      "season": "2017-18",
      "gp": 28,
      "detail": "59-85"
-    },
-    {
-     "value": 0.6923,
-     "name": "Troy Bolcerek",
-     "player": "troy-bolcerek",
-     "season": "2001-02",
-     "gp": 21,
-     "detail": "36-52"
     }
    ]
   },
@@ -13949,6 +13956,11 @@
      "detail": "24-2"
     },
     {
+     "value": 215,
+     "season": "1986-87",
+     "detail": "0-0"
+    },
+    {
      "value": 214,
      "season": "2024-25",
      "detail": "11-15"
@@ -14036,6 +14048,11 @@
      "detail": "21-4"
     },
     {
+     "value": 383,
+     "season": "1986-87",
+     "detail": "0-0"
+    },
+    {
      "value": 364,
      "season": "2019-20",
      "detail": "24-2"
@@ -14118,6 +14135,11 @@
      "detail": "13-11"
     },
     {
+     "value": 739,
+     "season": "1986-87",
+     "detail": "0-0"
+    },
+    {
      "value": 719,
      "season": "2020-21",
      "detail": "19-3"
@@ -14188,6 +14210,11 @@
      "value": 387,
      "season": "2014-15",
      "detail": "21-3"
+    },
+    {
+     "value": 382,
+     "season": "1986-87",
+     "detail": "0-0"
     },
     {
      "value": 377,
@@ -14304,6 +14331,11 @@
     {
      "value": 210,
      "season": "1985-86",
+     "detail": "0-0"
+    },
+    {
+     "value": 195,
+     "season": "1986-87",
      "detail": "0-0"
     },
     {
@@ -14429,6 +14461,11 @@
      "value": 0.4794,
      "season": "2016-17",
      "detail": "791-1650"
+    },
+    {
+     "value": 0.479,
+     "season": "1986-87",
+     "detail": "569-1188"
     },
     {
      "value": 0.4606,
@@ -14638,6 +14675,11 @@
      "value": 0.5737,
      "season": "1997-98",
      "detail": "249-434"
+    },
+    {
+     "value": 0.5614,
+     "season": "1986-87",
+     "detail": "215-383"
     },
     {
      "value": 0.4738,

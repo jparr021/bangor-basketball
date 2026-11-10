@@ -4787,6 +4787,13 @@
     },
     {
      "value": 190,
+     "name": "Chris Tiona",
+     "player": "chris-tiona",
+     "season": "1985-86",
+     "gp": 18
+    },
+    {
+     "value": 190,
      "name": "Chase Horstman",
      "player": "chase-horstman",
      "season": "2022-23",
@@ -4910,20 +4917,6 @@
      "player": "brody-edwards",
      "season": "2024-25",
      "gp": 26
-    },
-    {
-     "value": 134,
-     "name": "Luke Reader",
-     "player": "luke-reader",
-     "season": "2015-16",
-     "gp": 27
-    },
-    {
-     "value": 134,
-     "name": "Trevor Jones",
-     "player": "trevor-jones",
-     "season": "2018-19",
-     "gp": 27
     }
    ],
    "ast": [
@@ -5026,6 +5019,13 @@
      "gp": 27
     },
     {
+     "value": 87,
+     "name": "Joel Torgerud",
+     "player": "joel-torgerud",
+     "season": "1985-86",
+     "gp": 21
+    },
+    {
      "value": 86,
      "name": "Tanner Jones",
      "player": "tanner-jones",
@@ -5082,6 +5082,13 @@
      "gp": 26
     },
     {
+     "value": 72,
+     "name": "Todd Oliver",
+     "player": "todd-oliver",
+     "season": "1985-86",
+     "gp": 21
+    },
+    {
      "value": 67,
      "name": "Drew Johnson",
      "player": "drew-johnson",
@@ -5094,13 +5101,6 @@
      "player": "tanner-jones",
      "season": "2020-21",
      "gp": 22
-    },
-    {
-     "value": 66,
-     "name": "Zane Langrehr",
-     "player": "zane-langrehr",
-     "season": "2018-19",
-     "gp": 27
     }
    ],
    "stl": [
@@ -5246,10 +5246,24 @@
     },
     {
      "value": 48,
+     "name": "Joel Torgerud",
+     "player": "joel-torgerud",
+     "season": "1985-86",
+     "gp": 21
+    },
+    {
+     "value": 48,
      "name": "Hank Reader",
      "player": "hank-reader",
      "season": "2018-19",
      "gp": 26
+    },
+    {
+     "value": 47,
+     "name": "Steve Koch",
+     "player": "steve-koch",
+     "season": "1985-86",
+     "gp": 21
     },
     {
      "value": 47,
@@ -5264,20 +5278,6 @@
      "player": "dustin-mcdonald",
      "season": "2021-22",
      "gp": 30
-    },
-    {
-     "value": 46,
-     "name": "Luke Reader",
-     "player": "luke-reader",
-     "season": "2014-15",
-     "gp": 24
-    },
-    {
-     "value": 46,
-     "name": "Drew Johnson",
-     "player": "drew-johnson",
-     "season": "2015-16",
-     "gp": 27
     }
    ],
    "blk": [
@@ -5613,6 +5613,13 @@
      "gp": 27
     },
     {
+     "value": 136,
+     "name": "Chris Tiona",
+     "player": "chris-tiona",
+     "season": "1985-86",
+     "gp": 18
+    },
+    {
      "value": 134,
      "name": "Jack Reader",
      "player": "jack-reader",
@@ -5625,13 +5632,6 @@
      "player": "hayden-massman",
      "season": "2024-25",
      "gp": 26
-    },
-    {
-     "value": 124,
-     "name": "Zane Langrehr",
-     "player": "zane-langrehr",
-     "season": "2018-19",
-     "gp": 27
     }
    ],
    "fga": [
@@ -6307,6 +6307,13 @@
      "gp": 25
     },
     {
+     "value": 57,
+     "name": "Todd Oliver",
+     "player": "todd-oliver",
+     "season": "1985-86",
+     "gp": 21
+    },
+    {
      "value": 55,
      "name": "Chase Horstman",
      "player": "chase-horstman",
@@ -6336,6 +6343,13 @@
     },
     {
      "value": 50,
+     "name": "Chris Tiona",
+     "player": "chris-tiona",
+     "season": "1985-86",
+     "gp": 18
+    },
+    {
+     "value": 50,
      "name": "Drew Johnson",
      "player": "drew-johnson",
      "season": "2016-17",
@@ -6353,13 +6367,6 @@
      "name": "Hank Reader",
      "player": "hank-reader",
      "season": "2018-19",
-     "gp": 26
-    },
-    {
-     "value": 47,
-     "name": "Dayne Langrehr",
-     "player": "dayne-langrehr",
-     "season": "2025-26",
      "gp": 26
     }
    ],
@@ -6440,6 +6447,20 @@
      "player": "gunner-ellenburg",
      "season": "2021-22",
      "gp": 30
+    },
+    {
+     "value": 89,
+     "name": "Chris Tiona",
+     "player": "chris-tiona",
+     "season": "1985-86",
+     "gp": 18
+    },
+    {
+     "value": 89,
+     "name": "Todd Oliver",
+     "player": "todd-oliver",
+     "season": "1985-86",
+     "gp": 21
     },
     {
      "value": 87,
@@ -6524,20 +6545,6 @@
      "player": "hayden-massman",
      "season": "2024-25",
      "gp": 26
-    },
-    {
-     "value": 72,
-     "name": "Drew Johnson",
-     "player": "drew-johnson",
-     "season": "2017-18",
-     "gp": 28
-    },
-    {
-     "value": 71,
-     "name": "Chris Chandler",
-     "player": "chris-chandler",
-     "season": "2002-03",
-     "gp": 24
     }
    ],
    "pf": [
@@ -6547,6 +6554,13 @@
      "player": "nathan-langrehr",
      "season": "2001-02",
      "gp": 24
+    },
+    {
+     "value": 74,
+     "name": "Todd Oliver",
+     "player": "todd-oliver",
+     "season": "1985-86",
+     "gp": 21
     },
     {
      "value": 72,
@@ -6641,6 +6655,13 @@
     },
     {
      "value": 60,
+     "name": "Joel Torgerud",
+     "player": "joel-torgerud",
+     "season": "1985-86",
+     "gp": 21
+    },
+    {
+     "value": 60,
      "name": "Shane Amundson",
      "player": "shane-amundson",
      "season": "1997-98",
@@ -6701,41 +6722,6 @@
      "player": "hayden-massman",
      "season": "2024-25",
      "gp": 26
-    },
-    {
-     "value": 54,
-     "name": "Hayden Massman",
-     "player": "hayden-massman",
-     "season": "2025-26",
-     "gp": 26
-    },
-    {
-     "value": 53,
-     "name": "Kyle Schroeder",
-     "player": "kyle-schroeder",
-     "season": "2001-02",
-     "gp": 24
-    },
-    {
-     "value": 53,
-     "name": "Tanner Jones",
-     "player": "tanner-jones",
-     "season": "2022-23",
-     "gp": 25
-    },
-    {
-     "value": 53,
-     "name": "Tysen Herken",
-     "player": "tysen-herken",
-     "season": "2022-23",
-     "gp": 25
-    },
-    {
-     "value": 53,
-     "name": "Brody Edwards",
-     "player": "brody-edwards",
-     "season": "2025-26",
-     "gp": 25
     }
    ],
    "ppg": [
@@ -6836,6 +6822,14 @@
      "detail": "452 pts / 25 G"
     },
     {
+     "value": 17.8889,
+     "name": "Chris Tiona",
+     "player": "chris-tiona",
+     "season": "1985-86",
+     "gp": 18,
+     "detail": "322 pts / 18 G"
+    },
+    {
      "value": 17.6667,
      "name": "Dustin McDonald",
      "player": "dustin-mcdonald",
@@ -6930,14 +6924,6 @@
      "season": "2010-11",
      "gp": 21,
      "detail": "294 pts / 21 G"
-    },
-    {
-     "value": 13.9474,
-     "name": "Todd Oliver",
-     "player": "todd-oliver",
-     "season": "1984-85",
-     "gp": 19,
-     "detail": "265 pts / 19 G"
     }
    ],
    "fg_pct": [
@@ -7020,6 +7006,14 @@
      "season": "2021-22",
      "gp": 28,
      "detail": "148-244"
+    },
+    {
+     "value": 0.5991,
+     "name": "Chris Tiona",
+     "player": "chris-tiona",
+     "season": "1985-86",
+     "gp": 18,
+     "detail": "136-227"
     },
     {
      "value": 0.5877,
@@ -7132,14 +7126,6 @@
      "season": "2014-15",
      "gp": 24,
      "detail": "58-110"
-    },
-    {
-     "value": 0.5255,
-     "name": "Luke Reader",
-     "player": "luke-reader",
-     "season": "2017-18",
-     "gp": 28,
-     "detail": "165-314"
     }
    ],
    "tp_pct": [
@@ -7466,6 +7452,14 @@
      "detail": "76-101"
     },
     {
+     "value": 0.7333,
+     "name": "Andy Kick",
+     "player": "andy-kick",
+     "season": "1985-86",
+     "gp": 16,
+     "detail": "22-30"
+    },
+    {
      "value": 0.7222,
      "name": "Drew Johnson",
      "player": "drew-johnson",
@@ -7536,14 +7530,6 @@
      "season": "2001-02",
      "gp": 21,
      "detail": "36-52"
-    },
-    {
-     "value": 0.6901,
-     "name": "Chris Chandler",
-     "player": "chris-chandler",
-     "season": "2002-03",
-     "gp": 24,
-     "detail": "49-71"
     }
    ]
   },
@@ -13928,6 +13914,11 @@
      "detail": "13-11"
     },
     {
+     "value": 265,
+     "season": "1985-86",
+     "detail": "0-0"
+    },
+    {
      "value": 253,
      "season": "2002-03",
      "detail": "22-2"
@@ -14008,6 +13999,11 @@
      "value": 454,
      "season": "2015-16",
      "detail": "23-4"
+    },
+    {
+     "value": 447,
+     "season": "1985-86",
+     "detail": "0-0"
     },
     {
      "value": 438,
@@ -14127,6 +14123,11 @@
      "detail": "19-3"
     },
     {
+     "value": 653,
+     "season": "1985-86",
+     "detail": "0-0"
+    },
+    {
      "value": 583,
      "season": "1997-98",
      "detail": "13-8"
@@ -14207,6 +14208,11 @@
      "value": 297,
      "season": "2023-24",
      "detail": "13-11"
+    },
+    {
+     "value": 271,
+     "season": "1985-86",
+     "detail": "0-0"
     },
     {
      "value": 232,
@@ -14294,6 +14300,11 @@
      "value": 216,
      "season": "2001-02",
      "detail": "17-7"
+    },
+    {
+     "value": 210,
+     "season": "1985-86",
+     "detail": "0-0"
     },
     {
      "value": 175,
@@ -14433,6 +14444,11 @@
      "value": 0.448,
      "season": "2002-03",
      "detail": "539-1203"
+    },
+    {
+     "value": 0.4407,
+     "season": "1985-86",
+     "detail": "505-1146"
     },
     {
      "value": 0.4363,
@@ -14602,6 +14618,11 @@
      "value": 0.5979,
      "season": "2021-22",
      "detail": "281-470"
+    },
+    {
+     "value": 0.5928,
+     "season": "1985-86",
+     "detail": "265-447"
     },
     {
      "value": 0.5773,

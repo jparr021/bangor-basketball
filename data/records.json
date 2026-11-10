@@ -5026,6 +5026,13 @@
      "gp": 25
     },
     {
+     "value": 92,
+     "name": "Ryan Johnson",
+     "player": "ryan-johnson",
+     "season": "1996-97",
+     "gp": 22
+    },
+    {
      "value": 88,
      "name": "Pat Hansen",
      "player": "pat-hansen",
@@ -5087,13 +5094,6 @@
      "player": "paul-wittmershaus",
      "season": "1987-88",
      "gp": 25
-    },
-    {
-     "value": 80,
-     "name": "Alex Felch",
-     "player": "alex-felch",
-     "season": "2025-26",
-     "gp": 26
     }
    ],
    "stl": [
@@ -6286,6 +6286,13 @@
      "gp": 22
     },
     {
+     "value": 65,
+     "name": "Ryan Johnson",
+     "player": "ryan-johnson",
+     "season": "1996-97",
+     "gp": 22
+    },
+    {
      "value": 62,
      "name": "Luke Reader",
      "player": "luke-reader",
@@ -6449,6 +6456,13 @@
      "gp": 20
     },
     {
+     "value": 94,
+     "name": "Ryan Johnson",
+     "player": "ryan-johnson",
+     "season": "1996-97",
+     "gp": 22
+    },
+    {
      "value": 92,
      "name": "Cory Nicolai",
      "player": "cory-nicolai",
@@ -6503,20 +6517,6 @@
      "player": "dustin-mcdonald",
      "season": "2022-23",
      "gp": 25
-    },
-    {
-     "value": 85,
-     "name": "Luke Reader",
-     "player": "luke-reader",
-     "season": "2016-17",
-     "gp": 25
-    },
-    {
-     "value": 85,
-     "name": "Caleb Miedema",
-     "player": "caleb-miedema",
-     "season": "2017-18",
-     "gp": 28
     }
    ],
    "pf": [
@@ -6979,6 +6979,14 @@
      "detail": "178-289"
     },
     {
+     "value": 0.612245,
+     "name": "Jason McAlear",
+     "player": "jason-mcalear",
+     "season": "1996-97",
+     "gp": 22,
+     "detail": "60-98"
+    },
+    {
      "value": 0.606557,
      "name": "Will Reader",
      "player": "will-reader",
@@ -7097,14 +7105,6 @@
      "season": "2016-17",
      "gp": 23,
      "detail": "26-48"
-    },
-    {
-     "value": 0.538462,
-     "name": "Cade Amborn",
-     "player": "cade-amborn",
-     "season": "2016-17",
-     "gp": 22,
-     "detail": "70-130"
     }
    ],
    "tp_pct": [
@@ -7261,6 +7261,14 @@
      "detail": "52-150"
     },
     {
+     "value": 0.329412,
+     "name": "Ryan Schroeder",
+     "player": "ryan-schroeder",
+     "season": "1996-97",
+     "gp": 22,
+     "detail": "28-85"
+    },
+    {
      "value": 0.323232,
      "name": "Drew Johnson",
      "player": "drew-johnson",
@@ -7299,14 +7307,6 @@
      "season": "1994-95",
      "gp": 20,
      "detail": "33-108"
-    },
-    {
-     "value": 0.304878,
-     "name": "Ryan Schroeder",
-     "player": "ryan-schroeder",
-     "season": "1997-98",
-     "gp": null,
-     "detail": "25-82"
     }
    ],
    "ft_pct": [
@@ -13784,6 +13784,11 @@
      "detail": "15-8"
     },
     {
+     "value": 72,
+     "season": "1996-97",
+     "detail": "13-9"
+    },
+    {
      "value": 70,
      "season": "1991-92",
      "detail": "0-0"
@@ -13899,6 +13904,11 @@
      "value": 260,
      "season": "1997-98",
      "detail": "13-8"
+    },
+    {
+     "value": 240,
+     "season": "1996-97",
+     "detail": "13-9"
     },
     {
      "value": 230,
@@ -14023,6 +14033,11 @@
      "detail": "22-2"
     },
     {
+     "value": 251,
+     "season": "1996-97",
+     "detail": "13-9"
+    },
+    {
      "value": 249,
      "season": "1997-98",
      "detail": "13-8"
@@ -14066,11 +14081,6 @@
      "value": 203,
      "season": "2020-21",
      "detail": "19-3"
-    },
-    {
-     "value": 194,
-     "season": "1989-90",
-     "detail": "0-0"
     }
    ],
    "fta": [
@@ -14150,6 +14160,11 @@
      "detail": "21-3"
     },
     {
+     "value": 408,
+     "season": "1996-97",
+     "detail": "13-9"
+    },
+    {
      "value": 406,
      "season": "1992-93",
      "detail": "9-12"
@@ -14193,11 +14208,6 @@
      "value": 364,
      "season": "2019-20",
      "detail": "24-2"
-    },
-    {
-     "value": 352,
-     "season": "2024-25",
-     "detail": "11-15"
     }
    ],
    "reb": [
@@ -14322,9 +14332,9 @@
      "detail": "17-7"
     },
     {
-     "value": 569,
-     "season": "1984-85",
-     "detail": "0-0"
+     "value": 570,
+     "season": "1996-97",
+     "detail": "13-9"
     }
    ],
    "ast": [
@@ -14424,6 +14434,11 @@
      "detail": "15-8"
     },
     {
+     "value": 245,
+     "season": "1996-97",
+     "detail": "13-9"
+    },
+    {
      "value": 232,
      "season": "2002-03",
      "detail": "22-2"
@@ -14447,11 +14462,6 @@
      "value": 188,
      "season": "1992-93",
      "detail": "9-12"
-    },
-    {
-     "value": 153,
-     "season": "1984-85",
-     "detail": "0-0"
     }
    ],
    "stl": [
@@ -14526,6 +14536,11 @@
      "detail": "0-0"
     },
     {
+     "value": 209,
+     "season": "1996-97",
+     "detail": "13-9"
+    },
+    {
      "value": 207,
      "season": "1987-88",
      "detail": "0-0"
@@ -14574,11 +14589,6 @@
      "value": 159,
      "season": "1989-90",
      "detail": "0-0"
-    },
-    {
-     "value": 154,
-     "season": "1993-94",
-     "detail": "15-8"
     }
    ],
    "blk": [
@@ -14750,6 +14760,11 @@
      "detail": "536-1339"
     },
     {
+     "value": 0.398674,
+     "season": "1996-97",
+     "detail": "421-1056"
+    },
+    {
      "value": 0.397858,
      "season": "1988-89",
      "detail": "483-1214"
@@ -14773,11 +14788,6 @@
      "value": 0.383065,
      "season": "2024-25",
      "detail": "570-1488"
-    },
-    {
-     "value": 0.364461,
-     "season": "1989-90",
-     "detail": "402-1103"
     }
    ],
    "tp_pct": [
@@ -14855,6 +14865,11 @@
      "value": 0.3,
      "season": "1997-98",
      "detail": "78-260"
+    },
+    {
+     "value": 0.3,
+     "season": "1996-97",
+     "detail": "72-240"
     },
     {
      "value": 0.294243,
@@ -14969,6 +14984,11 @@
      "detail": "307-493"
     },
     {
+     "value": 0.615196,
+     "season": "1996-97",
+     "detail": "251-408"
+    },
+    {
      "value": 0.614537,
      "season": "2015-16",
      "detail": "279-454"
@@ -15022,11 +15042,6 @@
      "value": 0.561358,
      "season": "1986-87",
      "detail": "215-383"
-    },
-    {
-     "value": 0.521505,
-     "season": "1989-90",
-     "detail": "194-372"
     }
    ],
    "games": [
@@ -15134,6 +15149,11 @@
      "value": 22,
      "season": "1935-36",
      "detail": "17-5"
+    },
+    {
+     "value": 22,
+     "season": "1996-97",
+     "detail": "13-9"
     },
     {
      "value": 21,

@@ -4863,6 +4863,13 @@
      "gp": 26
     },
     {
+     "value": 167,
+     "name": "Blake Horstman",
+     "player": "blake-horstman",
+     "season": "1993-94",
+     "gp": 23
+    },
+    {
      "value": 164,
      "name": "Scott Herman",
      "player": "scott-herman",
@@ -4910,20 +4917,6 @@
      "player": "nathan-broers",
      "season": "1988-89",
      "gp": 19
-    },
-    {
-     "value": 152,
-     "name": "Chris Tiona",
-     "player": "chris-tiona",
-     "season": "1984-85",
-     "gp": 19
-    },
-    {
-     "value": 152,
-     "name": "Caleb Miedema",
-     "player": "caleb-miedema",
-     "season": "2016-17",
-     "gp": 25
     }
    ],
    "ast": [
@@ -5960,6 +5953,13 @@
      "gp": 29
     },
     {
+     "value": 34,
+     "name": "Ryan Tenner",
+     "player": "ryan-tenner",
+     "season": "1993-94",
+     "gp": 23
+    },
+    {
      "value": 33,
      "name": "Troy Bolcerek",
      "player": "troy-bolcerek",
@@ -6259,6 +6259,13 @@
     },
     {
      "value": 74,
+     "name": "Ryan Tenner",
+     "player": "ryan-tenner",
+     "season": "1993-94",
+     "gp": 23
+    },
+    {
+     "value": 74,
      "name": "Luke Reader",
      "player": "luke-reader",
      "season": "2016-17",
@@ -6354,13 +6361,6 @@
      "player": "dustin-mcdonald",
      "season": "2022-23",
      "gp": 25
-    },
-    {
-     "value": 57,
-     "name": "Todd Oliver",
-     "player": "todd-oliver",
-     "season": "1985-86",
-     "gp": 21
     }
    ],
    "fta": [
@@ -6461,6 +6461,13 @@
      "player": "gunner-ellenburg",
      "season": "2021-22",
      "gp": 30
+    },
+    {
+     "value": 97,
+     "name": "Ryan Tenner",
+     "player": "ryan-tenner",
+     "season": "1993-94",
+     "gp": 23
     },
     {
      "value": 92,
@@ -6627,6 +6634,13 @@
     },
     {
      "value": 70,
+     "name": "Shane Sondreal",
+     "player": "shane-sondreal",
+     "season": "1993-94",
+     "gp": 23
+    },
+    {
+     "value": 70,
      "name": "Ben Campbell",
      "player": "ben-campbell",
      "season": "1997-98",
@@ -6645,6 +6659,13 @@
      "player": "cory-nicolai",
      "season": "1991-92",
      "gp": 22
+    },
+    {
+     "value": 68,
+     "name": "Greg Sprehn",
+     "player": "greg-sprehn",
+     "season": "1993-94",
+     "gp": 23
     },
     {
      "value": 67,
@@ -6715,27 +6736,6 @@
      "player": "ryan-lockington",
      "season": "1991-92",
      "gp": 22
-    },
-    {
-     "value": 63,
-     "name": "Chris Tiona",
-     "player": "chris-tiona",
-     "season": "1984-85",
-     "gp": 19
-    },
-    {
-     "value": 63,
-     "name": "Mike Freit",
-     "player": "mike-freit",
-     "season": "1990-91",
-     "gp": 22
-    },
-    {
-     "value": 63,
-     "name": "Chad Anderson",
-     "player": "chad-anderson",
-     "season": "1992-93",
-     "gp": 21
     }
    ],
    "ppg": [
@@ -7184,6 +7184,14 @@
      "detail": "63-142"
     },
     {
+     "value": 0.435897,
+     "name": "Ryan Tenner",
+     "player": "ryan-tenner",
+     "season": "1993-94",
+     "gp": 23,
+     "detail": "34-78"
+    },
+    {
      "value": 0.416667,
      "name": "Tanner Jones",
      "player": "tanner-jones",
@@ -7334,14 +7342,6 @@
      "season": "2025-26",
      "gp": 26,
      "detail": "58-193"
-    },
-    {
-     "value": 0.298387,
-     "name": "Eli Tucker",
-     "player": "eli-tucker",
-     "season": "2024-25",
-     "gp": 26,
-     "detail": "37-124"
     }
    ],
    "ft_pct": [
@@ -7442,6 +7442,14 @@
      "detail": "94-123"
     },
     {
+     "value": 0.762887,
+     "name": "Ryan Tenner",
+     "player": "ryan-tenner",
+     "season": "1993-94",
+     "gp": 23,
+     "detail": "74-97"
+    },
+    {
      "value": 0.762712,
      "name": "Tanner Jones",
      "player": "tanner-jones",
@@ -7530,20 +7538,12 @@
      "detail": "53-73"
     },
     {
-     "value": 0.722222,
-     "name": "Drew Johnson",
-     "player": "drew-johnson",
-     "season": "2017-18",
-     "gp": 28,
-     "detail": "52-72"
-    },
-    {
-     "value": 0.717391,
-     "name": "Cory Nicolai",
-     "player": "cory-nicolai",
-     "season": "1990-91",
-     "gp": 22,
-     "detail": "66-92"
+     "value": 0.725806,
+     "name": "Chad Anderson",
+     "player": "chad-anderson",
+     "season": "1993-94",
+     "gp": 15,
+     "detail": "45-62"
     }
    ]
   },
@@ -13575,6 +13575,11 @@
      "detail": "17-7"
     },
     {
+     "value": 57.130435,
+     "season": "1993-94",
+     "detail": "15-8"
+    },
+    {
      "value": 55.956522,
      "season": "2009-10",
      "detail": "15-8"
@@ -13602,11 +13607,6 @@
     {
      "value": 42.47619,
      "season": "2008-09",
-     "detail": "3-18"
-    },
-    {
-     "value": 38.904762,
-     "season": "2007-08",
      "detail": "3-18"
     }
    ],
@@ -13814,6 +13814,11 @@
      "detail": "13-8"
     },
     {
+     "value": 73,
+     "season": "1993-94",
+     "detail": "15-8"
+    },
+    {
      "value": 70,
      "season": "1991-92",
      "detail": "0-0"
@@ -13921,6 +13926,11 @@
      "detail": "13-8"
     },
     {
+     "value": 223,
+     "season": "1993-94",
+     "detail": "15-8"
+    },
+    {
      "value": 201,
      "season": "1991-92",
      "detail": "0-0"
@@ -13966,6 +13976,11 @@
      "value": 307,
      "season": "2016-17",
      "detail": "25-2"
+    },
+    {
+     "value": 307,
+     "season": "1993-94",
+     "detail": "15-8"
     },
     {
      "value": 305,
@@ -14071,11 +14086,6 @@
      "value": 163,
      "season": "1984-85",
      "detail": "0-0"
-    },
-    {
-     "value": 80,
-     "season": "1941-42",
-     "detail": "9-8"
     }
    ],
    "fta": [
@@ -14088,6 +14098,11 @@
      "value": 497,
      "season": "2018-19",
      "detail": "25-2"
+    },
+    {
+     "value": 493,
+     "season": "1993-94",
+     "detail": "15-8"
     },
     {
      "value": 473,
@@ -14198,11 +14213,6 @@
      "value": 307,
      "season": "2020-21",
      "detail": "19-3"
-    },
-    {
-     "value": 210,
-     "season": "1941-42",
-     "detail": "9-8"
     }
    ],
    "reb": [
@@ -14295,6 +14305,11 @@
      "value": 689,
      "season": "1989-90",
      "detail": "0-0"
+    },
+    {
+     "value": 682,
+     "season": "1993-94",
+     "detail": "15-8"
     },
     {
      "value": 653,
@@ -14417,6 +14432,11 @@
      "value": 271,
      "season": "1985-86",
      "detail": "0-0"
+    },
+    {
+     "value": 249,
+     "season": "1993-94",
+     "detail": "15-8"
     },
     {
      "value": 232,
@@ -14564,6 +14584,11 @@
      "value": 159,
      "season": "1989-90",
      "detail": "0-0"
+    },
+    {
+     "value": 154,
+     "season": "1993-94",
+     "detail": "15-8"
     },
     {
      "value": 139,
@@ -14720,6 +14745,11 @@
      "detail": "552-1299"
     },
     {
+     "value": 0.407733,
+     "season": "1993-94",
+     "detail": "464-1138"
+    },
+    {
      "value": 0.407459,
      "season": "1987-88",
      "detail": "590-1448"
@@ -14810,6 +14840,11 @@
      "value": 0.330317,
      "season": "2021-22",
      "detail": "146-442"
+    },
+    {
+     "value": 0.327354,
+     "season": "1993-94",
+     "detail": "73-223"
     },
     {
      "value": 0.318872,
@@ -14929,6 +14964,11 @@
      "detail": "253-401"
     },
     {
+     "value": 0.622718,
+     "season": "1993-94",
+     "detail": "307-493"
+    },
+    {
      "value": 0.614537,
      "season": "2015-16",
      "detail": "279-454"
@@ -14992,11 +15032,6 @@
      "value": 0.473837,
      "season": "1984-85",
      "detail": "163-344"
-    },
-    {
-     "value": 0.380952,
-     "season": "1941-42",
-     "detail": "80-210"
     }
    ],
    "games": [
@@ -15088,6 +15123,11 @@
     {
      "value": 23,
      "season": "2009-10",
+     "detail": "15-8"
+    },
+    {
+     "value": 23,
+     "season": "1993-94",
      "detail": "15-8"
     },
     {

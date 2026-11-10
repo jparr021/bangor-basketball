@@ -7599,6 +7599,13 @@
      "gp": 67
     },
     {
+     "value": 710,
+     "name": "Cory Nicolai",
+     "player": "cory-nicolai",
+     "season": "1990-91 to 1991-92",
+     "gp": 44
+    },
+    {
      "value": 704,
      "name": "Will Reader",
      "player": "will-reader",
@@ -7606,11 +7613,25 @@
      "gp": 86
     },
     {
+     "value": 698,
+     "name": "Travis Hansen",
+     "player": "travis-hansen",
+     "season": "1985-86 to 1987-88",
+     "gp": 64
+    },
+    {
      "value": 656,
      "name": "Brody Edwards",
      "player": "brody-edwards",
      "season": "2024-25 to 2025-26",
      "gp": 51
+    },
+    {
+     "value": 652,
+     "name": "Andy Kick",
+     "player": "andy-kick",
+     "season": "1985-86 to 1987-88",
+     "gp": 57
     },
     {
      "value": 652,
@@ -7634,60 +7655,39 @@
      "gp": 78
     },
     {
+     "value": 594,
+     "name": "Travis Bolcerek",
+     "player": "travis-bolcerek",
+     "season": "1993-94 to 1995-96",
+     "gp": 43
+    },
+    {
+     "value": 587,
+     "name": "Pat Hansen",
+     "player": "pat-hansen",
+     "season": "1989-90 to 1991-92",
+     "gp": 62
+    },
+    {
+     "value": 548,
+     "name": "Jason Rentz",
+     "player": "jason-rentz",
+     "season": "1987-88 to 1988-89",
+     "gp": 44
+    },
+    {
+     "value": 529,
+     "name": "Scott Herman",
+     "player": "scott-herman",
+     "season": "1987-88 to 1989-90",
+     "gp": 43
+    },
+    {
      "value": 522,
      "name": "Adam Wuensch",
      "player": "adam-wuensch",
      "season": "2008-09 to 2010-11",
      "gp": 44
-    },
-    {
-     "value": 507,
-     "name": "Broedy Jepson",
-     "player": "broedy-jepson",
-     "season": "2011-12 to 2013-14",
-     "gp": 66
-    },
-    {
-     "value": 456,
-     "name": "Jason Burkhardt",
-     "player": "jason-burkhardt",
-     "season": "2007-08 to 2009-10",
-     "gp": 50
-    },
-    {
-     "value": 437,
-     "name": "Nolan Michek",
-     "player": "nolan-michek",
-     "season": "2021-22 to 2023-24",
-     "gp": 52
-    },
-    {
-     "value": 419,
-     "name": "Eli Tucker",
-     "player": "eli-tucker",
-     "season": "2022-23 to 2024-25",
-     "gp": 62
-    },
-    {
-     "value": 403,
-     "name": "Mathieu Oesterle",
-     "player": "mathieu-oesterle",
-     "season": "2018-19 to 2021-22",
-     "gp": 89
-    },
-    {
-     "value": 391,
-     "name": "Alex Felch",
-     "player": "alex-felch",
-     "season": "2024-25 to 2025-26",
-     "gp": 52
-    },
-    {
-     "value": 383,
-     "name": "Cade Amborn",
-     "player": "cade-amborn",
-     "season": "2016-17 to 2017-18",
-     "gp": 50
     }
    ],
    "reb": [
@@ -7734,6 +7734,13 @@
      "gp": 99
     },
     {
+     "value": 455,
+     "name": "Travis Hansen",
+     "player": "travis-hansen",
+     "season": "1985-86 to 1987-88",
+     "gp": 64
+    },
+    {
      "value": 412,
      "name": "Hayden Massman",
      "player": "hayden-massman",
@@ -7746,6 +7753,13 @@
      "player": "hank-reader",
      "season": "2017-18 to 2020-21",
      "gp": 99
+    },
+    {
+     "value": 361,
+     "name": "Cory Nicolai",
+     "player": "cory-nicolai",
+     "season": "1990-91 to 1991-92",
+     "gp": 44
     },
     {
      "value": 351,
@@ -7783,6 +7797,13 @@
      "gp": 51
     },
     {
+     "value": 283,
+     "name": "Kyle Klos",
+     "player": "kyle-klos",
+     "season": "1993-94 to 1995-96",
+     "gp": 58
+    },
+    {
      "value": 282,
      "name": "Kyle Wingert",
      "player": "kyle-wingert",
@@ -7798,10 +7819,31 @@
     },
     {
      "value": 274,
+     "name": "Greg Sprehn",
+     "player": "greg-sprehn",
+     "season": "1993-94 to 1994-95",
+     "gp": 44
+    },
+    {
+     "value": 274,
      "name": "Cade Amborn",
      "player": "cade-amborn",
      "season": "2016-17 to 2017-18",
      "gp": 50
+    },
+    {
+     "value": 273,
+     "name": "Dave Garves",
+     "player": "dave-garves",
+     "season": "1987-88 to 1989-90",
+     "gp": 47
+    },
+    {
+     "value": 272,
+     "name": "Blake Horstman",
+     "player": "blake-horstman",
+     "season": "1992-93 to 1993-94",
+     "gp": 44
     },
     {
      "value": 267,
@@ -7811,6 +7853,13 @@
      "gp": 96
     },
     {
+     "value": 260,
+     "name": "Jason Rentz",
+     "player": "jason-rentz",
+     "season": "1987-88 to 1988-89",
+     "gp": 44
+    },
+    {
      "value": 259,
      "name": "Dayne Langrehr",
      "player": "dayne-langrehr",
@@ -7818,53 +7867,11 @@
      "gp": 61
     },
     {
-     "value": 237,
-     "name": "Gunner Ellenburg",
-     "player": "gunner-ellenburg",
-     "season": "2019-20 to 2021-22",
-     "gp": 52
-    },
-    {
-     "value": 215,
-     "name": "Mathieu Oesterle",
-     "player": "mathieu-oesterle",
-     "season": "2018-19 to 2021-22",
-     "gp": 89
-    },
-    {
-     "value": 197,
-     "name": "Brock Bores",
-     "player": "brock-bores",
-     "season": "2023-24 to 2024-25",
-     "gp": 43
-    },
-    {
-     "value": 168,
-     "name": "Eli Tucker",
-     "player": "eli-tucker",
-     "season": "2022-23 to 2024-25",
-     "gp": 62
-    },
-    {
-     "value": 166,
-     "name": "Trevor Jones",
-     "player": "trevor-jones",
-     "season": "2017-18 to 2018-19",
-     "gp": 55
-    },
-    {
-     "value": 165,
-     "name": "Ashton Michek",
-     "player": "ashton-michek",
-     "season": "2019-20 to 2021-22",
-     "gp": 47
-    },
-    {
-     "value": 156,
-     "name": "Nolan Michek",
-     "player": "nolan-michek",
-     "season": "2021-22 to 2023-24",
-     "gp": 52
+     "value": 259,
+     "name": "Ryan Lockington",
+     "player": "ryan-lockington",
+     "season": "1990-91 to 1991-92",
+     "gp": 44
     }
    ],
    "ast": [
@@ -7911,6 +7918,13 @@
      "gp": 88
     },
     {
+     "value": 237,
+     "name": "Joel Torgerud",
+     "player": "joel-torgerud",
+     "season": "1985-86 to 1986-87",
+     "gp": 41
+    },
+    {
      "value": 227,
      "name": "Caleb Miedema",
      "player": "caleb-miedema",
@@ -7923,6 +7937,13 @@
      "player": "drew-johnson",
      "season": "2014-15 to 2017-18",
      "gp": 92
+    },
+    {
+     "value": 209,
+     "name": "Pat Hansen",
+     "player": "pat-hansen",
+     "season": "1989-90 to 1991-92",
+     "gp": 62
     },
     {
      "value": 203,
@@ -7953,6 +7974,20 @@
      "gp": 86
     },
     {
+     "value": 160,
+     "name": "Jason Rentz",
+     "player": "jason-rentz",
+     "season": "1987-88 to 1988-89",
+     "gp": 44
+    },
+    {
+     "value": 139,
+     "name": "Andy Kick",
+     "player": "andy-kick",
+     "season": "1985-86 to 1987-88",
+     "gp": 57
+    },
+    {
      "value": 133,
      "name": "Dayne Langrehr",
      "player": "dayne-langrehr",
@@ -7960,11 +7995,25 @@
      "gp": 61
     },
     {
+     "value": 131,
+     "name": "Merlin Jones",
+     "player": "merlin-jones",
+     "season": "1989-90 to 1991-92",
+     "gp": 64
+    },
+    {
      "value": 127,
      "name": "Chase Horstman",
      "player": "chase-horstman",
      "season": "2021-22 to 2023-24",
      "gp": 78
+    },
+    {
+     "value": 126,
+     "name": "Brian Hansen",
+     "player": "brian-hansen",
+     "season": "1987-88 to 1988-89",
+     "gp": 46
     },
     {
      "value": 124,
@@ -7988,6 +8037,13 @@
      "gp": 52
     },
     {
+     "value": 110,
+     "name": "Mike Freit",
+     "player": "mike-freit",
+     "season": "1989-90 to 1990-91",
+     "gp": 42
+    },
+    {
      "value": 100,
      "name": "Grant Manke",
      "player": "grant-manke",
@@ -7995,53 +8051,11 @@
      "gp": 93
     },
     {
-     "value": 96,
-     "name": "Nolan Michek",
-     "player": "nolan-michek",
-     "season": "2021-22 to 2023-24",
-     "gp": 52
-    },
-    {
-     "value": 91,
-     "name": "Andrew Piske",
-     "player": "andrew-piske",
-     "season": "2014-15 to 2015-16",
-     "gp": 48
-    },
-    {
-     "value": 86,
-     "name": "Brody Edwards",
-     "player": "brody-edwards",
-     "season": "2024-25 to 2025-26",
-     "gp": 51
-    },
-    {
-     "value": 82,
-     "name": "Kellen Kravik",
-     "player": "kellen-kravik",
-     "season": "2014-15 to 2015-16",
-     "gp": 44
-    },
-    {
-     "value": 70,
-     "name": "Gunner Ellenburg",
-     "player": "gunner-ellenburg",
-     "season": "2019-20 to 2021-22",
-     "gp": 52
-    },
-    {
-     "value": 63,
-     "name": "Eli Tucker",
-     "player": "eli-tucker",
-     "season": "2022-23 to 2024-25",
-     "gp": 62
-    },
-    {
-     "value": 63,
-     "name": "Wyatt McDonald",
-     "player": "wyatt-mcdonald",
-     "season": "2012-13 to 2014-15",
-     "gp": 58
+     "value": 100,
+     "name": "Eric Beron",
+     "player": "eric-beron",
+     "season": "1990-91 to 1992-93",
+     "gp": 59
     }
    ],
    "stl": [
@@ -8116,6 +8130,41 @@
      "gp": 78
     },
     {
+     "value": 102,
+     "name": "Pat Hansen",
+     "player": "pat-hansen",
+     "season": "1989-90 to 1991-92",
+     "gp": 62
+    },
+    {
+     "value": 100,
+     "name": "Jason Rentz",
+     "player": "jason-rentz",
+     "season": "1987-88 to 1988-89",
+     "gp": 44
+    },
+    {
+     "value": 93,
+     "name": "Merlin Jones",
+     "player": "merlin-jones",
+     "season": "1989-90 to 1991-92",
+     "gp": 64
+    },
+    {
+     "value": 89,
+     "name": "Ryan Schroeder",
+     "player": "ryan-schroeder",
+     "season": "1995-96 to 1997-98",
+     "gp": 33
+    },
+    {
+     "value": 89,
+     "name": "Joel Torgerud",
+     "player": "joel-torgerud",
+     "season": "1985-86 to 1986-87",
+     "gp": 41
+    },
+    {
      "value": 85,
      "name": "Will Reader",
      "player": "will-reader",
@@ -8128,6 +8177,13 @@
      "player": "mathieu-oesterle",
      "season": "2018-19 to 2021-22",
      "gp": 89
+    },
+    {
+     "value": 73,
+     "name": "Andy Kick",
+     "player": "andy-kick",
+     "season": "1985-86 to 1987-88",
+     "gp": 57
     },
     {
      "value": 63,
@@ -8151,6 +8207,13 @@
      "gp": 55
     },
     {
+     "value": 63,
+     "name": "Paul Wittmershaus",
+     "player": "paul-wittmershaus",
+     "season": "1985-86 to 1987-88",
+     "gp": 53
+    },
+    {
      "value": 62,
      "name": "Jaymeson Freit",
      "player": "jaymeson-freit",
@@ -8165,60 +8228,18 @@
      "gp": 67
     },
     {
-     "value": 54,
-     "name": "Nolan Michek",
-     "player": "nolan-michek",
-     "season": "2021-22 to 2023-24",
-     "gp": 52
-    },
-    {
-     "value": 52,
-     "name": "Willis Pollock",
-     "player": "willis-pollock",
-     "season": "2021-22 to 2023-24",
-     "gp": 51
-    },
-    {
-     "value": 49,
-     "name": "Kellen Kravik",
-     "player": "kellen-kravik",
-     "season": "2014-15 to 2015-16",
+     "value": 57,
+     "name": "Ryan Lockington",
+     "player": "ryan-lockington",
+     "season": "1990-91 to 1991-92",
      "gp": 44
     },
     {
-     "value": 47,
-     "name": "Canon O'Heron",
-     "player": "canon-oheron",
-     "season": "2011-12 to 2014-15",
-     "gp": 87
-    },
-    {
-     "value": 47,
-     "name": "Gunner Ellenburg",
-     "player": "gunner-ellenburg",
-     "season": "2019-20 to 2021-22",
-     "gp": 52
-    },
-    {
-     "value": 46,
-     "name": "Eli Tucker",
-     "player": "eli-tucker",
-     "season": "2022-23 to 2024-25",
-     "gp": 62
-    },
-    {
-     "value": 45,
-     "name": "Dawson Daines",
-     "player": "dawson-daines",
-     "season": "2019-20 to 2021-22",
-     "gp": 50
-    },
-    {
-     "value": 42,
-     "name": "Tysen Herken",
-     "player": "tysen-herken",
-     "season": "2021-22 to 2022-23",
-     "gp": 42
+     "value": 57,
+     "name": "Randy Tenner",
+     "player": "randy-tenner",
+     "season": "1985-86 to 1986-87",
+     "gp": 39
     }
    ],
    "blk": [
@@ -8505,6 +8526,20 @@
      "gp": 86
     },
     {
+     "value": 285,
+     "name": "Travis Hansen",
+     "player": "travis-hansen",
+     "season": "1985-86 to 1987-88",
+     "gp": 64
+    },
+    {
+     "value": 278,
+     "name": "Cory Nicolai",
+     "player": "cory-nicolai",
+     "season": "1990-91 to 1991-92",
+     "gp": 44
+    },
+    {
      "value": 255,
      "name": "Brody Edwards",
      "player": "brody-edwards",
@@ -8519,11 +8554,60 @@
      "gp": 87
     },
     {
+     "value": 239,
+     "name": "Jason Rentz",
+     "player": "jason-rentz",
+     "season": "1987-88 to 1988-89",
+     "gp": 44
+    },
+    {
+     "value": 231,
+     "name": "Andy Kick",
+     "player": "andy-kick",
+     "season": "1985-86 to 1987-88",
+     "gp": 57
+    },
+    {
      "value": 226,
      "name": "Chase Horstman",
      "player": "chase-horstman",
      "season": "2021-22 to 2023-24",
      "gp": 78
+    },
+    {
+     "value": 218,
+     "name": "Pat Hansen",
+     "player": "pat-hansen",
+     "season": "1989-90 to 1991-92",
+     "gp": 62
+    },
+    {
+     "value": 203,
+     "name": "Travis Bolcerek",
+     "player": "travis-bolcerek",
+     "season": "1993-94 to 1995-96",
+     "gp": 43
+    },
+    {
+     "value": 179,
+     "name": "Merlin Jones",
+     "player": "merlin-jones",
+     "season": "1989-90 to 1991-92",
+     "gp": 64
+    },
+    {
+     "value": 174,
+     "name": "Chad Anderson",
+     "player": "chad-anderson",
+     "season": "1992-93 to 1993-94",
+     "gp": 36
+    },
+    {
+     "value": 170,
+     "name": "Kyle Klos",
+     "player": "kyle-klos",
+     "season": "1993-94 to 1995-96",
+     "gp": 58
     },
     {
      "value": 164,
@@ -8538,69 +8622,6 @@
      "player": "cade-amborn",
      "season": "2016-17 to 2017-18",
      "gp": 50
-    },
-    {
-     "value": 161,
-     "name": "Alex Felch",
-     "player": "alex-felch",
-     "season": "2024-25 to 2025-26",
-     "gp": 52
-    },
-    {
-     "value": 160,
-     "name": "Mathieu Oesterle",
-     "player": "mathieu-oesterle",
-     "season": "2018-19 to 2021-22",
-     "gp": 89
-    },
-    {
-     "value": 155,
-     "name": "Eli Tucker",
-     "player": "eli-tucker",
-     "season": "2022-23 to 2024-25",
-     "gp": 62
-    },
-    {
-     "value": 132,
-     "name": "Gunner Ellenburg",
-     "player": "gunner-ellenburg",
-     "season": "2019-20 to 2021-22",
-     "gp": 52
-    },
-    {
-     "value": 121,
-     "name": "Trevor Jones",
-     "player": "trevor-jones",
-     "season": "2017-18 to 2018-19",
-     "gp": 55
-    },
-    {
-     "value": 120,
-     "name": "Dayne Langrehr",
-     "player": "dayne-langrehr",
-     "season": "2023-24 to 2025-26",
-     "gp": 61
-    },
-    {
-     "value": 98,
-     "name": "Kyle Wingert",
-     "player": "kyle-wingert",
-     "season": "2015-16 to 2016-17",
-     "gp": 53
-    },
-    {
-     "value": 92,
-     "name": "Samuel Cropp",
-     "player": "samuel-cropp",
-     "season": "2021-22 to 2023-24",
-     "gp": 64
-    },
-    {
-     "value": 92,
-     "name": "Brock Bores",
-     "player": "brock-bores",
-     "season": "2023-24 to 2024-25",
-     "gp": 43
     }
    ],
    "fga": [
@@ -8668,6 +8689,34 @@
      "gp": 85
     },
     {
+     "value": 598,
+     "name": "Jason Rentz",
+     "player": "jason-rentz",
+     "season": "1987-88 to 1988-89",
+     "gp": 44
+    },
+    {
+     "value": 588,
+     "name": "Pat Hansen",
+     "player": "pat-hansen",
+     "season": "1989-90 to 1991-92",
+     "gp": 62
+    },
+    {
+     "value": 587,
+     "name": "Travis Hansen",
+     "player": "travis-hansen",
+     "season": "1985-86 to 1987-88",
+     "gp": 64
+    },
+    {
+     "value": 564,
+     "name": "Travis Bolcerek",
+     "player": "travis-bolcerek",
+     "season": "1993-94 to 1995-96",
+     "gp": 43
+    },
+    {
      "value": 547,
      "name": "Brody Edwards",
      "player": "brody-edwards",
@@ -8682,6 +8731,20 @@
      "gp": 67
     },
     {
+     "value": 530,
+     "name": "Cory Nicolai",
+     "player": "cory-nicolai",
+     "season": "1990-91 to 1991-92",
+     "gp": 44
+    },
+    {
+     "value": 528,
+     "name": "Merlin Jones",
+     "player": "merlin-jones",
+     "season": "1989-90 to 1991-92",
+     "gp": 64
+    },
+    {
      "value": 506,
      "name": "Will Reader",
      "player": "will-reader",
@@ -8689,11 +8752,25 @@
      "gp": 86
     },
     {
+     "value": 487,
+     "name": "Andy Kick",
+     "player": "andy-kick",
+     "season": "1985-86 to 1987-88",
+     "gp": 57
+    },
+    {
      "value": 464,
      "name": "Nolan Michek",
      "player": "nolan-michek",
      "season": "2021-22 to 2023-24",
      "gp": 52
+    },
+    {
+     "value": 463,
+     "name": "Ryan Schroeder",
+     "player": "ryan-schroeder",
+     "season": "1995-96 to 1997-98",
+     "gp": 33
     },
     {
      "value": 450,
@@ -8717,67 +8794,11 @@
      "gp": 87
     },
     {
-     "value": 364,
-     "name": "Mathieu Oesterle",
-     "player": "mathieu-oesterle",
-     "season": "2018-19 to 2021-22",
-     "gp": 89
-    },
-    {
-     "value": 342,
-     "name": "Alex Felch",
-     "player": "alex-felch",
-     "season": "2024-25 to 2025-26",
-     "gp": 52
-    },
-    {
-     "value": 318,
-     "name": "Trevor Jones",
-     "player": "trevor-jones",
-     "season": "2017-18 to 2018-19",
-     "gp": 55
-    },
-    {
-     "value": 314,
-     "name": "Cade Amborn",
-     "player": "cade-amborn",
-     "season": "2016-17 to 2017-18",
-     "gp": 50
-    },
-    {
-     "value": 309,
-     "name": "Dayne Langrehr",
-     "player": "dayne-langrehr",
-     "season": "2023-24 to 2025-26",
-     "gp": 61
-    },
-    {
-     "value": 291,
-     "name": "Gunner Ellenburg",
-     "player": "gunner-ellenburg",
-     "season": "2019-20 to 2021-22",
-     "gp": 52
-    },
-    {
-     "value": 262,
-     "name": "Samuel Cropp",
-     "player": "samuel-cropp",
-     "season": "2021-22 to 2023-24",
-     "gp": 64
-    },
-    {
-     "value": 233,
-     "name": "Jaymeson Freit",
-     "player": "jaymeson-freit",
-     "season": "2017-18 to 2018-19",
-     "gp": 48
-    },
-    {
-     "value": 219,
-     "name": "Kyle Wingert",
-     "player": "kyle-wingert",
-     "season": "2015-16 to 2016-17",
-     "gp": 53
+     "value": 407,
+     "name": "Greg Sprehn",
+     "player": "greg-sprehn",
+     "season": "1993-94 to 1994-95",
+     "gp": 44
     }
    ],
    "tpm": [
@@ -8845,11 +8866,39 @@
      "gp": 80
     },
     {
+     "value": 70,
+     "name": "Pat Hansen",
+     "player": "pat-hansen",
+     "season": "1989-90 to 1991-92",
+     "gp": 62
+    },
+    {
+     "value": 66,
+     "name": "Travis Bolcerek",
+     "player": "travis-bolcerek",
+     "season": "1993-94 to 1995-96",
+     "gp": 43
+    },
+    {
      "value": 62,
      "name": "Eli Tucker",
      "player": "eli-tucker",
      "season": "2022-23 to 2024-25",
      "gp": 62
+    },
+    {
+     "value": 60,
+     "name": "Ryan Schroeder",
+     "player": "ryan-schroeder",
+     "season": "1995-96 to 1997-98",
+     "gp": 33
+    },
+    {
+     "value": 48,
+     "name": "Andy Kick",
+     "player": "andy-kick",
+     "season": "1985-86 to 1987-88",
+     "gp": 57
     },
     {
      "value": 41,
@@ -8878,6 +8927,20 @@
      "player": "alex-felch",
      "season": "2024-25 to 2025-26",
      "gp": 52
+    },
+    {
+     "value": 36,
+     "name": "Justin Peterson",
+     "player": "justin-peterson",
+     "season": "1995-96 to 1997-98",
+     "gp": 25
+    },
+    {
+     "value": 36,
+     "name": "Ryan Tenner",
+     "player": "ryan-tenner",
+     "season": "1992-93 to 1993-94",
+     "gp": 40
     },
     {
      "value": 35,
@@ -8913,55 +8976,6 @@
      "player": "trevor-jones",
      "season": "2017-18 to 2018-19",
      "gp": 55
-    },
-    {
-     "value": 26,
-     "name": "Garrett Brezany",
-     "player": "garrett-brezany",
-     "season": "2021-22 to 2023-24",
-     "gp": 43
-    },
-    {
-     "value": 25,
-     "name": "Sawyer Jacobson",
-     "player": "sawyer-jacobson",
-     "season": "2024-25 to 2025-26",
-     "gp": 27
-    },
-    {
-     "value": 24,
-     "name": "Andrew Piske",
-     "player": "andrew-piske",
-     "season": "2014-15 to 2015-16",
-     "gp": 48
-    },
-    {
-     "value": 18,
-     "name": "Gunner Ellenburg",
-     "player": "gunner-ellenburg",
-     "season": "2019-20 to 2021-22",
-     "gp": 52
-    },
-    {
-     "value": 11,
-     "name": "Jack Reader",
-     "player": "jack-reader",
-     "season": "2013-14 to 2015-16",
-     "gp": 67
-    },
-    {
-     "value": 11,
-     "name": "Chase Horstman",
-     "player": "chase-horstman",
-     "season": "2021-22 to 2023-24",
-     "gp": 78
-    },
-    {
-     "value": 11,
-     "name": "Theo Muellenberg",
-     "player": "theo-muellenberg",
-     "season": "2016-17 to 2017-18",
-     "gp": 53
     }
    ],
    "tpa": [
@@ -9029,11 +9043,32 @@
      "gp": 99
     },
     {
+     "value": 232,
+     "name": "Travis Bolcerek",
+     "player": "travis-bolcerek",
+     "season": "1993-94 to 1995-96",
+     "gp": 43
+    },
+    {
+     "value": 200,
+     "name": "Pat Hansen",
+     "player": "pat-hansen",
+     "season": "1989-90 to 1991-92",
+     "gp": 62
+    },
+    {
      "value": 196,
      "name": "Eli Tucker",
      "player": "eli-tucker",
      "season": "2022-23 to 2024-25",
      "gp": 62
+    },
+    {
+     "value": 192,
+     "name": "Ryan Schroeder",
+     "player": "ryan-schroeder",
+     "season": "1995-96 to 1997-98",
+     "gp": 33
     },
     {
      "value": 175,
@@ -9086,10 +9121,24 @@
     },
     {
      "value": 95,
+     "name": "Andy Kick",
+     "player": "andy-kick",
+     "season": "1985-86 to 1987-88",
+     "gp": 57
+    },
+    {
+     "value": 95,
      "name": "Garrett Brezany",
      "player": "garrett-brezany",
      "season": "2021-22 to 2023-24",
      "gp": 43
+    },
+    {
+     "value": 93,
+     "name": "Justin Peterson",
+     "player": "justin-peterson",
+     "season": "1995-96 to 1997-98",
+     "gp": 25
     },
     {
      "value": 92,
@@ -9099,46 +9148,11 @@
      "gp": 48
     },
     {
-     "value": 81,
-     "name": "Gunner Ellenburg",
-     "player": "gunner-ellenburg",
-     "season": "2019-20 to 2021-22",
-     "gp": 52
-    },
-    {
-     "value": 75,
-     "name": "Andrew Piske",
-     "player": "andrew-piske",
-     "season": "2014-15 to 2015-16",
-     "gp": 48
-    },
-    {
-     "value": 72,
-     "name": "Sawyer Jacobson",
-     "player": "sawyer-jacobson",
-     "season": "2024-25 to 2025-26",
-     "gp": 27
-    },
-    {
-     "value": 67,
-     "name": "Will Reader",
-     "player": "will-reader",
-     "season": "2018-19 to 2021-22",
-     "gp": 86
-    },
-    {
-     "value": 54,
-     "name": "Walker Sevier",
-     "player": "walker-sevier",
-     "season": "2014-15 to 2015-16",
-     "gp": 47
-    },
-    {
-     "value": 51,
-     "name": "Jack Reader",
-     "player": "jack-reader",
-     "season": "2013-14 to 2015-16",
-     "gp": 67
+     "value": 91,
+     "name": "Ryan Tenner",
+     "player": "ryan-tenner",
+     "season": "1992-93 to 1993-94",
+     "gp": 40
     }
    ],
    "ftm": [
@@ -9185,11 +9199,25 @@
      "gp": 78
     },
     {
+     "value": 149,
+     "name": "Merlin Jones",
+     "player": "merlin-jones",
+     "season": "1989-90 to 1991-92",
+     "gp": 64
+    },
+    {
      "value": 146,
      "name": "Drew Johnson",
      "player": "drew-johnson",
      "season": "2014-15 to 2017-18",
      "gp": 92
+    },
+    {
+     "value": 145,
+     "name": "Cory Nicolai",
+     "player": "cory-nicolai",
+     "season": "1990-91 to 1991-92",
+     "gp": 44
     },
     {
      "value": 142,
@@ -9199,11 +9227,46 @@
      "gp": 99
     },
     {
+     "value": 142,
+     "name": "Andy Kick",
+     "player": "andy-kick",
+     "season": "1985-86 to 1987-88",
+     "gp": 57
+    },
+    {
      "value": 127,
      "name": "Tanner Jones",
      "player": "tanner-jones",
      "season": "2019-20 to 2022-23",
      "gp": 99
+    },
+    {
+     "value": 126,
+     "name": "Travis Hansen",
+     "player": "travis-hansen",
+     "season": "1985-86 to 1987-88",
+     "gp": 64
+    },
+    {
+     "value": 122,
+     "name": "Travis Bolcerek",
+     "player": "travis-bolcerek",
+     "season": "1993-94 to 1995-96",
+     "gp": 43
+    },
+    {
+     "value": 101,
+     "name": "Greg Sprehn",
+     "player": "greg-sprehn",
+     "season": "1993-94 to 1994-95",
+     "gp": 44
+    },
+    {
+     "value": 100,
+     "name": "Eric Beron",
+     "player": "eric-beron",
+     "season": "1990-91 to 1992-93",
+     "gp": 59
     },
     {
      "value": 88,
@@ -9213,6 +9276,20 @@
      "gp": 87
     },
     {
+     "value": 86,
+     "name": "Ryan Johnson",
+     "player": "ryan-johnson",
+     "season": "1994-95 to 1996-97",
+     "gp": 44
+    },
+    {
+     "value": 85,
+     "name": "Chad Anderson",
+     "player": "chad-anderson",
+     "season": "1992-93 to 1993-94",
+     "gp": 36
+    },
+    {
      "value": 84,
      "name": "Zane Langrehr",
      "player": "zane-langrehr",
@@ -9220,116 +9297,39 @@
      "gp": 96
     },
     {
-     "value": 73,
-     "name": "Dayne Langrehr",
-     "player": "dayne-langrehr",
-     "season": "2023-24 to 2025-26",
-     "gp": 61
+     "value": 84,
+     "name": "Ryan Lockington",
+     "player": "ryan-lockington",
+     "season": "1990-91 to 1991-92",
+     "gp": 44
     },
     {
-     "value": 69,
-     "name": "Will Reader",
-     "player": "will-reader",
-     "season": "2018-19 to 2021-22",
-     "gp": 86
+     "value": 84,
+     "name": "Blaine Sondreal",
+     "player": "blaine-sondreal",
+     "season": "1994-95 to 1996-97",
+     "gp": 63
     },
     {
-     "value": 69,
-     "name": "Gunner Ellenburg",
-     "player": "gunner-ellenburg",
-     "season": "2019-20 to 2021-22",
-     "gp": 52
+     "value": 84,
+     "name": "Ryan Tenner",
+     "player": "ryan-tenner",
+     "season": "1992-93 to 1993-94",
+     "gp": 40
     },
     {
-     "value": 68,
-     "name": "Nolan Michek",
-     "player": "nolan-michek",
-     "season": "2021-22 to 2023-24",
-     "gp": 52
-    },
-    {
-     "value": 64,
-     "name": "Jack Reader",
-     "player": "jack-reader",
-     "season": "2013-14 to 2015-16",
-     "gp": 67
-    },
-    {
-     "value": 53,
-     "name": "Trevor Jones",
-     "player": "trevor-jones",
-     "season": "2017-18 to 2018-19",
-     "gp": 55
-    },
-    {
-     "value": 50,
-     "name": "Cade Amborn",
-     "player": "cade-amborn",
-     "season": "2016-17 to 2017-18",
-     "gp": 50
-    },
-    {
-     "value": 47,
-     "name": "Brody Edwards",
-     "player": "brody-edwards",
-     "season": "2024-25 to 2025-26",
-     "gp": 51
-    },
-    {
-     "value": 47,
-     "name": "Eli Tucker",
-     "player": "eli-tucker",
-     "season": "2022-23 to 2024-25",
+     "value": 81,
+     "name": "Pat Hansen",
+     "player": "pat-hansen",
+     "season": "1989-90 to 1991-92",
      "gp": 62
     },
     {
-     "value": 45,
-     "name": "Mathieu Oesterle",
-     "player": "mathieu-oesterle",
-     "season": "2018-19 to 2021-22",
-     "gp": 89
-    },
-    {
-     "value": 39,
-     "name": "Landon Phillips",
-     "player": "landon-phillips",
-     "season": "2023-24 to 2024-25",
-     "gp": 42
-    },
-    {
-     "value": 35,
-     "name": "Garrett Brezany",
-     "player": "garrett-brezany",
-     "season": "2021-22 to 2023-24",
-     "gp": 43
-    },
-    {
-     "value": 34,
-     "name": "Samuel Cropp",
-     "player": "samuel-cropp",
-     "season": "2021-22 to 2023-24",
-     "gp": 64
-    },
-    {
-     "value": 33,
-     "name": "Alex Felch",
-     "player": "alex-felch",
-     "season": "2024-25 to 2025-26",
-     "gp": 52
-    },
-    {
-     "value": 33,
-     "name": "Walker Sevier",
-     "player": "walker-sevier",
-     "season": "2014-15 to 2015-16",
-     "gp": 47
-    },
-    {
-     "value": 33,
-     "name": "Lucas Reed",
-     "player": "lucas-reed",
-     "season": "2022-23 to 2023-24",
-     "gp": 32
+     "value": 75,
+     "name": "Joel Torgerud",
+     "player": "joel-torgerud",
+     "season": "1985-86 to 1986-87",
+     "gp": 41
     }
    ],
    "fta": [
@@ -9376,11 +9376,39 @@
      "gp": 80
     },
     {
+     "value": 229,
+     "name": "Travis Hansen",
+     "player": "travis-hansen",
+     "season": "1985-86 to 1987-88",
+     "gp": 64
+    },
+    {
      "value": 213,
      "name": "Drew Johnson",
      "player": "drew-johnson",
      "season": "2014-15 to 2017-18",
      "gp": 92
+    },
+    {
+     "value": 204,
+     "name": "Merlin Jones",
+     "player": "merlin-jones",
+     "season": "1989-90 to 1991-92",
+     "gp": 64
+    },
+    {
+     "value": 196,
+     "name": "Cory Nicolai",
+     "player": "cory-nicolai",
+     "season": "1990-91 to 1991-92",
+     "gp": 44
+    },
+    {
+     "value": 191,
+     "name": "Andy Kick",
+     "player": "andy-kick",
+     "season": "1985-86 to 1987-88",
+     "gp": 57
     },
     {
      "value": 182,
@@ -9390,6 +9418,13 @@
      "gp": 99
     },
     {
+     "value": 176,
+     "name": "Travis Bolcerek",
+     "player": "travis-bolcerek",
+     "season": "1993-94 to 1995-96",
+     "gp": 43
+    },
+    {
      "value": 171,
      "name": "Tanner Jones",
      "player": "tanner-jones",
@@ -9397,11 +9432,53 @@
      "gp": 99
     },
     {
+     "value": 155,
+     "name": "Greg Sprehn",
+     "player": "greg-sprehn",
+     "season": "1993-94 to 1994-95",
+     "gp": 44
+    },
+    {
+     "value": 147,
+     "name": "Pat Hansen",
+     "player": "pat-hansen",
+     "season": "1989-90 to 1991-92",
+     "gp": 62
+    },
+    {
+     "value": 139,
+     "name": "Eric Beron",
+     "player": "eric-beron",
+     "season": "1990-91 to 1992-93",
+     "gp": 59
+    },
+    {
+     "value": 136,
+     "name": "Chad Anderson",
+     "player": "chad-anderson",
+     "season": "1992-93 to 1993-94",
+     "gp": 36
+    },
+    {
+     "value": 136,
+     "name": "Blaine Sondreal",
+     "player": "blaine-sondreal",
+     "season": "1994-95 to 1996-97",
+     "gp": 63
+    },
+    {
      "value": 134,
      "name": "Will Reader",
      "player": "will-reader",
      "season": "2018-19 to 2021-22",
      "gp": 86
+    },
+    {
+     "value": 134,
+     "name": "Ryan Lockington",
+     "player": "ryan-lockington",
+     "season": "1990-91 to 1991-92",
+     "gp": 44
     },
     {
      "value": 131,
@@ -9418,6 +9495,13 @@
      "gp": 67
     },
     {
+     "value": 131,
+     "name": "Ryan Johnson",
+     "player": "ryan-johnson",
+     "season": "1994-95 to 1996-97",
+     "gp": 44
+    },
+    {
      "value": 125,
      "name": "Nolan Michek",
      "player": "nolan-michek",
@@ -9425,88 +9509,11 @@
      "gp": 52
     },
     {
-     "value": 121,
-     "name": "Dayne Langrehr",
-     "player": "dayne-langrehr",
-     "season": "2023-24 to 2025-26",
-     "gp": 61
-    },
-    {
-     "value": 115,
-     "name": "Gunner Ellenburg",
-     "player": "gunner-ellenburg",
-     "season": "2019-20 to 2021-22",
-     "gp": 52
-    },
-    {
-     "value": 111,
-     "name": "Zane Langrehr",
-     "player": "zane-langrehr",
-     "season": "2017-18 to 2020-21",
-     "gp": 96
-    },
-    {
-     "value": 101,
-     "name": "Trevor Jones",
-     "player": "trevor-jones",
-     "season": "2017-18 to 2018-19",
-     "gp": 55
-    },
-    {
-     "value": 96,
-     "name": "Cade Amborn",
-     "player": "cade-amborn",
-     "season": "2016-17 to 2017-18",
-     "gp": 50
-    },
-    {
-     "value": 89,
-     "name": "Brody Edwards",
-     "player": "brody-edwards",
-     "season": "2024-25 to 2025-26",
-     "gp": 51
-    },
-    {
-     "value": 82,
-     "name": "Mathieu Oesterle",
-     "player": "mathieu-oesterle",
-     "season": "2018-19 to 2021-22",
-     "gp": 89
-    },
-    {
-     "value": 81,
-     "name": "Eli Tucker",
-     "player": "eli-tucker",
-     "season": "2022-23 to 2024-25",
-     "gp": 62
-    },
-    {
-     "value": 75,
-     "name": "Landon Phillips",
-     "player": "landon-phillips",
-     "season": "2023-24 to 2024-25",
-     "gp": 42
-    },
-    {
-     "value": 57,
-     "name": "Samuel Cropp",
-     "player": "samuel-cropp",
-     "season": "2021-22 to 2023-24",
-     "gp": 64
-    },
-    {
-     "value": 57,
-     "name": "Garrett Brezany",
-     "player": "garrett-brezany",
-     "season": "2021-22 to 2023-24",
-     "gp": 43
-    },
-    {
-     "value": 56,
-     "name": "Lucas Horman",
-     "player": "lucas-horman",
-     "season": "2021-22 to 2023-24",
-     "gp": 50
+     "value": 125,
+     "name": "Joel Torgerud",
+     "player": "joel-torgerud",
+     "season": "1985-86 to 1986-87",
+     "gp": 41
     }
    ],
    "gp": [
@@ -9638,10 +9645,38 @@
     },
     {
      "value": 64,
+     "name": "Travis Hansen",
+     "player": "travis-hansen",
+     "season": "1985-86 to 1987-88",
+     "gp": 64
+    },
+    {
+     "value": 64,
+     "name": "Merlin Jones",
+     "player": "merlin-jones",
+     "season": "1989-90 to 1991-92",
+     "gp": 64
+    },
+    {
+     "value": 64,
      "name": "Samuel Cropp",
      "player": "samuel-cropp",
      "season": "2021-22 to 2023-24",
      "gp": 64
+    },
+    {
+     "value": 63,
+     "name": "Blaine Sondreal",
+     "player": "blaine-sondreal",
+     "season": "1994-95 to 1996-97",
+     "gp": 63
+    },
+    {
+     "value": 62,
+     "name": "Pat Hansen",
+     "player": "pat-hansen",
+     "season": "1989-90 to 1991-92",
+     "gp": 62
     },
     {
      "value": 62,
@@ -9656,34 +9691,6 @@
      "player": "dayne-langrehr",
      "season": "2023-24 to 2025-26",
      "gp": 61
-    },
-    {
-     "value": 58,
-     "name": "Kyle Wright",
-     "player": "kyle-wright",
-     "season": "2009-10 to 2011-12",
-     "gp": 58
-    },
-    {
-     "value": 58,
-     "name": "Wyatt McDonald",
-     "player": "wyatt-mcdonald",
-     "season": "2012-13 to 2014-15",
-     "gp": 58
-    },
-    {
-     "value": 55,
-     "name": "Trevor Jones",
-     "player": "trevor-jones",
-     "season": "2017-18 to 2018-19",
-     "gp": 55
-    },
-    {
-     "value": 55,
-     "name": "Adam Meyers",
-     "player": "adam-meyers",
-     "season": "2010-11 to 2012-13",
-     "gp": 55
     }
    ],
    "fg_pct": [
@@ -9728,12 +9735,28 @@
      "detail": "86-154"
     },
     {
+     "value": 0.557143,
+     "name": "Jason McAlear",
+     "player": "jason-mcalear",
+     "season": "1995-96 to 1996-97",
+     "gp": 42,
+     "detail": "78-140"
+    },
+    {
      "value": 0.539076,
      "name": "Luke Reader",
      "player": "luke-reader",
      "season": "2014-15 to 2017-18",
      "gp": 104,
      "detail": "607-1126"
+    },
+    {
+     "value": 0.524528,
+     "name": "Cory Nicolai",
+     "player": "cory-nicolai",
+     "season": "1990-91 to 1991-92",
+     "gp": 44,
+     "detail": "278-530"
     },
     {
      "value": 0.522293,
@@ -9752,12 +9775,52 @@
      "detail": "422-817"
     },
     {
+     "value": 0.516245,
+     "name": "Blake Horstman",
+     "player": "blake-horstman",
+     "season": "1992-93 to 1993-94",
+     "gp": 44,
+     "detail": "143-277"
+    },
+    {
      "value": 0.502222,
      "name": "Chase Horstman",
      "player": "chase-horstman",
      "season": "2021-22 to 2023-24",
      "gp": 78,
      "detail": "226-450"
+    },
+    {
+     "value": 0.48552,
+     "name": "Travis Hansen",
+     "player": "travis-hansen",
+     "season": "1985-86 to 1987-88",
+     "gp": 64,
+     "detail": "285-587"
+    },
+    {
+     "value": 0.474333,
+     "name": "Andy Kick",
+     "player": "andy-kick",
+     "season": "1985-86 to 1987-88",
+     "gp": 57,
+     "detail": "231-487"
+    },
+    {
+     "value": 0.474114,
+     "name": "Chad Anderson",
+     "player": "chad-anderson",
+     "season": "1992-93 to 1993-94",
+     "gp": 36,
+     "detail": "174-367"
+    },
+    {
+     "value": 0.472727,
+     "name": "Justin Peterson",
+     "player": "justin-peterson",
+     "season": "1995-96 to 1997-98",
+     "gp": 25,
+     "detail": "104-220"
     },
     {
      "value": 0.47076,
@@ -9768,12 +9831,36 @@
      "detail": "161-342"
     },
     {
+     "value": 0.469767,
+     "name": "Chad Johnson",
+     "player": "chad-johnson",
+     "season": "1995-96 to 1996-97",
+     "gp": 38,
+     "detail": "101-215"
+    },
+    {
+     "value": 0.469231,
+     "name": "Dave Garves",
+     "player": "dave-garves",
+     "season": "1987-88 to 1989-90",
+     "gp": 47,
+     "detail": "122-260"
+    },
+    {
      "value": 0.469027,
      "name": "Theo Muellenberg",
      "player": "theo-muellenberg",
      "season": "2016-17 to 2017-18",
      "gp": 53,
      "detail": "53-113"
+    },
+    {
+     "value": 0.468401,
+     "name": "Randy Tenner",
+     "player": "randy-tenner",
+     "season": "1985-86 to 1986-87",
+     "gp": 39,
+     "detail": "126-269"
     },
     {
      "value": 0.466179,
@@ -9800,95 +9887,23 @@
      "detail": "392-849"
     },
     {
-     "value": 0.459268,
-     "name": "Caleb Miedema",
-     "player": "caleb-miedema",
-     "season": "2015-16 to 2017-18",
-     "gp": 80,
-     "detail": "389-847"
-    },
-    {
-     "value": 0.455446,
-     "name": "Brock Bores",
-     "player": "brock-bores",
-     "season": "2023-24 to 2024-25",
-     "gp": 43,
-     "detail": "92-202"
-    },
-    {
-     "value": 0.453608,
-     "name": "Gunner Ellenburg",
-     "player": "gunner-ellenburg",
-     "season": "2019-20 to 2021-22",
-     "gp": 52,
-     "detail": "132-291"
-    },
-    {
-     "value": 0.449835,
-     "name": "Tanner Jones",
-     "player": "tanner-jones",
-     "season": "2019-20 to 2022-23",
-     "gp": 99,
-     "detail": "408-907"
-    },
-    {
-     "value": 0.447489,
-     "name": "Kyle Wingert",
-     "player": "kyle-wingert",
-     "season": "2015-16 to 2016-17",
-     "gp": 53,
-     "detail": "98-219"
-    },
-    {
-     "value": 0.44582,
-     "name": "Zane Langrehr",
-     "player": "zane-langrehr",
-     "season": "2017-18 to 2020-21",
-     "gp": 96,
-     "detail": "432-969"
-    },
-    {
-     "value": 0.443609,
-     "name": "Tysen Herken",
-     "player": "tysen-herken",
-     "season": "2021-22 to 2022-23",
-     "gp": 42,
-     "detail": "59-133"
-    },
-    {
-     "value": 0.43956,
-     "name": "Mathieu Oesterle",
-     "player": "mathieu-oesterle",
-     "season": "2018-19 to 2021-22",
-     "gp": 89,
-     "detail": "160-364"
-    },
-    {
-     "value": 0.432432,
-     "name": "Lucas Horman",
-     "player": "lucas-horman",
-     "season": "2021-22 to 2023-24",
-     "gp": 50,
-     "detail": "48-111"
-    },
-    {
-     "value": 0.422078,
-     "name": "Kellen Kravik",
-     "player": "kellen-kravik",
-     "season": "2014-15 to 2015-16",
-     "gp": 44,
-     "detail": "65-154"
-    },
-    {
-     "value": 0.4,
-     "name": "Dawson Daines",
-     "player": "dawson-daines",
-     "season": "2019-20 to 2021-22",
-     "gp": 50,
-     "detail": "46-115"
+     "value": 0.459459,
+     "name": "Kyle Klos",
+     "player": "kyle-klos",
+     "season": "1993-94 to 1995-96",
+     "gp": 58,
+     "detail": "170-370"
     }
    ],
    "tp_pct": [
+    {
+     "value": 0.505263,
+     "name": "Andy Kick",
+     "player": "andy-kick",
+     "season": "1985-86 to 1987-88",
+     "gp": 57,
+     "detail": "48-95"
+    },
     {
      "value": 0.436526,
      "name": "Luke Reader",
@@ -9898,12 +9913,28 @@
      "detail": "196-449"
     },
     {
+     "value": 0.395604,
+     "name": "Ryan Tenner",
+     "player": "ryan-tenner",
+     "season": "1992-93 to 1993-94",
+     "gp": 40,
+     "detail": "36-91"
+    },
+    {
      "value": 0.391414,
      "name": "Zane Langrehr",
      "player": "zane-langrehr",
      "season": "2017-18 to 2020-21",
      "gp": 96,
      "detail": "155-396"
+    },
+    {
+     "value": 0.387097,
+     "name": "Justin Peterson",
+     "player": "justin-peterson",
+     "season": "1995-96 to 1997-98",
+     "gp": 25,
+     "detail": "36-93"
     },
     {
      "value": 0.385593,
@@ -9936,6 +9967,14 @@
      "season": "2019-20 to 2022-23",
      "gp": 99,
      "detail": "139-386"
+    },
+    {
+     "value": 0.35,
+     "name": "Pat Hansen",
+     "player": "pat-hansen",
+     "season": "1989-90 to 1991-92",
+     "gp": 62,
+     "detail": "70-200"
     },
     {
      "value": 0.343137,
@@ -9986,6 +10025,14 @@
      "detail": "62-196"
     },
     {
+     "value": 0.3125,
+     "name": "Ryan Schroeder",
+     "player": "ryan-schroeder",
+     "season": "1995-96 to 1997-98",
+     "gp": 33,
+     "detail": "60-192"
+    },
+    {
      "value": 0.30363,
      "name": "Drew Johnson",
      "player": "drew-johnson",
@@ -10010,6 +10057,22 @@
      "detail": "114-395"
     },
     {
+     "value": 0.285714,
+     "name": "Ryan Johnson",
+     "player": "ryan-johnson",
+     "season": "1994-95 to 1996-97",
+     "gp": 44,
+     "detail": "24-84"
+    },
+    {
+     "value": 0.284483,
+     "name": "Travis Bolcerek",
+     "player": "travis-bolcerek",
+     "season": "1993-94 to 1995-96",
+     "gp": 43,
+     "detail": "66-232"
+    },
+    {
      "value": 0.281139,
      "name": "Caleb Miedema",
      "player": "caleb-miedema",
@@ -10018,36 +10081,20 @@
      "detail": "79-281"
     },
     {
+     "value": 0.277108,
+     "name": "Brett Cavadini",
+     "player": "brett-cavadini",
+     "season": "1988-89 to 1989-90",
+     "gp": 35,
+     "detail": "23-83"
+    },
+    {
      "value": 0.273684,
      "name": "Garrett Brezany",
      "player": "garrett-brezany",
      "season": "2021-22 to 2023-24",
      "gp": 43,
      "detail": "26-95"
-    },
-    {
-     "value": 0.256881,
-     "name": "Trevor Jones",
-     "player": "trevor-jones",
-     "season": "2017-18 to 2018-19",
-     "gp": 55,
-     "detail": "28-109"
-    },
-    {
-     "value": 0.234286,
-     "name": "Nolan Michek",
-     "player": "nolan-michek",
-     "season": "2021-22 to 2023-24",
-     "gp": 52,
-     "detail": "41-175"
-    },
-    {
-     "value": 0.222222,
-     "name": "Gunner Ellenburg",
-     "player": "gunner-ellenburg",
-     "season": "2019-20 to 2021-22",
-     "gp": 52,
-     "detail": "18-81"
     }
    ],
    "ft_pct": [
@@ -10076,12 +10123,44 @@
      "detail": "84-111"
     },
     {
+     "value": 0.743455,
+     "name": "Andy Kick",
+     "player": "andy-kick",
+     "season": "1985-86 to 1987-88",
+     "gp": 57,
+     "detail": "142-191"
+    },
+    {
      "value": 0.74269,
      "name": "Tanner Jones",
      "player": "tanner-jones",
      "season": "2019-20 to 2022-23",
      "gp": 99,
      "detail": "127-171"
+    },
+    {
+     "value": 0.739796,
+     "name": "Cory Nicolai",
+     "player": "cory-nicolai",
+     "season": "1990-91 to 1991-92",
+     "gp": 44,
+     "detail": "145-196"
+    },
+    {
+     "value": 0.730392,
+     "name": "Merlin Jones",
+     "player": "merlin-jones",
+     "season": "1989-90 to 1991-92",
+     "gp": 64,
+     "detail": "149-204"
+    },
+    {
+     "value": 0.719424,
+     "name": "Eric Beron",
+     "player": "eric-beron",
+     "season": "1990-91 to 1992-93",
+     "gp": 59,
+     "detail": "100-139"
     },
     {
      "value": 0.714894,
@@ -10092,12 +10171,28 @@
      "detail": "168-235"
     },
     {
+     "value": 0.705882,
+     "name": "Ryan Tenner",
+     "player": "ryan-tenner",
+     "season": "1992-93 to 1993-94",
+     "gp": 40,
+     "detail": "84-119"
+    },
+    {
      "value": 0.699588,
      "name": "Hayden Massman",
      "player": "hayden-massman",
      "season": "2022-23 to 2025-26",
      "gp": 88,
      "detail": "170-243"
+    },
+    {
+     "value": 0.693182,
+     "name": "Travis Bolcerek",
+     "player": "travis-bolcerek",
+     "season": "1993-94 to 1995-96",
+     "gp": 43,
+     "detail": "122-176"
     },
     {
      "value": 0.685446,
@@ -10124,12 +10219,68 @@
      "detail": "160-237"
     },
     {
+     "value": 0.656489,
+     "name": "Ryan Johnson",
+     "player": "ryan-johnson",
+     "season": "1994-95 to 1996-97",
+     "gp": 44,
+     "detail": "86-131"
+    },
+    {
+     "value": 0.651613,
+     "name": "Greg Sprehn",
+     "player": "greg-sprehn",
+     "season": "1993-94 to 1994-95",
+     "gp": 44,
+     "detail": "101-155"
+    },
+    {
+     "value": 0.645455,
+     "name": "Ryan Schroeder",
+     "player": "ryan-schroeder",
+     "season": "1995-96 to 1997-98",
+     "gp": 33,
+     "detail": "71-110"
+    },
+    {
      "value": 0.634146,
      "name": "Chase Horstman",
      "player": "chase-horstman",
      "season": "2021-22 to 2023-24",
      "gp": 78,
      "detail": "156-246"
+    },
+    {
+     "value": 0.626866,
+     "name": "Ryan Lockington",
+     "player": "ryan-lockington",
+     "season": "1990-91 to 1991-92",
+     "gp": 44,
+     "detail": "84-134"
+    },
+    {
+     "value": 0.625,
+     "name": "Chad Anderson",
+     "player": "chad-anderson",
+     "season": "1992-93 to 1993-94",
+     "gp": 36,
+     "detail": "85-136"
+    },
+    {
+     "value": 0.622807,
+     "name": "Mike Freit",
+     "player": "mike-freit",
+     "season": "1989-90 to 1990-91",
+     "gp": 42,
+     "detail": "71-114"
+    },
+    {
+     "value": 0.617647,
+     "name": "Blaine Sondreal",
+     "player": "blaine-sondreal",
+     "season": "1994-95 to 1996-97",
+     "gp": 63,
+     "detail": "84-136"
     },
     {
      "value": 0.603306,
@@ -10141,35 +10292,19 @@
     },
     {
      "value": 0.6,
+     "name": "Joel Torgerud",
+     "player": "joel-torgerud",
+     "season": "1985-86 to 1986-87",
+     "gp": 41,
+     "detail": "75-125"
+    },
+    {
+     "value": 0.6,
      "name": "Gunner Ellenburg",
      "player": "gunner-ellenburg",
      "season": "2019-20 to 2021-22",
      "gp": 52,
      "detail": "69-115"
-    },
-    {
-     "value": 0.544,
-     "name": "Nolan Michek",
-     "player": "nolan-michek",
-     "season": "2021-22 to 2023-24",
-     "gp": 52,
-     "detail": "68-125"
-    },
-    {
-     "value": 0.524752,
-     "name": "Trevor Jones",
-     "player": "trevor-jones",
-     "season": "2017-18 to 2018-19",
-     "gp": 55,
-     "detail": "53-101"
-    },
-    {
-     "value": 0.514925,
-     "name": "Will Reader",
-     "player": "will-reader",
-     "season": "2018-19 to 2021-22",
-     "gp": 86,
-     "detail": "69-134"
     }
    ]
   }

@@ -144,6 +144,43 @@ for s_ in reversed(_with_stats[:-1]):
         break
     COVERED_FROM = s_
 
+# A career from before COVERED_FROM is still complete when every season he could have played has a stat sheet:
+# no season without one between his first and last, and nothing missing on either end. An end is closed when
+# the season beyond it has a stat sheet (he'd be in it), when his class year rules it out (a freshman's first
+# season, a senior's last), or when that season's roster (rosters.csv) doesn't list him, by name or by initial.
+_covered = set(_with_stats)
+ROSTER_NAMES, CLASS_YEAR = defaultdict(set), {}
+_rp = os.path.join(ROOT, "overrides", "rosters.csv")
+if os.path.exists(_rp):
+    with open(_rp) as f:
+        for r in csv.DictReader(f):
+            n = r["name"].strip()
+            ROSTER_NAMES[r["season"]].add(n)
+            if r.get("grade", "").strip().isdigit():
+                CLASS_YEAR.setdefault(n, int(r["season"][:4]) + 1 + 12 - int(r["grade"]))
+
+
+def _shift(season, by):
+    y = int(season[:4]) + by
+    return f"{y}-{str(y + 1)[2:]}"
+
+
+def _on_roster(season, name):
+    first, last = name.split()[0], name.split()[-1]
+    return any(n == name or n == f"{first[0]}. {last}" for n in ROSTER_NAMES[season])
+
+
+def complete_career(name, ss):
+    if any(_shift(ss[0], k) not in _covered for k in range(int(ss[-1][:4]) - int(ss[0][:4]) + 1)):
+        return False
+    cy = CLASS_YEAR.get(name)
+    before, after = _shift(ss[0], -1), _shift(ss[-1], 1)
+    ok_before = (before in _covered or (cy and int(ss[0][:4]) + 1 == cy - 3)
+                 or (before in ROSTER_NAMES and not _on_roster(before, name)))
+    ok_after = (after in _covered or (cy and int(ss[-1][:4]) + 1 == cy)
+                or (after in ROSTER_NAMES and not _on_roster(after, name)))
+    return bool(ok_before and ok_after)
+
 # ------------------------------------------------------------- careers
 careers = defaultdict(lambda: {"seasons": [], "gp": 0, **{k: None for k in STATS}})
 for s in season_rows:
@@ -153,7 +190,7 @@ for s in season_rows:
     for k in STATS:
         if s[k] is not None:
             c[k] = (c[k] or 0) + s[k]
-        else:
+        elif not (k in ("tpm", "tpa") and s["season"] < "1987-88"):  # no 3-point line before 1987-88
             c.setdefault("untracked", set()).add(k)
 # Official totals from the record book where the stats sheets are known to be incomplete
 # (overrides/career_totals.csv, maintained by hand).
@@ -169,7 +206,7 @@ for name, c in careers.items():
     ss = sorted(c["seasons"])
     row = {"name": name, "first_season": ss[0], "last_season": ss[-1], "n_seasons": len(ss),
            "seasons": "|".join(ss), "gp": c["gp"] or "", **{k: c[k] for k in STATS}, "override_note": "",
-           "_untracked": c.get("untracked", set())}
+           "_untracked": c.get("untracked", set()), "untracked": "|".join(sorted(c.get("untracked", set())))}
     notes = []
     for stat, ov in overrides.get(name, {}).items():
         row[stat] = float(ov["value"])
@@ -177,7 +214,7 @@ for name, c in careers.items():
             row["gp"] = float(ov["games"])
         notes.append(f"{stat}: {ov['source']} ({ov['note']})")
     row["override_note"] = "; ".join(notes)
-    row["partial"] = "Y" if ss[0] < COVERED_FROM else ""
+    row["partial"] = "Y" if ss[0] < COVERED_FROM and not complete_career(name, ss) else ""
     career_rows.append(row)
 career_rows.sort(key=lambda c: -(c["pts"] or 0))
 career_full = [c for c in career_rows if not c["partial"]]
@@ -257,7 +294,9 @@ for k in ["pts", "reb", "ast", "stl", "blk", "fgm", "fga", "tpm", "tpa", "ftm", 
 for k in ["pts", "reb", "ast", "stl", "blk", "fgm", "fga", "tpm", "tpa", "ftm", "fta", "pf"]:
     R["individual"]["season"][k] = top(season_rows, lambda s, k=k: s[k], season_label)
 for k in ["pts", "reb", "ast", "stl", "blk", "fgm", "fga", "tpm", "tpa", "ftm", "fta"]:
-    R["individual"]["career"][k] = top(career_full, lambda c, k=k: c[k], career_label)
+    # an old career counted complete (complete_career) but missing this stat for a season isn't ranked in it
+    R["individual"]["career"][k] = top(career_full, lambda c, k=k: None if c["first_season"] < COVERED_FROM
+                                       and k in c["_untracked"] else c[k], career_label)
 R["individual"]["season"]["ppg"] = top(
     season_rows, lambda s: s["pts"] / s["gp"] if s["gp"] and s["gp"] >= MIN["season_ppg_gp"] and s["pts"] else None,
     with_detail(season_label, lambda s: f"{i(s['pts'])} pts / {i(s['gp'])} G"))

@@ -175,7 +175,9 @@ def merged(scope, period, stat, kind):
         if (h["scope"], h["period"], h["stat"]) != key or h["value"] == "":
             continue
         # the same mark already worked out from the stats (a team mark has no name, so it matches on the season or date)
-        dup = any((e.get("name") or "") == (h["name"] or "") and (e.get("date") == h["date"] if h["date"] else e.get("season") == h["season"])
+        # A career mark matches on the name alone: the book gives "Class of 1988", the stats "1985-86 to 1987-88".
+        dup = any((e.get("name") or "") == (h["name"] or "") and
+                  (period == "career" or (e.get("date") == h["date"] if h["date"] else e.get("season") == h["season"]))
                   for e in entries)
         if dup:
             continue

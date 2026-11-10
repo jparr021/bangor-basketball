@@ -26,6 +26,13 @@ for r in pseasons + pcareers:
     for k in STATS + ["gp"]:
         r[k] = num(r.get(k))
     r["slug"] = slug(r["name"])
+# The stat sheets cover every season without a gap from COVERED_FROM on (worked out the same way in records.py)
+_ws = sorted({r["season"] for r in pseasons})
+COVERED_FROM = _ws[-1] if _ws else ""
+for _s in reversed(_ws[:-1]):
+    if int(_s[:4]) + 1 != int(COVERED_FROM[:4]):
+        break
+    COVERED_FROM = _s
 
 # Seasons before the stat sheets known only from a printed list of results (a yearbook page): no dates,
 # home/away or box scores, so they stay out of games.csv and get a results-only season page.

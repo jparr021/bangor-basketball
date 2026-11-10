@@ -104,6 +104,9 @@ def career_boards():
             v = c.get(stat)
             if not v or c.get("partial") == "Y":  # stats for only part of the career (2002-03)
                 continue
+            # an old career counted complete but missing this stat for a season (1994-95 assists and steals)
+            if c["first_season"] < COVERED_FROM and stat in (c.get("untracked") or "").split("|"):
+                continue
             rows = ps_by_player.get(c["slug"], [])
             seasons = sorted(r["season"] for r in rows)
             ov = c.get("override_note") or ""

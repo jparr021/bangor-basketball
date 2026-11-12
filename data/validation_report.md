@@ -45,7 +45,7 @@
 | 2015-16 | 27 | 23-4 | 27 / 0 / 0 | 0 |
 | 2016-17 | 27 | 25-2 | 27 / 0 / 0 | 0 |
 | 2017-18 | 29 | 27-1 (1 no result) | 28 / 0 / 1 | 0 |
-| 2018-19 | 27 | 25-2 | 25 / 0 / 2 | 1 |
+| 2018-19 | 27 | 25-2 | 27 / 0 / 0 | 3 |
 | 2019-20 | 27 | 24-2 (1 no result) | 26 / 0 / 1 | 7 |
 | 2020-21 | 23 | 19-3 (1 no result) | 22 / 0 / 1 | 2 |
 | 2021-22 | 31 | 25-5 (1 no result) | 30 / 0 / 1 | 4 |
@@ -71,7 +71,7 @@ A check compares one player's season total for one stat. A match means the sum o
 | 2015-16 | 156 | 156 | 0 | 0 |
 | 2016-17 | 208 | 208 | 0 | 0 |
 | 2017-18 | 195 | 195 | 0 | 0 |
-| 2018-19 | 181 | 100 | 81 | 0 |
+| 2018-19 | 181 | 181 | 0 | 0 |
 | 2019-20 | 176 | 176 | 0 | 0 |
 | 2020-21 | 143 | 143 | 0 | 0 |
 | 2021-22 | 217 | 217 | 0 | 0 |
@@ -86,97 +86,6 @@ A check compares one player's season total for one stat. A match means the sum o
 - 2015-16 **Kyle Wingert** GP: sheet 26, converted 27
 - 2017-18 **Zane Langrehr** GP: sheet 20, converted 21
 - 2017-18 **Jaymeson Freit** GP: sheet 20, converted 21
-- 2018-19 **Dalton Peters** PTS: sheet 29, converted 21
-- 2018-19 **Dalton Peters** FGM: sheet 7, converted 5
-- 2018-19 **Dalton Peters** FGA: sheet 32, converted 29
-- 2018-19 **Dalton Peters** 3PM: sheet 4, converted 2
-- 2018-19 **Dalton Peters** 3PA: sheet 19, converted 16
-- 2018-19 **Dalton Peters** FTM: sheet 11, converted 9
-- 2018-19 **Dalton Peters** FTA: sheet 16, converted 12
-- 2018-19 **Dalton Peters** REB: sheet 16, converted 15
-- 2018-19 **Dalton Peters** AST: sheet 7, converted 6
-- 2018-19 **Dalton Peters** STL: sheet 9, converted 7
-- 2018-19 **Dalton Peters** GP: sheet 17, converted 16
-- 2018-19 **Cody Lambert** FGA: sheet 16, converted 15
-- 2018-19 **Cody Lambert** GP: sheet 17, converted 16
-- 2018-19 **Hank Reader** PTS: sheet 273, converted 253
-- 2018-19 **Hank Reader** FGM: sheet 99, converted 96
-- 2018-19 **Hank Reader** FGA: sheet 228, converted 219
-- 2018-19 **Hank Reader** 3PM: sheet 30, converted 29
-- 2018-19 **Hank Reader** 3PA: sheet 71, converted 69
-- 2018-19 **Hank Reader** FTM: sheet 49, converted 36
-- 2018-19 **Hank Reader** FTA: sheet 64, converted 50
-- 2018-19 **Hank Reader** REB: sheet 115, converted 107
-- 2018-19 **Hank Reader** AST: sheet 97, converted 91
-- 2018-19 **Hank Reader** STL: sheet 48, converted 42
-- 2018-19 **Hank Reader** GP: sheet 26, converted 24
-- 2018-19 **Grant Manke** PTS: sheet 634, converted 587
-- 2018-19 **Grant Manke** FGM: sheet 251, converted 233
-- 2018-19 **Grant Manke** FGA: sheet 376, converted 347
-- 2018-19 **Grant Manke** 3PA: sheet 9, converted 8
-- 2018-19 **Grant Manke** FTM: sheet 128, converted 117
-- 2018-19 **Grant Manke** FTA: sheet 180, converted 164
-- 2018-19 **Grant Manke** REB: sheet 372, converted 357
-- 2018-19 **Grant Manke** AST: sheet 37, converted 36
-- 2018-19 **Grant Manke** STL: sheet 28, converted 25
-- 2018-19 **Grant Manke** BLK: sheet 25, converted 23
-- 2018-19 **Grant Manke** GP: sheet 27, converted 25
-- 2018-19 **Trevor Jones** PTS: sheet 248, converted 232
-- 2018-19 **Trevor Jones** FGM: sheet 88, converted 82
-- 2018-19 **Trevor Jones** FGA: sheet 245, converted 228
-- 2018-19 **Trevor Jones** 3PA: sheet 87, converted 82
-- 2018-19 **Trevor Jones** FTM: sheet 42, converted 37
-- 2018-19 **Trevor Jones** FTA: sheet 77, converted 72
-- 2018-19 **Trevor Jones** REB: sheet 134, converted 127
-- 2018-19 **Trevor Jones** AST: sheet 85, converted 80
-- 2018-19 **Trevor Jones** STL: sheet 39, converted 35
-- 2018-19 **Trevor Jones** GP: sheet 27, converted 25
-- 2018-19 **Zane Langrehr** PTS: sheet 332, converted 302
-- 2018-19 **Zane Langrehr** FGM: sheet 124, converted 112
-- 2018-19 **Zane Langrehr** FGA: sheet 306, converted 284
-- 2018-19 **Zane Langrehr** 3PM: sheet 58, converted 54
-- 2018-19 **Zane Langrehr** 3PA: sheet 153, converted 141
-- 2018-19 **Zane Langrehr** FTM: sheet 26, converted 24
-- 2018-19 **Zane Langrehr** FTA: sheet 40, converted 38
-- 2018-19 **Zane Langrehr** REB: sheet 99, converted 97
-- 2018-19 **Zane Langrehr** AST: sheet 66, converted 57
-- 2018-19 **Zane Langrehr** STL: sheet 28, converted 27
-- 2018-19 **Zane Langrehr** GP: sheet 27, converted 25
-- 2018-19 **Jaymeson Freit** PTS: sheet 216, converted 197
-- 2018-19 **Jaymeson Freit** FGM: sheet 83, converted 77
-- 2018-19 **Jaymeson Freit** FGA: sheet 213, converted 200
-- 2018-19 **Jaymeson Freit** 3PM: sheet 27, converted 23
-- 2018-19 **Jaymeson Freit** 3PA: sheet 84, converted 79
-- 2018-19 **Jaymeson Freit** FTM: sheet 23, converted 20
-- 2018-19 **Jaymeson Freit** FTA: sheet 39, converted 33
-- 2018-19 **Jaymeson Freit** REB: sheet 106, converted 91
-- 2018-19 **Jaymeson Freit** AST: sheet 117, converted 103
-- 2018-19 **Jaymeson Freit** STL: sheet 59, converted 56
-- 2018-19 **Jaymeson Freit** GP: sheet 27, converted 25
-- 2018-19 **Dylan Sprain** PTS: sheet 37, converted 34
-- 2018-19 **Dylan Sprain** FGM: sheet 13, converted 12
-- 2018-19 **Dylan Sprain** FGA: sheet 38, converted 35
-- 2018-19 **Dylan Sprain** 3PA: sheet 15, converted 13
-- 2018-19 **Dylan Sprain** FTM: sheet 10, converted 9
-- 2018-19 **Dylan Sprain** FTA: sheet 21, converted 19
-- 2018-19 **Dylan Sprain** GP: sheet 27, converted 25
-- 2018-19 **Jaden Fargen** PTS: sheet 104, converted 94
-- 2018-19 **Jaden Fargen** FGM: sheet 43, converted 39
-- 2018-19 **Jaden Fargen** FGA: sheet 112, converted 99
-- 2018-19 **Jaden Fargen** 3PM: sheet 7, converted 6
-- 2018-19 **Jaden Fargen** 3PA: sheet 19, converted 17
-- 2018-19 **Jaden Fargen** FTM: sheet 11, converted 10
-- 2018-19 **Jaden Fargen** FTA: sheet 21, converted 19
-- 2018-19 **Jaden Fargen** REB: sheet 64, converted 55
-- 2018-19 **Jaden Fargen** STL: sheet 21, converted 20
-- 2018-19 **Jaden Fargen** GP: sheet 27, converted 25
-- 2018-19 **Brayden Horstman** PTS: sheet 57, converted 51
-- 2018-19 **Brayden Horstman** FGM: sheet 21, converted 18
-- 2018-19 **Brayden Horstman** FGA: sheet 41, converted 37
-- 2018-19 **Brayden Horstman** FTA: sheet 27, converted 25
-- 2018-19 **Brayden Horstman** REB: sheet 58, converted 53
-- 2018-19 **Brayden Horstman** STL: sheet 11, converted 9
-- 2018-19 **Brayden Horstman** GP: sheet 27, converted 25
 - 2021-22 **Samuel Cropp** GP: sheet 23, converted 24
 - 2021-22 **Colten Brezany** GP: sheet 16, converted 17
 - 2021-22 **Tysen Herken** GP: sheet 16, converted 17
@@ -234,7 +143,9 @@ A check compares one player's season total for one stat. A match means the sum o
 - 2014-12-16 vs Royall: box score adds to 75, final 73
 - 2014-12-23 vs West Salem: box score adds to 70, final 68
 - 2015-03-07 vs Gilmanton/Independence: box score adds to 53, final 51
+- 2018-12-07 vs New Lisbon: box score adds to 91, final 92
 - 2018-12-11 vs Blair-Taylor: box score adds to 62, final 66
+- 2018-12-20 vs Wonewoc-Center: box score adds to 68, final 69
 - 2019-12-10 vs Brookwood: box score adds to 71, final 75
 - 2019-12-13 vs Hillsboro: box score adds to 68, final 69
 - 2019-12-26 vs Richland Center: box score adds to 79, final 81

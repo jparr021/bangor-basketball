@@ -377,10 +377,10 @@ game_id,season,date,opponent,site,location,event,conference,bangor_score,opp_sco
 2017-18-29,2017-18,2018-03-17,McDonell Central,neutral,"WIAA Division 5 State Championship, Kohl Center, Madison","WIAA Division 5 State Championship, Kohl Center, Madison",,91,67,W,,1|2,44|47,31|36,,,,full,91,Y,,,schedule+tab,playoff
 2018-19-01,2018-19,2018-11-29,Gale-Ettrick-Trempealeau,home,Bangor High School,Bangor High School,,72,70,W,,1|2,35|37,24|46,,,,full,72,Y,,,schedule+tab,regular
 2018-19-02,2018-19,2018-12-01,West Salem,home,Bangor High School,Bangor High School,,74,68,W,,1|2,37|37,33|35,,,,full,74,Y,,,schedule+tab,regular
-2018-19-03,2018-19,2018-12-07,New Lisbon,away,New Lisbon High School,,,92,80,W,,,,,,,,none,,,,,schedule,regular
+2018-19-03,2018-19,2018-12-07,New Lisbon,away,New Lisbon High School,New Lisbon High School,,92,80,W,,1|2,50|42,44|36,,,,full,91,N,,,schedule+tab,regular
 2018-19-04,2018-19,2018-12-11,Blair-Taylor,away,Blair-Taylor High School,Blair-Taylor High School,,66,74,L,,,,,,,,full,62,N,,,schedule+tab,regular
 2018-19-05,2018-19,2018-12-14,Necedah,away,Necedah High school,Necedah High school,,72,60,W,,1|2,39|33,25|35,,,,full,72,Y,,,schedule+tab,regular
-2018-19-06,2018-19,2018-12-20,Wonewoc-Center,away,Wonewoc-Center High School,,,69,52,W,,,,,,,,none,,,,,schedule,regular
+2018-19-06,2018-19,2018-12-20,Wonewoc-Center,away,Wonewoc-Center High School,Wonewoc-Center High School,,69,52,W,,1|2,31|38,26|26,,,,full,68,N,,,schedule+tab,regular
 2018-19-07,2018-19,2018-12-27,De Soto,neutral,Westby Tournament,Westby Tournament,,72,47,W,,1|2,43|29,26|21,,,,full,72,Y,,,schedule+tab,tournament
 2018-19-08,2018-19,2018-12-28,Westby,away,Westby Tournament,Westby Tournament,,54,50,W,,1|2,24|30,21|29,,,,full,54,Y,,,schedule+tab,tournament
 2018-19-09,2018-19,2019-01-05,Melrose-Mindoro,home,Bangor High School,Bangor High School,,65,63,W,,1|2,33|32,33|30,,,,full,65,Y,,,schedule+tab,regular

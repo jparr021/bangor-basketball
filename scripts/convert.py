@@ -279,6 +279,13 @@ def parse_box_tab(season, tab, rows):
     if not flat or str(flat[0][0]).strip() in ("No Stats",):
         return None
     d0 = flat[0][0]
+    if isinstance(d0, str):
+        # a date left as text, sometimes with the weekday clipped ("ri, Dec 07, 2018" for "Fri, Dec 07, 2018")
+        m = re.search(r"\b([A-Z][a-z]{2})[a-z]* (\d{1,2}), (\d{4})\b", d0)
+        try:
+            d0 = dt.datetime.strptime(f"{m.group(1)} {m.group(2)} {m.group(3)}", "%b %d %Y") if m else d0
+        except ValueError:
+            pass
     if not isinstance(d0, (dt.datetime, dt.date)):
         return None
     game = {"date": d0.date() if isinstance(d0, dt.datetime) else d0, "event": "",

@@ -476,6 +476,15 @@
     },
     {
      "value": 10,
+     "name": "Jaymeson Freit",
+     "player": "jaymeson-freit",
+     "date": "2018-12-07",
+     "opponent": "New Lisbon",
+     "season": "2018-19",
+     "game_id": "2018-19-03"
+    },
+    {
+     "value": 10,
      "name": "Hank Reader",
      "player": "hank-reader",
      "date": "2019-12-26",
@@ -1692,6 +1701,15 @@
      "opponent": "Blair-Taylor",
      "season": "2018-19",
      "game_id": "2018-19-04"
+    },
+    {
+     "value": 2,
+     "name": "Grant Manke",
+     "player": "grant-manke",
+     "date": "2018-12-20",
+     "opponent": "Wonewoc-Center",
+     "season": "2018-19",
+     "game_id": "2018-19-06"
     },
     {
      "value": 2,
@@ -3414,6 +3432,15 @@
      "game_id": "2022-23-23"
     },
     {
+     "value": 13,
+     "name": "Hank Reader",
+     "player": "hank-reader",
+     "date": "2018-12-07",
+     "opponent": "New Lisbon",
+     "season": "2018-19",
+     "game_id": "2018-19-03"
+    },
+    {
      "value": 12,
      "name": "Caleb Miedema",
      "player": "caleb-miedema",
@@ -3660,6 +3687,15 @@
     },
     {
      "value": 14,
+     "name": "Hank Reader",
+     "player": "hank-reader",
+     "date": "2018-12-07",
+     "opponent": "New Lisbon",
+     "season": "2018-19",
+     "game_id": "2018-19-03"
+    },
+    {
+     "value": 14,
      "name": "Grant Manke",
      "player": "grant-manke",
      "date": "2019-02-18",
@@ -3792,6 +3828,15 @@
      "opponent": "Gale-Ettrick-Trempealeau",
      "season": "2017-18",
      "game_id": "2017-18-13"
+    },
+    {
+     "value": 11,
+     "name": "Grant Manke",
+     "player": "grant-manke",
+     "date": "2018-12-07",
+     "opponent": "New Lisbon",
+     "season": "2018-19",
+     "game_id": "2018-19-03"
     },
     {
      "value": 11,

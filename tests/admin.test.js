@@ -42,6 +42,39 @@ test("a wrong password is refused", async () => {
   assert.equal(r.status, 401);
 });
 
+function callWithToken(body, token) {
+  return new Promise((resolve) => {
+    const res = {
+      statusCode: 200, headers: {},
+      setHeader(k, v) { this.headers[k] = v; },
+      status(c) { this.statusCode = c; return this; },
+      json(j) { resolve({ status: this.statusCode, body: j }); },
+    };
+    admin({ method: "POST", headers: { "x-admin-token": token }, body }, res);
+  });
+}
+
+test("signing in hands back a device key that works for the edit buttons, until it runs out", async () => {
+  install(ROOT, FILES);
+  const r = await call({ action: "check" });
+  assert.equal(r.status, 200);
+  assert.match(r.body.token, /^\d{13}\.[0-9a-f]{64}$/);
+  const ok = await callWithToken({ action: "rows", table: "season", where: { season: "2017-18" } }, r.body.token);
+  assert.equal(ok.status, 200);
+  assert.equal(ok.body.rows.length, 1);
+  // a key can't be used to get a fresh key: that takes the password
+  assert.equal((await callWithToken({ action: "check" }, r.body.token)).body.token, undefined);
+  // changed by one character, made with another password, or expired: refused
+  const bad = r.body.token.slice(0, -1) + (r.body.token.endsWith("0") ? "1" : "0");
+  assert.equal((await callWithToken({ action: "check" }, bad)).status, 401);
+  const expired = admin.makeToken(Date.now() - 31 * 864e5);
+  assert.equal((await callWithToken({ action: "check" }, expired)).status, 401);
+  const pw = process.env.ADMIN_PASSWORD;
+  process.env.ADMIN_PASSWORD = "a-new-password";
+  try { assert.equal((await callWithToken({ action: "check" }, r.body.token)).status, 401); }
+  finally { process.env.ADMIN_PASSWORD = pw; }
+});
+
 test("a game link can be added, edited, removed and undone", async () => {
   const gh = install(ROOT, FILES);
   const story = { published: "2025-12-03", outlet: "WXOW 19", kind: "article", title: "Arcadia edges Bangor",

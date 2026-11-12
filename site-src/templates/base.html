@@ -24,7 +24,7 @@
 <link rel="icon" href="{{ root }}static/img/cardinal.png">
 {% if jsonld %}<script type="application/ld+json">{{ jsonld }}</script>
 {% endif %}</head>
-<body data-root="{{ root }}" data-clean="{{ 1 if clean else 0 }}" data-v="{{ build_id }}">
+<body data-root="{{ root }}" data-clean="{{ 1 if clean else 0 }}" data-v="{{ build_id }}"{% if edit %} data-edit='{{ edit | tojson }}'{% endif %}>
 <a class="skip-link" href="#main">Skip to content</a>
 <header class="masthead">
   <div class="wrap masthead-inner">

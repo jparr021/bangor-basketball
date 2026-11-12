@@ -100,7 +100,8 @@ def season_pages(B):
             render("story.html", f"seasons/{st['slug']}.html", st=st, s=ss, **share(
                 "seasons", st["slug"], share_images.simple_card, st["title"], st["kicker"], s.replace("-", "–"),
                 ss["notes"], [(f"{w}–{l}", "Record in known games")], "Season"))
-        render("season_results.html", f"seasons/{s}.html", ld=[ld_crumbs(("Seasons", "seasons/index.html"), (s.replace("-", "–"), f"seasons/{s}.html"))], s=ss, games=gs, w=w, l=l, sources=sources,
+        render("season_results.html", f"seasons/{s}.html", edit={"kind": "season", "season": s, "stats": False},
+ld=[ld_crumbs(("Seasons", "seasons/index.html"), (s.replace("-", "–"), f"seasons/{s}.html"))], s=ss, games=gs, w=w, l=l, sources=sources,
                dated=all(g.get("date") for g in gs), any_dates=any(g.get("date") for g in gs),
                in_h2h=True, honors=HONORS_BY_SEASON.get(s, []),
                any_sites=any(g.get("site") for g in gs), story=STORIES.get(s), **results_players(s, gs),
@@ -128,7 +129,8 @@ def season_pages(B):
             tiles.append((lead["name"], f"Leading scorer · {lead['value']} pts"))
         sh = share("seasons", s, share_images.simple_card, f"Bangor Cardinals {s.replace('-', '–')} season: {ss['w']}–{ss['l']}",
                    f"Season{' · Coach ' + ss['coach'] if ss['coach'] else ''}", s.replace("-", "–"), ss["notes"], tiles, "Season")
-        render("season.html", f"seasons/{s}.html", ld=[ld_crumbs(("Seasons", "seasons/index.html"), (s.replace("-", "–"), f"seasons/{s}.html"))], s=ss, games=gs, players=prow, cols=cols, **sh,
+        render("season.html", f"seasons/{s}.html", edit={"kind": "season", "season": s, "stats": True, "current": s == CURRENT},
+ld=[ld_crumbs(("Seasons", "seasons/index.html"), (s.replace("-", "–"), f"seasons/{s}.html"))], s=ss, games=gs, players=prow, cols=cols, **sh,
                margin_svg=margin_svg, scoring_lines=scoring_lines, honors=HONORS_BY_SEASON.get(s, []),
                team_game_stats=any(g["date"] in TEAM_GAME for g in gs), roster=ROSTERS.get(s, []),
                player_pages=PLAYER_PAGES, team_photos=TEAM_PHOTOS.get(s, []),
@@ -164,6 +166,8 @@ def game_pages(B, PREVIEWS):
         otd_game(g, f"games/{gid}.html", recaps.write(g, bangor, opp, [], ind, False, link=False, short=True),
                  [b for b in ind if b["period"] == "game"])
         render("game.html", f"games/{gid}.html", g=g,
+               edit={"kind": "game", "date": g["date"], "opponent": g["opponent"], "season": g["season"],
+                     "played": g["result"] in ("W", "L", "T")},
                ld=[ld_game(g), ld_crumbs(("Seasons", "seasons/index.html"), (g["season"].replace("-", "–"), f"seasons/{g['season']}.html"),
                                          (f"{'at' if g['site'] == 'away' else 'vs'} {g['opponent']}, {fmt_date(g['date'])}", f"games/{gid}.html"))], **game_share(g), auto_recap=auto_recap,
                record_badges=sorted(B["game_team"].get(gid, []) + ind, key=lambda b: (b["rank"], b["title"])),

@@ -99,6 +99,24 @@ class BuiltSite(unittest.TestCase):
                 self.assertNotEqual(m.group(1), "static/img/share.png", "uses the plain logo card")
                 self.assertTrue(os.path.exists(os.path.join(SITE, m.group(1))), f"{m.group(1)} wasn't drawn")
 
+    def test_pages_say_what_an_admin_can_edit(self):
+        """Season, player and game pages carry data-edit for the admin edit buttons (static/admin-edit.js), and no
+        page loads the editing code itself: site.js does that only on a signed-in admin's device."""
+        de = re.compile(r"<body [^>]*data-edit='([^']*)'")
+        for path, kind, key in (("seasons/2018-19.html", "season", "season"), ("seasons/1955-56.html", "season", "season"),
+                                ("games/2018-19-03.html", "game", "date"), ("players/grant-manke.html", "player", "name")):
+            with self.subTest(path):
+                m = de.search(read(page(path)))
+                self.assertTrue(m, "no data-edit")
+                d = json.loads(m.group(1))
+                self.assertEqual(d["kind"], kind)
+                self.assertTrue(d[key])
+        self.assertEqual(json.loads(de.search(read("seasons/1955-56.html")).group(1))["stats"], False)
+        self.assertNotIn("data-edit", read("records/index.html"))
+        for path in glob.glob(os.path.join(SITE, "**", "*.html"), recursive=True):
+            self.assertNotRegex(read(os.path.relpath(path, SITE)), r'src="[^"]*admin-edit\.js', path)
+        self.assertTrue(os.path.exists(os.path.join(SITE, "static", "admin-edit.js")))
+
     def test_admin_page_has_its_data(self):
         html = read("admin/index.html")
         m = re.search(r"var DATA = (\{.*?\});\n", html)

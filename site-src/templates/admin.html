@@ -14,6 +14,7 @@
     <h2>Sign in</h2>
     <form id="login-form" class="admin-form">
       <label>Admin password <input type="password" id="pw" autocomplete="current-password" required></label>
+      <label class="admin-check"><input type="checkbox" id="keep" checked> Show edit buttons on the site's pages on this device <span class="muted small">(for 30 days, or until you sign out)</span></label>
       <button class="btn btn-solid" type="submit">Sign in</button>
       <p class="admin-msg" id="login-msg" role="status"></p>
     </form>
@@ -220,6 +221,10 @@
   var $ = function (id) { return document.getElementById(id); };
   var each = function (sel, fn) { Array.prototype.forEach.call(document.querySelectorAll(sel), fn); };
   var pw = sessionStorage.getItem("bbAdmin") || "";
+  // the device key that turns on the edit buttons on the site's own pages (static/admin-edit.js)
+  var KEY = "bbAdminToken";
+  function token() { try { return localStorage.getItem(KEY) || ""; } catch (e) { return ""; } }
+  function setToken(t) { try { if (t) localStorage.setItem(KEY, t); else localStorage.removeItem(KEY); } catch (e) { /* private mode */ } }
   var photo = null; // base64 JPEG, shrunk in the browser
 
   function pageUrl(path) { return ROOT + (CLEAN ? path : path + ".html"); }
@@ -234,7 +239,9 @@
   }
 
   function call(body) {
-    return fetch(API, { method: "POST", headers: { "Content-Type": "application/json", "X-Admin-Password": pw }, body: JSON.stringify(body) })
+    var h = { "Content-Type": "application/json", "X-Admin-Password": pw };
+    if (!pw && token()) h["X-Admin-Token"] = token();
+    return fetch(API, { method: "POST", headers: h, body: JSON.stringify(body) })
       .then(function (r) {
         return r.json().catch(function () { return {}; }).then(function (j) {
           if (!r.ok) throw new Error(j.error || (r.status === 404 ? "The admin service isn't available here. It only runs on the live site (Vercel)." : "Something went wrong (" + r.status + ")."));
@@ -289,11 +296,15 @@
     e.preventDefault();
     pw = $("pw").value;
     msg($("login-msg"), "Checking…");
-    call({ action: "check" }).then(function () { sessionStorage.setItem("bbAdmin", pw); showPanel(); })
-      .catch(function (err) { msg($("login-msg"), err.message, false); });
+    call({ action: "check" }).then(function (j) {
+      sessionStorage.setItem("bbAdmin", pw);
+      setToken($("keep").checked ? j.token : "");
+      showPanel();
+    }).catch(function (err) { msg($("login-msg"), err.message, false); });
   });
-  $("sign-out").addEventListener("click", function () { sessionStorage.removeItem("bbAdmin"); location.hash = ""; location.reload(); });
-  if (pw) call({ action: "check" }).then(showPanel).catch(function () { sessionStorage.removeItem("bbAdmin"); pw = ""; });
+  $("sign-out").addEventListener("click", function () { sessionStorage.removeItem("bbAdmin"); setToken(""); location.hash = ""; location.reload(); });
+  // signed in already: by password this tab, or by this device's key
+  if (pw || token()) call({ action: "check" }).then(showPanel).catch(function () { sessionStorage.removeItem("bbAdmin"); pw = ""; setToken(""); });
 
   // ---------------------------------------------------------------- photos
   function kind() { return document.querySelector("input[name=kind]:checked").value; }

@@ -544,3 +544,15 @@ document.querySelectorAll("[data-print]").forEach(function (b) {
   el.textContent = days > 1 ? "Tipoff in " + days + " days" : days === 1 ? "Tipoff tomorrow"
     : days === 0 ? (el.dataset.tipoffTime ? "Tipoff tonight" : "Tipoff today") : "Season under way";
 })();
+
+// Edit buttons for an admin signed in on this device (static/admin-edit.js). The admin page saves the device key;
+// without it nothing more is loaded, so visitors never download the editing code.
+(function () {
+  var me = document.currentScript && document.currentScript.src;
+  var on = false;
+  try { on = !!localStorage.getItem("bbAdminToken"); } catch (e) { return; }
+  if (!on || !me || document.querySelector(".admin")) return; // the admin page has its own tools
+  var s = document.createElement("script");
+  s.src = me.replace(/site\.js(\?.*)?$/, "admin-edit.js$1");
+  document.body.appendChild(s);
+})();

@@ -450,6 +450,17 @@ function sameSecret(a, b) {
   return crypto.timingSafeEqual(h(a), h(b));
 }
 
+// A device sign-in key, so the site's own pages can show edit buttons without keeping the password in the browser:
+// "<expiry ms>.<HMAC of it, keyed with the password>". It works until it expires, and changing ADMIN_PASSWORD
+// cancels every key at once.
+const TOKEN_DAYS = 30;
+const tokenSig = (exp) => crypto.createHmac("sha256", process.env.ADMIN_PASSWORD).update("admin-edit:" + exp).digest("hex");
+const makeToken = (now = Date.now()) => { const exp = now + TOKEN_DAYS * 864e5; return `${exp}.${tokenSig(exp)}`; };
+function goodToken(t, now = Date.now()) {
+  const m = /^(\d{13})\.([0-9a-f]{64})$/.exec(String(t || ""));
+  return !!m && Number(m[1]) > now && sameSecret(m[2], tokenSig(m[1]));
+}
+
 const fail = (res, code, error) => res.status(code).json({ error });
 
 module.exports = async (req, res) => {
@@ -458,13 +469,15 @@ module.exports = async (req, res) => {
   if (!process.env.ADMIN_PASSWORD || !process.env.GITHUB_TOKEN) {
     return fail(res, 503, "The admin page isn't set up yet: add ADMIN_PASSWORD and GITHUB_TOKEN in Vercel (see the README).");
   }
-  if (!sameSecret(req.headers["x-admin-password"] || "", process.env.ADMIN_PASSWORD)) {
+  const byPassword = sameSecret(req.headers["x-admin-password"] || "", process.env.ADMIN_PASSWORD);
+  if (!byPassword && !goodToken(req.headers["x-admin-token"])) {
     await new Promise((r) => setTimeout(r, 1500)); // slows down password guessing
-    return fail(res, 401, "Wrong password.");
+    return fail(res, 401, req.headers["x-admin-token"] ? "This device's admin sign-in has run out. Sign in again on the admin page." : "Wrong password.");
   }
   const b = req.body || {};
   try {
-    if (b.action === "check") return res.json({ ok: true });
+    // signing in with the password hands back a device key for the edit buttons on the site's pages
+    if (b.action === "check") return res.json(byPassword ? { ok: true, token: makeToken(), days: TOKEN_DAYS } : { ok: true });
 
     if (b.action === "list") { // photos
       const tb = await readTable(await headSha(), "photos");
@@ -510,3 +523,4 @@ module.exports.parseCsv = parseCsv;
 module.exports.toCsv = toCsv;
 module.exports.blobSha = blobSha;
 module.exports.slug = slug;
+module.exports.makeToken = makeToken;

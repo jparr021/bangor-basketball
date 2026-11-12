@@ -113,7 +113,8 @@ def player_pages(B):
                    name, sub, tiles[:4])
         news_log = {s for s, rs in by_season.items()
                     if rs and all(r["g"].get("box_source") == "newspaper" for r in rs)}
-        render("player.html", f"players/{sl}.html", ld=[ld_person(name, f"players/{sl}.html", image=(PLAYER_PHOTOS.get(sl) or {}).get("url"), years=plist[-1]["years"]), ld_crumbs(("Players", "players/index.html"), (name, f"players/{sl}.html"))],
+        render("player.html", f"players/{sl}.html", edit={"kind": "player", "name": name, "slug": sl, "plain": slug(name) == sl},
+ld=[ld_person(name, f"players/{sl}.html", image=(PLAYER_PHOTOS.get(sl) or {}).get("url"), years=plist[-1]["years"]), ld_crumbs(("Players", "players/index.html"), (name, f"players/{sl}.html"))],
                name=name, seasons=srows, career=crow, cols=cols, log=by_season,
                news_log=news_log,
                lcols=lcols, highs=highs, numbers=numbers, cls=cls, cls_season=cls_season, years=plist[-1]["years"],
@@ -177,7 +178,8 @@ def player_pages(B):
                                      f"Class of {grad}" if grad else ""] if x)
         sh = share("players", sl, share_images.player_card, f"{a['name']}, Bangor Cardinals boys basketball"
                    + (f", {years}" if years else ""), a["name"], sub, [(t["value"], t["label"]) for t in tiles[:4]])
-        render("player_archive.html", f"players/{sl}.html", ld=[ld_person(a["name"], f"players/{sl}.html", image=(PLAYER_PHOTOS.get(sl) or {}).get("url"), years=years), ld_crumbs(("Players", "players/index.html"), (a["name"], f"players/{sl}.html"))],
+        render("player_archive.html", f"players/{sl}.html", edit={"kind": "player", "name": a["name"], "slug": sl, "plain": slug(a["name"]) == sl},
+ld=[ld_person(a["name"], f"players/{sl}.html", image=(PLAYER_PHOTOS.get(sl) or {}).get("url"), years=years), ld_crumbs(("Players", "players/index.html"), (a["name"], f"players/{sl}.html"))],
                name=a["name"], years=years, numbers=numbers,
                positions=positions, grad=grad, seasons=seasons, book_career=book_career, tiles=tiles, clips=clips,
                clip_cols=clip_cols, record_badges=B["player"].get(sl, []), player_news=player_news, sources=sources,

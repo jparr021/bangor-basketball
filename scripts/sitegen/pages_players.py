@@ -168,7 +168,8 @@ ld=[ld_person(name, f"players/{sl}.html", image=(PLAYER_PHOTOS.get(sl) or {}).ge
                         "links": [{"kind": f["kind"], "url": f["url"]}], "published": f["published"], "g": None}
                        for f in FEATURES_BY_PLAYER.get(sl, [])]
         grad = GRAD_OVERRIDES.get(sl, a["grad"])  # overrides/grad_years.csv wins, as for stat-sheet players
-        plist.append({"slug": sl, "name": a["name"], "years": years or (f"Class of {grad}" if grad else ""),
+        # no seasons on file (a record-book line with only a class year): leave Years blank, Class shows the year
+        plist.append({"slug": sl, "name": a["name"], "years": years,
                       "gp": gp, "pts": marks.get("pts", {}).get("value", ""), "reb": marks.get("reb", {}).get("value", ""),
                       "ast": marks.get("ast", {}).get("value", ""),
                       "pts_raw": float(marks["pts"]["value"].replace(",", "")) if "pts" in marks else 0,

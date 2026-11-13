@@ -130,7 +130,8 @@ def search_index(plist, olist, classes):
         return s.replace("-", "–")
     idx = []
     for p in plist:
-        sub = f"Player · {p['years']}" + (f" · {p['pts']} pts" if p["pts"] else "")
+        when = p["years"] or (f"Class of {p['grad']}" if p.get("grad") else "")
+        sub = "Player" + (f" · {when}" if when else "") + (f" · {p['pts']} pts" if p["pts"] else "")
         idx.append({"t": p["name"], "s": sub, "u": f"players/{p['slug']}.html", "k": "player"})
     book_only = OrderedDict()  # record-book names with no player page (mostly pre-2007)
     book_career = {}  # first career stat each record-book-only player appears in (for the search link)

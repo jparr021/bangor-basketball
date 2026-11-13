@@ -63,14 +63,22 @@
       {% for l in preseason.prev_leaders %}<li><span class="lbl">{{ l.label }}</span><a href="players/{{ l.slug }}.html">{{ l.name }}</a><span class="val">{{ l.value }} <small>({{ l.avg }}/g)</small></span></li>{% endfor %}
     </ul>
     {% endif %}
-    {% if preseason.returning %}
+    {% if preseason.roster %}
+    <h3 class="sub">{{ latest.season | replace('-', '–') }} roster <small class="muted">({{ preseason.roster | length }})</small></h3>
+    <table class="tbl compact">
+      {% for p in preseason.roster %}
+      <tr><td class="muted num">{{ p.number }}</td><td>{% if p.slug in player_pages %}<a href="players/{{ p.slug }}.html">{{ p.name }}</a>{% else %}{{ p.name }}{% endif %}</td><td class="muted small">{{ p.position }}</td><td class="muted small nowrap">{% if p.class_year %}Class of {{ p.class_year }}{% endif %}</td></tr>
+      {% endfor %}
+    </table>
+    <p class="muted small"><a href="seasons/{{ latest.season }}.html">Full roster and schedule →</a></p>
+    {% elif preseason.returning %}
     <h3 class="sub">Returning players <small class="muted">({{ preseason.returning_n }})</small></h3>
     <table class="tbl compact">
       {% for r in preseason.returning %}
-      <tr><td><a href="players/{{ r.slug }}.html">{{ r.name }}</a></td><td class="muted small nowrap">Class of {{ r.grad }}</td><td class="num nowrap">{{ r.ppg }} <small class="muted">PPG</small></td>{% if r.rpg %}<td class="num nowrap">{{ r.rpg }} <small class="muted">RPG</small></td>{% endif %}</tr>
+      <tr><td><a href="players/{{ r.slug }}.html">{{ r.name }}</a></td><td class="muted small nowrap">Class of {{ r.grad }}</td><td class="num nowrap">{{ r.ppg }} <small class="muted">PPG</small></td>{% if r.rpg %}<td class="num nowrap">{{ r.rpg }} <small class="muted">RPG</small></td>{% endif %}<td class="num nowrap muted small">{{ r.gp }} G</td></tr>
       {% endfor %}
     </table>
-    <p class="muted small">Last season's per-game stats. Leading scorers first.</p>
+    <p class="muted small">Last season's per-game stats and games played. Leading scorers first.{% if preseason.returning_n > preseason.returning | length %} <a href="seasons/{{ latest.season }}.html#returning">All {{ preseason.returning_n }} →</a>{% endif %}</p>
     {% endif %}
     {% else %}
     <p class="record-line"><span class="big-rec">{{ latest.w }}–{{ latest.l }}</span> <span class="muted">Coach {% set cs = coach_slugs.get(latest.coach | trim) %}{% if cs %}<a href="coaches/{{ cs }}.html">{{ latest.coach }}</a>{% else %}{{ latest.coach }}{% endif %}</span></p>

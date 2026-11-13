@@ -133,6 +133,7 @@ ld=[ld_crumbs(("Seasons", "seasons/index.html"), (s.replace("-", "–"), f"seaso
 ld=[ld_crumbs(("Seasons", "seasons/index.html"), (s.replace("-", "–"), f"seasons/{s}.html"))], s=ss, games=gs, players=prow, cols=cols, **sh,
                margin_svg=margin_svg, scoring_lines=scoring_lines, honors=HONORS_BY_SEASON.get(s, []),
                team_game_stats=any(g["date"] in TEAM_GAME for g in gs), roster=ROSTERS.get(s, []),
+               returning=preseason(s)["returning_all"] if s == CURRENT and not players and not ROSTERS.get(s) else [],
                player_pages=PLAYER_PAGES, team_photos=TEAM_PHOTOS.get(s, []),
                team=team_row, leaders=leaders(s), partial=partial,
                **pager(s),

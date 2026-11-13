@@ -50,10 +50,15 @@ def preseason(season):
         for r in sorted(ps_by_season[prev], key=lambda r: -((r.get("pts") or 0) / (r.get("gp") or 1))):
             year, _ = grad_year(r["slug"])
             if year and year > end and r.get("gp"):
-                out["returning"].append({"name": r["name"], "slug": r["slug"], "grad": year,
-                                         "ppg": fmt_avg(r.get("pts"), r["gp"]), "rpg": fmt_avg(r.get("reb"), r["gp"])})
+                out["returning"].append({"name": r["name"], "slug": r["slug"], "grad": year, "gp": fmt_int(r["gp"]),
+                                         "number": r.get("number", ""),
+                                         "ppg": fmt_avg(r.get("pts"), r["gp"]), "rpg": fmt_avg(r.get("reb"), r["gp"]),
+                                         "apg": fmt_avg(r.get("ast"), r["gp"])})
+        out["returning_all"] = out["returning"]
         out["returning_n"] = len(out["returning"])
         out["returning"] = out["returning"][:5]
+    # this season's roster, once it's entered (overrides/rosters.csv, or the admin page's Rosters tab)
+    out["roster"] = ROSTERS.get(season, [])
     return out
 
 

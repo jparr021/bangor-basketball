@@ -151,9 +151,17 @@ def clean_time(t):
 
 
 def clean_location(loc):
-    """'Bangor High School High School Main Gym' (doubled by the scheduling export) -> 'Bangor High School Main Gym'."""
+    """Tidy a gym name from the scheduling export, which joins the school and facility names:
+    'Bangor High School High School Main Gym' -> 'Bangor High School Main Gym'
+    'Seneca High School Seneca High School Gym' -> 'Seneca High School Gym'
+    'Wonewoc-Center High School Highschool Gym' -> 'Wonewoc-Center High School Gym'
+    'G-E-T High School North Gym - Rm 605' -> 'G-E-T High School North Gym' (room numbers)
+    'De Soto High School (New) Gym' -> 'De Soto High School Gym'"""
     loc = re.sub(r"\s+", " ", str(loc or "")).strip()
-    return re.sub(r"\b(High School)( \1)+\b", r"\1", loc)
+    loc = re.sub(r"\s*-\s*(Rm|Room)\.? ?\w+$", "", loc, flags=re.I)
+    loc = re.sub(r"\s*\((New|Old)\)", "", loc, flags=re.I)
+    loc = re.sub(r"\bHigh School (High ?School|HS)\b", "High School", loc, flags=re.I)
+    return re.sub(r"\b(\S.*?\S)( \1)+\b", r"\1", loc)  # a phrase repeated back to back
 
 
 def sched_date(v):

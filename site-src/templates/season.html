@@ -120,7 +120,26 @@
       </tbody>
     </table>
     </div>
-    <p class="note">From the {{ roster[0].source }}. There are no player stats for this season.</p>
+    <p class="note">{% if roster[0].source %}From the {{ roster[0].source }}. {% endif %}{% if s.season == current_season %}Player stats start after the first game.{% else %}There are no player stats for this season.{% endif %}</p>
+  </section>
+  {% elif s.season == current_season %}
+  <section class="card" id="returning">
+    <h2>Returning players</h2>
+    {% if returning %}
+    <div class="scroll">
+    <table class="tbl">
+      <thead><tr><th>Player</th><th class="num">Class</th><th class="num">G</th><th class="num">PPG</th><th class="num">RPG</th><th class="num">APG</th></tr></thead>
+      <tbody>
+      {% for r in returning %}
+      <tr><td class="nowrap"><a href="../players/{{ r.slug }}.html">{{ r.name }}</a></td><td class="num">{{ r.grad }}</td><td class="num">{{ r.gp }}</td><td class="num">{{ r.ppg }}</td><td class="num">{{ r.rpg }}</td><td class="num">{{ r.apg }}</td></tr>
+      {% endfor %}
+      </tbody>
+    </table>
+    </div>
+    <p class="note">Last season's varsity players who haven't graduated, with last season's stats. The full {{ s.season | replace('-', '–') }} roster goes here once it's posted. Player stats start after the first game.</p>
+    {% else %}
+    <p class="note">Player stats start after the first game.</p>
+    {% endif %}
   </section>
   {% else %}
   <p class="note">Player stats aren't available for this season. Only game results were recorded.</p>

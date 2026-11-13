@@ -31,6 +31,8 @@ def _archive(name, sl=None):
 
 
 for _s, _rs in ROSTERS.items():
+    if _s == CURRENT:  # a new player on this season's roster gets a stat-sheet page once he plays, not an archive page
+        continue
     for _r in _rs:
         _a = _archive(_r["name"], _r["slug"])
         if _a:

@@ -151,6 +151,10 @@ h3 { font-size: 1.05rem; }
 .record-card tr.top td { background: var(--red-tint); }
 .record-card tr.top .num { color: var(--red-dark); }
 .record-card td.num { width: 3.6em; font-size: 1.02rem; }
+.record-card.collapsed .rec-more { display: none; }
+.rec-toggle { display: block; width: 100%; margin: 6px 0 0; padding: 7px 0; border: 0; border-top: 1px solid var(--line);
+  background: none; color: var(--red-dark); font: inherit; font-size: .85rem; font-weight: 600; cursor: pointer; }
+.rec-toggle:hover { text-decoration: underline; }
 
 /* ---- player page */
 .highs { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; }
@@ -435,6 +439,8 @@ button.btn[hidden] { display: none; }
   .record-card td.rank { width: 1.8em; }
   .record-card .small { font-size: 6.5pt; }
   .record-card tr.top td { background: none; font-weight: 700; }
+  .record-card.collapsed .rec-more { display: table-row; }
+  .rec-toggle { display: none; }
   .book-tag { border-color: #000; color: #000; font-size: 5.5pt; padding: 0 2px; margin-left: 2px; }
   .footer { background: none; color: #000; border-top: 1px solid #000; padding: 6px 0 0; margin-top: 10px; font-size: 8pt; }
   .footer strong, .footer .muted { color: #000; }

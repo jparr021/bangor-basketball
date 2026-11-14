@@ -370,6 +370,44 @@ document.querySelectorAll("[data-print]").forEach(function (b) {
   b.addEventListener("click", function () { window.print(); });
 });
 
+// Record book: each category shows its top 5, with a button for the rest. Without JavaScript all 10 show.
+// A link to one category (from a player or game page's record-book badges) opens that card.
+(function () {
+  var cards = [].slice.call(document.querySelectorAll(".record-card")).filter(function (c) {
+    return c.querySelector(".rec-more");
+  });
+  if (!cards.length) return;
+  function set(card, open) {
+    card.classList.toggle("collapsed", !open);
+    var b = card.querySelector(".rec-toggle");
+    b.textContent = open ? "Show top 5" : "Show all " + card.querySelectorAll("tr").length;
+    b.setAttribute("aria-expanded", open ? "true" : "false");
+  }
+  cards.forEach(function (card) {
+    var b = document.createElement("button");
+    b.type = "button";
+    b.className = "rec-toggle";
+    b.addEventListener("click", function () { set(card, card.classList.contains("collapsed")); });
+    card.querySelector("table").insertAdjacentElement("afterend", b);
+    set(card, false);
+  });
+  var all = document.querySelector("[data-rec-all]");
+  if (all) {
+    all.hidden = false;
+    all.addEventListener("click", function () {
+      var open = cards.some(function (c) { return c.classList.contains("collapsed"); });
+      cards.forEach(function (c) { set(c, open); });
+      all.textContent = open ? "Show the top 5 only" : "Show all 10 in every category";
+    });
+  }
+  function openTarget() {
+    var t = location.hash && document.getElementById(location.hash.slice(1));
+    if (t && t.classList.contains("collapsed")) set(t, true);
+  }
+  openTarget();
+  window.addEventListener("hashchange", openTarget);
+})();
+
 // Game-day labels. Pages are rebuilt every few hours, so an unplayed game's label is corrected to the
 // visitor's moment (Wisconsin time) when the page opens: "Today", "Live now", then "Score coming soon"
 // until the next rebuild brings the final. Without JavaScript the labels from the last build stay.

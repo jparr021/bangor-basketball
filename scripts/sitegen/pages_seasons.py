@@ -5,12 +5,22 @@ from sitegen.views import *  # noqa: F401,F403
 def home(PREVIEWS):
     """The home page."""
     latest = DATA_SEASONS[-1]
-    top_career = merged("individual", "career", "pts", "int")[:5]
-    top_game = merged("individual", "game", "pts", "int")[:5]
+    latest_games = [g for g in games_by_season[latest] if g["status"] == "final"][-5:][::-1]
+    pre = None if latest_games else preseason(latest)
+    # Before the first game the season card (countdown, last season, roster) runs longer than the scoring card
+    # beside it, so lengthen the scoring lists, career first, to fill the space (up to 10 each).
+    n_career = n_game = 5
+    if pre:
+        listed = len(pre["roster"]) or len(pre["returning"])
+        # left card rows (the countdown block is about 8 rows tall) minus the right card's 12
+        extra = max(0, listed + len(pre["prev_leaders"]) + 8 - 12)
+        n_career += min(5, extra)
+        n_game += min(5, max(0, extra - 5))
+    top_career = merged("individual", "career", "pts", "int")[:n_career]
+    top_game = merged("individual", "game", "pts", "int")[:n_game]
     champs = [h for h in history if "state champion" in h["notes"].lower() or "state runner" in h["notes"].lower()
               or "state semifinal" in h["notes"].lower() or "state tournament" in h["notes"].lower()]
     recent = [season_summary(s) for s in reversed(DATA_SEASONS[-6:])]
-    latest_games = [g for g in games_by_season[latest] if g["status"] == "final"][-5:][::-1]
     rec = f"{FACTS['w']:,}–{FACTS['l']:,}"
     sh = page_share("home", f"Bangor Cardinals boys basketball since {FACTS['first']}: {rec} all time",
                     f"Bangor, Wisconsin · since {FACTS['first']}", "Cardinals basketball",
@@ -18,7 +28,7 @@ def home(PREVIEWS):
                     [(rec, "All-time record"), (FACTS["state_titles"], "State title" + ("s" if FACTS["state_titles"] > 1 else "")),
                      (FACTS["conf_titles"], "Conference titles"), (FACTS["regional_titles"], "Regional titles")])
     render("home.html", "index.html", latest=season_summary(latest), latest_leaders=leaders(latest), **sh,
-           latest_games=latest_games, preseason=None if latest_games else preseason(latest),
+           latest_games=latest_games, preseason=pre,
            upcoming=[{**g, "preview": PREVIEWS.get(g["game_id"])} for g in UPCOMING[:UPCOMING_ON_HOME]],
            top_career=top_career, top_game=top_game, champs=champs, recent=recent,
            ld=[{"@type": "WebSite", "@id": SITE_URL + "/#site", "name": "Bangor Cardinals Boys Basketball",

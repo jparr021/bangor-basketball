@@ -5,3 +5,4 @@ __pycache__/
 .vercel/
 .claude/
 .gstack/
+node_modules/

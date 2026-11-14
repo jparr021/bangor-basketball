@@ -170,6 +170,8 @@ After each build, `scripts/check_links.py` follows every link inside the site an
 ./build.sh
 ```
 
+Drawing the link-preview images is most of the build's time, so each one is cached in `node_modules/.cache/share-images/` (the folder Vercel keeps between builds) and only redrawn when its text, `share_images.py`, the fonts or the logo change. The build prints how many it reused, and `/static/share/cache.json` on the site shows the same for the last deploy. To redraw everything, delete that folder or run with `SHARE_CACHE=0`.
+
 ## Tests
 After a build, run:
 ```

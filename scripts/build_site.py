@@ -61,6 +61,7 @@ def build():
     admin_page(plist, PAGE_SEASONS)
     not_found_page()
     feeds_and_sitemap()
+    finish_share_cache()
 
     n = sum(len(fs) for _, _, fs in os.walk(OUT))
     print(f"site built: {n} files in {OUT}")

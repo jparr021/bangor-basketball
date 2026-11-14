@@ -31,16 +31,66 @@ def absolute_links(html, page):
 SHARE_HOST = re.sub(r"^https?://", "", SITE_URL)
 
 
+# Drawing ~2,000 share images is most of the build's time, and almost all of them are the same from one build to
+# the next. Each image is kept in a cache, named by a hash of everything that goes into it (the card's text and
+# tiles, plus share_images.py, the fonts and the logo), and copied from there when nothing changed. The cache is
+# under node_modules/ because that's the one folder Vercel keeps between builds for a site with no framework.
+# SHARE_CACHE=0 turns it off.
+SHARE_CACHE = os.path.join(ROOT, "node_modules", ".cache", "share-images")
+SHARE_STATS = {"reused": 0, "drawn": 0, "used": set()}
+
+
+def _share_version():
+    import hashlib
+    h = hashlib.md5(SHARE_HOST.encode())
+    files = [os.path.join(ROOT, "scripts", "share_images.py"), share_images._LOGO_PATH]
+    files += sorted(os.path.join(share_images._FONTS, f) for f in os.listdir(share_images._FONTS))
+    for p in files:
+        with open(p, "rb") as f:
+            h.update(f.read())
+    return h.hexdigest()
+
+
+SHARE_VERSION = _share_version() if os.environ.get("SHARE_CACHE", "1") != "0" else None
+
+
 def share(kind, key, draw, alt, *args):
-    """Draw one link-preview image into site/static/share/ and return (absolute URL, alt text) for render().
+    """Draw one link-preview image into site/static/share/ (or copy it from the cache when nothing in it changed)
+    and return (absolute URL, alt text) for render().
     The URL carries a short hash of the image, so a preview that changed (a new score) is fetched fresh."""
     import hashlib
     rel = f"static/share/{kind}/{key}.png"
     full = os.path.join(OUT, rel)
-    draw(full, SHARE_HOST, *args)
+    cached = None
+    if SHARE_VERSION:
+        spec = json.dumps([SHARE_VERSION, draw.__name__, args], ensure_ascii=False, default=str)
+        cached = os.path.join(SHARE_CACHE, hashlib.md5(spec.encode()).hexdigest() + ".png")
+        SHARE_STATS["used"].add(os.path.basename(cached))
+    if cached and os.path.exists(cached):
+        os.makedirs(os.path.dirname(full), exist_ok=True)
+        shutil.copyfile(cached, full)
+        SHARE_STATS["reused"] += 1
+    else:
+        draw(full, SHARE_HOST, *args)
+        SHARE_STATS["drawn"] += 1
+        if cached:
+            os.makedirs(SHARE_CACHE, exist_ok=True)
+            shutil.copyfile(full, cached)
     with open(full, "rb") as f:
         v = hashlib.md5(f.read()).hexdigest()[:8]
     return {"share_image": f"{SITE_URL}/{rel}?v={v}", "share_alt": alt}
+
+
+def finish_share_cache():
+    """Drop cached images no page used this build (so the cache doesn't grow), and report what was reused."""
+    if SHARE_VERSION and os.path.isdir(SHARE_CACHE):
+        for f in os.listdir(SHARE_CACHE):
+            if f not in SHARE_STATS["used"]:
+                os.remove(os.path.join(SHARE_CACHE, f))
+    stats = {"reused": SHARE_STATS["reused"], "drawn": SHARE_STATS["drawn"], "built": dt.datetime.now().isoformat(timespec="seconds")}
+    with open(os.path.join(OUT, "static", "share", "cache.json"), "w") as f:
+        json.dump(stats, f)
+    print(f"share images: {stats['reused']} reused, {stats['drawn']} drawn")
 
 
 def page_share(key, alt, eyebrow, title, sub, tiles, foot=""):
@@ -64,7 +114,9 @@ def game_share(g):
         alt = f"Final: Bangor {g['bangor_score']}, {g['opponent']} {g['opp_score']}, {fmt_date(g['date'])}"
     else:
         alt = f"Bangor {'at' if g['site'] == 'away' else 'vs'} {g['opponent']}, {fmt_date(g['date'])}"
-    return share("games", g["game_id"], share_images.game_card, alt, g, when, label)
+    # only what the card draws, so the cache key doesn't change when the game picks up film or a news story
+    card = {k: g.get(k) for k in ("result", "ot", "is_today", "time", "opponent", "site", "bangor_score", "opp_score")}
+    return share("games", g["game_id"], share_images.game_card, alt, card, when, label)
 
 
 def render(tpl, path, **ctx):

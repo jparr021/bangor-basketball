@@ -233,7 +233,7 @@
       ul.innerHTML = '<li class="muted">Loading…</li>';
       call({ action: "rows", table: "roster", where: { season: ctx.season } }).then(function (j) {
         var rows = j.rows.sort(function (a, b) { return (parseInt(a.number, 10) || 0) - (parseInt(b.number, 10) || 0); });
-        ul.innerHTML = "";
+        ul.replaceChildren();
         if (!rows.length) ul.appendChild(el("li", "muted", "No roster on file yet."));
         rows.forEach(function (r) {
           ul.appendChild(rowItem((r.number ? "#" + r.number + " " : "") + r.name,
@@ -246,7 +246,7 @@
               removeBtn("roster", r, r.name + " from the " + dash(ctx.season) + " roster", load, m)]));
         });
         if (rows.length && !F.source.value) F.source.value = rows[rows.length - 1].source || "";
-      }).catch(function (err) { ul.innerHTML = ""; ul.appendChild(el("li", "admin-msg bad", err.message)); });
+      }).catch(function (err) { ul.replaceChildren(); ul.appendChild(el("li", "admin-msg bad", err.message)); });
     }
     f.addEventListener("submit", function (e) {
       e.preventDefault();
@@ -328,7 +328,7 @@
       type.value = t; var T = TYPES[t];
       headLabel.textContent = T.title;
       r2.hidden = T.table !== "news";
-      access.innerHTML = "";
+      access.replaceChildren();
       T.access.forEach(function (a) { var o = el("option", "", a[1]); o.value = a[0]; access.appendChild(o); });
       hint.textContent = T.hint || "";
       if (t === "photos" && !outlet.value) outlet.value = "GX3 Media";
@@ -348,7 +348,7 @@
                    call({ action: "rows", table: "film", where: { date: ctx.date } }),
                    call({ action: "rows", table: "hudl", where: { date: ctx.date } })])
         .then(function (rs) {
-          ul.innerHTML = "";
+          ul.replaceChildren();
           var n = 0;
           ["news", "film", "hudl"].forEach(function (tb, i) {
             rs[i].rows.forEach(function (r) {
@@ -362,7 +362,7 @@
             });
           });
           if (!n) ul.appendChild(el("li", "muted", "No news, film or photo links on this game yet."));
-        }).catch(function (err) { ul.innerHTML = ""; ul.appendChild(el("li", "admin-msg bad", err.message)); });
+        }).catch(function (err) { ul.replaceChildren(); ul.appendChild(el("li", "admin-msg bad", err.message)); });
     }
     f.addEventListener("submit", function (e) {
       e.preventDefault();

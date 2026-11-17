@@ -233,7 +233,7 @@
   function dash(s) { return String(s).replace("-", "–"); }
   function fmtDate(d) { return d ? new Date(d + "T12:00:00").toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" }) : ""; }
   function options(select, items, value) {
-    select.innerHTML = "";
+    select.replaceChildren();
     items.forEach(function (it) { var o = el("option", "", it[1]); o.value = it[0]; select.appendChild(o); });
     if (value != null) select.value = value;
   }
@@ -363,9 +363,9 @@
   function loadList() {
     var ul = $("list");
     call({ action: "list" }).then(function (j) {
-      ul.innerHTML = "";
+      ul.replaceChildren();
       if (!j.photos.length) { ul.innerHTML = '<li class="muted">No photos yet.</li>'; return; }
-      j.photos.slice().reverse().forEach(function (p) {
+      j.photos.toReversed().forEach(function (p) {
         var li = el("li"), local = !/^https?:\/\//.test(p.image);
         var thumb = el("img", "admin-thumb");
         thumb.alt = ""; thumb.loading = "lazy";
@@ -383,7 +383,7 @@
         li.appendChild(thumb); li.appendChild(info); li.appendChild(rm);
         ul.appendChild(li);
       });
-    }).catch(function (err) { ul.innerHTML = ""; ul.appendChild(el("li", "admin-msg bad", err.message)); });
+    }).catch(function (err) { ul.replaceChildren(); ul.appendChild(el("li", "admin-msg bad", err.message)); });
   }
   $("refresh").addEventListener("click", loadList);
 
@@ -429,7 +429,7 @@
       .then(function (rs) {
         gameRows = [];
         ["news", "film", "hudl"].forEach(function (t, i) { rs[i].rows.forEach(function (r) { gameRows.push({ table: t, row: r }); }); });
-        ul.innerHTML = "";
+        ul.replaceChildren();
         if (!gameRows.length) { ul.appendChild(el("li", "muted", "No news, film or photo links on this game yet.")); return; }
         gameRows.forEach(function (x) {
           var r = x.row, t = typeOf(x.table, r);
@@ -442,7 +442,7 @@
           li.firstChild.appendChild(a);
           ul.appendChild(li);
         });
-      }).catch(function (err) { ul.innerHTML = ""; ul.appendChild(el("li", "admin-msg bad", err.message)); });
+      }).catch(function (err) { ul.replaceChildren(); ul.appendChild(el("li", "admin-msg bad", err.message)); });
   }
 
   function setType(t) {
@@ -521,7 +521,7 @@
     ul.innerHTML = '<li class="muted">Loading…</li>';
     call({ action: "rows", table: "roster", where: { season: s } }).then(function (j) {
       rRows = j.rows.sort(function (a, b) { return (parseInt(a.number, 10) || 0) - (parseInt(b.number, 10) || 0); });
-      ul.innerHTML = "";
+      ul.replaceChildren();
       if (!rRows.length) { ul.appendChild(el("li", "muted", "No roster on file for " + dash(s) + ".")); return; }
       rRows.forEach(function (r) {
         var sub = [r.position, r.height, r.grade ? "Grade " + r.grade : "", r.source].filter(Boolean).join(" · ");
@@ -530,7 +530,7 @@
           removeBtn("roster", r, r.name + " from the " + dash(s) + " roster", loadRoster)]));
       });
       if (!$("r-source").value) $("r-source").value = rRows[rRows.length - 1].source || "";
-    }).catch(function (err) { ul.innerHTML = ""; ul.appendChild(el("li", "admin-msg bad", err.message)); });
+    }).catch(function (err) { ul.replaceChildren(); ul.appendChild(el("li", "admin-msg bad", err.message)); });
   }
   var RF = ["name", "number", "position", "height", "grade", "source"];
   function startEditRoster(r) {
@@ -610,7 +610,7 @@
     var est = PLAYERS.filter(function (p) { return p.how === "estimated"; })
       .sort(function (a, b) { return a.years < b.years ? 1 : a.years > b.years ? -1 : a.name < b.name ? -1 : 1; });
     $("c-est-n").textContent = "(" + est.length + ")";
-    var ul = $("c-est"); ul.innerHTML = "";
+    var ul = $("c-est"); ul.replaceChildren();
     if (!est.length) ul.appendChild(el("li", "muted", "None: every player's class year is known."));
     est.forEach(function (p) {
       ul.appendChild(rowItem(p.name, p.years + " · Class of " + p.grad + " (est.)", [{ label: "Fix", fn: function () {
@@ -732,12 +732,12 @@
     call({ action: "queue" }).then(function (j) {
       Object.keys(uls).forEach(function (k) {
         var ul = uls[k], items = j[k] || [];
-        QN[k] = items.length; ul.innerHTML = "";
+        QN[k] = items.length; ul.replaceChildren();
         if (!items.length) ul.appendChild(el("li", "muted", "Nothing to check."));
         items.forEach(function (x) { ul.appendChild(reviewItem(k, x)); });
       });
       showCount();
-    }).catch(function (err) { Object.keys(uls).forEach(function (k) { uls[k].innerHTML = ""; uls[k].appendChild(el("li", "admin-msg bad", err.message)); }); });
+    }).catch(function (err) { Object.keys(uls).forEach(function (k) { uls[k].replaceChildren(); uls[k].appendChild(el("li", "admin-msg bad", err.message)); }); });
   }
   $("q-refresh").addEventListener("click", loadQueue);
 
@@ -753,7 +753,7 @@
     var ul = $("log-list");
     ul.innerHTML = '<li class="muted">Loading…</li>';
     call({ action: "log" }).then(function (j) {
-      ul.innerHTML = "";
+      ul.replaceChildren();
       if (!j.entries.length) { ul.appendChild(el("li", "muted", "Nothing changed here yet.")); return; }
       j.entries.forEach(function (e) {
         ul.appendChild(rowItem(e.label, ago(e.at), e.undo ? [{ label: "Undo", fn: function (x) {
@@ -763,7 +763,7 @@
             .catch(function (err) { alert(err.message); x.disabled = false; x.textContent = "Undo"; });
         } }] : []));
       });
-    }).catch(function (err) { ul.innerHTML = ""; ul.appendChild(el("li", "admin-msg bad", err.message)); });
+    }).catch(function (err) { ul.replaceChildren(); ul.appendChild(el("li", "admin-msg bad", err.message)); });
   }
   $("log-refresh").addEventListener("click", loadLog);
 })();

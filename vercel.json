@@ -8,7 +8,34 @@
   "trailingSlash": false,
   "headers": [
     {
-      "source": "/static/(.*)",
+      "source": "/static/(site|search-index|on-this-day|admin-edit)\\.(css|js)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ]
+    },
+    {
+      "source": "/static/share/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ]
+    },
+    {
+      "source": "/static/(fonts|img)/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=2592000, stale-while-revalidate=86400"
+        }
+      ]
+    },
+    {
+      "source": "/static/photos/(.*)",
       "headers": [
         {
           "key": "Cache-Control",

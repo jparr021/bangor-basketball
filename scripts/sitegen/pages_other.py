@@ -239,3 +239,12 @@ def feeds_and_sitemap():
         f.write("</urlset>\n")
     with open(os.path.join(OUT, "robots.txt"), "w") as f:
         f.write(f"User-agent: *\nAllow: /\nDisallow: /admin\n\nSitemap: {SITE_URL}/sitemap.xml\n")
+
+    # ---- icons: browsers and iPhones ask for these at the site root, and Android's "Add to home screen" reads the manifest
+    for name in ("favicon.ico", "apple-touch-icon.png"):
+        shutil.copy(os.path.join(OUT, "static", "img", name), os.path.join(OUT, name))
+    with open(os.path.join(OUT, "site.webmanifest"), "w") as f:
+        json.dump({"name": "Bangor Cardinals Boys Basketball", "short_name": "Cardinals BB",
+                   "start_url": "./", "display": "standalone", "background_color": "#f6f6f7", "theme_color": "#111214",
+                   "icons": [{"src": f"static/img/icon-{s}.png", "sizes": f"{s}x{s}", "type": "image/png"}
+                             for s in (192, 512)]}, f, indent=1)

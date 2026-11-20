@@ -10,7 +10,7 @@ A static website with Bangor High School (WI) boys basketball history: every sea
 | `data/` | Generated. The cleaned-up standard dataset (see `data/README.md`). |
 | `scripts/` | The converter, checks, record calculations, site builder and film matcher. The site builder is `build_site.py`, which runs the modules in `scripts/sitegen/` (its docstring lists what each one does). |
 | `tests/` | Automated tests (see *Tests*). |
-| `site-src/` | Page templates, styles and the logo. |
+| `site-src/` | Page templates, styles and the logo. The browser-tab and home-screen icons and the smaller copy of the logo in `site-src/static/img/` are made from the logo by `scripts/make_icons.py`; run it again if the logo changes. |
 | `site/` | Generated. The finished website (Vercel builds this itself). |
 
 ### `overrides/`
